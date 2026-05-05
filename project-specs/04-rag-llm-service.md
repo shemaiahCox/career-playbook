@@ -32,7 +32,7 @@ Employers are moving from “prompt in a notebook” to **production AI features
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | **SSH** | `git@github.com:shemaiahCox/rag-llm-lab.git` |
-| **Local sibling** | [`../../rag-llm-lab`](../../rag-llm-lab) |
+| **Local sibling** | [`../projects/rag-llm-lab`](../projects/rag-llm-lab) |
 
 ## Stack
 

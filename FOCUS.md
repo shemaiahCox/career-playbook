@@ -8,7 +8,7 @@
 
 **Forward vector:** Python, LangChain (or similar), applied LLM **engineering** (not prompt tricks only).
 
-**Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](projects/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
+**Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](project-specs/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
 
 ## Industry themes to practice (durable, not hype-chasing)
 
@@ -25,6 +25,6 @@ Keep them; make each demo **one** future-facing property (e.g. offline tension, 
 ## Non-goals (this year)
 
 - Deep ML research or training custom models.
-- Chasing every new JS framework (**intentional exception:** one **Node + TypeScript** service lab is in-scope; see [Project 6](projects/06-node-typescript-lab.md)).
+- Chasing every new JS framework (**intentional exception:** one **Node + TypeScript** service lab is in-scope; see [Project 6](project-specs/06-node-typescript-lab.md)).
 - **Rust or Go** as open-ended study—only add when tied to a **shipping artifact** (real repo) or a **concrete job target**; patterns here transfer without a second systems language by default.
 - Turning this repo into a second resume (keep resume/CV separate unless you add a dedicated folder later).
