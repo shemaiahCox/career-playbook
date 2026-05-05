@@ -26,4 +26,5 @@ Keep them; make each demo **one** future-facing property (e.g. offline tension, 
 
 - Deep ML research or training custom models.
 - Chasing every new JS framework (**intentional exception:** one **Node + TypeScript** service lab is in-scope; see [Project 6](projects/06-node-typescript-lab.md)).
+- **Rust or Go** as open-ended study—only add when tied to a **shipping artifact** (real repo) or a **concrete job target**; patterns here transfer without a second systems language by default.
 - Turning this repo into a second resume (keep resume/CV separate unless you add a dedicated folder later).

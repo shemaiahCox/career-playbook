@@ -17,3 +17,10 @@ Append a new dated entry when you ship a milestone or learn something worth reme
 - README: added **Learning path (suggested)** table (phases 1–5 + stack reality callout).
 - New spec: [projects/06-node-typescript-lab.md](projects/06-node-typescript-lab.md) — optional **Node + TypeScript** parity (webhook, contract API, or webhook+worker); links from Projects 2, 3, and 5.
 - [FOCUS.md](FOCUS.md): **Flexible lane** under forward vector; non-goals clarified (one TS service is in-scope; framework churn is not).
+
+---
+
+## 2026-05-05 — Playbook docs: SQL in-project, Rust/Go scope, repo table
+
+- [README.md](README.md): **SQL and performance** note (depth via P1/P2/P5 + P3 timings, no mandatory SQL-only project); expanded **quick links** with P2 and P5 TBD rows; reminder to refresh links when new repos ship.
+- [FOCUS.md](FOCUS.md): non-goal for **Rust/Go** unless a shipping artifact or explicit role target exists.

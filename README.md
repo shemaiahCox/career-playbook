@@ -23,14 +23,18 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 
 **Stack reality:** Specs reference **PHP** (P1), **Python** (P4), and **optional Laravel vs FastAPI** (P2). **P6** closes the gap for **Node/TS** without replacing your anchors—see [FOCUS.md](FOCUS.md).
 
+**SQL and performance:** Relational depth (transactions, indexes, `EXPLAIN`, N+1 awareness) is **practiced inside** P1, P2, and P5 implementations plus observability timings in P3—no separate SQL-only initiative required unless you are targeting data-heavy interviews.
+
 ## Quick links to practice repos
 
 | # | Initiative | Local | GitHub |
 |---|------------|-------|--------|
 | 1 | Integration webhook receiver | [webhook-receiver-lab](../webhook-receiver-lab) | [shemaiahCox/webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab) |
+| 2 | Contract-first API | _TBD_ | _TBD — see [projects/02-contract-first-api.md](projects/02-contract-first-api.md)_ |
 | 4 | RAG / LLM service (FastAPI + eval harness) | [rag-llm-lab](../rag-llm-lab) | [shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
+| 5 | Async worker (stretch) | _TBD_ | _Often extends P1/P6 — see [projects/05-async-worker-stretch.md](projects/05-async-worker-stretch.md)_ |
 | 6 | Node / TypeScript lab (optional) | _TBD_ | _TBD — see [projects/06-node-typescript-lab.md](projects/06-node-typescript-lab.md)_ |
 
 **Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git`
 
-Each project page under [projects/](projects/) expands **key terms** (definitions, problems solved) with snippets from these repos where applicable.
+Each project page under [projects/](projects/) expands **key terms** (definitions, problems solved) with snippets from these repos where applicable. When you create a new practice repo for P2/P5/P6, add links here and SSH clone hints as needed.
