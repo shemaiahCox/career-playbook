@@ -4,6 +4,28 @@
 
 Ship an **applied** LLM feature: retrieval (and optionally tools) with **evaluation**, **safety notes**, and **observability**—not a demo-only chat UI.
 
+## Career relevance
+
+**Summary:** You practice shipping **LLM-backed features** with the same muscle memory as normal backend work: **grounding, regression tests, observability, and explicit risk notes**—so “AI” on your résumé reads as engineering, not vibes.
+
+### In depth
+
+Employers are moving from “prompt in a notebook” to **production AI features** that need the same rigor as any other service: **tests, evals, logging, and abuse thinking**. This project shows you can ship **grounded answers** without treating the model as magic. Interviewers increasingly ask how you’d **measure** quality and **bound** failure—not just which embedding model you’d pick.
+
+**Why learning this moves the needle**
+
+- **Product reality:** Internal copilots, support assistants, and doc search all need **RAG or tools** plus guardrails; slide-deck demos rarely ship. Hiring managers want evidence you can own **latency, cost, and error budgets** for model calls.
+- **Quality at scale:** **Eval JSONL + regression** is how teams catch regressions when prompts, models, or chunking change—similar to snapshot tests for prose. Without evals, every model bump is **uncontrolled drift**.
+- **Trust and compliance:** **Citations (`cited_chunk_ids`)** support “show your work” for legal, regulated, or enterprise procurement contexts. They also shorten **debugging**: wrong answer often traces to **wrong chunk**, not “the model felt wrong.”
+- **Role fit:** “AI engineer” listings often mean **FastAPI/services + LangChain (or similar) + observability**, not only prompt design. Thin HTTP boundaries and loggable **`request_id`** are how you stay employable when the framework du jour changes.
+
+**Real-world situations this project mirrors**
+
+- **Support / CX bots** that **hallucinate** return or refund policy; leadership asks **which KB paragraph** drove the answer—citations answer that and feed internal QA.
+- **Silent regressions:** a provider or model update **worsens** factual accuracy on your domain; **eval suites** catch “Paris → London” class failures in CI or pre-release gates.
+- **Runaway spend:** unbounded context, infinite tool loops, or per-request retries cause **cost spikes**; **token counts + latency** in structured logs expose the bad pattern before finance pings you.
+- **Abuse and data boundaries:** users paste **prompt-injecting** text or upload hostile PDFs; security review expects an explicit **allowlist**, data-handling rules, and **what never** goes to the model. A short README section is how you practice that conversation.
+
 ## Code repo
 
 | | URL |

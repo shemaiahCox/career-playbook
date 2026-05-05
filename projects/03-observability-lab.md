@@ -4,9 +4,31 @@
 
 Make a small service **debuggable in production**: correlate requests, log structured facts, optional traces.
 
+## Career relevance
+
+**Summary:** You learn to leave **breadcrumbs in production**—so one user report, deploy, or slow query becomes a **searchable story** instead of guesswork across five services.
+
+### In depth
+
+Production systems spend most of their life **failing in ways you did not expect**. Observability is how you earn trust with **on-call, SREs, and support**—and how you shorten incidents from hours to minutes. Happy-path logging alone is what keeps teams **guessing** when prod misbehaves; structured correlation is how you **earn** the next incident postmortem with facts, not theories.
+
+**Why learning this moves the needle**
+
+- **Incident response:** Correlation IDs turn vague reports (“checkout broke”) into **one grep or one trace** across services. The skill is **propagation**: browser → edge → API → worker → DB, same id everywhere stakeholders can agree on.
+- **Hiring bar:** Backend interviews often probe **logging, metrics, and tracing**; hands-on experience beats textbook definitions. Being able to say *“we added `request_id` to every log line and returned it in the header”* is more credible than naming three vendors.
+- **Cost and performance:** Structured fields (`duration_ms`, `db_ms`, `partner_status`, cache hit/miss) feed **dashboards and alerts** before customers notice slowness. SRE-minded teams **alert on SLOs**, not on “someone read the logs.”
+- **Compliance and audits:** Log shape and retention policies matter when someone asks **who saw what data and when**. Even a README that states **what you never log** (full card numbers, passwords) shows you’ve thought past the happy path.
+
+**Real-world situations this project mirrors**
+
+- **Deploy regression:** a spike in **`5xx`** after release—you need to **slice** by route, build SHA, and error class. English sentences in syslog don’t support that; JSON fields do.
+- **Support escalations:** a screenshot with **request id** or **trace id** from the app, CDN, or mobile client—you follow it through the platform to the exact failing dependency.
+- **Latency mysteries:** a **noisy neighbor** query or N+1 only appears under load; spans show **which hop** ate the budget (DB vs HTTP vs cache vs LLM) without attaching a debugger in prod.
+- **Distributed lies:** the edge returned **200** but async work or a downstream **billing** call failed—without shared context, each service’s logs look “fine”; with correlation, the failure is **one narrative**.
+
 ## Code repo
 
-_TBD — can extend Project 2 or a minimal Express/FastAPI/Laravel app._ Link it here.
+_TBD — can extend Project 2 or a minimal Express/FastAPI/Laravel app._ Link it here. For a **TypeScript-first** service, piggyback on [Project 6](06-node-typescript-lab.md) (any track) and apply observability success criteria there.
 
 You can **reference** [rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) today for a minimal **request id + JSON log** pattern (Project 4 stack overlap).
 

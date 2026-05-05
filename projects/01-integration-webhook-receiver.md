@@ -4,6 +4,28 @@
 
 Practice a **production-shaped** HTTP inbound integration: verify caller, dedupe replays, log usefully, and optionally park poison messages.
 
+## Career relevance
+
+**Summary:** You learn to treat inbound webhooks like money-moving, security-sensitive **integrations**—not demos. That means proving who sent the event, making retries safe, and leaving an audit trail when something goes wrong.
+
+### In depth
+
+Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push events into your product. Interviewers and senior engineers expect you to reason about **retries, spoofing, and partial failures**—not just “parse JSON and insert a row.” The same patterns apply when you own **event consumers** behind Kafka or a queue later; HTTP is just the easiest place to drill the habits.
+
+**Why learning this moves the needle**
+
+- **Trust and money:** Duplicate `invoice.paid` or `subscription.updated` events can double-fulfill orders or corrupt billing. Idempotency is a common **staff-level** talking point: you’re separating *transport* (HTTP may arrive twice) from *business* (wallet or inventory must move once). Saying “we use an idempotency key” in an interview is useless unless you can describe **what** is keyed and **what** happens on replay.
+- **Security:** Unsigned webhooks are trivial to forge; HMAC (or mTLS in bigger shops) is table stakes for **B2B SaaS and fintech**. You’ll be asked how you’d rotate secrets, handle **timing attacks** on comparisons, and why the raw body matters for signatures.
+- **Ops:** When partners open tickets (“we sent event X at 14:02”), **`request_id` + structured logs** are how you answer in minutes instead of days. That’s the difference between looking competent on-call and burning a weekend diffing environments.
+- **Reliability:** Poison payloads happen (bad schema, buggy deploy). **Dead letters** let you fix forward without losing evidence or blocking the whole pipeline. They also give you a **replay story**: after a fix, you either re-drive from the DLQ or let the partner retry with the same idempotency key—both need a clear design.
+
+**Real-world situations this project mirrors**
+
+- **Payment and billing providers** (Stripe, PayPal, Adyen, etc.) send the same webhook again after a **`5xx`**, a timeout, or their own redelivery policy. Your side must not double-apply ledger entries.
+- **iPaaS** (Boomi, MuleSoft, Workato, Zapier-style connectors) **retry** until they see `200`; your endpoint is their “success” signal, not your internal approval of the payload shape.
+- **Forged traffic:** without verification, anyone who knows your URL can POST fake “subscription canceled” events. Signature verification is how you maintain **non-repudiation** at the HTTP boundary.
+- **Partial failure:** handler throws after **some** DB writes; without idempotency or compensation, replay might **duplicate** side effects. Dead-letter + abandon (or similar) is how you get back to a known state and retry deliberately.
+
 ## Code repo
 
 | | URL |
@@ -14,7 +36,7 @@ Practice a **production-shaped** HTTP inbound integration: verify caller, dedupe
 
 ## Stack
 
-PHP 8.1+, SQLite (file), no framework (readable in one sitting). Swap to Laravel later if you want ORM and queues.
+PHP 8.1+, SQLite (file), no framework (readable in one sitting). Swap to Laravel later if you want ORM and queues. **Same behavior in Node + TypeScript:** [Project 6 — track A](06-node-typescript-lab.md).
 
 ## Key concepts (with definitions and code)
 

@@ -8,6 +8,8 @@
 
 **Forward vector:** Python, LangChain (or similar), applied LLM **engineering** (not prompt tricks only).
 
+**Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](projects/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
+
 ## Industry themes to practice (durable, not hype-chasing)
 
 1. **AI in real products** — Retrieval and tool boundaries, safety basics, regression **evals**, cost/latency awareness, logging around model paths.
@@ -23,5 +25,5 @@ Keep them; make each demo **one** future-facing property (e.g. offline tension, 
 ## Non-goals (this year)
 
 - Deep ML research or training custom models.
-- Chasing every new JS framework.
+- Chasing every new JS framework (**intentional exception:** one **Node + TypeScript** service lab is in-scope; see [Project 6](projects/06-node-typescript-lab.md)).
 - Turning this repo into a second resume (keep resume/CV separate unless you add a dedicated folder later).

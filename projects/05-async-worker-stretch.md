@@ -4,6 +4,28 @@
 
 Move from “request in → response out” to **durable processing**: enqueue, worker, retries, visibility.
 
+## Career relevance
+
+**Summary:** You move **heavy, slow, or flaky work** off the HTTP thread into **durable jobs**—the pattern behind most “webhook returned 200 but we’re still working” systems and almost every scaled backend.
+
+### In depth
+
+Almost every mature product eventually splits **fast acknowledgment** (HTTP 200 in seconds) from **slow or flaky work** (PDFs, ML, third-party APIs, batch fan-out). Queues and workers are the standard pattern; understanding **at-least-once delivery and idempotency** is a core backend skill. If you only ever think in request/response, you’ll struggle anywhere **throughput and reliability** matter more than latency to the first byte.
+
+**Why learning this moves the needle**
+
+- **Partner SLAs:** Webhook providers expect a quick **`2xx`**; heavy work belongs **after** the response, in a durable queue. Keeping the HTTP handler thin is how you stay inside **their timeout and retry rules** without lying about success.
+- **Scale:** Workers scale **horizontally**; monolithic request threads do not. This pattern appears in **e-commerce, fintech, and data pipelines**—anywhere work is **bursty** or **CPU-bound** relative to your web tier.
+- **Resilience:** Retries + **DLQ** are how you **survive deploys, blips, and poison messages** without losing jobs or blocking the whole queue. You learn the vocabulary: **visibility timeout**, **ack**, **nack**, **backoff**, **poison pill**.
+- **Interviews:** “What if the message is delivered twice?” is a standard filter; this project ties directly to [**Project 1**](01-integration-webhook-receiver.md)’s idempotency story. Answering with **both** transport duplicates and business keys is what passes the bar.
+
+**Real-world situations this project mirrors**
+
+- **Payments and provisioning:** webhooks must **ack fast** while you **open accounts**, sync CRM, or run **risk scoring**—too slow in HTTP and the provider marks deliveries failed and floods retries.
+- **Long-running tasks:** image, video, or PDF generation **exceeds** reverse-proxy or **mobile** timeouts; the job completes **in workers**, and the UI polls or gets **pushed** a completion event.
+- **Rate limits and partners:** a downstream API **429s** you; workers **back off** and spread load instead of tying up web workers or cascading timeouts to users.
+- **Operational safety:** one malformed message **crashes** the consumer loop; **DLQ + alerting** isolates the bad payload so the main queue **drains** while someone replays or patches the handler.
+
 ## Code repo
 
 _TBD — often extends [Project 1](01-integration-webhook-receiver.md) (same domain)._ Link it here.
@@ -12,7 +34,7 @@ Optional pattern: keep [webhook-receiver-lab](https://github.com/shemaiahCox/web
 
 ## Stack (suggestions)
 
-Redis + PHP worker, Laravel queues, BullMQ (Node), or RDS outbox pattern.
+Redis + PHP worker, Laravel queues, **BullMQ (Node)**—see [Project 6 — track C](06-node-typescript-lab.md) for a TS-shaped webhook + worker story—or RDS outbox pattern.
 
 ## Key concepts (with definitions)
 

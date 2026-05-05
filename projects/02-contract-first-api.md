@@ -4,6 +4,28 @@
 
 Keep an API from silently breaking consumers when you (or AI assistants) refactor quickly.
 
+## Career relevance
+
+**Summary:** You practice making the **API contract** explicit and enforceable so refactors, new clients, and AI-generated code don’t silently break what the world thinks your API is.
+
+### In depth
+
+Public and partner APIs are **long-lived contracts**. Teams that treat the spec as the source of truth ship faster **with fewer production fires** and fewer angry emails from mobile or third-party integrators. The hard part isn’t writing endpoints—it’s **change management**: who is allowed to break whom, and how you catch drift before production.
+
+**Why learning this moves the needle**
+
+- **Velocity without thrash:** OpenAPI (or equivalent) gives designers, frontend, and external devs a **shared truth** before implementation lands. Mock servers and generated types turn integration from a **serial** negotiation into parallel work.
+- **AI-assisted coding:** Generated code refactors easily break **field names and nullability**. A checked-in spec plus **contract or diff checks** catches those mistakes in CI instead of in user devices—exactly the failure mode teams hit when they “let the model” rename DTOs.
+- **Platform credibility:** Publishing accurate docs, versioning, and deprecation policies is how you grow an **ecosystem** (marketplaces, agencies, enterprise procurement). Big customers often ask for **SLAs and stability** promises, not just “REST-ish JSON.”
+- **Career signal:** “I can define a breaking change and roll it out safely” reads as **mid/senior API discipline**, not just CRUD. You want stories about **deprecation windows**, consumer-driven contracts, and rolling out **`v2`** without orphaning `v1`.
+
+**Real-world situations this project mirrors**
+
+- **Mobile / SPA drift:** the app still sends `camelCase` while the server “cleanup” renames to **`snake_case`**—screens go blank or crash because optional UI state depended on a field that disappeared.
+- **Partner integrations** that **worked last quarter** until an optional field became required, a type changed (`"123"` vs `123`), or an error shape stopped including a field their parser assumed was always present.
+- **Audit and reviews:** legal or security asks what the API **guaranteed** at release time; `openapi.yaml` committed next to the code is a cheap, reviewable artifact (especially compared to stale wiki pages).
+- **Multi-team codegen:** you need a **TypeScript or Kotlin client** (or internal SDK) without hand-writing DTOs—the spec becomes the **single generator input** for all consumers.
+
 ## Code repo
 
 _TBD — create a sibling repo (e.g. `contract-api-lab`) when you start._ Link it here.
@@ -12,7 +34,7 @@ GitHub template once created: `https://github.com/shemaiahCox/<repo-name>`
 
 ## Stack (suggestion)
 
-Laravel or FastAPI + OpenAPI document checked into git.
+Laravel or FastAPI + OpenAPI document checked into git. **Node + TypeScript:** implement [Project 6 — track B](06-node-typescript-lab.md) as the same exercise with Zod/pino (or equivalent).
 
 ## Key concepts (with definitions and patterns)
 
