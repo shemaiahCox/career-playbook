@@ -34,3 +34,10 @@ Append a new dated entry when you ship a milestone or learn something worth reme
 - [README.md](README.md): learning path row **4b**, updated SQL paragraph, quick-links row + SSH clone hint for **sql-perf-lab**.
 - [FOCUS.md](FOCUS.md): optional SQL/data depth lane + industry theme **#6** pointing at P7.
 - Cross-links from Projects **1**, **2**, and **5** to P7 for deeper relational work.
+
+---
+
+## 2026-05-05 — sql-perf-lab as standalone repo
+
+- [projects/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) is its own git repository (same pattern as webhook- and rag-llm labs); no longer committed inside **career-playbook** (`projects/*/` ignore restored).
+- Spec **07** code-repo table matches **local sibling** clone path; main **README** quick links unchanged for local dev.

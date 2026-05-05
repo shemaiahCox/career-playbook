@@ -28,14 +28,11 @@ Most backend roles assume you can **join**, **filter**, and **migrate** responsi
 
 ## Code repo
 
-**Remote (canonical):** `git@github.com:shemaiahCox/sql-perf-lab.git`
-
 | | URL |
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
 | **SSH** | `git@github.com:shemaiahCox/sql-perf-lab.git` |
-| **Clone (typical)** | `git clone git@github.com:shemaiahCox/sql-perf-lab.git` — work in that checkout, like your other labs. |
-| **Playbook copy (optional)** | [`projects/sql-perf-lab`](../projects/sql-perf-lab) inside [career-playbook](https://github.com/shemaiahCox/career-playbook) may mirror this tree; keep it aligned with **`origin`** here. |
+| **Local sibling** | [`../projects/sql-perf-lab`](../projects/sql-perf-lab) |
 
 ## Stack
 

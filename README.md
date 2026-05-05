@@ -35,8 +35,8 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 | 4 | RAG / LLM service (FastAPI + eval harness) | [rag-llm-lab](projects/rag-llm-lab) | [shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | 5 | Async worker (stretch) | _TBD_ | _Often extends P1/P6 — see [project-specs/05-async-worker-stretch.md](project-specs/05-async-worker-stretch.md)_ |
 | 6 | Node / TypeScript lab (optional) | _TBD_ | _TBD — see [project-specs/06-node-typescript-lab.md](project-specs/06-node-typescript-lab.md)_ |
-| 7 | SQL performance / correctness lab | [sql-perf-lab](projects/sql-perf-lab) (or clone via SSH below) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
+| 7 | SQL performance / correctness lab | [sql-perf-lab](projects/sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
 
-**Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git` · **`git@github.com:shemaiahCox/sql-perf-lab.git`** (Project 7 — dedicated repo; push lab work here).
+**Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git` · `git@github.com:shemaiahCox/sql-perf-lab.git`
 
 Each spec under [project-specs/](project-specs/) expands **key terms** (definitions, problems solved) with snippets from these repos where applicable. When you create a new practice repo for P2/P5/P6, add links here and SSH clone hints as needed.
