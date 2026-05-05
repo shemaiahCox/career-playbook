@@ -2,7 +2,9 @@
 
 Small **PostgreSQL** playground for **query plans**, **index design**, **join vs loop-shaped** queries, **transactions**, **keyset pagination**, and an optional **materialized-view** rollup.
 
-Companion spec: **Project 7** in the sibling `career-playbook` repo — [`project-specs/07-sql-performance-lab.md`](../../project-specs/07-sql-performance-lab.md) when this folder lives under `career-playbook/projects/sql-perf-lab`.
+**Repository:** [github.com/shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) · `git@github.com:shemaiahCox/sql-perf-lab.git`
+
+**Companion spec (Project 7):** [career-playbook — `07-sql-performance-lab.md`](https://github.com/shemaiahCox/career-playbook/blob/main/project-specs/07-sql-performance-lab.md). If you have this repo under `career-playbook/projects/sql-perf-lab`, open [`../../project-specs/07-sql-performance-lab.md`](../../project-specs/07-sql-performance-lab.md) locally.
 
 ## Prerequisites
 
@@ -62,9 +64,17 @@ psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f exercises/06_rollup_stretch.sql
 - Dataset is modest (~80k `orders`); `EXPLAIN ANALYZE` still executes the query—avoid uncapped scans on huge tables in shared environments.
 - If you grow seeds into the millions, add a **statement_timeout** in `psql` and consider running against a throwaway instance only.
 
-## Suggested Git remote
+## Clone and Git
 
 ```bash
-git init
+git clone git@github.com:shemaiahCox/sql-perf-lab.git
+cd sql-perf-lab
+```
+
+If you started from an empty GitHub repo and already have commits locally:
+
+```bash
 git remote add origin git@github.com:shemaiahCox/sql-perf-lab.git
+git branch -M main
+git push -u origin main
 ```
