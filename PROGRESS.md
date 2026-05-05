@@ -24,3 +24,13 @@ Append a new dated entry when you ship a milestone or learn something worth reme
 
 - [README.md](README.md): **SQL and performance** note (depth via P1/P2/P5 + P3 timings, no mandatory SQL-only project); expanded **quick links** with P2 and P5 TBD rows; reminder to refresh links when new repos ship.
 - [FOCUS.md](FOCUS.md): non-goal for **Rust/Go** unless a shipping artifact or explicit role target exists.
+
+---
+
+## 2026-05-05 — Project 7: SQL performance / correctness lab
+
+- New spec: [project-specs/07-sql-performance-lab.md](project-specs/07-sql-performance-lab.md) — Postgres-focused plans, indexing, joins vs loop-shaped access, transactions, keyset pagination; optional rollup stretch.
+- Practice repo: [projects/sql-perf-lab](projects/sql-perf-lab) (Docker Compose, seeded schema, `exercises/*.sql`).
+- [README.md](README.md): learning path row **4b**, updated SQL paragraph, quick-links row + SSH clone hint for **sql-perf-lab**.
+- [FOCUS.md](FOCUS.md): optional SQL/data depth lane + industry theme **#6** pointing at P7.
+- Cross-links from Projects **1**, **2**, and **5** to P7 for deeper relational work.

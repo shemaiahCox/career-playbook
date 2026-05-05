@@ -10,6 +10,8 @@
 
 **Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](project-specs/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
 
+**SQL / data depth (optional):** A dedicated Postgres lab ([Project 7](project-specs/07-sql-performance-lab.md)) for **plans, indexing, transactions, and pagination**—so “I use SQL daily” becomes **defensible** stories, not only incidental usage in other repos.
+
 ## Industry themes to practice (durable, not hype-chasing)
 
 1. **AI in real products** — Retrieval and tool boundaries, safety basics, regression **evals**, cost/latency awareness, logging around model paths.
@@ -17,6 +19,7 @@
 3. **Security** — Secrets outside code, webhook signatures, auth boundaries, dependency hygiene, light threat modeling for integrations.
 4. **Async and events** — Webhooks, queues, eventual consistency; overlaps with integration work.
 5. **Developer experience** — OpenAPI/contract thinking, breaking-change discipline, tests where they protect contracts.
+6. **SQL correctness and performance** — Reason about **plans**, **index tradeoffs**, **isolation**, and **pagination** without ORM blind spots ([Project 7](project-specs/07-sql-performance-lab.md)).
 
 ## Polyglot learning apps (PacPal-style and others)
 

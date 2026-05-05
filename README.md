@@ -19,11 +19,12 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 | **2 — Applied AI + ops** | [04](project-specs/04-rag-llm-service.md), [03](project-specs/03-observability-lab.md) | RAG/evals + structured logging; P3 can piggyback on P4’s FastAPI or another small service. |
 | **3 — API contracts** | [02](project-specs/02-contract-first-api.md) | OpenAPI + consumer/contract discipline; helps every stack you use. |
 | **4 — Scale shape** | [05](project-specs/05-async-worker-stretch.md) | Queues, retries, DLQ; natural extension of P1. |
+| **4b — SQL depth (optional)** | [07](project-specs/07-sql-performance-lab.md) | Postgres lab: plans, indexing, transactions, pagination; complements P1/P2/P5. Can run alongside phase 3–4. |
 | **5 — Flexible lane (optional)** | [06](project-specs/06-node-typescript-lab.md) | **Node + TypeScript:** one repo, track A/B/C—same patterns, broader market signal. |
 
 **Stack reality:** Specs reference **PHP** (P1), **Python** (P4), and **optional Laravel vs FastAPI** (P2). **P6** closes the gap for **Node/TS** without replacing your anchors—see [FOCUS.md](FOCUS.md).
 
-**SQL and performance:** Relational depth (transactions, indexes, `EXPLAIN`, N+1 awareness) is **practiced inside** P1, P2, and P5 implementations plus observability timings in P3—no separate SQL-only initiative required unless you are targeting data-heavy interviews.
+**SQL and performance:** You still touch SQL in P1, P2, P5, and timings in P3. For a **shipping artifact** and interview-ready plan/index stories, the optional **[Project 7](project-specs/07-sql-performance-lab.md)** Postgres lab is the dedicated lane—skip it only if your roadmap is already data-limited.
 
 ## Quick links to practice repos
 
@@ -34,7 +35,8 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 | 4 | RAG / LLM service (FastAPI + eval harness) | [rag-llm-lab](projects/rag-llm-lab) | [shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | 5 | Async worker (stretch) | _TBD_ | _Often extends P1/P6 — see [project-specs/05-async-worker-stretch.md](project-specs/05-async-worker-stretch.md)_ |
 | 6 | Node / TypeScript lab (optional) | _TBD_ | _TBD — see [project-specs/06-node-typescript-lab.md](project-specs/06-node-typescript-lab.md)_ |
+| 7 | SQL performance / correctness lab | [sql-perf-lab](projects/sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
 
-**Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git`
+**Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git` · `git@github.com:shemaiahCox/sql-perf-lab.git`
 
 Each spec under [project-specs/](project-specs/) expands **key terms** (definitions, problems solved) with snippets from these repos where applicable. When you create a new practice repo for P2/P5/P6, add links here and SSH clone hints as needed.

@@ -38,6 +38,8 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 
 PHP 8.1+, SQLite (file), no framework (readable in one sitting). Swap to Laravel later if you want ORM and queues. **Same behavior in Node + TypeScript:** [Project 6 — track A](06-node-typescript-lab.md).
 
+**Deeper SQL:** For `EXPLAIN`, indexing, transaction isolation, and pagination drills beyond this lab’s SQLite usage, see [Project 7 — SQL performance lab](07-sql-performance-lab.md).
+
 ## Key concepts (with definitions and code)
 
 ### `Idempotency-Key` (HTTP header)

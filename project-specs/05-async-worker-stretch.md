@@ -36,6 +36,8 @@ Optional pattern: keep [webhook-receiver-lab](https://github.com/shemaiahCox/web
 
 Redis + PHP worker, Laravel queues, **BullMQ (Node)**—see [Project 6 — track C](06-node-typescript-lab.md) for a TS-shaped webhook + worker story—or RDS outbox pattern.
 
+**Deeper SQL:** Workers that UPDATE/INSERT in batches benefit from the same index and transaction thinking as the web tier—see [Project 7 — SQL performance lab](07-sql-performance-lab.md).
+
 ## Key concepts (with definitions)
 
 ### Message queue (job queue)

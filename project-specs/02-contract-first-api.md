@@ -36,6 +36,8 @@ GitHub template once created: `https://github.com/shemaiahCox/<repo-name>`
 
 Laravel or FastAPI + OpenAPI document checked into git. **Node + TypeScript:** implement [Project 6 — track B](06-node-typescript-lab.md) as the same exercise with Zod/pino (or equivalent).
 
+**Deeper SQL:** List and detail endpoints are where N+1 and pagination mistakes show up—see [Project 7 — SQL performance lab](07-sql-performance-lab.md) for deliberate Postgres exercises.
+
 ## Key concepts (with definitions and patterns)
 
 ### OpenAPI (formerly Swagger)
