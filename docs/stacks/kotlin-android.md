@@ -2,7 +2,7 @@
 
 **Use this:** **Android** is the primary frame below. **Server/JVM Kotlin** (Ktor, Spring) differs mainly in **runtime and I/O** — see the short **JVM lane** at the end.
 
-**Companion:** [term cards](../README.md) · [unfamiliar-stack ship](../../../checklists/unfamiliar-stack-ship.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md)
 
 ---
 
@@ -32,7 +32,7 @@
 ### Networking & data
 
 - **Retrofit/OkHttp** stack is common; **certificate pinning** and timeouts are product decisions.
-- **Room** migrations must be **planned** like any schema evolution (see [database design](../../reference/database-design.md) mindset).
+- **Room** migrations must be **planned** like any schema evolution (see [database design](../handbook/database-design.md) mindset).
 
 ---
 

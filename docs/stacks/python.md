@@ -2,7 +2,7 @@
 
 **Use this:** You ship or review **Python** backends (**FastAPI**, **Flask**, **Django**), **workers**, **CLI tools**, or **notebooks** that leave the lab. This is **vocabulary + runtime footguns**, not a syntax course.
 
-**Companion:** [term cards](../README.md) · [unfamiliar-stack ship](../../../checklists/unfamiliar-stack-ship.md) · [RAG / LLM service](../../../project-specs/04-rag-llm-service.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [RAG / LLM service](../../project-specs/04-rag-llm-service.md)
 
 ---
 
@@ -26,11 +26,11 @@
 
 **Data access**
 
-- **SQLAlchemy** (2.x style) / **Django ORM**: **N+1** and **lazy loading** in request paths are the usual prod surprises—relate to [SQL map](sql.md) and [database design](../../reference/database-design.md).
+- **SQLAlchemy** (2.x style) / **Django ORM**: **N+1** and **lazy loading** in request paths are the usual prod surprises—relate to [SQL map](sql.md) and [database design](../handbook/database-design.md).
 
 **Observability**
 
-- **`structlog`** / standard **logging**; **OpenTelemetry** for traces—set **correlation IDs** at the request edge (aligns with [observability lab](../../../project-specs/03-observability-lab.md)).
+- **`structlog`** / standard **logging**; **OpenTelemetry** for traces—set **correlation IDs** at the request edge (aligns with [observability lab](../../project-specs/03-observability-lab.md)).
 
 **Security**
 
@@ -50,5 +50,5 @@
 
 ## See also
 
-- [Software engineering breadth](../../reference/software-engineering.md)
+- [Software engineering breadth](../handbook/software-engineering.md)
 - [SQL ecosystem map](sql.md) when the system is **data-heavy**

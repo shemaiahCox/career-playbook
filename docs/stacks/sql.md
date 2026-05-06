@@ -1,8 +1,8 @@
 # Ecosystem map: SQL and relational databases
 
-**Use this:** You **design queries, migrations, or schema** and need a **shared vocabulary** across Postgres, MySQL, SQL Server, SQLite—**not** a duplicate of the full [database design](../../reference/database-design.md) reference.
+**Use this:** You **design queries, migrations, or schema** and need a **shared vocabulary** across Postgres, MySQL, SQL Server, SQLite—**not** a duplicate of the full [database design](../handbook/database-design.md) reference.
 
-**Companion:** [term cards](../README.md) · [SQL performance lab](../../../project-specs/07-sql-performance-lab.md) · [database design](../../reference/database-design.md)
+**Companion:** [term cards](README.md) · [SQL performance lab](../../project-specs/07-sql-performance-lab.md) · [database design](../handbook/database-design.md)
 
 ---
 
@@ -49,6 +49,6 @@
 
 ## See also
 
-- [Database design](../../reference/database-design.md) — depth reference
-- [Software engineering breadth](../../reference/software-engineering.md) — persistence and integration sections
+- [Database design](../handbook/database-design.md) — depth reference
+- [Software engineering breadth](../handbook/software-engineering.md) — persistence and integration sections
 - Your ORM’s doc: **session/transaction** boundaries and **lazy vs eager** loading

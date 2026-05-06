@@ -10,7 +10,7 @@ Write **three lines** (in your lab README or this repo’s [PROGRESS.md](../../P
 - **B:** Runtime, packaging, and deployment target (e.g. iOS + SwiftUI, ASP.NET minimal API, Android + Kotlin).
 - **Non-negotiables:** Which concepts **must** hold (e.g. “no secrets in repo,” “idempotent webhook,” “UI thread rules,” “migrations safe”).
 
-If you cannot state non-negotiables, read the relevant section of [software engineering breadth](../reference/software-engineering.md) (integration, security, concurrency) **before** generating large amounts of code.
+If you cannot state non-negotiables, read the relevant section of [software engineering breadth](../handbook/software-engineering.md) (integration, security, concurrency) **before** generating large amounts of code.
 
 ## 2. Map **A** to concept checklist (not to syntax)
 
@@ -21,7 +21,7 @@ If you cannot state non-negotiables, read the relevant section of [software engi
 | **Worker / async** | Delivery semantics, retries, poison messages, concurrency vs correctness. |
 | **CLI / script** | Exit codes, config and secrets, stderr vs stdout. |
 
-These are **stack-agnostic**. Stack **B** only changes *how* each item appears in code (see [term cards](../concepts/README.md)).
+These are **stack-agnostic**. Stack **B** only changes *how* each item appears in code (see [term cards](../stacks/README.md)).
 
 ## 3. One pass with AI (prompt shape)
 
@@ -53,5 +53,5 @@ Use [unfamiliar-stack-ship.md](../../checklists/unfamiliar-stack-ship.md) as a r
 
 - [Learning journey](learning-journey.md) — dependency path, optional week overlay, phase → reference skim.
 - [Systems architect across languages](systems-architect-across-languages.md) — depth order for polyglot **design** literacy.
-- [Term cards and vocabulary](../concepts/README.md) — definition + minimal example + failure mode.
-- [Ecosystem maps](../concepts/ecosystems/README.md) — stack-specific vocabulary (Swift, Kotlin, Next/TS, .NET, PHP/Laravel, Python, SQL).
+- [Term cards and vocabulary](../stacks/README.md) — definition + minimal example + failure mode.
+- [Ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) — stack-specific vocabulary (Swift, Kotlin, Next/TS, .NET, PHP/Laravel, Python, SQL).

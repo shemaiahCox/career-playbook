@@ -2,7 +2,7 @@
 
 **Use this:** You are shipping or reviewing **iOS / iPadOS / macOS / visionOS** code (SwiftUI or UIKit) and need **vocabulary + footguns**, not a language course.
 
-**Companion:** [term cards](../README.md) · [unfamiliar-stack ship](../../../checklists/unfamiliar-stack-ship.md) · [Software engineering breadth](../../reference/software-engineering.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Software engineering breadth](../handbook/software-engineering.md)
 
 ---
 

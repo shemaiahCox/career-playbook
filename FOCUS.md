@@ -29,7 +29,7 @@ This playbook is for **deliberate practice**: phased labs in [project-specs/](pr
 
 Those themes are the vocabulary of **systems work**: draw boundaries, name failure modes, defend tradeoffs with operational consequences—that is **core backend craft**, practiced here via specs and labs. The playbook maps each theme to projects and checklists in [README.md — Architectural narrative](README.md#architectural-narrative); use [PROGRESS.md](PROGRESS.md) to capture tradeoffs and failure modes per milestone.
 
-If your direction includes **systems-style or architect-shaped work across many stacks**, prefer **concept depth and tradeoffs** over parallel syntax curricula. Short orientation: [docs/guides/systems-architect-across-languages.md](docs/guides/systems-architect-across-languages.md). When you must ship in an **unfamiliar** stack—often with AI writing code—use [docs/guides/ai-assisted-unfamiliar-stack.md](docs/guides/ai-assisted-unfamiliar-stack.md) and the [unfamiliar-stack-ship](checklists/unfamiliar-stack-ship.md) checklist so ownership, threading, and lifecycle still get verified.
+If your direction includes **systems-style or architect-shaped work across many stacks**, prefer **concept depth and tradeoffs** over parallel syntax curricula. Short orientation: [docs/paths/systems-architect-across-languages.md](docs/paths/systems-architect-across-languages.md). When you must ship in an **unfamiliar** stack—often with AI writing code—use [docs/paths/ai-assisted-unfamiliar-stack.md](docs/paths/ai-assisted-unfamiliar-stack.md) and the [unfamiliar-stack-ship](checklists/unfamiliar-stack-ship.md) checklist so ownership, threading, and lifecycle still get verified.
 
 ## Polyglot learning apps (PacPal-style and others)
 

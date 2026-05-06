@@ -2,7 +2,7 @@
 
 **Use this:** You design, review, or ship **HTTP APIs**, **workers**, or **libraries** on **.NET** (minimal APIs, ASP.NET Core, generic host). UI stacks (MAUI, WPF) are out of scope here except **thread affinity** notes.
 
-**Companion:** [term cards](../README.md) · [unfamiliar-stack ship](../../../checklists/unfamiliar-stack-ship.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md)
 
 ---
 
@@ -49,5 +49,5 @@
 
 ## See also
 
-- [Software engineering breadth](../../reference/software-engineering.md) — REST, versioning, security.
+- [Software engineering breadth](../handbook/software-engineering.md) — REST, versioning, security.
 - **ASP.NET Core** middleware ordering (auth, exception handler, endpoints) — order changes behavior.

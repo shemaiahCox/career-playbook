@@ -2,7 +2,7 @@
 
 **Use this:** You ship a **web app or BFF-shaped site** with **Next.js** (App Router mindset). **TypeScript** + **React** are treated **as used inside Next**—not three separate tutorials.
 
-**Companion:** [term cards](../README.md) · [unfamiliar-stack ship](../../../checklists/unfamiliar-stack-ship.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md)
 
 ---
 
@@ -59,5 +59,5 @@ Same **React + TS** footguns; you **lose** framework-enforced server boundaries�
 
 ## See also
 
-- [Software engineering breadth](../../reference/software-engineering.md) — REST, security, CORS, cookies vs tokens.
+- [Software engineering breadth](../handbook/software-engineering.md) — REST, security, CORS, cookies vs tokens.
 - OWASP-minded review for anything user-facing.

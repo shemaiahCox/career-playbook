@@ -2,7 +2,7 @@
 
 **Use this:** **Laravel** is the frame (HTTP, queues, events, Eloquent); **PHP** basics below are what you need to **read and ship** safely—matches this playbook’s **PHP integration** lane.
 
-**Companion:** [term cards](../README.md) · [unfamiliar-stack ship](../../../checklists/unfamiliar-stack-ship.md) · [Project 1 webhook spec](../../../project-specs/01-integration-webhook-receiver.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 1 webhook spec](../../project-specs/01-integration-webhook-receiver.md)
 
 ---
 
@@ -59,6 +59,6 @@ Only spin up a separate note if you maintain **legacy scripts** or **micro-sites
 
 ## See also
 
-- [Integration hardening](../../../checklists/integration-hardening.md)
-- [Software engineering breadth](../../reference/software-engineering.md)
+- [Integration hardening](../../checklists/integration-hardening.md)
+- [Software engineering breadth](../handbook/software-engineering.md)
 - Laravel docs: **Requests**, **Queues**, **Eloquent**, **Octane**

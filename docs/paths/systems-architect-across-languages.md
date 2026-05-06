@@ -16,7 +16,7 @@
 2. **Semantics** — Consistency, concurrency models (conceptually), idempotency, delivery guarantees, timeouts.
 3. **Operations** — Observability, deploy/rollback, incident thinking, security at edges (auth, secrets, supply-chain awareness).
 4. **Data** — SQL, transactions, indexing, migrations—at **decision** depth (your [SQL lab](../../project-specs/07-sql-performance-lab.md) lane supports this).
-5. **Ecosystem surface (shallow)** — Per stack: modules, tests, typical DI/async story—**maps**, not full courses (see [concepts](../concepts/README.md)).
+5. **Ecosystem surface (shallow)** — Per stack: modules, tests, typical DI/async story—**maps**, not full courses (see [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short)).
 
 ## Practices (language-agnostic)
 
@@ -28,4 +28,4 @@
 
 The phased specs and [README — Architectural narrative](../../README.md#architectural-narrative) are intentionally **architecture-shaped**. Pair them with [ai-assisted-unfamiliar-stack.md](ai-assisted-unfamiliar-stack.md) when the stack is new and AI is in the loop.
 
-For breadth reference material, use [Software engineering](../reference/software-engineering.md) and sibling files under [reference/](../reference/).
+For breadth study material, use [Software engineering](../handbook/software-engineering.md) and sibling files under [handbook/](../handbook/).
