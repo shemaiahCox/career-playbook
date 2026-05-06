@@ -8,6 +8,7 @@ Use them **when you are close to shipping** a slice (or before you call a lab mi
 
 - **Inbound webhooks, partner HTTP, sync integration edges** (and HTTP fronts that enqueue later): [checklists/integration-hardening.md](checklists/integration-hardening.md).
 - **User-facing model / RAG / tool paths**: [checklists/llm-feature-ship.md](checklists/llm-feature-ship.md).
+- **New stack + AI** (you are accountable for concepts, not only the prompt): [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md). Workflow: [docs/guides/ai-assisted-unfamiliar-stack.md](docs/guides/ai-assisted-unfamiliar-stack.md).
 
 Walk the sections **top to bottom** once with the repo and env in front of you. You do not have to tick boxes inside the markdown file unless you want to; the point is not skipping whole categories (signatures, idempotency, DLQ, eval regression, PII, timeouts, etc.). If you **defer** a row on purpose, note one line here under that milestone (“Deferred: … because …”) so it is explicit.
 
@@ -97,3 +98,33 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 - Added [docs/](docs/) — software engineering, database design, command-line tooling, servers and networking (study notes alongside labs).
 - [README.md](README.md): quick-link bullet to **docs/** for discoverability.
+
+---
+
+## 2026-05-09 — Docs layout: guides, reference split, unfamiliar-stack workflow
+
+- [docs/README.md](docs/README.md) indexes **guides/**, **concepts/**, **reference/** (long-form study notes live under [docs/reference/](docs/reference/)).
+- New guides: [docs/guides/ai-assisted-unfamiliar-stack.md](docs/guides/ai-assisted-unfamiliar-stack.md), [docs/guides/systems-architect-across-languages.md](docs/guides/systems-architect-across-languages.md); [docs/concepts/README.md](docs/concepts/README.md) documents the **term card** template.
+- New checklist: [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md) (lifecycle, leaks, failure paths, secrets, observability—scoped by product shape).
+- [README.md](README.md): **Unfamiliar stack + AI** subsection; bullet links to docs map and guides. [FOCUS.md](FOCUS.md): polyglot architect literacy pointer.
+
+---
+
+## 2026-05-10 — Ecosystem one-pagers (draft)
+
+- Added five **≤2-page** maps under [docs/concepts/ecosystems/](docs/concepts/ecosystems/README.md): [swift-ios.md](docs/concepts/ecosystems/swift-ios.md), [kotlin-android.md](docs/concepts/ecosystems/kotlin-android.md), [nextjs-react-typescript.md](docs/concepts/ecosystems/nextjs-react-typescript.md), [csharp-dotnet.md](docs/concepts/ecosystems/csharp-dotnet.md), [php-laravel.md](docs/concepts/ecosystems/php-laravel.md).
+- [docs/README.md](docs/README.md), [docs/concepts/README.md](docs/concepts/README.md), [README.md](README.md): pointers to ecosystem index.
+
+---
+
+## 2026-05-11 — Ecosystem maps: Python + SQL
+
+- New: [docs/concepts/ecosystems/python.md](docs/concepts/ecosystems/python.md) (venv/packaging, asyncio, GIL, FastAPI-shaped footguns); [docs/concepts/ecosystems/sql.md](docs/concepts/ecosystems/sql.md) (dialects, transactions, plans, ORM boundary).
+- [docs/concepts/ecosystems/README.md](docs/concepts/ecosystems/README.md), [docs/README.md](docs/README.md), [docs/concepts/README.md](docs/concepts/README.md): index updates.
+
+---
+
+## 2026-05-12 — Learning journey guide
+
+- New: [docs/guides/learning-journey.md](docs/guides/learning-journey.md) — View A (dependency spine), View B (illustrative week overlay), weekly recipe, phase → reference skim tables ([software engineering](docs/reference/software-engineering.md), [database design](docs/reference/database-design.md), ecosystem maps).
+- [README.md](README.md): quick-link + pointer under **Using this playbook**. [docs/README.md](docs/README.md): guides row. [docs/guides/ai-assisted-unfamiliar-stack.md](docs/guides/ai-assisted-unfamiliar-stack.md): Related link.

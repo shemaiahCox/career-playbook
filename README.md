@@ -2,19 +2,21 @@
 
 Single source of truth for **future-facing engineering themes**, a **phased project ladder**, and a **progress log**. Practice implementations live under [projects/](projects/); this repository is the map, not bundled application code beyond those labs.
 
-**Positioning (12–18 month headline):** Backend / API + integrations engineer who ships reliable, observable services and can add LLM features safely (RAG or tool-using flows with evals and guardrails).
+**Positioning (12–18 month headline):** Backend / API + integrations engineer who ships reliable, observable services and can add LLM features safely (RAG or tool-using flows with evals and guardrails). The same habits extend toward **systems-style thinking across stacks**—depth in **concepts** and **tradeoffs**, not in memorizing every language.
 
 - **Focus and themes:** [FOCUS.md](FOCUS.md)
 - **Shipped work and lessons:** [PROGRESS.md](PROGRESS.md)
 - **Initiative specs:** [project-specs/](project-specs/)
 - **Reusable checklists:** [checklists/](checklists/)
-- **Study notes / reference:** [docs/](docs/) — CLI, networking, databases, and software-engineering breadth alongside the labs.
+- **Docs index:** [docs/README.md](docs/README.md) — maps [guides/](docs/guides/), [concepts/](docs/concepts/), and [reference/](docs/reference/)
+- **Learning journey (dependency path + optional week overlay):** [docs/guides/learning-journey.md](docs/guides/learning-journey.md)
+- **Build A in unfamiliar stack B (with AI):** [docs/guides/ai-assisted-unfamiliar-stack.md](docs/guides/ai-assisted-unfamiliar-stack.md) · ship rubric: [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md) · **Ecosystem maps:** [docs/concepts/ecosystems/](docs/concepts/ecosystems/)
 
 ## Using this playbook
 
 ### [project-specs/](project-specs/)
 
-Follow the [learning path](#learning-path-suggested) for ordering (dependency flow, not necessarily calendar order). For the **active** spec only:
+Follow the [learning path](#learning-path-suggested) for ordering (dependency flow, not necessarily calendar order). For a **pacing / week overlay** that stays aligned with one active project, see [Learning journey](docs/guides/learning-journey.md). For the **active** spec only:
 
 1. Read **Problem** and **Career relevance** before coding—intent and engineering vocabulary first.
 2. Build against **Success criteria** in the linked lab repo (create the repo when the spec still says _TBD_).
@@ -24,9 +26,19 @@ Follow the [learning path](#learning-path-suggested) for ordering (dependency fl
 
 Skip reading every spec cover-to-cover up front; depth-read the project you are shipping.
 
+### Unfamiliar stack + AI (still accountable)
+
+When you must deliver **product A** in **stack B** you have not shipped before—often with AI drafting code—use the playbook so **concepts** (ownership, threading, leaks, contracts, idempotency) still get applied:
+
+1. Skim [AI-assisted unfamiliar stack](docs/guides/ai-assisted-unfamiliar-stack.md) and name **A**, **B**, and **non-negotiables** before large codegen.
+2. Use [term cards](docs/concepts/README.md) for vocabulary; go deep in [reference](docs/reference/software-engineering.md) when a term is load-bearing.
+3. Before calling it done, walk [unfamiliar-stack-ship](checklists/unfamiliar-stack-ship.md) (memory and lifecycle, failure paths, secrets, observability—scoped to what you built).
+
+For long-term polyglot **architecture** literacy (not six parallel syntax courses), see [Systems architect across languages](docs/guides/systems-architect-across-languages.md).
+
 ### Checklists and [PROGRESS.md](PROGRESS.md)
 
-Checklists are **definition-of-done rubrics** for integration-shaped work and LLM paths—not daily todos. When you are close to shipping, walk them once with code and config open. **[How to use checklists and this log](PROGRESS.md#how-to-use-checklists-and-this-log)** (deadlines, cadence, optional **Tradeoff** / **Failure mode** lines) lives at the top of `PROGRESS.md`.
+Checklists are **definition-of-done rubrics** for integration-shaped work, LLM paths, and **unfamiliar-stack** deliveries—not daily todos. When you are close to shipping, walk them once with code and config open. **[How to use checklists and this log](PROGRESS.md#how-to-use-checklists-and-this-log)** (deadlines, cadence, optional **Tradeoff** / **Failure mode** lines) lives at the top of `PROGRESS.md`.
 
 ## Learning path (suggested)
 
@@ -58,6 +70,7 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | **Security at integration edges** | P1 signatures/secrets; [FOCUS.md](FOCUS.md) theme **#3**; integration checklist |
 | **Data shape under load** | [Project 7](project-specs/07-sql-performance-lab.md) plans, indexes, transactions, pagination |
 | **AI product boundaries** | [Project 4](project-specs/04-rag-llm-service.md); [LLM feature ship](checklists/llm-feature-ship.md) |
+| **Unfamiliar stack + AI** | [AI-assisted unfamiliar stack](docs/guides/ai-assisted-unfamiliar-stack.md); [unfamiliar-stack ship](checklists/unfamiliar-stack-ship.md) |
 
 **Habits:** Treat each spec as a *design brief*—especially **Career relevance**, **Real-world situations**, and **Key concepts**. After each shipped milestone, log **one explicit tradeoff** (what you rejected and why) and **one production failure mode** you guarded against in [PROGRESS.md](PROGRESS.md). Before calling integration or LLM work done, walk the checklists above. Optional: in each lab repo README, add one diagram plus three bullets—components, data flow, failure modes.
 
