@@ -118,6 +118,46 @@ _log_event(
 - [ ] **README “Safety & abuse”** — prompt injection note, what data must never go to the model, tool allowlist if applicable.
 - [ ] **Structured logs** — latency, model id, token usage if available, `request_id`.
 
+## Exploration scenarios
+
+Run against [rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) locally; put API curls and env notes in that repo’s README. Focus on **evals**, **response contract**, and **logs**—not chat UX polish.
+
+### 1 — Eval suite green
+
+- **Setup:** Install deps; optional API keys per README.
+- **Action:** Run `scripts/run_eval.py` (or documented runner) against `evals/sample.jsonl`.
+- **Expected outcome:** All cases **PASS** on current stub or wired chain.
+
+### 2 — Introduce a regression
+
+- **Action:** Change answer generation so it violates one case’s `expected_facts` or `must_not_contain` (temporary bug).
+- **Expected outcome:** Runner prints **FAIL** with identifiable case—proves regression signal works.
+
+### 3 — Response contract
+
+- **Action:** `POST /query` with a sample question; inspect JSON.
+- **Expected outcome:** `answer` present; `cited_chunk_ids` present (array)—matches stable contract for eval tooling.
+
+### 4 — Observability fields
+
+- **Action:** Run several queries; read stderr/aggregator logs.
+- **Expected outcome:** Each completion logged with `request_id`, `latency_ms`, model identifier when wired—no secrets / full prompts if README forbids.
+
+### 5 — Prompt-injection style input
+
+- **Action:** Ask question that embeds “ignore previous instructions…” or paste hostile text per README safety section.
+- **Expected outcome:** Behavior matches documented policy (refusal, grounding-only, etc.); note gaps in README **Safety & abuse**.
+
+### 6 — Timeout / failure characterization
+
+- **Action:** Point at invalid model name or disconnect network (simulate provider failure) if your harness allows.
+- **Expected outcome:** Structured error path; logs show failure class without crashing process—document gaps.
+
+### 7 — Stretch: new domain eval cases
+
+- **Action:** Add 3–5 lines to `evals/*.jsonl` for your real retrieval corpus when wired.
+- **Expected outcome:** Runner remains the gate before model/prompt changes.
+
 ## LangChain alignment
 
 When you add LangChain:

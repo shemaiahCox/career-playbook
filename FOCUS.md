@@ -21,6 +21,10 @@
 5. **Developer experience** — OpenAPI/contract thinking, breaking-change discipline, tests where they protect contracts.
 6. **SQL correctness and performance** — Reason about **plans**, **index tradeoffs**, **isolation**, and **pagination** without ORM blind spots ([Project 7](project-specs/07-sql-performance-lab.md)).
 
+## Architectural thinking (interviews)
+
+Those themes are the same vocabulary **system design** and senior backend loops probe: draw boundaries, name failure modes, defend tradeoffs with ops consequences. The playbook maps each theme to projects and checklists in [README.md — Architectural narrative](README.md#architectural-narrative); use [PROGRESS.md](PROGRESS.md) to capture tradeoffs and failure modes per milestone.
+
 ## Polyglot learning apps (PacPal-style and others)
 
 Keep them; make each demo **one** future-facing property (e.g. offline tension, tracing, strict API contract) and note the tradeoff in this playbook’s [PROGRESS.md](PROGRESS.md).

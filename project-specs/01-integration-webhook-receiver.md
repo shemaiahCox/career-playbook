@@ -144,6 +144,67 @@ header('X-Request-Id: ' . $requestId);
 - [ ] **`request_id`** from `X-Request-Id` or generated UUID.
 - [ ] **Dead-letter**: on handler exception, store payload + error in `dead_letters` table and return 500 (or 202 + async policy—document choice in repo README).
 
+## Exploration scenarios
+
+Hands-on cases to **drive the code paths** and deepen interview vocabulary. Keep commands and exact headers next to runnable code in the **lab README** ([webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)); use this section as the **menu of outcomes** to verify.
+
+### 1 — Happy path (first delivery)
+
+- **Setup:** `WEBHOOK_SECRET` set; server running.
+- **Action:** `POST /webhook` with valid JSON body, correct `X-Signature` over **raw body**, new `Idempotency-Key`, optional `X-Request-Id`.
+- **Expected outcome:** `2xx`; response body stable; logs include structured JSON with `request_id`, `idempotency_key`, `duration_ms`.
+- **Stretch:** Compare logs with and without inbound `X-Request-Id` (generated vs echoed).
+
+### 2 — Idempotent replay
+
+- **Setup:** Same payload bytes as scenario 1.
+- **Action:** Repeat **identical** request (same `Idempotency-Key`, same body, valid signature).
+- **Expected outcome:** Same HTTP status and response body as first delivery; **no double side effects** in SQLite (inspect `idemp` / domain tables).
+
+### 3 — Missing or invalid signature
+
+- **Setup:** Valid body and idempotency key.
+- **Action:** Omit `X-Signature`, then send wrong `sha256=` hex with otherwise valid request.
+- **Expected outcome:** `401` both times; **no** row advanced as “completed” for that key.
+
+### 4 — Missing idempotency key
+
+- **Action:** Valid signature but **no** `Idempotency-Key` header and no body fallback field (if your implementation requires a key).
+- **Expected outcome:** `400` with clear error shape; no partial writes.
+
+### 5 — Poison payload → dead letter
+
+- **Setup:** Trigger handler path that **throws** after idempotency begins (e.g. malformed inner field your handler treats as fatal, or temporary `throw` in code).
+- **Action:** Signed request with new key that hits that path.
+- **Expected outcome:** `500` (or documented async policy); row in `dead_letters` with payload/error; **`abandon`** (or equivalent) so partner **can retry** same key after fix—confirm store behavior in DB.
+
+### 6 — Correlation id propagation
+
+- **Action:** Send fixed `X-Request-Id`; grep stderr/logs for that exact string on success and failure paths.
+- **Expected outcome:** Same id on response header and every log line for that request.
+
+### 7 — Concurrent deliveries (same key)
+
+- **Setup:** Two terminals or `curl` in parallel.
+- **Action:** Same `Idempotency-Key`, same body, two overlapping requests with valid signatures.
+- **Expected outcome:** One completion; other sees **`409`** or defined concurrency behavior per **HTTP `409` for in-flight / races** above—not silent double processing.
+
+### 8 — Invalid JSON or wrong `Content-Type`
+
+- **Action:** Signed raw body that is **not** valid JSON; optionally non-JSON body with signature over those bytes.
+- **Expected outcome:** Documented status (`400`/`415`/etc.); signature still verified on raw bytes **before** parse where applicable.
+
+### 9 — Replay after dead letter
+
+- **Setup:** Complete scenario 5; fix handler; redeploy or reload.
+- **Action:** Partner-style **retry** with the **same** `Idempotency-Key` as the failed delivery.
+- **Expected outcome:** Successful processing **or** documented idempotency semantics (prove you understand recovery vs duplicate).
+
+### 10 — Clock / operational sanity (stretch)
+
+- **Action:** Temporarily wrong `WEBHOOK_SECRET` env; restart; hit endpoint.
+- **Expected outcome:** All signed requests `401` until secret matches—rehearses secret rotation and “why prod suddenly rejects.”
+
 ## Stretch
 
 - Docker Compose with `php` service and mounted volume for SQLite.

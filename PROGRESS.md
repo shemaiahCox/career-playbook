@@ -1,6 +1,30 @@
 # Progress log
 
-Append a new dated entry when you ship a milestone or learn something worth remembering.
+## How to use checklists and this log
+
+### Checklists
+
+Use them **when you are close to shipping** a slice (or before you call a lab milestone done)—not as everyday task lists.
+
+- **Inbound webhooks, partner HTTP, sync integration edges** (and HTTP fronts that enqueue later): [checklists/integration-hardening.md](checklists/integration-hardening.md).
+- **User-facing model / RAG / tool paths**: [checklists/llm-feature-ship.md](checklists/llm-feature-ship.md).
+
+Walk the sections **top to bottom** once with the repo and env in front of you. You do not have to tick boxes inside the markdown file unless you want to; the point is not skipping whole categories (signatures, idempotency, DLQ, eval regression, PII, timeouts, etc.). If you **defer** a row on purpose, note one line here under that milestone (“Deferred: … because …”) so it is explicit.
+
+### This log
+
+**Append-only:** add a new dated `## …` section when something worth remembering lands (merged lab PR, meaningful success-criteria row, lesson that changes the next design, or a small playbook-only doc change).
+
+Suggested shape for a **lab milestone** (keep it short):
+
+- **What shipped** — fact-level outcome.
+- **Tradeoff** *(optional, high signal for interviews)* — what you rejected and why.
+- **Failure mode** *(optional)* — what breaks in prod without what you built.
+- **Next** *(optional)* — one concrete next step.
+
+You do not need daily entries. Aim for **one section per slice** you would mention in a weekly update or interview.
+
+For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** when you can. See also [README — Architectural narrative](README.md#architectural-narrative).
 
 ---
 
@@ -41,3 +65,19 @@ Append a new dated entry when you ship a milestone or learn something worth reme
 
 - [projects/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) is its own git repository (same pattern as webhook- and rag-llm labs); no longer committed inside **career-playbook** (`projects/*/` ignore restored).
 - Spec **07** code-repo table matches **local sibling** clone path; main **README** quick links unchanged for local dev.
+
+---
+
+## 2026-05-06 — Architectural narrative + usage docs
+
+- [README.md](README.md): **Architectural narrative** — maps competencies to projects and checklists; habits for specs, PROGRESS entries, optional lab README diagrams.
+- [README.md](README.md): **Using this playbook** — how to work through `project-specs/`, pointers to checklists and this log.
+- [FOCUS.md](FOCUS.md): **Architectural thinking (interviews)** bridge linking README narrative and PROGRESS tradeoffs/failure modes.
+- [PROGRESS.md](PROGRESS.md): **How to use checklists and this log** — checklist timing, log cadence, milestone shape (**Tradeoff** / **Failure mode** prompts folded in).
+
+---
+
+## 2026-05-06 — Exploration scenarios in project specs
+
+- All [project-specs/](project-specs/) (`01`–`07`, including `06`): new **Exploration scenarios** sections — Setup / Action / Expected outcome / optional Stretch; lab READMEs hold copy-paste commands where repos exist.
+- [README.md](README.md): **Using this playbook** — step to run scenarios after Key concepts and before checklists.

@@ -122,6 +122,46 @@ Run order and setup: see [projects/sql-perf-lab/README.md](../projects/sql-perf-
 - [ ] At least **three** before/after plan excerpts captured in README or comments (seq scan → index scan, bad pagination, join vs loop).
 - [ ] **Exercise 4:** You can explain each **ACID** letter using the repo’s `ROLLBACK`, FK failure, and `FOR UPDATE` / lost-update notes.
 
+## Exploration scenarios
+
+The repo already ships scripted exercises—use these scenarios as **learning goals** (what you should see before moving on). Commands and seeds: [sql-perf-lab README](../projects/sql-perf-lab/README.md) and `exercises/*.sql`.
+
+### 1 — Plans: estimate vs reality (`01_plans.sql`)
+
+- **Setup:** Postgres up with seed data (`docker compose` per README).
+- **Action:** Run representative filters with `EXPLAIN`, then `EXPLAIN (ANALYZE, BUFFERS)`.
+- **Expected outcome:** You can point to **seq scan vs index scan**, rows removed by filter, and buffer reads—capture one before/after excerpt for README.
+
+### 2 — Index payoff (`02_indexes.sql`)
+
+- **Action:** Compare latency/plan **without** helpful index vs **with** composite or partial index aligned to predicates.
+- **Expected outcome:** Measurable drop in execution time or buffers; articulate **write cost** tradeoff of each new index.
+
+### 3 — Join vs loop-shaped access (`03_joins_vs_loop.sql`)
+
+- **Action:** Run N+1-shaped pattern vs single join / batch fetch on same logical question.
+- **Expected outcome:** Explain why loop shape explodes round-trips or planner cost—tie to API list endpoints.
+
+### 4 — Transactions drill (`04_transactions.sql`)
+
+- **Action:** Walk `ROLLBACK`, FK violation, `FOR UPDATE` / optional two-session race notes in file.
+- **Expected outcome:** One-sentence explanation per **ACID** letter grounded in what you ran.
+
+### 5 — Pagination cliff (`05_pagination.sql`)
+
+- **Action:** Same page size with large **`OFFSET`** vs **keyset** predicate on `(created_at, id)`.
+- **Expected outcome:** Deep pages stay cheap with keyset; **OFFSET** degrades—capture plans.
+
+### 6 — Stretch rollup (`06_rollup_stretch.sql`)
+
+- **Action:** Run stretch if present; compare reporting query cost pre/post materialization strategy.
+- **Expected outcome:** Document refresh vs freshness tradeoff.
+
+### 7 — Cross-check with application layer
+
+- **Action:** Describe how ORM **eager load** would map to scenario 3’s join shape for your day-job stack.
+- **Expected outcome:** Single paragraph you could say in an interview linking SQL lab to framework reality.
+
 ## Maps to
 
 Backend performance interviews, API pagination design, data correctness stories, ORM troubleshooting.

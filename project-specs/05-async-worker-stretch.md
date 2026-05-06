@@ -81,6 +81,46 @@ $store->abandon($idempotencyKey);
 - [ ] Failed jobs land in a **dead-letter** state with reason and payload ref.
 - [ ] README diagrams happy path + retry path.
 
+## Exploration scenarios
+
+These assume **producer + broker + worker + DLQ** (Redis/Laravel/BullMQ/SQS-style—match your README). Exact CLI commands belong in the **lab repo** once linked.
+
+### 1 — Fast HTTP ack
+
+- **Action:** Webhook or HTTP endpoint validates and **enqueues** only; heavy work in worker.
+- **Expected outcome:** HTTP returns **`2xx` within partner timeout**; job visible in queue backlog metric or inspect API.
+
+### 2 — Happy-path job
+
+- **Action:** One well-formed message; worker processes to completion.
+- **Expected outcome:** Message **acked** / removed; side effects applied exactly once.
+
+### 3 — At-least-once duplicate delivery
+
+- **Setup:** Simulate broker redelivery (crash worker **after** side effect but **before** ack, or use tooling to **nack without ack** once—follow queue docs).
+- **Action:** Same payload/job id processed twice.
+- **Expected outcome:** **Idempotent** outcome—no duplicate rows/charges; logs show duplicate detection if implemented.
+
+### 4 — Transient failure → retry
+
+- **Action:** Force downstream **429** or timeout once; succeed on retry (or use mock).
+- **Expected outcome:** Job retries with **backoff**; succeeds without landing in DLQ.
+
+### 5 — Poison message → DLQ
+
+- **Action:** Enqueue payload that always throws (schema mismatch, permanent `400` from downstream).
+- **Expected outcome:** After **N** attempts, message in **DLQ** with reason; main queue **drains** other jobs.
+
+### 6 — Visibility timeout / stuck worker
+
+- **Action:** Worker holds message longer than visibility lease without ack (long GC pause or deliberate sleep).
+- **Expected outcome:** Another worker **may** claim message—ties back to **idempotency** (scenario 3).
+
+### 7 — Operational replay
+
+- **Action:** Fix bug; **replay** from DLQ or re-publish one poison message with same business key.
+- **Expected outcome:** Documented safe replay—aligns with [Project 1](01-integration-webhook-receiver.md) abandon/retry story.
+
 ## Maps to
 
 Scale, background jobs, integration-heavy systems.

@@ -9,6 +9,24 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 - **Initiative specs:** [project-specs/](project-specs/)
 - **Reusable checklists:** [checklists/](checklists/)
 
+## Using this playbook
+
+### [project-specs/](project-specs/)
+
+Follow the [learning path](#learning-path-suggested) for ordering (dependency flow, not necessarily calendar order). For the **active** spec only:
+
+1. Read **Problem** and **Career relevance** before coding—intent and interview vocabulary first.
+2. Build against **Success criteria** in the linked lab repo (create the repo when the spec still says _TBD_).
+3. Use **Key concepts** as a glossary while designing or debugging—not as a linear tutorial.
+4. Run **Exploration scenarios** (hands-on cases after **Success criteria** in each spec) to drive failure modes and deepen understanding; paste exact curls/commands in the **lab README** when helpful.
+5. Before you call the milestone done, walk the relevant shared checklist (below); optional **Stretch** when you want extra depth.
+
+Skip reading every spec cover-to-cover up front; depth-read the project you are shipping.
+
+### Checklists and [PROGRESS.md](PROGRESS.md)
+
+Checklists are **definition-of-done rubrics** for integration-shaped work and LLM paths—not daily todos. When you are close to shipping, walk them once with code and config open. **[How to use checklists and this log](PROGRESS.md#how-to-use-checklists-and-this-log)** (deadlines, cadence, optional **Tradeoff** / **Failure mode** lines) lives at the top of `PROGRESS.md`.
+
 ## Learning path (suggested)
 
 Phases are **ordered for dependency flow**, not calendar weeks—you can overlap (e.g. observability while building RAG).
@@ -25,6 +43,22 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 **Stack reality:** Specs reference **PHP** (P1), **Python** (P4), and **optional Laravel vs FastAPI** (P2). **P6** closes the gap for **Node/TS** without replacing your anchors—see [FOCUS.md](FOCUS.md).
 
 **SQL and performance:** You still touch SQL in P1, P2, P5, and timings in P3. For a **shipping artifact** and interview-ready plan/index stories, the optional **[Project 7](project-specs/07-sql-performance-lab.md)** Postgres lab is the dedicated lane—skip it only if your roadmap is already data-limited.
+
+## Architectural narrative
+
+The phased ladder doubles as **systems-thinking** practice: boundaries, failure modes, and tradeoffs—not only feature tutorials.
+
+| Competency | Where you practice it |
+|------------|----------------------|
+| **Service boundaries** (sync ack vs durable work) | [Project 1](project-specs/01-integration-webhook-receiver.md) thin HTTP path → [Project 5](project-specs/05-async-worker-stretch.md) queue, worker, DLQ |
+| **Contracts and evolution** | [Project 2](project-specs/02-contract-first-api.md) OpenAPI, breaking-change discipline |
+| **Reliability semantics** | Idempotency, retries, at-least-once, DLQ in P1 and P5; [integration hardening](checklists/integration-hardening.md) |
+| **Observability as design** | [Project 3](project-specs/03-observability-lab.md); structured logs and correlation IDs |
+| **Security at integration edges** | P1 signatures/secrets; [FOCUS.md](FOCUS.md) theme **#3**; integration checklist |
+| **Data shape under load** | [Project 7](project-specs/07-sql-performance-lab.md) plans, indexes, transactions, pagination |
+| **AI product boundaries** | [Project 4](project-specs/04-rag-llm-service.md); [LLM feature ship](checklists/llm-feature-ship.md) |
+
+**Habits:** Treat each spec as a *design brief*—especially **Career relevance**, **Real-world situations**, and **Key concepts**. After each shipped milestone, log **one explicit tradeoff** (what you rejected and why) and **one production failure mode** you guarded against in [PROGRESS.md](PROGRESS.md). Before calling integration or LLM work done, walk the checklists above. Optional: in each lab repo README, add one diagram plus three bullets—components, data flow, failure modes.
 
 ## Quick links to practice repos
 

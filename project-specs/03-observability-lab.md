@@ -80,6 +80,41 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 - [ ] Log at least: method, path, status, duration, error stack when 5xx.
 - [ ] README documents how you would find a user’s failed request given a `request_id`.
 
+## Exploration scenarios
+
+Implement these against **your** observability lab host ([rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 6](06-node-typescript-lab.md)). Put concrete curls in the **service README**.
+
+### 1 — Generated correlation id
+
+- **Action:** Call any route **without** `X-Request-Id`.
+- **Expected outcome:** Response includes `X-Request-Id`; logs include the same value on every line for that request.
+
+### 2 — Client-provided correlation id
+
+- **Action:** Send a known UUID in `X-Request-Id`; repeat with typos / empty (document policy).
+- **Expected outcome:** Known good id preserved end-to-end; invalid handled per README (reject vs replace).
+
+### 3 — Happy path log shape
+
+- **Action:** Successful request to a representative route.
+- **Expected outcome:** JSON log includes method, path, status, `duration_ms` (or equivalent), `request_id`.
+
+### 4 — Error path log shape
+
+- **Action:** Trigger `5xx` or uncaught exception path your app exposes in dev.
+- **Expected outcome:** Logs include error class/stack (per policy), **same** `request_id`, status—supports incident drills.
+
+### 5 — Support drill (README procedure)
+
+- **Setup:** Ask a friend or past-you: “User saw failure at 14:02.”
+- **Action:** Follow **only** your README’s steps using `request_id` from a simulated client header.
+- **Expected outcome:** You reach the exact failing log line (or acknowledge gaps and fix README).
+
+### 6 — Stretch: latency attribution
+
+- **Action:** Add temporary slow dependency or sleep in one code branch.
+- **Expected outcome:** Logs or spans show **which segment** dominated duration—prep for OpenTelemetry stretch.
+
 ## Stretch
 
 - OpenTelemetry export to console or local collector.

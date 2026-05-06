@@ -76,6 +76,35 @@ _TBD — create a sibling repo (e.g. `ts-webhook-lab` or `ts-api-lab`) when you 
 - [ ] Track **C:** Enqueue from HTTP path + worker with **duplicate delivery** story (README diagram or bullet list).
 - [ ] **No secrets in git** — `.env.example` only.
 
+## Exploration scenarios
+
+Pick scenarios for **your declared track** (A, B, or C). **Track A** mirrors [Project 1 — Exploration scenarios](01-integration-webhook-receiver.md); **track B** mirrors [Project 2 — Exploration scenarios](02-contract-first-api.md); **track C** combines P1 HTTP edge cases with [Project 5 — Exploration scenarios](05-async-worker-stretch.md). Implement curls and signatures in the **TS lab README** (`rawBody` before `JSON.parse` for HMAC).
+
+### Track A — Webhook parity (subset)
+
+1. **Happy signed delivery** — valid `X-Signature`, `Idempotency-Key`, structured logs with `request_id`.
+2. **Replay** — same key → same outcome; DB proves no duplicate effect.
+3. **Bad/missing signature** → `401`.
+4. **Concurrent same-key requests** — expect `409` or documented race handling.
+
+### Track B — Contract-first API (subset)
+
+1. **Happy path** matches OpenAPI / Zod schemas.
+2. **Contract test fails** when handler field renamed without updating artifact.
+3. **Additive optional field** — non-breaking per diff ritual in README.
+
+### Track C — Webhook + worker (subset)
+
+1. HTTP **enqueue + fast 2xx**; job recorded.
+2. Worker **success** → ack; queue empty for that job.
+3. **Duplicate delivery** or crash-before-ack → **one** side-effect thanks to idempotency keys.
+4. **DLQ** after permanent failure—inspect payload + reason.
+
+### All tracks
+
+- **Structured logs:** grep JSON lines by `request_id` for one failing request.
+- **Stretch:** Docker Compose healthchecks; CI runs `typecheck` on PR.
+
 ## Stretch
 
 - Dockerfile + `docker compose` for app + Redis (if using queue).

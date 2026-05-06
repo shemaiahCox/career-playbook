@@ -99,6 +99,42 @@ expect(response.body).toMatchSchema({
 - [ ] **Breaking-change ritual:** document in README (e.g. `openapi-diff` in CI, or manual checklist before merge).
 - [ ] One **contract test** or consumer stub that fails if response shape drifts.
 
+## Exploration scenarios
+
+Use these once the lab repo exists; wire **copy-paste HTTP examples** into that repo’s README. Goal: prove the **contract** is enforced, not only that endpoints return `200`.
+
+### 1 — Spec matches reality
+
+- **Setup:** OpenAPI checked in; server running.
+- **Action:** Call each documented path with examples from `openapi.yaml` (happy path).
+- **Expected outcome:** Status codes and JSON bodies match **required fields and types** in the spec.
+
+### 2 — Consumer / schema test catches drift
+
+- **Setup:** Passing contract or schema test on `main`.
+- **Action:** Rename a response field or drop a `required` property in the handler **without** updating spec/test.
+- **Expected outcome:** CI or local test **fails** before merge.
+
+### 3 — Non-breaking additive change
+
+- **Action:** Add an **optional** response field; run contract tests + `openapi-diff` (or equivalent) against previous spec artifact.
+- **Expected outcome:** Tests still pass; diff labeled **non-breaking** per your README policy.
+
+### 4 — Breaking change ritual
+
+- **Action:** Remove or rename a field consumers rely on; run breaking-change ritual (`openapi-diff`, semver bump, or deprecation checklist).
+- **Expected outcome:** Procedure forces explicit **version or deprecation** note—you don’t ship silently.
+
+### 5 — Error shape stability
+
+- **Action:** Trigger validation error (`400`), not-found (`404`), conflict (`409`)—whatever your API defines.
+- **Expected outcome:** Error bodies match documented **error schema** (same envelope keys every time).
+
+### 6 — Pagination / list contract (if applicable)
+
+- **Action:** Hit list endpoint with valid and invalid query params.
+- **Expected outcome:** Documented defaults; stable sort keys for consumers building UI—pairs well with [Project 7](07-sql-performance-lab.md) for performance stories later.
+
 ## Maps to
 
 Platform engineering, API longevity, safer velocity with AI-assisted coding.
