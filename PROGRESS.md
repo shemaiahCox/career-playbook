@@ -18,11 +18,11 @@ Walk the sections **top to bottom** once with the repo and env in front of you. 
 Suggested shape for a **lab milestone** (keep it short):
 
 - **What shipped** — fact-level outcome.
-- **Tradeoff** *(optional, high signal for interviews)* — what you rejected and why.
+- **Tradeoff** *(optional, high signal for explaining decisions later)* — what you rejected and why.
 - **Failure mode** *(optional)* — what breaks in prod without what you built.
 - **Next** *(optional)* — one concrete next step.
 
-You do not need daily entries. Aim for **one section per slice** you would mention in a weekly update or interview.
+You do not need daily entries. Aim for **one section per slice** you would summarize in a weekly update, retrospective, or coaching conversation.
 
 For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** when you can. See also [README — Architectural narrative](README.md#architectural-narrative).
 
@@ -72,7 +72,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 - [README.md](README.md): **Architectural narrative** — maps competencies to projects and checklists; habits for specs, PROGRESS entries, optional lab README diagrams.
 - [README.md](README.md): **Using this playbook** — how to work through `project-specs/`, pointers to checklists and this log.
-- [FOCUS.md](FOCUS.md): **Architectural thinking (interviews)** bridge linking README narrative and PROGRESS tradeoffs/failure modes.
+- [FOCUS.md](FOCUS.md): **Architectural thinking through practice** bridge linking README narrative and PROGRESS tradeoffs/failure modes.
 - [PROGRESS.md](PROGRESS.md): **How to use checklists and this log** — checklist timing, log cadence, milestone shape (**Tradeoff** / **Failure mode** prompts folded in).
 
 ---
@@ -81,3 +81,19 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 - All [project-specs/](project-specs/) (`01`–`07`, including `06`): new **Exploration scenarios** sections — Setup / Action / Expected outcome / optional Stretch; lab READMEs hold copy-paste commands where repos exist.
 - [README.md](README.md): **Using this playbook** — step to run scenarios after Key concepts and before checklists.
+
+---
+
+## 2026-05-07 — Practice-first tone
+
+- [FOCUS.md](FOCUS.md): **Purpose** blurb (practice and understanding first); **Role direction** (replacing headline “optimize”); SQL depth wording; **Architectural thinking through practice**.
+- [README.md](README.md): engineering-first vocabulary in playbook steps; SQL paragraph emphasizes hands-on plan/index literacy from real runs.
+- [PROGRESS.md](PROGRESS.md): Tradeoff/cadence wording centered on explanation and retrospectives (not interviews-first).
+- [project-specs/](project-specs/) **01**, **03**, **06**, **07**: practice-first wording (Career relevance, Exploration intro, Maps to / summaries).
+
+---
+
+## 2026-05-08 — Docs index + repository sync
+
+- Added [docs/](docs/) — software engineering, database design, command-line tooling, servers and networking (study notes alongside labs).
+- [README.md](README.md): quick-link bullet to **docs/** for discoverability.

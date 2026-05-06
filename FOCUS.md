@@ -1,6 +1,10 @@
 # Focus
 
-## Headline (optimize for this)
+## Purpose
+
+This playbook is for **deliberate practice**: phased labs in [project-specs/](project-specs/), shared [checklists](checklists/), and a [progress log](PROGRESS.md) so understanding and shipping discipline come first. **Career direction** below is context for what to practice—not the primary lens. Conversation-ready narratives are an optional downstream benefit of work you can actually run and explain.
+
+## Role direction
 
 **Backend / API + integrations engineer** who ships **reliable, observable** services and can add **LLM features safely** (retrieval, tool calling where appropriate, with **evals**, **guardrails**, and **operational visibility**).
 
@@ -10,7 +14,7 @@
 
 **Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](project-specs/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
 
-**SQL / data depth (optional):** A dedicated Postgres lab ([Project 7](project-specs/07-sql-performance-lab.md)) for **plans, indexing, transactions, and pagination**—so “I use SQL daily” becomes **defensible** stories, not only incidental usage in other repos.
+**SQL / data depth (optional):** A dedicated Postgres lab ([Project 7](project-specs/07-sql-performance-lab.md)) for **plans, indexing, transactions, and pagination**—so everyday SQL use becomes **correctness and performance you can reason about under load**, not only incidental queries in other repos.
 
 ## Industry themes to practice (durable, not hype-chasing)
 
@@ -21,9 +25,9 @@
 5. **Developer experience** — OpenAPI/contract thinking, breaking-change discipline, tests where they protect contracts.
 6. **SQL correctness and performance** — Reason about **plans**, **index tradeoffs**, **isolation**, and **pagination** without ORM blind spots ([Project 7](project-specs/07-sql-performance-lab.md)).
 
-## Architectural thinking (interviews)
+## Architectural thinking through practice
 
-Those themes are the same vocabulary **system design** and senior backend loops probe: draw boundaries, name failure modes, defend tradeoffs with ops consequences. The playbook maps each theme to projects and checklists in [README.md — Architectural narrative](README.md#architectural-narrative); use [PROGRESS.md](PROGRESS.md) to capture tradeoffs and failure modes per milestone.
+Those themes are the vocabulary of **systems work**: draw boundaries, name failure modes, defend tradeoffs with operational consequences—that is **core backend craft**, practiced here via specs and labs. The playbook maps each theme to projects and checklists in [README.md — Architectural narrative](README.md#architectural-narrative); use [PROGRESS.md](PROGRESS.md) to capture tradeoffs and failure modes per milestone.
 
 ## Polyglot learning apps (PacPal-style and others)
 

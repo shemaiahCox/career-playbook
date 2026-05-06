@@ -15,7 +15,7 @@ Production systems spend most of their life **failing in ways you did not expect
 **Why learning this moves the needle**
 
 - **Incident response:** Correlation IDs turn vague reports (“checkout broke”) into **one grep or one trace** across services. The skill is **propagation**: browser → edge → API → worker → DB, same id everywhere stakeholders can agree on.
-- **Hiring bar:** Backend interviews often probe **logging, metrics, and tracing**; hands-on experience beats textbook definitions. Being able to say *“we added `request_id` to every log line and returned it in the header”* is more credible than naming three vendors.
+- **Why this matters:** Production backend work rewards **logging, metrics, and tracing** you can actually use; hands-on beats textbook definitions. Owning *“we added `request_id` to every log line and returned it in the header”* as lived behavior is more credible than naming three vendors.
 - **Cost and performance:** Structured fields (`duration_ms`, `db_ms`, `partner_status`, cache hit/miss) feed **dashboards and alerts** before customers notice slowness. SRE-minded teams **alert on SLOs**, not on “someone read the logs.”
 - **Compliance and audits:** Log shape and retention policies matter when someone asks **who saw what data and when**. Even a README that states **what you never log** (full card numbers, passwords) shows you’ve thought past the happy path.
 

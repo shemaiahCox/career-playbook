@@ -6,7 +6,7 @@ Build a **small, intentional** relational dataset and queries where you practice
 
 ## Career relevance
 
-**Summary:** You collect **concrete** before/after `EXPLAIN` stories, index decisions you can defend, and isolation tradeoffs—exactly what backend and data-adjacent interviews expect when they say “talk about a slow query you fixed.”
+**Summary:** You collect **concrete** before/after `EXPLAIN` stories, index decisions you can defend, and isolation tradeoffs—the substance people mean when they ask you to **walk through a slow query you fixed**.
 
 ### In depth
 
@@ -160,8 +160,8 @@ The repo already ships scripted exercises—use these scenarios as **learning go
 ### 7 — Cross-check with application layer
 
 - **Action:** Describe how ORM **eager load** would map to scenario 3’s join shape for your day-job stack.
-- **Expected outcome:** Single paragraph you could say in an interview linking SQL lab to framework reality.
+- **Expected outcome:** Single paragraph linking this SQL lab to how your application stack loads data (ORM, batching, pagination)—something you could explain in a design review or postmortem.
 
 ## Maps to
 
-Backend performance interviews, API pagination design, data correctness stories, ORM troubleshooting.
+Backend performance work, API pagination design, data correctness stories, ORM troubleshooting.

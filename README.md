@@ -8,6 +8,7 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 - **Shipped work and lessons:** [PROGRESS.md](PROGRESS.md)
 - **Initiative specs:** [project-specs/](project-specs/)
 - **Reusable checklists:** [checklists/](checklists/)
+- **Study notes / reference:** [docs/](docs/) — CLI, networking, databases, and software-engineering breadth alongside the labs.
 
 ## Using this playbook
 
@@ -15,7 +16,7 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 
 Follow the [learning path](#learning-path-suggested) for ordering (dependency flow, not necessarily calendar order). For the **active** spec only:
 
-1. Read **Problem** and **Career relevance** before coding—intent and interview vocabulary first.
+1. Read **Problem** and **Career relevance** before coding—intent and engineering vocabulary first.
 2. Build against **Success criteria** in the linked lab repo (create the repo when the spec still says _TBD_).
 3. Use **Key concepts** as a glossary while designing or debugging—not as a linear tutorial.
 4. Run **Exploration scenarios** (hands-on cases after **Success criteria** in each spec) to drive failure modes and deepen understanding; paste exact curls/commands in the **lab README** when helpful.
@@ -42,7 +43,7 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 
 **Stack reality:** Specs reference **PHP** (P1), **Python** (P4), and **optional Laravel vs FastAPI** (P2). **P6** closes the gap for **Node/TS** without replacing your anchors—see [FOCUS.md](FOCUS.md).
 
-**SQL and performance:** You still touch SQL in P1, P2, P5, and timings in P3. For a **shipping artifact** and interview-ready plan/index stories, the optional **[Project 7](project-specs/07-sql-performance-lab.md)** Postgres lab is the dedicated lane—skip it only if your roadmap is already data-limited.
+**SQL and performance:** You still touch SQL in P1, P2, P5, and timings in P3. For a **shipping artifact** and hands-on plan/index literacy you can show from real runs, the optional **[Project 7](project-specs/07-sql-performance-lab.md)** Postgres lab is the dedicated lane—skip it only if your roadmap is already data-limited.
 
 ## Architectural narrative
 

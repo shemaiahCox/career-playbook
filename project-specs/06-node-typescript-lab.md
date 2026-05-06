@@ -14,7 +14,7 @@ Ship **one** small production-shaped HTTP service in **Node + TypeScript** so yo
 
 ## Career relevance
 
-**Summary:** **TypeScript on the backend** maximizes **flexibility** across employers: shared types with modern frontends, huge library surface, and interview familiarity—without replacing the **patterns** you already practice in PHP or Python.
+**Summary:** **TypeScript on the backend** maximizes **flexibility** across employers: shared types with modern frontends, huge library surface, and **ecosystem familiarity**—without replacing the **patterns** you already practice in PHP or Python.
 
 ### In depth
 
@@ -30,7 +30,7 @@ This is not about chasing every new JS framework; it is about **one disciplined 
 
 - **Greenfield API** in a startup that standardized on **Node + TS** while your last job was PHP/Laravel—you already know the integration playbook; this is **syntax + ecosystem**.
 - **BFF** that aggregates internal services for a **React/Next** app; TS end-to-end is the common setup.
-- **Queue workers** with **BullMQ** / Redis mirroring Laravel queues—**at-least-once** and **idempotent handlers** are identical stories in interviews.
+- **Queue workers** with **BullMQ** / Redis mirroring Laravel queues—**at-least-once** and **idempotent handlers** are the same concepts under production load as in PHP/Python labs.
 
 ## Code repo
 

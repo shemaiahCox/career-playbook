@@ -14,7 +14,7 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 
 **Why learning this moves the needle**
 
-- **Trust and money:** Duplicate `invoice.paid` or `subscription.updated` events can double-fulfill orders or corrupt billing. Idempotency is a common **staff-level** talking point: you’re separating *transport* (HTTP may arrive twice) from *business* (wallet or inventory must move once). Saying “we use an idempotency key” in an interview is useless unless you can describe **what** is keyed and **what** happens on replay.
+- **Trust and money:** Duplicate `invoice.paid` or `subscription.updated` events can double-fulfill orders or corrupt billing. Idempotency is a common **staff-level** talking point: you’re separating *transport* (HTTP may arrive twice) from *business* (wallet or inventory must move once). Saying “we use an idempotency key” **without** describing **what** is keyed and **what** happens on replay is empty—you need operational specifics.
 - **Security:** Unsigned webhooks are trivial to forge; HMAC (or mTLS in bigger shops) is table stakes for **B2B SaaS and fintech**. You’ll be asked how you’d rotate secrets, handle **timing attacks** on comparisons, and why the raw body matters for signatures.
 - **Ops:** When partners open tickets (“we sent event X at 14:02”), **`request_id` + structured logs** are how you answer in minutes instead of days. That’s the difference between looking competent on-call and burning a weekend diffing environments.
 - **Reliability:** Poison payloads happen (bad schema, buggy deploy). **Dead letters** let you fix forward without losing evidence or blocking the whole pipeline. They also give you a **replay story**: after a fix, you either re-drive from the DLQ or let the partner retry with the same idempotency key—both need a clear design.
@@ -146,7 +146,7 @@ header('X-Request-Id: ' . $requestId);
 
 ## Exploration scenarios
 
-Hands-on cases to **drive the code paths** and deepen interview vocabulary. Keep commands and exact headers next to runnable code in the **lab README** ([webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)); use this section as the **menu of outcomes** to verify.
+Hands-on cases to **drive the code paths** and deepen **engineering vocabulary** (signatures, idempotency, dead letters, concurrency). Keep commands and exact headers next to runnable code in the **lab README** ([webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)); use this section as the **menu of outcomes** to verify.
 
 ### 1 — Happy path (first delivery)
 
@@ -212,4 +212,4 @@ Hands-on cases to **drive the code paths** and deepen interview vocabulary. Keep
 
 ## Maps to
 
-Boomi / integration patterns, event-driven backends, reliability interviews.
+Boomi / integration patterns, event-driven backends, reliability under retries and partner SLAs.
