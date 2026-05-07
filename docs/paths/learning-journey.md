@@ -9,7 +9,7 @@ This guide gives **two views** of the same playbook: **dependency order** (what 
 ## Rules of thumb
 
 1. **One active project** — Pick **one** initiative spec ([project-specs/](../../project-specs/)) as the spine. Depth beats parallel half-finished labs.
-2. **Concepts on demand** — Use **Key concepts** in the active spec and [term cards](../stacks/README.md). Open [software engineering](../handbook/software-engineering.md) for definitions when a term is **load-bearing** (idempotency, isolation, etc.).
+2. **Concepts on demand** — Use **Key concepts** in the active spec and [term cards](../stacks/README.md); if jargon overwhelms you, open the **[Stacks glossary](../stacks/glossary.md)** or scroll to **Plain language: terms used on this page** in the stack note. Open [software engineering](../handbook/software-engineering.md) for paragraphs when a term is **load-bearing** (idempotency, isolation, etc.).
 3. **Overlap is OK** — Phases can run in parallel calendar time (e.g. observability while building RAG); the table below is **dependency** order, not a ban on overlap.
 4. **Code examples** — Prefer **specs + lab repos** + reference **TOC sections** (see mapping below), not a second linear syllabus.
 

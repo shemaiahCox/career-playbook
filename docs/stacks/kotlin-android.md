@@ -4,6 +4,8 @@
 
 **Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md)
 
+**New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
+
 ---
 
 ## Android lane (primary)
@@ -12,10 +14,10 @@
 
 | Piece | What to know |
 |--------|----------------|
-| **Runtime** | Art VM; **Kotlin** interoperates with **Java** and Android SDK (two languages, one APK). |
-| **Build** | **Gradle** (Kotlin DSL or Groovy); **AGP** versions pin what APIs you get. |
-| **UI** | **Jetpack Compose** (declarative) vs **XML + Views** (imperative); both coexist in migration. |
-| **Structure** | **Modules** (`app`, `feature-*`, `core-*`); **Gradle flavors/build types** for env-specific behavior. |
+| **Runtime** | Code runs on Android’s **ART** virtual machine; **Kotlin** and **Java** libraries often live together in one **APK** (the installable app package). |
+| **Build** | **Gradle** is the build tool (scripts in Kotlin or Groovy); **AGP** (Android Gradle Plugin) version locks which Android build features you can use. |
+| **UI** | **Jetpack Compose** builds UI with **declarative** descriptions (“draw this when state is X”); **XML + Views** is the older **imperative** style—many apps mix both while migrating. |
+| **Structure** | **Modules** split code (`app`, `feature-*`, `core-*`); **flavors / build types** swap config for dev vs prod without copy-paste. |
 
 ### Concurrency & lifecycle
 
@@ -27,7 +29,7 @@
 
 - **`Context` leaks** (holding Activity/Context past teardown) — a top cause of retaining entire screens.
 - **Listeners, Handlers, static refs** to Views or Activities.
-- **Compose:** remember **where state lives** (ViewModel vs composable)- Avoid **remember** holding stale heavy objects.
+- **Compose:** remember **where state lives** (ViewModel vs composable). Avoid **`remember`** holding stale heavy objects.
 
 ### Networking & data
 
@@ -53,6 +55,38 @@
 - [ ] Coroutines **scoped** (not fire-and-forget globals) for UI-related work.
 - [ ] **Context** usage — prefer **`applicationContext`** when a long-lived ref needs Context; avoid leaking Activity.
 - [ ] **ProGuard/R8** — release builds strip/optimize; crashes that only happen in release often map here.
+
+---
+
+## Plain language: terms used on this page
+
+Google throws a lot of names at newcomers—focus on **ideas**, not trivia.
+
+- **ART** — Android’s runtime executing your bytecode on device—not something you micromanage daily, but “where code runs.”
+- **Kotlin / Java interop** — Old Android code is Java; new code is Kotlin; they call each other inside one APK.
+- **Gradle / AGP** — Scripts that compile, package, and sign the app—the Android Gradle Plugin upgrades track new platform APIs.
+- **Compose vs XML Views** — Two UI toolkits; Compose is newer and state-driven.
+- **Module** — Gradle sub-project so features stay isolated (`:app`, `:feature-login`, …).
+- **Flavor / build type** — “debug vs release” layers or “free vs paid” shapes without duplicating the whole codebase.
+- **Coroutine** — Kotlin’s structured async—think “cheap tasks you can pause.”
+- **Dispatcher (Main vs IO vs Default)** — Which shared thread pool runs the work (**Main** = UI lane—never block it on network!).
+- **`lifecycleScope` / `viewModelScope`** — Coroutines cancelled when the UI or ViewModel is torn down—stops stray work leaking after leaving a screen.
+- **Flow / StateFlow** — Kotlin streams for reacting to data changing over time.
+- **`repeatOnLifecycle`** — Compose/Android helper so collectors obey screen visibility—fewer crashes from updating dead UI.
+- **Context leak** — Holding Android `Context` (especially an **Activity**) after the UI closed—often keeps a whole UI tree in RAM.
+- **Retrofit / OkHttp** — Common HTTP stack (declarative API client + plumbing underneath).
+- **Certificate pinning / timeouts** — Security and reliability choices for HTTPS calls—not “automatically correct.”
+- **Room** — SQLite wrapper with migrations—schema changes deserve the same seriousness as backend DB migrations.
+- **JVM lane** — When Kotlin runs **without Android UI**, you pick normal server concurrency models (threads, reactive stacks, etc.).
+- **12-factor config** — Keep environment/secrets/config outside baked artifacts—borrowed mantra from cloud-native lore.
+- **ProGuard / R8** — Release step shrinks and obfuscates code—stack traces become harder unless you ship mapping files.
+
+### Read next (handbook)
+
+- **[Concurrency basics](../handbook/software-engineering.md#concurrency-basics)** — main/UI lane vs workers (matches **Dispatchers** above).
+- **[Async sketch — table](../handbook/software-engineering.md#async-sketch)** — see Java/Kotlin-ish server defaults in the playbook’s coarse map.
+- **[Example: idempotent webhook or job](../handbook/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — mobile apps still call flaky HTTP APIs—same replay discipline.
+- **[Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces)** — correlation across device + backend.
 
 ---
 

@@ -4,16 +4,18 @@
 
 **Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 1 webhook spec](../../project-specs/01-integration-webhook-receiver.md)
 
+**New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
+
 ---
 
 ## Mental model
 
 | Piece | What to know |
 |--------|----------------|
-| **Runtime** | **PHP-FPM** (per-request workers) vs **CLI** (`artisan`, queues, schedulers) vs **Laravel Octane** (long-lived workers — **different memory/lifetime** rules). |
-| **Deps** | **Composer** (`composer.json` / lock); **autoloading** (PSR-4). `vendor/` is not your code — don’t “fix” upstream by editing. |
-| **Laravel boot** | **HTTP kernel** → **middleware pipeline** → **router** → **controller action** / **closure**; **service container** resolves dependencies. |
-| **Config** | `config/*.php` + **`.env`**; **`php artisan config:cache`** in prod — **env changes** require rebuild/redeploy awareness. |
+| **Runtime** | **PHP-FPM** spins workers that handle **one web request lifecycle**—memory resets naturally. **CLI** scripts (`artisan`, queues) and **Octane/long-lived worker** setups **reuse RAM** across requests—you must rethink globals/singleton caches. |
+| **Deps** | **Composer** (`composer.json` + lock) restores libraries; **PSR-4 autoload** maps namespaces to folders. **`vendor/`** is upstream code—fork inside `vendor/` is a trap. |
+| **Laravel boot** | Incoming HTTP traverses kernel → ordered **middleware** → matched **route** → **controller/action**; the **service container** wires injected dependencies (“this class needs Logger X”). |
+| **Config** | `config/*.php` reads **environment** (`APP_ENV`, `.env`). `php artisan config:cache` bakes configs in prod—flip env vars without rebuilding at your peril. |
 
 ---
 
@@ -48,6 +50,32 @@
 - [ ] **Webhook handlers:** signature, **idempotency**, **replay** behavior (see integration hardening checklist).
 - [ ] **Queue workers:** **failed_jobs** / DLQ discipline; **max retries** and **timeout** aligned with partner SLAs.
 - [ ] If **Octane/long-lived**: audit **global state**, **static caches**, **connection pools**.
+
+---
+
+## Plain language: terms used on this page
+
+Laravel hides ceremony—come here when tutorials assume buzzwords sunk in overnight.
+
+- **PHP-FPM** — Pool of PHP workers—each typical web **request is born and dies isolated** (**memory resets** when the handler finishes unless you opted into long-lived runtimes).
+- **`artisan`** — Laravel CLI you run for queues, migrations, generators, cron glue.
+- **Octane / RoadRunner / FrankenPHP / long-lived workers** — Faster because processes stay alive—**globals/static caches/leaks** behave like backend services (**not throwaway RAM** anymore).
+- **Composer / lock / PSR-4** — Composer downloads packages (`vendor/`) following `composer.lock`; namespaces map predictable paths—**don't edit upstream inside `vendor/`**.
+- **Service container / DI** — Framework answers “give me Mailer”—constructs wired objects recursively.
+- **Middleware** — Code wrapping requests—ordering from outside-in decides who runs first (**auth**, throttling, request IDs…).
+- **`FormRequests` / validation** — Opinionated Laravel layer saying “incoming JSON/query must satisfy these rules.”
+- **`ShouldQueue` / retry / DLQ mindset** — Async jobs assumed **possibly duplicated** (**at-least-once**)—handlers must tolerate replays (**idempotent** helpers).
+- **Scheduler + overlap locks** — Cron hits one VM—long jobs need explicit locking so overlaps do not corrupt data twice.
+- **Eloquent ORM / N+1 / eager (`with`)** — ORM ergonomics hiding SQL until hot paths regress—preload related rows consciously.
+- **Migrations reversible / zero-downtime discipline** — Evolve schema gradually so deploys rolling old+new binaries stay safe (**expand/contract** pattern).
+- **`APP_DEBUG` / `APP_KEY` / `.env`** — Secrets + debug flags treated as radioactive for production parity.
+
+### Read next (handbook)
+
+- **[Example: idempotent webhook or job](../handbook/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — webhooks + queue retries (fits **ShouldQueue** mental model).
+- **[Integration: sync, async, and messaging](../handbook/software-engineering.md#integration-sync-async-and-messaging)** — delivery semantics in prose.
+- **[ORMs and the N+1 pattern](../handbook/database-design.md#orms-and-the-n1-query-pattern)** — Eloquent preload story.
+- **[Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces)** — structured logs in PHP-shaped services.
 
 ---
 

@@ -4,6 +4,8 @@ Concepts for building maintainable systems, shipping safely, and communicating i
 
 **Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md)
 
+**If jargon-dense stack notes feel overwhelming first:** skim **[Stacks — New here?](../stacks/README.md#new-here-read-this-once)** and **[Stacks glossary](../stacks/glossary.md)**; come back here for **longer narratives and worked patterns** (delivery semantics, idempotent handlers, N+1). For ORM query shapes, see **[Database design — N+1 pattern](database-design.md#orms-and-the-n1-query-pattern)**.
+
 ---
 
 ## Table of contents
@@ -17,6 +19,7 @@ Concepts for building maintainable systems, shipping safely, and communicating i
 - [Design patterns (GoF-style survey)](#design-patterns-gof-style-survey)
 - [Architectural patterns](#architectural-patterns)
 - [Integration: sync, async, and messaging](#integration-sync-async-and-messaging)
+- [Example: idempotent webhook or job (Integration)](#example-idempotent-webhook-or-job-consumer)
 - [REST](#rest)
 - [SOAP and WS-style services](#soap-and-ws-style-services)
 - [OData](#odata)
@@ -43,6 +46,8 @@ Concepts for building maintainable systems, shipping safely, and communicating i
 | **Basic** | Definitions, “when would I use this,” one example. |
 | **Intermediate** | Tradeoffs, failure modes, how teams apply this in practice. |
 | **Advanced** | Distributed pitfalls, formal edges (named, not fully proved here). |
+
+**Newcomer bridge:** If stack maps felt like alphabet soup, read **[Integration + idempotent example](#integration-sync-async-and-messaging)** and **[Concurrency basics](#concurrency-basics)** before interviews; ORM access patterns live under **[Database design — N+1](database-design.md#orms-and-the-n1-query-pattern)**.
 
 ---
 
@@ -166,9 +171,63 @@ flowchart TB
 
 ## Integration: sync, async, and messaging
 
-**Sync HTTP:** Simple, but couples availability—cascading failures without timeouts/retries/backoff.
+**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — webhook receiver](../../project-specs/01-integration-webhook-receiver.md); [Stacks — ecosystem maps](../stacks/README.md) (how PHP, Python, Node, … express these ideas).
 
-**Message queues:** **At-least-once** delivery common—**consumers must be idempotent**.
+### Sync HTTP callers
+
+**Basic:** **Synchronous HTTP** means your code **waits** for the other service’s response. That is simple to reason about, but if the peer is slow or down and you have **no timeouts**, your **threads, connection pools, or event loop** fill up and failures **cascade** through the system.
+
+**Intermediate:** Combine **timeouts**, **bounded retries with jittered backoff**, and **idempotency keys** for mutating calls so a **retry** does not double-apply an effect. Add **circuit breakers** when a dependency is clearly unhealthy so you **fail fast** instead of queuing work that will never succeed.
+
+### Message queues and delivery semantics
+
+**Basic:** **Queues** decouple **when** work is produced from **when** it is processed—the producer can finish while messages wait for an available worker.
+
+**Delivery names (what product people really mean):**
+
+| Name | Plain English | What your code must guarantee |
+|------|---------------|-------------------------------|
+| **At-most-once** | A message may be processed **zero or one** time; **loss** is possible on crash | Fine only when missing an event is acceptable (telemetry, best-effort cache warm) |
+| **At-least-once** | **Common default** after retries: the **same logical message** may arrive **twice** | Consumer must be **idempotent** or **dedupe** with a **stable id** |
+| **Exactly-once** (end-to-end) | Marketed promise; in distributed systems you usually build **effectively-once** from **at-least-once** + **idempotent writes** + careful **outbox/transaction** patterns | Design for **duplicate delivery** first; then narrow the window where it hurts |
+
+**Message queues (reminder):** **At-least-once** delivery is the usual mental model—**consumers must be idempotent**. See also [GraphQL, gRPC, and webhooks](#graphql-grpc-and-webhooks) for **webhook**-specific notes (signatures, fast ack vs slow work).
+
+### Example: idempotent webhook or job consumer
+
+**Scenario:** A partner sends `POST /webhooks/orders` with JSON including `"event_id": "evt_123"`. Their side **retries** if your server is slow or returns 5xx—so your handler may see **`evt_123` twice**.
+
+**Fragile pattern (duplicate side effects):**
+
+```text
+on POST /webhooks/orders:
+  parse JSON body
+  INSERT INTO orders (...) VALUES (...)      -- retry → duplicate orders
+  RETURN 200
+```
+
+**Safer pattern (record idempotency before side effects):**
+
+```text
+on POST /webhooks/orders:
+  parse JSON → ev = body.event_id
+  BEGIN TRANSACTION
+    INSERT INTO processed_webhook_events (event_id)
+      VALUES (ev)
+      ON CONFLICT (event_id) DO NOTHING           -- dialect varies: upsert / unique constraint
+    IF inserted_or_conflict_means_already_done:
+       COMMIT ; RETURN 200                       -- replay: harmless
+    APPLY business change (same tx if possible): -- e.g. upsert order by partner_order_id
+      INSERT INTO orders (...) ON CONFLICT (partner_order_id) DO UPDATE ...
+  COMMIT
+  RETURN 200
+```
+
+**Takeaways:**
+
+- **Verify signatures** where the integration provides them—before you trust payloads or enqueue work (**[integration hardening](../../checklists/integration-hardening.md)**).
+- Return **success only after** you have durably expressed “this **`event_id`** is handled” or applied an equivalent **business-key upsert**.
+- Slow work (**PDFs, ML, third-party chaining**) belongs in **async jobs** keyed by the same **`event_id`** or business id—the HTTP handler acknowledges **intent recorded**, not “world finished.”
 
 ---
 
@@ -376,7 +435,15 @@ For complexity, core structures, pattern recognition, and interview flow, use th
 
 ## Concurrency basics
 
-**Processes** isolated; **threads** share address space—**data races** without synchronization. Prefer **message passing** or clear locking discipline.
+**Processes** run in **separate memory**; **threads** inside one process share memory—without rules, **data races** (two writers, one reader without synchronization) corrupt state. Prefer **immutable data**, **message passing**, or **documented locking** over ad-hoc shared mutable heaps.
+
+### UI threads and “don't block the main path”
+
+**Basic:** Interactive apps (desktop, mobile, browser) expose a **main** or **UI thread** users feel as “the app responding.” Long **CPU work**, blocking **disk**, or naive **network** calls on that path cause **freezes**. Move heavy work to **background threads**, **worker pools**, or **async awaits** **that do not stall** the UI (exact API depends on framework—Swift **MainActor**, Android **Dispatchers**, browser **workers**, …).
+
+**Intermediate:** Backend services less often have a literal “main thread,” but they still have **scarce resources**: **bounded thread pools**, **event loops**, **DB pool connections**. **Blocking** inside an async-only stack (FastAPI/asyncio; Node)—or **blocking the UI thread on mobile**—are the same **class** of mistake: starvation under load.
+
+**Where each language expresses async:** see [Async sketch (cross-language)](#async-sketch).
 
 ---
 

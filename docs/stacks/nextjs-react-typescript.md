@@ -4,16 +4,18 @@
 
 **Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md)
 
+**New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
+
 ---
 
 ## Mental model
 
 | Piece | What to know |
 |--------|----------------|
-| **Runtime** | **Node.js** runs server components, route handlers, SSR/SSG pipelines; **browser** runs client components and hydration. |
-| **Boundaries** | **Server vs client components** (and “use client”) determine where **secrets**, **FS**, and **DB** may run. |
-| **Bundling** | **Turbopack/Webpack**; **tree shaking**; **env** vars exposed to client only if prefixed/configured (**never leak server secrets**). |
-| **Data** | **fetch** on server, **React Query/SWR** or server actions—pick **one** coherent story per feature. |
+| **Runtime** | **Node.js** (server-side JavaScript) runs layouts, loaders, APIs, SSR/SSG; the **browser** runs **interactive** widgets and attaches them (**hydration**). |
+| **Boundaries** | **Server vs client components** (+ `"use client"`) decides where **secrets, filesystem, databases** may safely run—you cannot ship `.env` secrets to the bundle by accident if you obey the fence. |
+| **Bundling** | **Webpack / Turbopack** package files; **tree shaking** deletes unused imports; **`NEXT_PUBLIC_…`** exposes env vars—double-check naming so keys never reach the bundle. |
+| **Data** | Use **native `fetch` on the server**, or **React Query/SWR** on the client, or **server actions**—just pick **one** clear story per feature so data flow stays reviewable. |
 
 ---
 
@@ -54,6 +56,35 @@
 ## Non-Next React (Vite, CRA, SPA)
 
 Same **React + TS** footguns; you **lose** framework-enforced server boundaries—**you** must enforce API/auth/data discipline. Prefer this doc’s **React/TS** sections and add your own **routing + API** map.
+
+---
+
+## Plain language: terms used on this page
+
+If “server component” scrambled your brain, read only this section tonight.
+
+- **Node.js** — JavaScript runtime on servers (and during `next dev/build`), not inside the visitor’s tabs.
+- **SSR / SSG / hydration** — *SSR* renders HTML per request or when data changes; *SSG* renders once ahead of time; *hydration* reattaches JavaScript event handlers in the browser so the page becomes interactive.
+- **React** — Component-based UI toolkit for the browser (+ server helpers in frameworks).
+- **TypeScript** — JavaScript plus static types—you catch mismatches earlier.
+- **`use client`** — Directive telling Next.js “bundle this boundary for the browser.”
+- **Server component vs client component** — Roughly **data and secrets belong server-side**, **animations and timers belong client-side**—Next enforces fences if you cooperate.
+- **Webpack / Turbopack** — Bundlers assembling files tree-shaken for production.
+- **Tree shaking** — Dead-code elimination (“imported but unused” disappears).
+- **React Query / SWR** — Helpers for caching/displaying fetched data client-side—think “friendly layer over `fetch`.”
+- **Server actions** — Next feature to mutate data from tightly coupled server endpoints without always hand-writing REST.
+- **`useEffect` / dependency array** — Hook for syncing with **outside** systems; easy to misuse and create stale data bugs.
+- **Middleware** — Runs at the edge of routing—common for auth checks; easy to miss paths if not global.
+- **AbortController** — Cancels in-flight `fetch` when user navigates away—stops ghost updates.
+- **BFF** — “Backend for frontend”—this Next app often plays that role for a separate API.
+- **CRA / Vite / plain SPA** — Create React App (legacy-ish) or Vite—**bundled browser apps** without Next’s fences; you replicate auth/data hygiene yourself (**see Non-Next** section earlier).
+
+### Read next (handbook)
+
+- **[Security for applications](../handbook/software-engineering.md#security-for-applications)** — CORS is not auth; CSRF for cookie sessions; OWASP categories named there.
+- **[REST](../handbook/software-engineering.md#rest)** and **[GraphQL, gRPC, and webhooks](../handbook/software-engineering.md#graphql-grpc-and-webhooks)** — how this BFF usually talks to backends.
+- **[Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces)** — correlation IDs through server and client fetch paths.
+- **[Concurrency basics](../handbook/software-engineering.md#concurrency-basics)** — why blocking the wrong runtime thread still matters on the server.
 
 ---
 

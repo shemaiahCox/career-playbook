@@ -7,8 +7,10 @@ Material here supports both the **project ladder** ([README.md](../README.md)) a
 Pick the folder that matches what you need right now:
 
 - **[paths/](paths/)** — **Where am I going?** Ordered workflows and journeys: [learning journey (weeks + builds)](paths/learning-journey.md), [AI-assisted unfamiliar stack](paths/ai-assisted-unfamiliar-stack.md), [systems architect across languages](paths/systems-architect-across-languages.md). Start with the learning journey if you want a linear path.
-- **[handbook/](handbook/)** — **What should I know deeply?** Long-form study notes: CLI, networking, databases, software engineering breadth ([software engineering](handbook/software-engineering.md), [database design](handbook/database-design.md), [algorithms and data structures](handbook/algorithms-and-data-structures.md), [command-line tooling](handbook/command-line-tooling.md), [servers and networking](handbook/servers-and-networking.md)). Deep dives and interview breadth.
-- **[stacks/](stacks/)** — **How does this stack say it?** [Term-card template, vocabulary rules, and ecosystem maps](stacks/README.md) (Swift, Kotlin, Next/TS, .NET, PHP/Laravel, Python, SQL).
+- **[handbook/](handbook/)** — **What should I know deeply?** Long-form study notes: CLI, networking, databases, software engineering breadth ([software engineering](handbook/software-engineering.md), [database design](handbook/database-design.md), [algorithms and data structures](handbook/algorithms-and-data-structures.md), [command-line tooling](handbook/command-line-tooling.md), [servers and networking](handbook/servers-and-networking.md)). Deep dives and interview breadth—**worked examples:** [Integration + idempotent webhook](handbook/software-engineering.md#integration-sync-async-and-messaging) · [ORM N+1 pattern](handbook/database-design.md#orms-and-the-n1-query-pattern).
+- **[stacks/](stacks/)** — Short cheat sheets (“ecosystem maps”) for Swift, Kotlin, Next/TS, .NET, PHP/Laravel, Python, SQL—they pack lots of jargon on purpose.
+
+  **Totally confused?** Start with [Stacks glossary (plain-language jump links)](stacks/glossary.md) or the newcomer intro in [Stacks README — New here?](stacks/README.md#new-here-read-this-once). Dense tables plus the printable **term-card** worksheet live in [stacks/README.md](stacks/README.md).
 
 **Checklists** at the repo root under [checklists/](../checklists/) include [unfamiliar-stack-ship.md](../checklists/unfamiliar-stack-ship.md) for a definition-of-done pass before you call AI-assisted work “shipped.”
 

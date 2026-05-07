@@ -14,6 +14,7 @@ Relational modeling, storage tradeoffs, **vector search**, and operational topic
 - [Keys and integrity](#keys-and-integrity)
 - [Normalization](#normalization)
 - [Indexes](#indexes)
+- [ORMs and the N+1 query pattern](#orms-and-the-n1-query-pattern)
 - [Transactions and ACID](#transactions-and-acid)
 - [Migrations](#migrations)
 - [Connection pooling](#connection-pooling)
@@ -103,6 +104,33 @@ erDiagram
 **Intermediate:** **Covering index** includes columns so queries avoid **table lookups**. **Write amplification:** every index updates on write.
 
 **When indexes hurt:** Low-selectivity columns, tiny tables, or **hot write** paths with too many indexes.
+
+### ORMs and the N+1 query pattern
+
+**Basic:** An **ORM** (Object-Relational Mapper) loads tables as objects in application code (**Eloquent**, **SQLAlchemy**, **EF Core**, **Django ORM**, …). **N+1 queries** happen when ORM lazily touches a **relationship** inside a loop: one query loads **parents**, then **one extra query per parent** loads **children**—**O(1)** round trips balloon to **O(n)**.
+
+**Example (mental walkthrough — users and profiles):**
+
+```text
+-- Step 1: ORM loads all users shown on a page (1 query)
+SELECT id, email FROM users LIMIT 100;
+
+-- Step 2: Code loops; each access to user.profile triggers another query (N queries)
+SELECT * FROM profiles WHERE user_id = 1;
+SELECT * FROM profiles WHERE user_id = 2;
+-- ... ×100
+```
+
+**Better shape:** one **batched read** joining or using **`IN (...)`**, or an ORM **`eager load` / JOIN FETCH**:
+
+```sql
+SELECT u.*, p.*
+FROM users u
+JOIN profiles p ON p.user_id = u.id
+WHERE u.id IN ( /* page of ids */ );
+```
+
+**Intermediate:** Inspect **logged SQL** in staging—not just “page loads.” ORM defaults often favor **lazy** loading for ergonomics while tutorials are small; **hot HTTP handlers** reveal N+1 as latency cliffs. Indexes help **each** query, but they **cannot** replace **fewer round trips** between app and DB (see stacks: [Python](../stacks/python.md), [PHP/Laravel](../stacks/php-laravel.md), [.NET](../stacks/csharp-dotnet.md), [SQL map](../stacks/sql.md)).
 
 ---
 
