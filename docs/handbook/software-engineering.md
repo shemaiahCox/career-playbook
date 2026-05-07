@@ -2,7 +2,7 @@
 
 Concepts for building maintainable systems, shipping safely, and communicating in interviews—from **paradigms** and **patterns** to **APIs**, **testing**, **DSA**, and **cross-language gotchas** (Python, JavaScript, PHP, C#).
 
-**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md)
+**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md)
 
 ---
 
@@ -370,13 +370,7 @@ Know each language’s **falsy** set (e.g. JS: `0`, `""`, `NaN`, `null`, `undefi
 
 ## Data structures and algorithms
 
-**Big-O (intuition):** O(1) constant; O(log n) halve search space; O(n) scan; O(n log n) good sorts; O(n²) nested loops on n; O(2^n) exhaustive subsets—**explodes** fast.
-
-**Structures:** **Array/list** index; **hash map** O(1) avg lookup; **tree/heap** for ordering; **graph** for networks.
-
-**Patterns:** **Two pointers**, **sliding window**, **binary search** on answer space, **BFS** (layers), **DFS** (deep)—recognize graph vs tree.
-
-**Interview process:** Clarify → tiny example → brute force → optimize → test edge cases.
+For complexity, core structures, pattern recognition, and interview flow, use the dedicated handbook note—**[Algorithms and data structures](algorithms-and-data-structures.md)**—so this file stays a breadth index. You still want Big-O vocabulary for reviews and screens even when libraries (or generated code) implement the details.
 
 ---
 
@@ -407,5 +401,5 @@ Store text as **UTF-8**. Separate **locale** from **language**; never assume sin
 - **Microservices** vs **monolith** tradeoffs.
 - **Observability** three pillars; **SLI vs SLO**.
 - **OWASP** top-level categories you have mitigated in code.
-- **Big-O** of a nested loop; when **hash map** helps.
+- **Big-O** of a nested loop; when **hash map** helps ([Algorithms and data structures](algorithms-and-data-structures.md)).
 - One **cross-language** bug (e.g. `==` in PHP vs `===`).
