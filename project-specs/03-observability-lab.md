@@ -119,6 +119,10 @@ Implement these against **your** observability lab host ([rag-llm-lab](https://g
 
 - OpenTelemetry export to console or local collector.
 
+## Companion reading
+
+- [Debugging (workflow)](../docs/handbook/software-engineering.md#debugging-workflow) — structured loop for narrowing failures once you have correlation IDs and logs.
+
 ## Maps to
 
 SRE-minded backend roles, on-call readiness.

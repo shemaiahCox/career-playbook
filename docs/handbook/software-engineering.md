@@ -1,6 +1,6 @@
 # Software engineering
 
-Concepts for building maintainable systems, shipping safely, and communicating in interviews—from **paradigms** and **patterns** to **APIs**, **testing**, **DSA**, and **cross-language gotchas** (Python, JavaScript, PHP, C#).
+Concepts for building maintainable systems, shipping safely, and communicating in interviews—from **paradigms** and **patterns** to **APIs**, **testing**, **debugging**, **DSA**, **observability**, and **cross-language gotchas** (Python, JavaScript, PHP, C#).
 
 **Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md)
 
@@ -25,6 +25,7 @@ Concepts for building maintainable systems, shipping safely, and communicating i
 - [OData](#odata)
 - [GraphQL, gRPC, and webhooks](#graphql-grpc-and-webhooks)
 - [Testing](#testing)
+- [Debugging (workflow)](#debugging-workflow)
 - [CI/CD and delivery](#cicd-and-delivery)
 - [Versioning and compatibility](#versioning-and-compatibility)
 - [Code review and documentation](#code-review-and-documentation)
@@ -302,6 +303,24 @@ flowchart TB
 
 **Intermediate:** **Flaky tests** erode trust—quarantine, fix or delete.
 
+When behavior in prod or CI disagrees with what you thought you shipped, use a tight **debugging loop** before you only add more tests—see **[Debugging (workflow)](#debugging-workflow)**. After you understand the failure, **lock the fix** with a regression test so the failure mode stays visible.
+
+---
+
+## Debugging (workflow)
+
+**Basic:** **Debugging** means shrinking the gap between **expected** and **actual** behavior—not guessing, and not changing three things at once. A workable loop: **reproduce** (same inputs, same environment class) → **shrink** the case (smallest command, smallest data) → **hypothesis** → **one** cheap **experiment** (breakpoint, log line, assertion in a test, trace filter, SQL plan) → confirm or falsify → repeat.
+
+**Intermediate:**
+
+- **Local vs production:** A **debugger** (step, inspect stack and locals) shines when control flow or invariants are wrong in code you can run. **Structured logs** and **traces** shine when the bug is timing, concurrency, or multi-service—often you cannot attach a debugger to production; treat **[Observability: logs, metrics, traces](#observability-logs-metrics-traces)** as the default production tool and narrow locally once you can reproduce.
+
+- **Binary search:** **`git bisect`** (or equivalent) between known-good and known-bad commits when a regression appears and the diff space is large.
+
+- **Safety net:** After you find root cause, add or extend **[Testing](#testing)** so the same class of bug fails fast next time (unit or integration, whichever catches the boundary you fixed).
+
+**Not the same as testing:** **Tests** assert intent up front; **debugging** explains a mismatch after failure. They meet at the regression test.
+
 ---
 
 ## CI/CD and delivery
@@ -345,6 +364,8 @@ flowchart TB
 - **Traces** — **Spans** linked across services show where latency hides; requires **instrumentation** (OpenTelemetry) and sampling at scale.
 
 **SLI / SLO / SLA:** SLI = measurement; **SLO** = internal target; **SLA** = customer-facing promise with consequences.
+
+Signals tell you **where** time went or **which** request failed; they rarely replace thinking through **why** application logic is wrong—narrow with correlation IDs and traces, then reproduce locally and use **[Debugging (workflow)](#debugging-workflow)** when you need stepping or smaller reproducers.
 
 ---
 

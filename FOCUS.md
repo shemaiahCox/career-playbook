@@ -20,7 +20,7 @@ This playbook is for **deliberate practice**: phased labs in [project-specs/](pr
 
 1. **AI in real products** — Retrieval and tool boundaries, safety basics, regression **evals**, cost/latency awareness, logging around model paths.
 2. **Reliability and operability** — Idempotent handlers, retries/backoff patterns, dead-letter handling, structured logs, trace/request IDs, debuggable failures.
-3. **Security** — Secrets outside code, webhook signatures, auth boundaries, dependency hygiene, light threat modeling for integrations.
+3. **Security** — Secrets outside code, webhook signatures, auth boundaries, dependency hygiene, light threat modeling for integrations. **Cybersecurity literacy** (common web vulns, safe defaults) is part of modern backend work—optional [Project 8](project-specs/08-application-security-lab.md) (OWASP foundations: SQLi, XSS, sessions, forms/CSRF) complements P1’s integration-edge security; it does **not** replace a dedicated security team or mean a “security-only” career pivot.
 4. **Async and events** — Webhooks, queues, eventual consistency; overlaps with integration work.
 5. **Developer experience** — OpenAPI/contract thinking, breaking-change discipline, tests where they protect contracts.
 6. **SQL correctness and performance** — Reason about **plans**, **index tradeoffs**, **isolation**, and **pagination** without ORM blind spots ([Project 7](project-specs/07-sql-performance-lab.md)).

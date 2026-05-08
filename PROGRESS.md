@@ -8,9 +8,10 @@ Use them **when you are close to shipping** a slice (or before you call a lab mi
 
 - **Inbound webhooks, partner HTTP, sync integration edges** (and HTTP fronts that enqueue later): [checklists/integration-hardening.md](checklists/integration-hardening.md).
 - **User-facing model / RAG / tool paths**: [checklists/llm-feature-ship.md](checklists/llm-feature-ship.md).
+- **OWASP / web application security (Project 8)** — forms, SQLi, XSS, sessions, CSRF: [checklists/application-security-web-owasp.md](checklists/application-security-web-owasp.md).
 - **New stack + AI** (you are accountable for concepts, not only the prompt): [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md). Workflow: [docs/paths/ai-assisted-unfamiliar-stack.md](docs/paths/ai-assisted-unfamiliar-stack.md).
 
-Walk the sections **top to bottom** once with the repo and env in front of you. You do not have to tick boxes inside the markdown file unless you want to; the point is not skipping whole categories (signatures, idempotency, DLQ, eval regression, PII, timeouts, etc.). If you **defer** a row on purpose, note one line here under that milestone (“Deferred: … because …”) so it is explicit.
+Walk the sections **top to bottom** once with the repo and env in front of you. You do not have to tick boxes inside the markdown file unless you want to; the point is not skipping whole categories (signatures, idempotency, DLQ, eval regression, PII, timeouts, OWASP-style web risks when P8 is in scope, etc.). If you **defer** a row on purpose, note one line here under that milestone (“Deferred: … because …”) so it is explicit.
 
 ### This log
 
@@ -128,3 +129,10 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 - New: [docs/paths/learning-journey.md](docs/paths/learning-journey.md) — View A (dependency spine), View B (illustrative week overlay), weekly recipe, phase → reference skim tables ([software engineering](docs/handbook/software-engineering.md), [database design](docs/handbook/database-design.md), ecosystem maps).
 - [README.md](README.md): quick-link + pointer under **Using this playbook**. [docs/README.md](docs/README.md): paths row. [docs/paths/ai-assisted-unfamiliar-stack.md](docs/paths/ai-assisted-unfamiliar-stack.md): Related link.
+
+---
+
+## 2026-05-13 — Handbook: Debugging (workflow)
+
+- [docs/handbook/software-engineering.md](docs/handbook/software-engineering.md): new section **Debugging (workflow)** (reproduce → hypothesis → one experiment; local debugger vs logs/traces; `git bisect`; regression tests); TOC + intro blurb; cross-links from **Testing** and **Observability**.
+- [docs/paths/learning-journey.md](docs/paths/learning-journey.md): P3/P4 skim row includes Debugging anchor. [docs/README.md](docs/README.md): Observability topic links debugging. [project-specs/03-observability-lab.md](project-specs/03-observability-lab.md): **Companion reading** pointer.

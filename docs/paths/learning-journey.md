@@ -26,6 +26,7 @@ Ship and study in this **idea** order (aligned with [README Learning path](../..
 | 3 | API contracts | [P2 — Contract-first API](../../project-specs/02-contract-first-api.md) | OpenAPI, breaking-change discipline |
 | 4 | Scale shape | [P5 — Async worker](../../project-specs/05-async-worker-stretch.md) | Queues, retries, DLQ, durable work |
 | 4b (optional) | SQL depth | [P7 — SQL performance](../../project-specs/07-sql-performance-lab.md) | Plans, indexes, transactions, pagination |
+| 4c (optional) | Cybersecurity / OWASP (web) | [P8 — Application security](../../project-specs/08-application-security-lab.md) | SQLi, XSS, auth/sessions, forms/CSRF; shipping-engineer literacy |
 | 5 (optional) | Flexible lane | [P6 — Node / TypeScript](../../project-specs/06-node-typescript-lab.md) | Same reliability patterns, broader market signal |
 
 **Stacks in this repo’s specs:** PHP (P1), Python (P4), optional Laravel vs FastAPI (P2), optional Node/TS (P6). You are **not** required to complete a separate “build” in Swift, Kotlin, C#, etc.—use [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) when that stack becomes **real** work.
@@ -45,12 +46,13 @@ Ship and study in this **idea** order (aligned with [README Learning path](../..
 | **6–7** | Phase 3 (P2) | Contract-first API milestone; consumer-smoke path |
 | **8–9** | Phase 4 (P5) | Worker + queue + retry/DLQ story (often extends P1 or P6) |
 | **Parallel optional** | P7 | Run Postgres lab exercises alongside phase 3–4 if data depth is a gap |
+| **Parallel optional** | P8 | OWASP web lab (forms + DB + sessions) after or alongside P2/P6/P7—see spec for stack options |
 | **When ready** | P6 | One small Node/TS service if breadth matters for your market |
 
 **Weekly recipe (pick one emphasis per week):**
 
 - **Ship** a slice of the **active** spec’s **Success criteria**, *or*
-- **Walk** one [checklist](../../checklists/) (integration, LLM, or [unfamiliar-stack](../../checklists/unfamiliar-stack-ship.md) if AI + new stack), *or*
+- **Walk** one [checklist](../../checklists/) (integration, LLM, [application-security-web-owasp](../../checklists/application-security-web-owasp.md) for P8, or [unfamiliar-stack](../../checklists/unfamiliar-stack-ship.md) if AI + new stack), *or*
 - **Skim** one [ecosystem map](../stacks/README.md#ecosystem-maps-optional-short) (30–45 min) for the stack you are **actually** using that week.
 
 Log tradeoffs and failure modes in [PROGRESS.md](../../PROGRESS.md) when something ships.
@@ -66,16 +68,18 @@ Use this when you want **reading tied to the lab you are in**, not abstract line
 | While you are in… | Skim these sections (anchors) |
 |---------------------|-------------------------------|
 | **P1** Webhook | [Integration: sync, async, and messaging](../handbook/software-engineering.md#integration-sync-async-and-messaging) · [GraphQL, gRPC, and webhooks](../handbook/software-engineering.md#graphql-grpc-and-webhooks) · [REST](../handbook/software-engineering.md#rest) · [Security for applications](../handbook/software-engineering.md#security-for-applications) |
-| **P4** RAG + **P3** Observability | [Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces) · [Security for applications](../handbook/software-engineering.md#security-for-applications) · [Testing](../handbook/software-engineering.md#testing) |
+| **P4** RAG + **P3** Observability | [Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces) · [Debugging (workflow)](../handbook/software-engineering.md#debugging-workflow) · [Testing](../handbook/software-engineering.md#testing) · [Security for applications](../handbook/software-engineering.md#security-for-applications) |
 | **P2** Contract API | [REST](../handbook/software-engineering.md#rest) · [Versioning and compatibility](../handbook/software-engineering.md#versioning-and-compatibility) · [Testing](../handbook/software-engineering.md#testing) |
 | **P5** Async worker | [Integration: sync, async, and messaging](../handbook/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency basics](../handbook/software-engineering.md#concurrency-basics) |
 | **P6** Node / TypeScript | [REST](../handbook/software-engineering.md#rest) · [Cross-language concepts and gotchas](../handbook/software-engineering.md#cross-language-concepts-and-gotchas) |
+| **P8** Application security / OWASP | [Security for applications](../handbook/software-engineering.md#security-for-applications) · [Testing](../handbook/software-engineering.md#testing) |
 
 ### [Database design](../handbook/database-design.md)
 
 | While you are in… | Skim these sections |
 |---------------------|---------------------|
 | **P7** SQL lab | [Indexes](../handbook/database-design.md#indexes) · [Transactions and ACID](../handbook/database-design.md#transactions-and-acid) · [Migrations](../handbook/database-design.md#migrations) |
+| **P8** OWASP lab (SQLi thread) | [Indexes](../handbook/database-design.md#indexes) · [ORMs and the N+1 query pattern](../handbook/database-design.md#orms-and-the-n1-query-pattern) *(tie unsafe query habits to application code)* |
 | **P4** (RAG / embeddings) | [Vector databases and embeddings](../handbook/database-design.md#vector-databases-and-embeddings) *(when retrieval is in scope)* |
 
 ### Ecosystem maps (orientation, not required each week)
@@ -97,7 +101,7 @@ If you want **extra** polyglot exposure without derailing the spine:
 - Pick **one** stack per **quarter** that is **not** your primary lab (e.g. read [swift-ios](../stacks/swift-ios.md), ship a toy or read a real OSS repo).
 - Use AI for velocity; still walk [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) if anything ships beyond a throwaway.
 
-This is **consciously optional** and does **not** replace P1–P7 for your integration/API/AI narrative.
+This is **consciously optional** and does **not** replace the default spine (P1→P4/P3→P2→P5) or optional labs P6–P8 for your integration/API/AI narrative.
 
 ---
 
