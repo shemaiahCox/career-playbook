@@ -29,7 +29,7 @@ Ship and study in this **idea** order (aligned with [README Learning path](../..
 | 4c (optional) | Cybersecurity / OWASP (web) | [P8 — Application security](../../project-specs/08-application-security-lab.md) | SQLi, XSS, auth/sessions, forms/CSRF; shipping-engineer literacy |
 | 5 (optional) | Flexible lane | [P6 — Node / TypeScript](../../project-specs/06-node-typescript-lab.md) | Same reliability patterns, broader market signal |
 
-**Stacks in this repo’s specs:** PHP (P1), Python (P4), optional Laravel vs FastAPI (P2), optional Node/TS (P6). You are **not** required to complete a separate “build” in Swift, Kotlin, C#, etc.—use [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) when that stack becomes **real** work.
+**Stacks in this repo’s specs:** PHP (P1), Python (P4), optional Laravel vs FastAPI (P2), optional Node/TS (P6). **Exploration maps** (no dedicated spec) include **Java/JVM** and **Node API**—see the [ecosystem maps](#ecosystem-maps-orientation-not-required-each-week) table below. You are **not** required to complete a separate “build” in Swift, Kotlin, C#, etc.—use [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) when that stack becomes **real** work.
 
 ---
 
@@ -89,7 +89,9 @@ Use this when you want **reading tied to the lab you are in**, not abstract line
 | PHP / Laravel (typical P1/P2) | [php-laravel](../stacks/php-laravel.md) |
 | Python / FastAPI (P4) | [python](../stacks/python.md) |
 | SQL / Postgres (P7) | [sql](../stacks/sql.md) |
-| Node / Next (P6) | [nextjs-react-typescript](../stacks/nextjs-react-typescript.md) |
+| Node + TypeScript **API only** (Express/Fastify, P6) | [node-typescript-backend](../stacks/node-typescript-backend.md) |
+| Next.js + React (full-stack web) | [nextjs-react-typescript](../stacks/nextjs-react-typescript.md) |
+| Java / JVM (Spring-shaped exploration) | [java-jvm](../stacks/java-jvm.md) |
 | Something else unfamiliar + AI | [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) → [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) |
 
 ---

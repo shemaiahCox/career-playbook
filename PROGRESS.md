@@ -132,7 +132,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
-## 2026-05-13 — Handbook: Debugging (workflow)
+## 2026-05-13 — Handbook debugging + stack maps (Node, Java)
 
-- [docs/handbook/software-engineering.md](docs/handbook/software-engineering.md): new section **Debugging (workflow)** (reproduce → hypothesis → one experiment; local debugger vs logs/traces; `git bisect`; regression tests); TOC + intro blurb; cross-links from **Testing** and **Observability**.
-- [docs/paths/learning-journey.md](docs/paths/learning-journey.md): P3/P4 skim row includes Debugging anchor. [docs/README.md](docs/README.md): Observability topic links debugging. [project-specs/03-observability-lab.md](project-specs/03-observability-lab.md): **Companion reading** pointer.
+- [docs/handbook/software-engineering.md](docs/handbook/software-engineering.md): **Debugging (workflow)** section; TOC + intro; cross-links from **Testing** and **Observability**. [docs/paths/learning-journey.md](docs/paths/learning-journey.md): P3/P4 skim row + ecosystem map rows below. [project-specs/03-observability-lab.md](project-specs/03-observability-lab.md): companion reading.
+- New stacks: [docs/stacks/node-typescript-backend.md](docs/stacks/node-typescript-backend.md), [docs/stacks/java-jvm.md](docs/stacks/java-jvm.md); [docs/stacks/README.md](docs/stacks/README.md), [docs/stacks/glossary.md](docs/stacks/glossary.md). [docs/README.md](docs/README.md): Observability/debugging + polyglot/stack exploration; stacks intro line.

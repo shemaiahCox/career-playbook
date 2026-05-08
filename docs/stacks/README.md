@@ -67,6 +67,8 @@ Quick links—including **Plain language** at the bottom of each file:
 | [php-laravel.md](php-laravel.md) | PHP + Laravel (Composer, HTTP/queues, Eloquent, Octane) |
 | [python.md](python.md) | Python — venv/packaging, asyncio vs sync, FastAPI-shaped APIs |
 | [sql.md](sql.md) | SQL / relational engines — transactions, plans, migrations (paired with [database design](../handbook/database-design.md)) |
+| [node-typescript-backend.md](node-typescript-backend.md) | Node.js + TypeScript — HTTP/API services (Express/Fastify), distinct from Next-centric map |
+| [java-jvm.md](java-jvm.md) | Java / JVM — Maven/Gradle, Spring Boot-shaped backend vocabulary |
 
 **One-page index of “where is plain English?”:** [Stacks glossary →](glossary.md)
 

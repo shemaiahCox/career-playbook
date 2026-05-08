@@ -13,6 +13,8 @@ Each ecosystem map repeats the same friendly blurbs **at the bottom of that map*
 | [PHP + Laravel](php-laravel.md#plain-language-terms-used-on-this-page) | php-laravel.md |
 | [Python services](python.md#plain-language-terms-used-on-this-page) | python.md |
 | [SQL / relational databases](sql.md#plain-language-terms-used-on-this-page) | sql.md |
+| [Node.js + TypeScript (HTTP / API)](node-typescript-backend.md#plain-language-terms-used-on-this-page) | node-typescript-backend.md |
+| [Java / JVM backend](java-jvm.md#plain-language-terms-used-on-this-page) | java-jvm.md |
 
 **Stacks folder tour (words we use everywhere):** [README — New here?](README.md#new-here-read-this-once)
 
