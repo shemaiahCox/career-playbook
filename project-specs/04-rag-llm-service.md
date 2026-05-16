@@ -32,7 +32,7 @@ Employers are moving from “prompt in a notebook” to **production AI features
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | **SSH** | `git@github.com:shemaiahCox/rag-llm-lab.git` |
-| **Local sibling** | [`../projects/rag-llm-lab`](../projects/rag-llm-lab) |
+| **Local sibling** | [`../projects/04-rag-llm-lab`](../projects/04-rag-llm-lab) |
 
 ## Stack
 
@@ -120,7 +120,7 @@ _log_event(
 
 ## Exploration scenarios
 
-Run against [rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) locally; put API curls and env notes in that repo’s README. Focus on **evals**, **response contract**, and **logs**—not chat UX polish.
+Run against [`04-rag-llm-lab`](../projects/04-rag-llm-lab) ([GitHub](https://github.com/shemaiahCox/rag-llm-lab)) locally; put API curls and env notes in that repo’s README. Focus on **evals**, **response contract**, and **logs**—not chat UX polish.
 
 ### 1 — Eval suite green
 

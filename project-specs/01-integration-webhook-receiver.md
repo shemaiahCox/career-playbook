@@ -32,7 +32,7 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab) |
 | **SSH** | `git@github.com:shemaiahCox/webhook-receiver-lab.git` |
-| **Local sibling** | [`../projects/webhook-receiver-lab`](../projects/webhook-receiver-lab) |
+| **Local sibling** | [`../projects/01-webhook-receiver-lab`](../projects/01-webhook-receiver-lab) |
 
 ## Stack
 

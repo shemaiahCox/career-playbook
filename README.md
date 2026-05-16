@@ -80,14 +80,14 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 
 | # | Initiative | Local | GitHub |
 |---|------------|-------|--------|
-| 1 | Integration webhook receiver | [webhook-receiver-lab](projects/webhook-receiver-lab) | [shemaiahCox/webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab) |
+| 1 | Integration webhook receiver | [01-webhook-receiver-lab](projects/01-webhook-receiver-lab) | [shemaiahCox/webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab) |
 | 2 | Contract-first API | _TBD_ | _TBD — see [project-specs/02-contract-first-api.md](project-specs/02-contract-first-api.md)_ |
-| 4 | RAG / LLM service (FastAPI + eval harness) | [rag-llm-lab](projects/rag-llm-lab) | [shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
+| 4 | RAG / LLM service (FastAPI + eval harness) | [04-rag-llm-lab](projects/04-rag-llm-lab) | [shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | 5 | Async worker (stretch) | _TBD_ | _Often extends P1/P6 — see [project-specs/05-async-worker-stretch.md](project-specs/05-async-worker-stretch.md)_ |
 | 6 | Node / TypeScript lab (optional) | _TBD_ | _TBD — see [project-specs/06-node-typescript-lab.md](project-specs/06-node-typescript-lab.md)_ |
-| 7 | SQL performance / correctness lab | [sql-perf-lab](projects/sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
+| 7 | SQL performance / correctness lab | [07-sql-perf-lab](projects/07-sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
 | 8 | OWASP / cybersecurity foundations (web) | _TBD_ | _TBD — see [project-specs/08-application-security-lab.md](project-specs/08-application-security-lab.md)_ |
 
-**Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git` · `git@github.com:shemaiahCox/sql-perf-lab.git`
+**Clone (SSH):** `git@github.com:shemaiahCox/webhook-receiver-lab.git` · `git@github.com:shemaiahCox/rag-llm-lab.git` · `git@github.com:shemaiahCox/sql-perf-lab.git` — check out under [`projects/`](projects/) as **`01-webhook-receiver-lab`**, **`04-rag-llm-lab`**, and **`07-sql-perf-lab`** to match initiative numbers above.
 
 Each spec under [project-specs/](project-specs/) expands **key terms** (definitions, problems solved) with snippets from these repos where applicable. When you create a new practice repo for P2/P5/P6/P8, add links here and SSH clone hints as needed.

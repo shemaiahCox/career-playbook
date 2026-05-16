@@ -33,7 +33,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 ## 2026-05-05 — Playbook scaffold
 
 - Initialized [career-playbook](.) with `FOCUS.md`, project specs, and checklists.
-- Created local practice repos: [webhook-receiver-lab](projects/webhook-receiver-lab) (Project 1) and [rag-llm-lab](projects/rag-llm-lab) (Project 4 skeleton: FastAPI, eval JSONL template, observability hooks).
+- Created local practice repos: [01-webhook-receiver-lab](projects/01-webhook-receiver-lab) (Project 1) and [04-rag-llm-lab](projects/04-rag-llm-lab) (Project 4 skeleton: FastAPI, eval JSONL template, observability hooks).
 - **Next:** Run Project 1 locally, exercise idempotency + signature paths; flesh out RAG retrieval in Project 4 when LangChain work starts.
 
 ---
@@ -56,7 +56,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 ## 2026-05-05 — Project 7: SQL performance / correctness lab
 
 - New spec: [project-specs/07-sql-performance-lab.md](project-specs/07-sql-performance-lab.md) — Postgres-focused plans, indexing, joins vs loop-shaped access, transactions, keyset pagination; optional rollup stretch.
-- Practice repo: [projects/sql-perf-lab](projects/sql-perf-lab) (Docker Compose, seeded schema, `exercises/*.sql`).
+- Practice repo: [projects/07-sql-perf-lab](projects/07-sql-perf-lab) (Docker Compose, seeded schema, `exercises/*.sql`).
 - [README.md](README.md): learning path row **4b**, updated SQL paragraph, quick-links row + SSH clone hint for **sql-perf-lab**.
 - [FOCUS.md](FOCUS.md): optional SQL/data depth lane + industry theme **#6** pointing at P7.
 - Cross-links from Projects **1**, **2**, and **5** to P7 for deeper relational work.
@@ -65,7 +65,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ## 2026-05-05 — sql-perf-lab as standalone repo
 
-- [projects/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) is its own git repository (same pattern as webhook- and rag-llm labs); no longer committed inside **career-playbook** (`projects/*/` ignore restored).
+- [projects/07-sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) is its own git repository (same pattern as webhook- and rag-llm labs); no longer committed inside **career-playbook** (`projects/*/` ignore restored).
 - Spec **07** code-repo table matches **local sibling** clone path; main **README** quick links unchanged for local dev.
 
 ---

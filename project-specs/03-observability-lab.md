@@ -28,9 +28,15 @@ Production systems spend most of their life **failing in ways you did not expect
 
 ## Code repo
 
-_TBD — can extend Project 2 or a minimal Express/FastAPI/Laravel app._ Link it here. For a **TypeScript-first** service, piggyback on [Project 6](06-node-typescript-lab.md) (any track) and apply observability success criteria there.
+**Default (playbook phase 2):** Meet the observability success criteria on the **same codebase** as [Project 4 — RAG / LLM service](04-rag-llm-service.md)—the FastAPI skeleton already exposes **request id + JSON logs** (`request_context` middleware).
 
-You can **reference** [rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) today for a minimal **request id + JSON log** pattern (Project 4 stack overlap).
+| | URL |
+|---|-----|
+| **GitHub** | [https://github.com/shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
+| **SSH** | `git@github.com:shemaiahCox/rag-llm-lab.git` |
+| **Local sibling** | [`../projects/04-rag-llm-lab`](../projects/04-rag-llm-lab) |
+
+**Alternatives:** A minimal Express/FastAPI/Laravel app; extend [Project 2 — Contract-first API](02-contract-first-api.md); for **TypeScript-first**, piggyback on [Project 6](06-node-typescript-lab.md) (any track) and apply the same success criteria there.
 
 ## Key concepts (with definitions and code)
 
@@ -82,7 +88,7 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 
 ## Exploration scenarios
 
-Implement these against **your** observability lab host ([rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 6](06-node-typescript-lab.md)). Put concrete curls in the **service README**.
+Implement these against **your** observability lab host ([`04-rag-llm-lab`](../projects/04-rag-llm-lab) / [GitHub](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 6](06-node-typescript-lab.md)). Put concrete curls in the **service README**.
 
 ### 1 — Generated correlation id
 
