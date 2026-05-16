@@ -8,7 +8,7 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 - **Shipped work and lessons:** [PROGRESS.md](PROGRESS.md)
 - **Initiative specs:** [project-specs/](project-specs/)
 - **Reusable checklists:** [checklists/](checklists/)
-- **Docs index:** [docs/README.md](docs/README.md) — maps [paths/](docs/paths/), [handbook/](docs/handbook/), [stacks/](docs/stacks/), [playbook/](docs/playbook/) (per-lab testing + AI prompts)
+- **Docs index:** [docs/README.md](docs/README.md) — maps [paths/](docs/paths/), [handbook/](docs/handbook/), [stacks/](docs/stacks/), [playbook/](docs/playbook/) (per-lab testing + AI prompts) · **SE terms (A–Z):** [Software engineering glossary](docs/handbook/software-engineering-glossary.md)
 - **Learning journey (dependency path + optional week overlay):** [docs/paths/learning-journey.md](docs/paths/learning-journey.md)
 - **Build A in unfamiliar stack B (with AI):** [docs/paths/ai-assisted-unfamiliar-stack.md](docs/paths/ai-assisted-unfamiliar-stack.md) · ship rubric: [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md) · **Ecosystem maps:** [docs/stacks/README.md#ecosystem-maps-optional-short](docs/stacks/README.md#ecosystem-maps-optional-short) · **Plain-language index:** [docs/stacks/glossary.md](docs/stacks/glossary.md)
 

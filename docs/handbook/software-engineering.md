@@ -2,7 +2,7 @@
 
 Concepts for building maintainable systems, shipping safely, and communicating in interviews—from **paradigms** and **patterns** to **APIs**, **testing**, **debugging**, **DSA**, **observability**, and **cross-language gotchas** (Python, JavaScript, PHP, C#).
 
-**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md)
+**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md) · [Software engineering glossary (A–Z)](software-engineering-glossary.md)
 
 **If jargon-dense stack notes feel overwhelming first:** skim **[Stacks — New here?](../stacks/README.md#new-here-read-this-once)** and **[Stacks glossary](../stacks/glossary.md)**; come back here for **longer narratives and worked patterns** (delivery semantics, idempotent handlers, N+1). For ORM query shapes, see **[Database design — N+1 pattern](database-design.md#orms-and-the-n1-query-pattern)**.
 
