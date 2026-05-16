@@ -6,7 +6,7 @@ Study and reference material for shells, streams, Git, packages, HTTP, schedulin
 
 - [Agent workflow: setup and troubleshooting commands](#agent-workflow-setup-and-troubleshooting-commands)
 - [Standard streams: stdin, stdout, stderr (and why they matter)](#standard-streams-stdin-stdout-stderr-and-why-they-matter)
-- [Shells: Bash vs PowerShell](#shells-bash-vs-powershell)
+- [Shells: bash and Unix-style CLIs](#shells-bash-and-unix-cli)
 - [Environment variables and PATH](#environment-variables-and-path)
 - [Permissions: Unix and Windows](#permissions-unix-and-windows)
 - [Git: workflow and troubleshooting](#git-workflow-and-troubleshooting)
@@ -26,7 +26,7 @@ When people say **“agent workflow”** in a coding context, they often mean **
 
 It is not about the agent’s prose—it is about the **CLI vocabulary** agents reuse across repos.
 
-**Beginner foundation:** When a log says “writing to stdout” or you see `2>&1`, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) (**bash and PowerShell** examples).
+**Beginner foundation:** When a log says “writing to stdout” or you see `2>&1`, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) (**bash** examples throughout).
 
 ---
 
@@ -59,7 +59,7 @@ flowchart LR
 |--------|-------------------|
 | Clone | `git clone <url>`, `cd repo` |
 | Current branch / sync | `git status`, `git branch -vv`, `git fetch`, `git pull` |
-| Inspect repo | `ls` / `Get-ChildItem`, `git log -5 --oneline` |
+| Inspect repo | `ls`, `git log -5 --oneline` |
 | Submodules (if used) | `git submodule update --init --recursive` |
 
 **Watch for:** wrong directory (`cwd`), detached HEAD, diverged branch, missing remote.
@@ -80,7 +80,7 @@ flowchart LR
 
 #### Inspect repo
 
-- **`ls`** (Unix) or **`Get-ChildItem`** (PowerShell; `dir` / `ls` often work) — See top-level layout (`README`, `package.json`, `src`, etc.).
+- **`ls`** — See top-level layout (`README`, `package.json`, `src`, etc.). Use **`ls -la`** when you want details and hidden entries.
 - **`git log -5 --oneline`** — Last five commits in one line each; confirms you are on the expected history before you change things.
 
 #### Submodules (if the repo uses them)
@@ -95,33 +95,30 @@ flowchart LR
 
 | Intent | Typical commands |
 |--------|-------------------|
-| OS / kernel | `uname -a` (Unix), `ver` (CMD), `[System.Environment]::OSVersion` (PS) |
-| Shell | `echo $SHELL`, `$PSVersionTable` |
-| Architecture | `uname -m`, Windows: `[Environment]::Is64BitOperatingSystem` |
-| Current path | `pwd`, `Get-Location` |
+| OS / kernel | `uname -a` |
+| Shell | `echo $SHELL` |
+| Architecture | `uname -m` |
+| Current path | `pwd` |
 | Tool versions | `node -v`, `npm -v`, `python --version`, `docker --version`, `git --version` |
-| Where a tool resolves | `command -v node`, `Get-Command node` |
+| Where a tool resolves | `command -v node` |
 
 **Watch for:** multiple installs of the same tool; **PATH order** picking the wrong binary (see [Environment variables and PATH](#environment-variables-and-path)).
 
 #### OS / kernel
 
-- **`uname -a`** (Unix) — Kernel name, host, architecture, and version string—sanity-check you are on Linux vs macOS and which release.
-- **`ver`** (Windows CMD) or **`[System.Environment]::OSVersion`** (PowerShell) — Windows build/version context for native tooling and paths.
+- **`uname -a`** — Kernel name, host, architecture, and version string—sanity-check you are on Linux vs macOS and which release.
 
 #### Shell
 
 - **`echo $SHELL`** — Default login shell on Unix (bash, zsh, fish, …).
-- **`$PSVersionTable`** (PowerShell) — PowerShell edition and version; matters for script syntax and modules.
 
 #### Architecture
 
 - **`uname -m`** — Machine hardware (e.g. `x86_64`, `arm64`). Important for prebuilt binaries and Docker images.
-- **`[Environment]::Is64BitOperatingSystem`** (PowerShell) — Quick 64-bit OS check on Windows.
 
 #### Current path
 
-- **`pwd`** / **`Get-Location`** — Confirm **cwd**; many failures are “run from wrong folder.”
+- **`pwd`** — Confirm **cwd**; many failures are “run from wrong folder.”
 
 #### Tool versions
 
@@ -129,7 +126,7 @@ flowchart LR
 
 #### Where a tool resolves
 
-- **`command -v node`** (Unix) / **`Get-Command node`** (PowerShell) — Which binary runs when you type the command; if the path is surprising, fix **PATH** or version managers (nvm, fnm, pyenv, etc.).
+- **`command -v node`** — Which binary runs when you type the command; if the path is surprising, fix **PATH** or version managers (nvm, fnm, pyenv, etc.). (**`which node`** is common but not universal; **`command -v`** is portable in bash.)
 
 ---
 
@@ -187,8 +184,8 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 | Intent | Typical commands / locations |
 |--------|-----------------------------|
 | Example env file | Copy `.env.example` → `.env` (never commit real secrets) |
-| Show env (filtered) | `printenv`, `Get-ChildItem Env:` |
-| PATH prepend (session) | `export PATH=...` (bash), `$env:PATH = ...` (PS) |
+| Show env (filtered) | `printenv`, `env \| grep TOKEN` |
+| PATH prepend (session) | `export PATH=...` |
 
 **Watch for:** missing `DATABASE_URL`, wrong `NODE_ENV`, feature flags only documented in README.
 
@@ -198,11 +195,11 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 #### Show env (filtered)
 
-- **`printenv`** / **`Get-ChildItem Env:`** — Inspect variables the shell will pass to child processes. Prefer redacting or filtering when pasting logs.
+- **`printenv`** (or **`env`**) — Inspect variables the shell will pass to child processes. Narrow with **`env \| grep NAME`** when looking for something specific. Prefer redacting or filtering when pasting logs.
 
 #### PATH prepend (session)
 
-- **`export PATH=...`** (bash) / **`$env:PATH = ...`** (PowerShell) — Session-only fix to pick a specific toolchain first; persistent fixes belong in shell profile or system PATH ([Environment variables and PATH](#environment-variables-and-path)).
+- **`export PATH="/new/prefix:$PATH"`** — Session-only fix to prepend a directory so a specific toolchain wins; persistent fixes belong in your shell profile or system PATH ([Environment variables and PATH](#environment-variables-and-path)).
 
 ---
 
@@ -274,7 +271,7 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 | Containers | `docker compose up --build`, `docker run ...` |
 | Background | `nohup ... &` (Unix), Windows: services / scheduled tasks |
 
-**Watch for:** port already in use → find process (`ss -lntp`, `Get-NetTCPConnection`, etc.).
+**Watch for:** port already in use → find process with **`ss -lntp`**, **`lsof -i :PORT`**, or similar Unix tools (see [Dense command reference](#dense-command-reference-cheatsheet)).
 
 #### Dev server
 
@@ -318,15 +315,15 @@ These do not “fix” everything—they **narrow** the problem.
 | Systemd (Linux) | `journalctl -u service -e` |
 | Recent file | `tail -n 200 app.log` |
 
-**Going deeper:** `git diff` shows *uncommitted* drift; pair with `git log -1` if the failure was right after a pull. `docker compose logs -f` aggregates services—add the service name to reduce noise. `journalctl -u <unit> -e` jumps to the end of systemd logs; `-n 200` caps line count. `tail -f`/`Get-Content -Wait` for live logs when reproducing.
+**Going deeper:** `git diff` shows *uncommitted* drift; pair with `git log -1` if the failure was right after a pull. `docker compose logs -f` aggregates services—add the service name to reduce noise. `journalctl -u <unit> -e` jumps to the end of systemd logs; `-n 200` caps line count. **`tail -f app.log`** for live logs when reproducing.
 
 #### C. Resource and permission errors
 
 | Symptom | Checks |
 |---------|--------|
 | EACCES / Permission denied | file mode `ls -l`, directory must be writable for install |
-| Port in use | `ss`, `lsof`, PowerShell `Get-NetTCPConnection -LocalPort 3000` |
-| Disk full | `df -h`, `Get-PSDrive` |
+| Port in use | `ss`, `lsof`, `netstat -an` |
+| Disk full | `df -h` |
 | OOM / killed | `dmesg` / host logs, CI job memory limits |
 
 **Going deeper:** **EACCES** on install often means the target directory is not writable by your user (global npm without prefix, or system Python). **Port in use:** find the PID, then stop that process or change your app’s port. **Disk full:** clean package caches and old artifacts before blaming the compiler. **OOM in CI:** raise memory limit or reduce parallelism (`NODE_OPTIONS=--max-old-space-size`, `cargo build -j 1`).
@@ -362,7 +359,7 @@ Use this quick parse:
 1. **Mutates disk?** (`install`, `rm`, `docker system prune`, DB migrations)
 2. **Mutates remote?** (`git push`, cloud CLI)
 3. **Needs secrets?** (tokens in env—confirm scope)
-4. **Needs elevation?** (`sudo`, admin PowerShell)
+4. **Needs elevation?** (`sudo` / root)
 5. **Irreversible?** ( destructive deletes, production DB)
 
 If any **yes** is uncomfortable, pause and narrow scope (dry-run flags, staging environment, backup).
@@ -380,9 +377,9 @@ If any **yes** is uncomfortable, pause and narrow scope (dry-run flags, staging 
 
 ## Standard streams: stdin, stdout, stderr (and why they matter)
 
-This page explains **standard input and output** in plain language, with **bash** and **PowerShell** examples side by side. Read this once and every mention of “pipe to stdout” or “redirect stderr” will make sense.
+This page explains **standard input and output** in plain language, with **bash** examples only. Read this once and every mention of “pipe to stdout” or “redirect stderr” will make sense.
 
-**Related:** [shells-bash-vs-powershell.md](#shells-bash-vs-powershell) (shell basics), [command-reference-cheatsheet.md](#dense-command-reference-cheatsheet) (quick tables).
+**Related:** [Shells: bash and Unix-style CLIs](#shells-bash-and-unix-cli) · [Dense command reference (cheatsheet)](#dense-command-reference-cheatsheet)
 
 ---
 
@@ -425,8 +422,6 @@ You type keys ──────────► stdin  ──►  program  ─�
 
 ### Examples: stdout (stream 1)
 
-#### Bash
-
 ```bash
 echo "hello"              # writes "hello\n" to stdout
 echo "hello" > greeting.txt   # redirect stdout to file (overwrite)
@@ -436,23 +431,9 @@ cat greeting.txt          # reads file, writes contents to stdout
 
 **Why use `>`?** To capture build logs, save API responses, or silence output: `npm run build > build.log`.
 
-#### PowerShell
-
-```powershell
-Write-Output "hello"     # stdout (often same as implied output)
-"hello"                   # in expression mode, also prints to host/output pipeline
-"hello" | Out-File -FilePath greeting.txt -Encoding utf8   # file write (see note below)
-Add-Content -Path greeting.txt -Value "world"               # append
-Get-Content greeting.txt     # reads file; sends to pipeline (often displayed as text)
-```
-
-**Note:** PowerShell uses **objects** in pipelines more than raw bytes. For “Unix-like” redirection of **native** programs (Node, `curl.exe`), **`>`** in PowerShell can still work similarly to bash for **external** executables. For **cmdlets**, people often use `Out-File`, `Set-Content`, or piping to files by design.
-
 ---
 
 ### Examples: stderr (stream 2)
-
-#### Bash
 
 Many programs print errors to stderr so they don’t corrupt data meant for piping.
 
@@ -463,22 +444,14 @@ some-command 2> errors.log
 ## Merge stderr into stdout so both go to the same pipe/file
 some-command 2>&1
 
-## Send both to a file
-some-command &> all.log        # bash: both streams
+## Send both to a file (bash)
+some-command &> all.log
+
+## Equivalent without &>
+some-command > all.log 2>&1
 ```
 
-**Why `2>`?** In Unix shells, `2` is the file descriptor for stderr; `1` is stdout. `2>&1` means “make stderr go wherever stdout goes.”
-
-#### PowerShell
-
-```powershell
-## External programs (e.g. curl.exe) often respect stderr
-curl.exe -s https://bad.url 2> err.txt
-
-## Stream redirection idiom exists; combining streams is possible but cmdlet-heavy
-```
-
-For **native Windows** commands, behavior matches the C runtime’s stderr concept; with **cmdlets**, errors are often **PowerShell errors** (different mechanism), which is why advanced scripts use `try/catch` or `-ErrorAction`.
+**Why `2>`?** In bash, **`2`** is the file descriptor for stderr; **`1`** is stdout. **`2>&1`** means “make stderr go wherever stdout goes.” When merging into **one file**, putting **`> file 2>&1`** captures both streams reliably.
 
 ---
 
@@ -486,68 +459,49 @@ For **native Windows** commands, behavior matches the C runtime’s stderr conce
 
 **Why use a pipe?** So the **output of program A** becomes the **input of program B** without a temporary file.
 
-#### Bash
-
 ```bash
 cat data.txt | wc -l           # line count of file via stdin
 curl -s https://api.example.com/users | jq '.[0].name'
 grep ERROR app.log | tail -n 5
 ```
 
-Here `|` connects **stdout of left** to **stdin of right**.
-
-#### PowerShell
-
-```powershell
-Get-Content data.txt | Measure-Object -Line
-Invoke-RestMethod ... | Select-Object -ExpandProperty name   # objects, not only text
-curl.exe -s https://example.com | Select-String "ok"
-```
-
-**Beginner trap:** PowerShell cmdlets emit **objects**; `Select-Object` filters properties. **External** `.exe` tools behave more like bash text pipes.
+Here **`|`** connects **stdout of left** to **stdin of right**.
 
 ---
 
 ### Examples: stdin explicitly
 
-#### Bash
-
 ```bash
 ## Feed a string as stdin to `wc`
 echo "hello world" | wc -w
 
-## Here-string as stdin
+## File as stdin
 wc -l < bigfile.txt
-```
-
-#### PowerShell
-
-```powershell
-"hello world" | ForEach-Object { $_.Length }
-Get-Content bigfile.txt | Measure-Object -Line
 ```
 
 ---
 
 ### curl and stdout/stderr (practical)
 
-From [curl-and-http-cli.md](#curl-and-http-from-the-command-line):
+From [curl and HTTP from the command line](#curl-and-http-from-the-command-line):
 
 - Default: **response body → stdout**, progress → **stderr**.
 - So: `curl -s url` (`-s` silent) hides progress on stderr; body still goes to stdout—ideal for `curl -s url | jq`.
 
 ---
 
-### Quick reference table (bash vs PowerShell)
+### Quick reference (bash)
 
-| Goal | Bash | PowerShell (typical) |
-|------|------|----------------------|
-| Print to stdout | `echo`, `printf` | `Write-Output`, or bare string |
-| Redirect stdout to file | `>` `>>` | `>` for native exes; cmdlets: `Out-File`, `Add-Content` |
-| Redirect stderr only | `2>` | `2>` for native exes |
-| Pipe one command into the next | Vertical bar between commands | Same character; **cmdlets** may pass **objects**, not only text |
-| Discard stdout | `>/dev/null` | `$null` redirection: `> $null` |
-| Discard stderr | `2>/dev/null` | `2>$null` (native) |
+| Goal | Typical bash |
+|------|----------------|
+| Print to stdout | `echo`, `printf` |
+| Redirect stdout to file | `>` (overwrite), `>>` (append) |
+| Redirect stderr only | `2> file` |
+| Merge stderr into stdout | `2>&1` (often paired with `> file`) |
+| Pipe one command into the next | `cmd1 \| cmd2` |
+| Discard stdout | `>/dev/null` |
+| Discard stderr | `2>/dev/null` |
+| Discard both | `&>/dev/null` or `>/dev/null 2>&1` |
 
 ---
 
@@ -562,37 +516,32 @@ From [curl-and-http-cli.md](#curl-and-http-from-the-command-line):
 
 ### Further reading
 
-- POSIX shell redirection: your platform’s `bash` manual, section **REDIRECTION**.
-- PowerShell: `Get-Help about_Redirection` (if available on your system).
+- Your platform’s **`bash`** manual page (`man bash`), section **REDIRECTION**.
 
 ---
 
-## Shells: Bash vs PowerShell
+## Shells: bash and Unix-style CLIs
 
-**Beginner deep-dive:** If terms like **stdout** or **stderr** are new, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first—it explains *what* those streams are, *why* programs use them, and gives **bash and PowerShell** examples (pipes, `>`, `2>`).
+**Beginner deep-dive:** If terms like **stdout** or **stderr** are new, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first—it explains *what* those streams are, *why* programs use them, and gives **bash** examples (pipes, `>`, `2>`).
 
 ### What is a shell?
 
-A **shell** reads your typed commands, expands variables, finds programs, runs them, and wires **stdin** (standard input), **stdout** (standard output), and **stderr** (standard error). In short: **text flows in**, the program runs, **normal results print on stdout**, and **problems/warnings print on stderr** so you can separate “clean output” from “errors.” Your **terminal** (Windows Terminal, iTerm, etc.) is only the UI that displays those streams; the **shell** is the interpreter that parses what you type.
+A **shell** reads your typed commands, expands variables, finds programs, runs them, and wires **stdin** (standard input), **stdout** (standard output), and **stderr** (standard error). In short: **text flows in**, the program runs, **normal results print on stdout**, and **problems/warnings print on stderr** so you can separate “clean output” from “errors.” Your **terminal** is only the UI that displays those streams; the **shell** is the interpreter that parses what you type.
 
 | Shell | Typical OS | Script extension | Notes |
 |--------|------------|------------------|-------|
-| **bash** | Linux, macOS, Git Bash on Windows | `.sh` | POSIX-like; ubiquitous in docs and CI |
-| **zsh** | macOS default in many setups | `.sh`/`.zsh` | Often nicer UX; similar to bash for basics |
-| **PowerShell** | Windows (also cross-platform pwsh) | `.ps1` | Object pipeline; different quoting rules |
+| **bash** | Linux, macOS, Git Bash on Windows | `.sh` | Ubiquitous in docs and CI—the default for fenced examples below |
+| **zsh** | macOS default in many setups | `.sh`/`.zsh` | Similar to bash for everyday commands (paths, redirection, piping) |
 
-When docs say “run in terminal,” **verify which shell** you are in:
-
-- Bash/Zsh: prompt often `$`; `echo $SHELL`
-- PowerShell: prompt often `PS C:\...>`; `$PSVersionTable`
+**Windows note:** Prefer **Git Bash** or **WSL** when you want to run **the same bash commands as written**; path roots look like **`/c/Users/...`** (Git Bash) or **`/mnt/c/...`** (WSL). Check with **`echo $SHELL`** that you’re in bash (or a close compatible shell) before pasting snippets from this playbook.
 
 ---
 
 ### Why this matters for agents and scripts
 
-- **Path separators:** Bash uses `/`; Windows accepts `\` but many tools accept `/` in PowerShell too.
-- **Quoting:** In bash, **single quotes** are literal; **double quotes** allow `$` expansion. PowerShell uses **backticks** `` ` `` for escape *inside double-quoted strings*, and has distinct rules for `@' ... '@` (literal here-strings).
-- **Environment variables:** bash: `$HOME`, `$PATH`. PowerShell: `$HOME`, `$env:PATH` (or `Get-ChildItem Env:`).
+- **Paths:** **`/`**-style paths assume a Unix-shaped environment—even on Windows via Git Bash/WSL.
+- **Quoting:** **Single quotes** are literal; **double quotes** allow **`$`** expansion.
+- **Environment variables:** Typical patterns are **`export NAME=value`**, **`echo "$PATH"`**, **`printenv`** ([Environment variables](#environment-variables-and-path)).
 
 ---
 
@@ -631,157 +580,65 @@ which node           # where is node on PATH?
 command -v node      # preferred POSIX way to find a command
 ```
 
-#### Same tasks in PowerShell (Windows-native shell)
+#### Tasks you will repeat everywhere
 
-| Task | Bash (macOS/Linux/Git Bash) | PowerShell |
-|------|------------------------------|------------|
-| Where am I? | `pwd` | `Get-Location` or `pwd` (alias) |
-| List files | `ls -la` | `Get-ChildItem` or `dir` / `ls` (aliases) |
-| Change directory | `cd ~`, `cd ..` | `Set-Location ~`, `Set-Location ..` |
-| Copy tree | `cp -r src dst` | `Copy-Item -Recurse src dst` |
-| Move/rename | `mv a b` | `Move-Item a b` |
-| Delete tree | `rm -rf dir` | `Remove-Item -Recurse -Force dir` |
-| Find `node` on PATH | `command -v node` | `Get-Command node` |
-
-Use this table when instructions only show one shell: **translate** the intent (list directory, copy recursive, etc.), not the spelling.
+The one-liners above cover most navigation (**`pwd`**, **`ls -la`**, **`cd`**, **`cp -r`**, **`mv`**, **`rm`**). **`man`** and **`tldr`** are the quickest way to confirm flags that differ slightly between Linux and macOS BSD userland.
 
 #### Exit codes
 
-- `0` = success; non-zero = failure (convention).
-- Last command’s code: `echo $?` (bash) vs `$LASTEXITCODE` (PowerShell).
+- **`0`** = success; non-zero = failure (convention across Unix tools).
+- After a command finishes: **`echo $?`** prints the exit code from the immediately previous foreground command.
 
 ---
 
-### PowerShell essentials
-
-The block below is the **PowerShell** way to do what the bash section does above. On Windows you can also run **bash** via **Git Bash** or **WSL**—many tutorials assume bash; use the translation table when you are in PowerShell only.
-
-#### Profiles (PowerShell has no exact `.bashrc` twin)
-
-PowerShell runs **profile scripts** on startup (paths differ for Current User vs All Users). **Bash equivalent:** editing `~/.bashrc` or `~/.zshrc`.
-
-Check profile path:
-
-```powershell
-$PROFILE
-```
-
-Edit and reload:
-
-```powershell
-notepad $PROFILE
-. $PROFILE
-```
-
-**Bash equivalent:** `nano ~/.bashrc` then `source ~/.bashrc`.
-
-#### Paths and navigation
-
-```powershell
-Get-Location       # bash: pwd
-Set-Location ~     # bash: cd ~
-Set-Location ..    # bash: cd ..
-## "Previous directory" in bash is often `cd -`; in PS use: Set-Location (Get-Location -Stack)[0] after pushd, or simply cd again to the path you need
-Get-ChildItem      # bash: ls
-Copy-Item -Recurse -Path src -Destination dst   # bash: cp -r src dst
-Remove-Item -Recurse -Force path   # bash: rm -rf path (destructive)
-Get-Command node   # bash: command -v node
-```
-
-#### Quoting (PowerShell)
-
-```powershell
-$env:USERNAME
-"The user is $env:USERNAME"
-'Single quotes are literal'
-
-## Literal multiline (here-string):
-@"
-Line 1
-Line 2
-"@
-```
-
-#### Execution policy (scripts blocked)
-
-Corporate machines may block `.ps1`. Understand *why* before bypassing:
-
-```powershell
-Get-ExecutionPolicy -List
-```
-
-Policies are a safety feature; signing scripts or scoped policies are better long-term fixes than `Unrestricted` everywhere.
-
----
-
-### Pipelines and redirection (both worlds)
+### Pipelines and redirection (bash recap)
 
 **Full tutorial with beginner explanations:** [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
 
-**Summary:** **stdout** is “normal program output”; **stderr** is “errors/diagnostics.” **Pipes** send one command’s **stdout** to the next command’s **stdin**. **Redirection** sends stdout or stderr to a file or discards it.
+**Summary:** **stdout** is “normal program output”; **stderr** is “errors/diagnostics.” **Pipes** send one command’s **stdout** to the next command’s **stdin**. **Redirection** sends stdout or stderr to a file—or discards it (`/dev/null`).
 
-| Concept | Bash | PowerShell |
-|---------|------|------------|
-| Pipe (text stream) | `cmd1 \| cmd2` | `cmd1 \| cmd2` (cmdlets may pass **objects**) |
-| Redirect stdout to file (overwrite / append) | `>` / `>>` | `>` / `>>` for **native** `.exe` tools; cmdlets often use `Out-File` |
-| Redirect stderr | `2> file`, merge `2>&1` | `2>` for native exes; cmdlet errors use `-ErrorAction` / `try` / `*>` in PS 7+ |
-| Send stdout and stderr to one file | `2>&1 \| tee out.log` or `&> all.log` (bash) | Combine pipelines as needed; see PS docs |
-
-#### Minimal examples (same *idea*, two shells)
-
-**Save a command’s normal output to a file**
+| Concept | Typical bash pattern |
+|---------|-----------------------|
+| Pipe (text streams) | `cmd1 \| cmd2` |
+| Redirect stdout (overwrite / append) | `>` / `>>` |
+| Redirect stderr alone | `2> file` |
+| Merge stderr into stdout | `2>&1` (often after assigning stdout destination) |
+| Tee to file and terminal | `2>&1 \| tee out.log` |
+| Capture both streams in one file | `npm run build > build.log 2>&1` or `some-command &> all.log` |
 
 ```bash
-## bash
 npm run build > build.log 2>&1    # stdout+stderr in one log
-```
-
-```powershell
-## PowerShell — native npm.cmd
-npm run build *> build.log        # PS 7+: all streams to file (simple case)
-```
-
-**Chain: “count lines in a file”**
-
-```bash
 wc -l < myfile.txt
-## or
 cat myfile.txt | wc -l
 ```
 
-```powershell
-(Get-Content myfile.txt | Measure-Object -Line).Lines
-```
-
-PowerShell often emits **.NET objects**, not only raw text—`Format-Table`, `Select-Object`, `Where-Object` are common. **External tools** (`curl.exe`, `git`, `node`) behave closer to bash text pipes.
+Programs you invoke from bash—**`curl`**, **`git`**, **`node`**, compilers—normally speak the same stdin/stdout/stderr model.
 
 ---
 
-### Interop on Windows
+### Running bash on Windows
 
-- **Git Bash** gives bash-like experience with Unix paths under `/c/Users/...`.
-- **WSL** is a full Linux kernel—great for parity with Linux servers; paths differ (`/mnt/c/...`).
-- **PowerShell** is first-class for Windows system administration.
+- **Git Bash:** Unix-ish tooling with paths rooted at **`/c/Users/...`**.
+- **WSL:** Paths like **`/mnt/c/...`** with behavior close to Linux servers.
 
-**Rule of thumb:** Match the **deployment environment**. If you deploy to Linux, practice bash paths and tools; if you manage Windows servers, invest in PowerShell.
+Use Git Bash/WSL whenever you paste commands from Unix-oriented docs (including this file).
 
----
 
 ### Agent-mode checklist (before running a proposed command)
 
-1. Which **shell** is the command written for?
-2. Is the path **quoted** correctly for that shell?
-3. Is the command **destructive** (`rm`, `Remove-Item`, `DROP`, `DELETE`, `format`)?
-4. Does it require **elevation** (sudo / admin)?
+1. Commands target **bash** (Git Bash / WSL on Windows).
+2. **Paths and quotes** are escaped for bash.
+3. The command is **destructive** or mutates infra (`rm -rf`, `DROP`, partitioning, …).
+4. It needs **`sudo`** / elevated privileges?
 5. Will it **mutate git state** or **remote** resources?
 
 ---
 
 ## Environment variables and PATH
 
-**Bash vs PowerShell:** Whenever this doc shows **bash** commands (`export`, `echo $PATH`), the **PowerShell** equivalent is in the same section or the table below so you can work from either shell on Windows.
+This section uses **bash** patterns (`export`, `printenv`). On Windows native shells the syntax differs—in practice use **Git Bash** or **WSL** alongside this playbook.
 
-**Related:** [stdin, stdout, stderr](#standard-streams-stdin-stdout-stderr-and-why-they-matter) (how programs print output—separate topic from env vars, but both show up in tutorials).
+**Related:** [stdin, stdout, stderr](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
 
 ### What is an environment variable?
 
@@ -790,56 +647,37 @@ A **name=value** pair that the operating system passes into every **child proces
 **Why it matters:**
 
 - **Scripts and apps** read env vars to configure behavior (`NODE_ENV=production`).
-- **The shell** reads **`PATH`** to know **which folders to search** when you type `node` instead of `C:\Program Files\nodejs\node.exe`.
+- **The shell** reads **`PATH`** to know **which folders to search** when you type `node` instead of a fully qualified filesystem path (for example **`/usr/local/bin/node`**).
 - **Security:** secrets are often env vars in development—never treat them as “private” in logs or screenshots.
 
-Operating systems copy the environment when a program starts; shells let you read and set values for the **current session**—and sometimes **persist** them (e.g. **Linux:** `~/.bashrc`; **Windows:** System Properties → Environment Variables, or **PowerShell** `$PROFILE`).
+Operating systems copy the environment when a program starts; shells let you read and set values for the **current session**—and persist them (**`~/.bashrc`**, **`~/.profile`**, OS-level settings on Windows/macOS/Linux).
 
 Common examples:
 
 | Name | Typical meaning |
 |------|------------------|
 | `PATH` | Ordered list of directories to search for executables |
-| `HOME` / `USERPROFILE` | User’s home directory |
-| `SHELL` | Default interactive shell (Unix) |
+| `HOME` | User home directory (Unix/Git Bash/WSL convention) |
+| `SHELL` | Default interactive shell (Unix-like systems) |
 | `LANG` / `LC_*` | Locale (sorting, encoding, date formats) |
 | `NODE_ENV` | Node convention: `development` / `production` |
 | `TEMP` / `TMP` | Temp directory |
 
 ---
 
-### Inspecting variables
+### Inspecting variables (bash)
 
-| Goal | Bash / zsh | PowerShell |
-|------|------------|------------|
-| Show **all** variables | `printenv` or `env` | `Get-ChildItem Env:` |
-| Show **one** variable | `echo "$PATH"` or `printenv PATH` | `$env:PATH` |
-| Find vars matching text | Pipe `env` output to `grep` (see bash block) | Filter with `Where-Object` on `Name` / `Value` (see PowerShell block) |
-
-#### Bash / zsh (examples)
+| Goal | Typical bash |
+|------|----------------|
+| Show **most** exported variables | **`printenv`** or **`env`** |
+| Show **one** variable | **`printenv PATH`**, **`echo "$PATH"`** |
+| Hunt for substring | **`env \| grep NODE`** |
 
 ```bash
-printenv              # all variables
+printenv              # all exported variables via printenv’s view
 printenv PATH
 echo "$PATH"
-env | grep NODE
-```
-
-#### PowerShell (same goals)
-
-```powershell
-Get-ChildItem Env:                    # list all; like printenv
-$env:PATH                            # one variable; note the $env: prefix
-$env:PATH -split ';'                 # Windows: each PATH entry on its own line
-Get-ChildItem Env:PATH               # object with name + value
-Get-ChildItem Env: | Where-Object Name -like '*NODE*'   # filter (like env | grep NODE)
-```
-
-#### Windows CMD (legacy)
-
-```cmd
-set
-echo %PATH%
+env | grep NODE       # coarse filter across names/values
 ```
 
 ---
@@ -848,56 +686,46 @@ echo %PATH%
 
 `PATH` is a **search path**: one long string containing **directories**, in order, separated by a character:
 
-- **Linux/macOS/Git Bash:** **`:`** (colon), e.g. `/usr/local/bin:/usr/bin:/bin`
-- **Windows:** **`;`** (semicolon), e.g. `C:\Windows\System32;C:\Program Files\nodejs`
+- **Linux/macOS/Git Bash/WSL:** **`:`**, e.g. `/usr/local/bin:/usr/bin:/bin`
+- **Native Windows** sessions often use **`;`** between entries such as **`C:\\Windows\\System32;C:\\Program Files\\nodejs`**—prefer Git Bash/WSL when following bash tutorials verbatim.
 
-When you type `node` (no path), the OS **does not** search the whole disk—it walks **`PATH` left to right** and runs the **first** matching executable it finds.
+When you type `node` (no slash), the runtime **does not** search the entire disk—it walks **`PATH`** left→right for the **first** matching executable.
 
 **Why use PATH instead of full paths every time?**
 
-- You can run `git`, `python`, `node` from any directory.
-- Installers and version managers **prepend** a folder (e.g. `fnm` shim) so the **right** version wins.
+- You can run **`git`**, **`python`**, **`node`** from any working directory once their directories are indexed.
+- Version managers prepend shims (`fnm`, `nvm`, etc.) so the **right binary** floats to the front.
 
-**First match wins.** If two `node` binaries exist on `PATH`, the **earlier** directory wins—classic cause of “wrong Node version.”
-
----
-
-### How executables are found
-
-1. If you run **`C:\Program Files\nodejs\node.exe`** (full path), **no PATH search**—Windows runs that file directly.
-2. If you run **`node`**, the shell resolves it via **`PATH`** (and on Windows, **PATHEXT** lists valid extensions like `.EXE`, `.CMD`, `.BAT`).
-
-| Shell | Command | What it tells you |
-|--------|---------|-------------------|
-| Bash | `command -v node` | Path or shell builtin—**preferred** on Unix |
-| Bash | `which node` | Common but not always installed |
-| PowerShell | `Get-Command node` | Shows **CommandType**, **Source** path |
-| PowerShell | `where.exe node` | Windows `where` (if multiple matches) |
+**First match wins.** Two **`node`** installs on **`PATH`** means the **leftmost** wins—classic “wrong Node version.”
 
 ---
 
-### Changing PATH for one session
+### How executables are found (bash viewpoint)
 
-#### Bash
+Most automation targets Linux—or Windows users running Git Bash/WSL—so **`command`** is portable:
 
 ```bash
-export PATH="/usr/local/bin:$PATH"    # prepend
-export PATH="$PATH:/opt/extra/bin"    # append
+command -v node       # resolves what runs for `node` (preferred here)
+which node             # ubiquitous but not POSIX-mandated
+type -a node           # bash builtin: lists all matches along PATH order
 ```
 
-#### PowerShell (session)
+On purely native Windows hosts you may additionally need **`where.exe node`** and **PATHEXT** semantics—consult Windows docs; this playbook avoids non-bash fenced examples there.
 
-```powershell
-$env:PATH = "C:\tools\bin;$env:PATH"
+---
+
+### Changing PATH for one session (bash)
+
+```bash
+export PATH="/usr/local/bin:$PATH"   # prepend
+export PATH="$PATH:/opt/extra/bin"    # append
 ```
 
 #### Persisting (examples)
 
-- **Linux/macOS:** `~/.bashrc`, `~/.zshrc`, or `/etc/paths` / `/etc/environment` (OS-specific).
-- **Windows GUI:** *System Properties → Environment Variables*.
-- **PowerShell profile:** set `$env:PATH` in `$PROFILE` (user-scope caution).
-
-**Recommendation:** For language runtimes, prefer **version managers** (nvm, fnm, etc.) that swap PATH for you.
+- **Linux/macOS:** `~/.bashrc`, `~/.bash_profile`, or `/etc/environment` variants.
+- **Windows GUI:** **System Properties → Environment Variables**.
+- Prefer **runtime managers** (nvm/fnm/pyenv/asdf) that rewrite PATH for shells automatically.
 
 ---
 
@@ -907,13 +735,13 @@ Many frameworks load **`.env`** at runtime **for apps**, not for the whole OS.
 
 - **Never commit** real `.env` to Git.
 - Commit **`.env.example`** with dummy keys describing required variables.
-- Shells do **not** load `.env` automatically unless you `source` or use a tool.
+- Shells do **not** load `.env` automatically unless you **`set -a; source .env; set +a`** (careful!) or rely on tooling.
 
 Example workflow:
 
 ```bash
 cp .env.example .env
-## edit .env locally
+## edit .env locally with your secrets
 ```
 
 ---
@@ -922,35 +750,32 @@ cp .env.example .env
 
 | Symptom | Likely cause |
 |---------|----------------|
-| `command not found` | Directory not on PATH, or typo |
-| Wrong Node/npm version | Multiple installs; PATH order picks the wrong one |
-| Works in GUI app but not in terminal | Different environment; login vs non-login shell |
-| Works in IDE but not in CI | CI image has different PATH |
+| `command not found` | Missing directory entry, typo, or venv/toolchain not sourced |
+| Wrong Node/npm version | Multiple installs; PATH order resolves the unintended one |
+| Works in GUI but not terminal | Separate environment (login shells vs `.app` shortcuts) |
+| Works in IDE but not in CI | Container image exposes a different PATH |
 
-**Debug strategy:**
+**Debug strategy (bash/Git Bash/WSL):**
 
-1. `echo $PATH` / `$env:PATH` and locate duplicates.
-2. `command -v node` / `Get-Command node`.
-3. On Windows, check **User vs System** PATH precedence.
+```bash
+echo "$PATH"
+command -v node
+type -a node 2>/dev/null || command -v node
+```
+
+Triple-check separators when stitching PATH strings manually (**`:`** vs **`;`**).
 
 ---
 
 ### Process inheritance
 
-If you set a variable in a terminal session, **child processes** see it unless the app clears the environment. **Parent processes** do not see changes made in children.
+If you set a variable in a bash session, **child processes** see it unless stripped. **Parents do not inherit** edits made solely inside a child shell.
 
 ---
 
 ### Security note
 
-Environment variables can leak in:
-
-- crash dumps, logs, CI output
-- `printenv` in support tickets (redact secrets)
-
-Treat API tokens like passwords: **prefer secret managers** over long-lived env in shared machines.
-
----
+Environment variables can leak via crash dumps, CI logs, and casual **`printenv`** pastes. Prefer secret managers rather than immortal tokens in plaintext env exports.
 
 ## Permissions: Unix and Windows
 
@@ -1031,19 +856,13 @@ Windows uses **Access Control Lists (ACLs)** with **users and groups** and granu
 - **GUI:** File → Properties → Security.
 - **CLI:** `icacls` is the modern replacement for many `cacls` scenarios.
 
-Examples (read carefully before running; paths matter):
-
-```powershell
-icacls "C:\path\to\folder"
-icacls "C:\path\to\file" /grant UserName:(R,W)
-```
+**Windows CLI note:** Administrators often use **`icacls`** to inspect/grant ACLs (not bash—refer to **`icacls /?`** for syntax). Prefer the GUI for one-off tweaks unless you automate policy.
 
 Elevation (Run as Administrator) is often required for system paths.
 
 #### Execution restrictions
 
 - **SmartScreen**, **AppLocker**, **Defender** can block unknown binaries.
-- **PowerShell execution policy** governs scripts—not the same as file ACLs.
 
 ---
 
@@ -1063,7 +882,7 @@ Elevation (Run as Administrator) is often required for system paths.
 Before a command changes permissions widely:
 
 - Confirm **path** (no accidental `/` or `C:\`).
-- Prefer **least privilege** (narrow `chmod`/`icacls`).
+- Prefer **least privilege**: narrow **`chmod`** on Unix, and tighten Windows ACL tooling only along intended paths rather than blasting `Everyone:(F)` indiscriminately.
 - Avoid recursive `chmod` on `$HOME` or system roots without an explicit backup plan.
 
 ---
@@ -1308,8 +1127,7 @@ Typical venv workflow:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate   # Unix
-## Windows: .venv\Scripts\Activate.ps1
+source .venv/bin/activate   # POSIX shells, Git Bash, WSL (bin layout)
 pip install -r requirements.txt
 ```
 
@@ -1653,37 +1471,6 @@ curl --connect-timeout 5 --max-time 30 --retry 2 https://example.com
 
 ---
 
-### PowerShell alternatives (bash `curl` vs native cmdlets)
-
-PowerShell can call **`curl.exe`** explicitly (the real curl binary on Windows) so behavior matches bash:
-
-```powershell
-curl.exe -sS https://api.example.com/health          # same idea as bash curl -sS
-```
-
-(`curl` alone in older PowerShell might alias to `Invoke-WebRequest`—use **`curl.exe`** when you want the same flags as Linux tutorials.)
-
-Native cmdlets (**different** model—they return **.NET objects**, not raw bytes by default):
-
-| Bash / `curl.exe` mental model | PowerShell cmdlet | Notes |
-|--------------------------------|-------------------|--------|
-| GET URL, body as text | `Invoke-WebRequest -Uri '...' -UseBasicParsing` | Access `.Content` for body |
-| GET URL, parse JSON to objects | `Invoke-RestMethod -Uri '...' -Method Get` | **Automatic JSON parsing** |
-
-Examples:
-
-```powershell
-## Rich response: status, headers, content
-Invoke-WebRequest -Uri "https://api.example.com/health" -UseBasicParsing
-
-## When the API returns JSON, this parses to PSCustomObject(s)
-Invoke-RestMethod -Uri "https://api.example.com/health" -Method Get
-```
-
-**When to use which:** Prefer **`curl.exe`** when following **bash** docs or piping to **`jq`**. Prefer **`Invoke-RestMethod`** when you want **PowerShell objects** without parsing JSON yourself.
-
----
-
 ### Using curl with `jq`
 
 Pipe JSON APIs to `jq` to extract fields—see [extras](#extras-ssh-jq-processes-disks-docker-cli-security).
@@ -1774,13 +1561,7 @@ Many distros prefer **`systemd` timers** over cron for service integration, logg
 
 **Task Scheduler** (`taskschd.msc`): create **Trigger** (schedule), **Action** (program/script), **Principal** (which user, highest privileges), **Conditions** (AC power, idle).
 
-#### PowerShell (sketch)
-
-```powershell
-$action = New-ScheduledTaskAction -Execute "PowerShell.exe" -Argument "-File C:\scripts\job.ps1"
-$trigger = New-ScheduledTaskTrigger -Daily -At 3am
-Register-ScheduledTask -TaskName "NightlyBackup" -Action $action -Trigger $trigger -User "DOMAIN\user"
-```
+**Automation note:** Scheduled tasks created through **Task Scheduler** usually point **`schtasks`/GUI** tooling or vendor-specific IaC—not bash snippets. Prefer Linux **`cron`/systemd** examples when your runtime is Unix.
 
 **Elevation:** tasks needing admin rights must run under an account allowed to elevate or use a dedicated service account with least privilege.
 
@@ -2183,41 +1964,25 @@ Install: `apt install jq`, `brew install jq`, Windows `winget install jqlang.jq`
 
 **Signals:** `SIGTERM` allows cleanup; `SIGKILL` cannot be caught.
 
-#### Windows
+#### Windows hosts (conceptual)
 
-- **Task Manager**, **`Get-Process`**, **`Stop-Process`** in PowerShell.
-- Service lifecycle differs from Unix daemons.
-
----
+POSIX-style **`SIGTERM`** / **`SIGKILL`** metaphors translate to graphical tools plus Windows services—not bash builtins. Prefer the Unix tables above whenever you operate inside bash/Git Bash/WSL.
 
 ### Disk and space
 
-Same goals on Linux servers vs Windows workstation—different commands.
-
-| Goal | Bash / Linux / macOS / Git Bash | PowerShell (Windows) |
-|------|----------------------------------|-------------------------|
-| Disk usage per filesystem | `df -h` | `Get-PSDrive C` (or `Get-Volume`) |
-| Folder size in current dir | `du -sh *` | Nested sizes: `Get-ChildItem` + measure (slow) or Sysinternals `du` if installed |
-| One-level summary under `~` | `du -h -d1 ~` | Similar idea with targeted `Get-ChildItem` paths—avoid full-disk recurse in PS (slow) |
-
-#### Bash / Unix
+| Goal | Typical bash tooling |
+|------|----------------------|
+| Mounted filesystem utilization | **`df -h`** |
+| Human-readable sizes under **cwd** | **`du -sh *`** |
+| Depth-limited summary (flags vary OS) | **`du -h --max-depth=1 ~`** (GNU) or **`du -h -d1 ~`** |
 
 ```bash
-df -h              # filesystem usage
-du -sh *           # directory sizes in cwd
-du -h -d1 ~        # one level deep summary
+df -h
+du -sh *
+du -h -d1 ~
 ```
 
-#### PowerShell (Windows)
-
-```powershell
-Get-PSDrive C                              # free space on C:
-## Avoid naïve full-disk recurse; target a folder if needed:
-Get-ChildItem .\node_modules -ErrorAction SilentlyContinue |
-  Measure-Object -Property Length -Sum
-```
-
----
+Interactives like **`ncdu`** or **`dust`** help when recursion is exploratory.
 
 ### Find files quickly
 
@@ -2300,22 +2065,6 @@ For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-
 
 ---
 
-### Navigation and files (Unix vs PowerShell)
-
-| Task | Bash / Git Bash / WSL | PowerShell |
-|------|------------------------|------------|
-| Print working directory | `pwd` | `pwd` / `Get-Location` |
-| List directory | `ls -la` | `Get-ChildItem` / `ls` / `dir` (aliases) |
-| Change dir | `cd`, `cd ~`, `cd ..` | `Set-Location`, `cd` |
-| Create dir | `mkdir -p a/b` | `New-Item -ItemType Directory -Path a\b -Force` |
-| Copy recursive | `cp -r src dst` | `Copy-Item -Recurse src dst` |
-| Move | `mv a b` | `Move-Item a b` |
-| Delete recursive | `rm -rf dir` | `Remove-Item -Recurse -Force dir` |
-| Read file | `cat f`, `less f` | `Get-Content f` |
-| Line count | `wc -l f` | `Get-Content f` piped to `Measure-Object -Line` (see shells doc) |
-
----
-
 ### Navigation and files (Unix)
 
 | Command | Purpose |
@@ -2346,8 +2095,6 @@ For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-
 | `cmd &> all.log` | Both stdout and stderr to one file (bash) |
 | `cmd1 \| cmd2` | **Pipe:** stdout of left becomes stdin of right |
 
-**PowerShell:** Same **`|`, `>`, `2>`** ideas for **native `.exe`** programs; cmdlets often use `Out-File` or `*` redirection in PowerShell 7+. See the streams doc.
-
 ---
 
 ### Text search and transform (Unix)
@@ -2365,28 +2112,15 @@ For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-
 
 ---
 
-### Same tasks: bash vs PowerShell (selected)
-
-| Task | Bash | PowerShell |
-|------|------|------------|
-| List directory | `ls -la` | `Get-ChildItem` (`gci`, `dir`, `ls` aliases) |
-| Read full file | `cat file` | `Get-Content file` |
-| Search in files | `grep -r "foo" .` | `Select-String -Pattern "foo" -Path . -Recurse` |
-| Filter objects/lines | `grep`, `awk` | `Where-Object` |
-| Processes | `ps aux` | `Get-Process` |
-
-**Filter running processes by property (example):**
+### Everyday tasks (bash)
 
 ```bash
-## bash: not one-liner with ps; often ps aux | grep
-ps aux | grep node
-```
+ls -la
+cat README.md
+grep -RIn "FIXME" .
 
-```powershell
-Get-Process | Where-Object { $_.ProcessName -like '*node*' }
+pgrep -fl node || ps aux | grep '[n]ode'
 ```
-
----
 
 ### Git (ultra-short)
 
@@ -2489,8 +2223,8 @@ Cross-cutting habits while using the shell (see also [Software engineering](soft
 - **Secrets:** never commit `.env`; treat pasted tokens as compromised if they hit logs or tickets.
 - **SSH:** verify host keys on first connect; use `ForwardAgent` only when needed.
 - **Piping installers:** avoid `curl … | bash` from unknown URLs; prefer checksums and pinned versions.
-- **Elevation:** only run `sudo` / admin PowerShell when you understand the full script.
-- **Permissions:** narrow `chmod` / `icacls` to the paths you intend—no recursive chmod on `$HOME` by mistake.
+- **Elevation:** understand scripts fully before escalating privilege (**`sudo`**, tooling-specific admin gates, …).
+- **Permissions:** narrow **`chmod`** to the directories you intend; avoid recursive chmod on **`$HOME`** or system roots by mistake—and treat Windows ACL changes with the same care.
 
 ---
 
