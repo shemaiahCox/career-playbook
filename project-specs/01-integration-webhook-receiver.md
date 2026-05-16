@@ -135,6 +135,20 @@ header('X-Request-Id: ' . $requestId);
 
 **In this repo:** Returned when a row exists with `status = processing` or on SQLite `UNIQUE` race during concurrent inserts.
 
+## Testing approach (lab)
+
+**Primary:** **Integration** tests that drive HTTP with a real (or in-memory) SQLite DB—happy path, idempotent replay, bad signature, missing key, dead-letter, and `409` / race behavior. Most bugs here are **wiring** (raw body → HMAC, store lifecycle), not a single pure function.
+
+**Secondary:** **Unit** tests for small, deterministic pieces (signature string comparison policy, idempotency key normalization, header parsing) so integration tests stay short and readable.
+
+**Compare:** Integration-first matches production; unit-only **misses** “forgot to read raw body before JSON parse.” Heavy mocking of the store **often hides** real SQLite locking behavior—prefer real DB for integration paths in this lab.
+
+**Example asks for AI (optional):**  
+“Generate `POST /webhook` integration tests: valid HMAC over raw body, replay same `Idempotency-Key`, invalid signature → 401, missing key → 400. Use [test framework]. DB is SQLite file or `:memory:` per test. No mocking `file_get_contents('php://input')`—use framework request abstraction if needed.”  
+“Given `SignatureVerifier`, add unit tests for constant-time behavior expectations and header format parsing—not testing PHP internals.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] `POST /webhook` accepts JSON payloads.

@@ -92,6 +92,20 @@ expect(response.body).toMatchSchema({
 
 **Practice:** Before merge, run `openapi-diff old.yaml new.yaml` (or equivalent) and document the policy in README.
 
+## Testing approach (lab)
+
+**Primary:** **Contract or schema tests** (consumer stub, response shape assertions against OpenAPI, or framework-native “implements spec” checks) plus a **CI gate** so spec and implementation cannot drift silently—this is the main failure mode when AI renames DTO fields.
+
+**Secondary:** Narrow **integration** tests for happy-path HTTP and documented error envelopes—prove **status + JSON error shape**, not only `200` on golden requests.
+
+**Compare:** Contract tests **beat** deep unit suites that mock every repository here: the risk being mitigated is **compatibility**, not algorithmic cleverness. Unit tests still help for **pure validation** helpers if you extract them.
+
+**Example asks for AI (optional):**  
+“From this `openapi.yaml` [paste], generate a test that fails if `userId` is removed from `GET /users/{id}` response or renamed. Use [Pact | jest + schema | spectral pipeline] as I specify.”  
+“Add a CI script that runs `openapi-diff` or spectral against the checked-in spec and fails on breaking changes—document exit codes in README.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] OpenAPI 3 spec defines resources and error shapes.

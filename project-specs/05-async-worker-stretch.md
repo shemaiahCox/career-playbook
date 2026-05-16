@@ -74,6 +74,19 @@ $store->recordDeadLetter($idempotencyKey, $rawBody, $trace);
 $store->abandon($idempotencyKey);
 ```
 
+## Testing approach (lab)
+
+**Primary:** **Integration** tests across **producer → broker (or test double) → worker** with at-least-once semantics: duplicate delivery must not double-apply effects; poison messages reach DLQ after N attempts.
+
+**Secondary:** Unit tests for **job payload parsing** and idempotency key extraction if kept pure; avoid mocking away the queue semantics you are trying to learn.
+
+**Compare:** Same playbook as [Project 1](01-integration-webhook-receiver.md)—**replay**—but asynchronous. Unit tests alone rarely catch **visibility timeout** or **ack-after-crash** bugs; script exploration + one integration test beats dozens of isolated mocks.
+
+**Example asks for AI (optional):**  
+“Using [Redis | SQS | Laravel queue fake], write integration tests: enqueue job from HTTP path, worker processes once, duplicate redelivery yields one side-effect (use in-memory counter table). Second test: always-throwing handler lands in DLQ after max retries.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] Producer enqueues a job from webhook validation path (or separate endpoint).

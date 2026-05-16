@@ -115,6 +115,20 @@ WHERE o.tenant_id = 't-001' AND o.created_at > now() - interval '7 days';
 
 Run order and setup: see [projects/07-sql-perf-lab/README.md](../projects/07-sql-perf-lab/README.md).
 
+## Testing approach (lab)
+
+**Primary:** **Executable exercises** in `exercises/*.sql` are the harness: each file should run cleanly after seed; capture **before/after** `EXPLAIN (ANALYZE, BUFFERS)` excerpts in README or comments as evidence (your “tests” are plan shape + expected row counts).
+
+**Secondary:** Optional **assertion scripts** (e.g. small shell/pytest that greps for `Seq Scan` vs `Index Scan` on known queries)—only if it helps CI; not required if manual excerpts are documented per success criteria.
+
+**Compare:** Unlike API labs, **correctness** here is “does the database do what we claim under this data shape?”—**regression** is saved plans and notes, not only green unit dots.
+
+**Example asks for AI (optional):**  
+“Given exercises/02_indexes.sql intent [paste], add three commented `EXPLAIN` blocks: before index, after composite index, after partial index—each with one sentence tradeoff.”  
+“Write a short script that runs each exercise file against `DATABASE_URL` and fails on SQL error—no semantic diff of plans.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] **Docker Compose** brings up Postgres with schema + seed loaded from checked-in SQL.

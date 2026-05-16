@@ -303,6 +303,8 @@ flowchart TB
 
 **Intermediate:** **Flaky tests** erode trust—quarantine, fix or delete.
 
+For **lab-by-lab** emphasis (which layers to use per initiative, optional AI prompt patterns), see [Per-project testing (labs + AI)](../playbook/per-project-testing.md).
+
 When behavior in prod or CI disagrees with what you thought you shipped, use a tight **debugging loop** before you only add more tests—see **[Debugging (workflow)](#debugging-workflow)**. After you understand the failure, **lock the fix** with a regression test so the failure mode stays visible.
 
 ---

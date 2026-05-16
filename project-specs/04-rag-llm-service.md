@@ -110,6 +110,20 @@ _log_event(
 
 **Problem it solves:** Unit/integration tests hit Python functions without spinning HTTP; swapping orchestration libraries does not break clients or eval JSONL.
 
+## Testing approach (lab)
+
+**Primary:** **Eval JSONL + runner** as behavioral regression—add cases when you change prompts, chunking, or models; treat failures as release blockers once the suite exists.
+
+**Secondary:** **Unit** tests for deterministic seams only: chunk boundaries, retrieval filters, citation id formatting, tool argument validation, routing—**not** “expect exact LLM prose” in a unit test.
+
+**Compare:** **Eval** addresses **answer drift**; **unit** addresses **code you control**. Skipping evals and only unit-testing string helpers **misses** “model swap broke grounding.”
+
+**Example asks for AI (optional):**  
+“Given `evals/sample.jsonl` format [paste], propose 10 new lines for domain [X] with `expected_facts` and `must_not_contain`; keep cases independent of live APIs.”  
+“Write pytest that invokes [pure function] for chunking with overlapping windows and asserts no dropped characters; mock only the embedding client boundary if needed.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] `POST /query` — accepts user question + optional session id; returns answer + cited chunk ids (when RAG wired).

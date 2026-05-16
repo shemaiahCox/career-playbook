@@ -66,6 +66,20 @@ _TBD — create a sibling repo (e.g. `ts-webhook-lab` or `ts-api-lab`) when you 
 
 **Problem it solves:** Proves the **concept** is portable—SQLite, Redis, or Postgres is an implementation detail.
 
+## Testing approach (lab)
+
+**Primary:** Follow the **track** you declared—**A:** mirror [Project 1](01-integration-webhook-receiver.md) (HTTP + HMAC + idempotency + integration tests); **B:** mirror [Project 2](02-contract-first-api.md) (contract/schema + drift gate); **C:** mirror [Project 5](05-async-worker-stretch.md) (queue + worker + duplicate delivery).
+
+**Secondary:** Add `npm test` / `pnpm test` with **Vitest** or **Jest**; enforce **raw body** before JSON parse on track A when testing signatures.
+
+**Compare:** Do not invent a fourth style per repo—reuse the same layer choices as the PHP/Python analogue so vocabulary transfers.
+
+**Example asks for AI (optional):**  
+“Track A: scaffold supertest (or undici) tests for raw-body HMAC verification; show how to pass raw buffer so re-encoding does not break signature.”  
+“Track B: generate Zod schemas from OpenAPI or dual-check response against OpenAPI component—tests fail on rename.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] **README** states track **A**, **B**, or **C** and points to this spec.

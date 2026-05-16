@@ -103,6 +103,20 @@ _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contr
 
 **Problem it solves:** Lockfiles, **dependabot** or equivalent alerts, optional **SAST**/secret scan in CI—overlap with [FOCUS.md](../FOCUS.md) theme **#3**.
 
+## Testing approach (lab)
+
+**Primary:** **Reproduction-driven** checks documented in the lab README: show **before/after** for SQLi (unsafe vs parameterized), XSS (unsafe render vs encoded/CSP), CSRF (forged POST rejected), session reuse after logout—align with [application-security-web-owasp checklist](../checklists/application-security-web-owasp.md).
+
+**Secondary:** Optional **automated** checks (e.g. security-focused integration test that expects 403 on CSRF; dependency audit in CI). Many teams still rely on scripted manual **curl** + browser steps for OWASP demos—make them repeatable.
+
+**Compare:** Snapshot-testing HTML for XSS is brittle; **behavioral** tests (“script does not execute”, “parameterized query path returns only intended rows”) plus checklist walk is the right balance.
+
+**Example asks for AI (optional):**  
+“Generate a minimal PHPUnit/Jest/pytest file that posts CSRF-free form to [route] and expects 4xx after middleware enabled—reference framework’s token field name from docs I paste.”  
+“List five SQLi payloads for local testing only; for each, show expected safe behavior after bind parameters.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] Small app runs locally with **database**, **at least one HTML form**, and **session-based login** (or documented alternative if you use token-only—still justify CSRF implications).

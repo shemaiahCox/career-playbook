@@ -79,6 +79,19 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 
 **Problem it solves:** Shows **where** latency lives (network vs DB vs external API) without printf debugging.
 
+## Testing approach (lab)
+
+**Primary:** **Integration-style** checks that issue HTTP requests and assert **log output** (JSON lines) contain `request_id`, method, path, status, duration, and sensible error fields on `5xx`. Correlation id propagation is the product requirement.
+
+**Secondary:** If you add OpenTelemetry, optional tests or local exporter assertions on span presence—keep scope small.
+
+**Compare:** Classic **unit** tests of `Logger::log` in isolation matter less than **one request → many log lines share one id**. Observing **stderr** or a test appender in-process is enough.
+
+**Example asks for AI (optional):**  
+“Using [framework], add middleware tests: first request without `X-Request-Id` gets a generated id echoed on response header; second request with supplied UUID preserves it; logs captured in test include the same id for success and forced 500.”
+
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+
 ## Success criteria
 
 - [ ] Every request has a **correlation / trace id** (header + log field).
