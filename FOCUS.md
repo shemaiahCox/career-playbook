@@ -10,7 +10,7 @@ This playbook is for **deliberate practice**: phased labs in [project-specs/](pr
 
 **Credibility anchors:** PHP/Laravel, WordPress plugins, SQL, custom APIs, Boomi-style integrations, Docker, CLI, version control.
 
-**Forward vector:** Python, LangChain (or similar), applied LLM **engineering** (not prompt tricks only).
+**Forward vector:** **Python** for model-backed services—**retrieval, orchestration libraries, and vendor APIs** under explicit boundaries—not “prompt-only” ownership. The implementation detail (LangChain, LangGraph, LlamaIndex, or a thin SDK plus your own retrieval) sits **behind** a stable HTTP contract; evals and observability stay load-bearing.
 
 **Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](project-specs/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
 

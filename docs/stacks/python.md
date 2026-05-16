@@ -26,6 +26,10 @@
 - **FastAPI:** dependency injection via **Depends**, **Pydantic** models at the boundary—validation **is** contract discipline.
 - **WSGI (Flask/Django legacy)** vs **ASGI (Starlette/FastAPI)** — deployment and concurrency models differ; don’t mix assumptions.
 
+**LLM / RAG-shaped services**
+
+- Keep **`POST /query` (or equivalent) contract** and **eval JSONL** stable; treat **LangChain**, **LangGraph**, **LlamaIndex**, or **minimal SDK + custom retrieval** as **replaceable implementation** behind one service module ([RAG / LLM service](../../project-specs/04-rag-llm-service.md)).
+
 **Data access**
 
 - **SQLAlchemy** (2.x style) / **Django ORM**: **N+1** and **lazy loading** in request paths are the usual prod surprises—relate to [SQL map](sql.md) and [database design](../handbook/database-design.md).

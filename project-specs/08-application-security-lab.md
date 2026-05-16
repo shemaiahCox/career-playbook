@@ -111,7 +111,7 @@ _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contr
 - [ ] **Authentication:** passwords hashed with **modern** defaults; session behavior **documented** (rotation, logout, cookie flags as applicable).
 - [ ] **CSRF:** state-changing requests **protected** when using cookie session auth; show a **failed** forged request once protections exist.
 - [ ] **Logging:** no passwords, session tokens, or sensitive PII in logs—note what you redact.
-- [ ] **Dependencies:** lockfile checked in; path documented to **check for known CVEs** (e.g. GitHub Dependabot or `composer audit` / `npm audit` / equivalent).
+- [ ] **Dependencies / supply chain:** lockfile checked in; **automated or documented cadence** for known CVEs (e.g. Dependabot alerts, `composer audit` / `npm audit` / `pip-audit`); README notes **pinning policy** (ranges vs exact pins) for the lab so upgrades are deliberate, not accidental drift.
 - [ ] Walk [application-security-web-owasp checklist](../checklists/application-security-web-owasp.md) before calling the milestone done.
 
 ## Exploration scenarios

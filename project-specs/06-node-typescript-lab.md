@@ -38,7 +38,7 @@ _TBD — create a sibling repo (e.g. `ts-webhook-lab` or `ts-api-lab`) when you 
 
 ## Stack (suggestion)
 
-- **Runtime:** Node **20+** (LTS).
+- **Runtime:** **Active Node.js LTS** (track [nodejs.org release schedule](https://nodejs.org/en/about/previous-releases); **22+** at time of writing). Prefer LTS over “current” for labs meant to age gracefully.
 - **Language:** **TypeScript** (strict mode in `tsconfig` where you can tolerate it).
 - **HTTP:** **Fastify** or **Express** (pick one; document why in README).
 - **Validation:** **Zod** (or equivalent) for body/headers/query; aligns with “contract in code.”

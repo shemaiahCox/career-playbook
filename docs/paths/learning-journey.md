@@ -29,7 +29,7 @@ Ship and study in this **idea** order (aligned with [README Learning path](../..
 | 4c (optional) | Cybersecurity / OWASP (web) | [P8 — Application security](../../project-specs/08-application-security-lab.md) | SQLi, XSS, auth/sessions, forms/CSRF; shipping-engineer literacy |
 | 5 (optional) | Flexible lane | [P6 — Node / TypeScript](../../project-specs/06-node-typescript-lab.md) | Same reliability patterns, broader market signal |
 
-**Stacks in this repo’s specs:** PHP (P1), Python (P4), optional Laravel vs FastAPI (P2), optional Node/TS (P6). **Exploration maps** (no dedicated spec) include **Java/JVM** and **Node API**—see the [ecosystem maps](#ecosystem-maps-orientation-not-required-each-week) table below. You are **not** required to complete a separate “build” in Swift, Kotlin, C#, etc.—use [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) when that stack becomes **real** work.
+**Stacks in this repo’s specs:** PHP (P1), Python (P4) with orchestration/retrieval behind FastAPI, optional Laravel vs FastAPI (P2), optional Node/TS (P6). TS-heavy API shops often sit beside Python LLM services—**P6** is optional parity, not a replacement spine. **Exploration maps** (no dedicated spec) include **Java/JVM**, **[Node + TypeScript API](../stacks/node-typescript-backend.md)**, and **[Next.js + React](../stacks/nextjs-react-typescript.md)** (full-stack—optional breadth)—see the [ecosystem maps](#ecosystem-maps-orientation-not-required-each-week) table below. You are **not** required to complete a separate “build” in Swift, Kotlin, C#, etc.—use [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) when that stack becomes **real** work.
 
 ---
 

@@ -15,7 +15,7 @@ Public and partner APIs are **long-lived contracts**. Teams that treat the spec 
 **Why learning this moves the needle**
 
 - **Velocity without thrash:** OpenAPI (or equivalent) gives designers, frontend, and external devs a **shared truth** before implementation lands. Mock servers and generated types turn integration from a **serial** negotiation into parallel work.
-- **AI-assisted coding:** Generated code refactors easily break **field names and nullability**. A checked-in spec plus **contract or diff checks** catches those mistakes in CI instead of in user devices—exactly the failure mode teams hit when they “let the model” rename DTOs.
+- **AI-assisted coding:** Generated code refactors easily break **field names and nullability**. A checked-in spec plus **contract checks in CI** catches those mistakes before merge: **OpenAPI diff** gates (breaking vs non-breaking), implementation-vs-spec validation (`spectral`, framework plugins), or **consumer-driven** contract tests (e.g. Pact-style)—exactly the failure mode teams hit when they “let the model” rename DTOs.
 - **Platform credibility:** Publishing accurate docs, versioning, and deprecation policies is how you grow an **ecosystem** (marketplaces, agencies, enterprise procurement). Big customers often ask for **SLAs and stability** promises, not just “REST-ish JSON.”
 - **Career signal:** “I can define a breaking change and roll it out safely” reads as **mid/senior API discipline**, not just CRUD. You want stories about **deprecation windows**, consumer-driven contracts, and rolling out **`v2`** without orphaning `v1`.
 
@@ -97,6 +97,7 @@ expect(response.body).toMatchSchema({
 - [ ] OpenAPI 3 spec defines resources and error shapes.
 - [ ] Server generated from spec or spec validated against implementation (choose one approach and document it).
 - [ ] **Breaking-change ritual:** document in README (e.g. `openapi-diff` in CI, or manual checklist before merge).
+- [ ] **CI or pre-merge gate** that fails when spec and implementation drift—automated diff/lint against `openapi.yaml`, consumer contract test, or equivalent (pick one; mirror how AI-heavy teams prevent silent DTO churn).
 - [ ] One **contract test** or consumer stub that fails if response shape drifts.
 
 ## Exploration scenarios

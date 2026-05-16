@@ -17,7 +17,7 @@ Employers are moving from “prompt in a notebook” to **production AI features
 - **Product reality:** Internal copilots, support assistants, and doc search all need **RAG or tools** plus guardrails; slide-deck demos rarely ship. Hiring managers want evidence you can own **latency, cost, and error budgets** for model calls.
 - **Quality at scale:** **Eval JSONL + regression** is how teams catch regressions when prompts, models, or chunking change—similar to snapshot tests for prose. Without evals, every model bump is **uncontrolled drift**.
 - **Trust and compliance:** **Citations (`cited_chunk_ids`)** support “show your work” for legal, regulated, or enterprise procurement contexts. They also shorten **debugging**: wrong answer often traces to **wrong chunk**, not “the model felt wrong.”
-- **Role fit:** “AI engineer” listings often mean **FastAPI/services + LangChain (or similar) + observability**, not only prompt design. Thin HTTP boundaries and loggable **`request_id`** are how you stay employable when the framework du jour changes.
+- **Role fit:** “AI engineer” listings often mean **FastAPI/services + retrieval or orchestration layer + observability**, not only prompt design. Thin HTTP boundaries and loggable **`request_id`** are how you stay employable when the framework du jour changes.
 
 **Real-world situations this project mirrors**
 
@@ -36,7 +36,7 @@ Employers are moving from “prompt in a notebook” to **production AI features
 
 ## Stack
 
-Python **3.9+** (3.11+ recommended), FastAPI, dependencies in `requirements.txt`. Integrate **LangChain** in this repo when your main work starts; keep the **eval JSONL** and **logging** conventions from day one.
+Python **3.11+** (align with supported upstream versions for FastAPI/Pydantic); FastAPI; dependencies in `requirements.txt`. Pick an **orchestration / retrieval** approach when you wire real behavior—**LangChain**, **LangGraph**, **LlamaIndex**, or a **thin provider SDK + your own retrieval**—the **`POST /query` JSON contract**, **eval JSONL**, and **logging** conventions stay stable regardless.
 
 ## Key concepts (with definitions and code)
 
@@ -46,7 +46,7 @@ Python **3.9+** (3.11+ recommended), FastAPI, dependencies in `requirements.txt`
 
 **Problem it solves:** The model stops **hallucinating facts** about *your* private data because it must cite **provided** text—but you must still handle **bad retrieval** and **prompt injection** (see checklists).
 
-**In this repo (stub):** `_stub_answer` returns fake `cited_chunk_ids`; replace with real retrieval + LangChain.
+**In this repo (stub):** `_stub_answer` returns fake `cited_chunk_ids`; replace with real retrieval + your chosen orchestration path (library stack or minimal SDK).
 
 ```python
 # app/main.py — contract you keep stable for evals
@@ -104,11 +104,11 @@ _log_event(
 )
 ```
 
-### LangChain “behind the HTTP boundary”
+### Orchestration “behind the HTTP boundary”
 
-**What:** Keep FastAPI thin: validate input, call a **service module** that runs LangChain (retrieval, tools, memory).
+**What:** Keep FastAPI thin: validate input, call a **service module** that runs retrieval, optional tool calls, and generation (via LangChain/LangGraph/LlamaIndex-style wiring or a small custom layer).
 
-**Problem it solves:** Unit/integration tests hit Python functions without spinning HTTP; swapping frameworks does not break clients.
+**Problem it solves:** Unit/integration tests hit Python functions without spinning HTTP; swapping orchestration libraries does not break clients or eval JSONL.
 
 ## Success criteria
 
@@ -158,9 +158,16 @@ Run against [`04-rag-llm-lab`](../projects/04-rag-llm-lab) ([GitHub](https://git
 - **Action:** Add 3–5 lines to `evals/*.jsonl` for your real retrieval corpus when wired.
 - **Expected outcome:** Runner remains the gate before model/prompt changes.
 
-## LangChain alignment
+### 8 — Stretch: bounded tool-using flow (optional)
 
-When you add LangChain:
+- **Action:** Add an **allowlisted** tool path (fixed set of functions or APIs the model may call), with **hard caps** on iterations, wall-clock timeout, and documented refusal behavior. Align with [LLM feature ship checklist](../checklists/llm-feature-ship.md) (“Tool allowlist if using agents”).
+- **Expected outcome:** Logs show tool rounds + `request_id`; evals or manual notes prove runaway loops cannot exhaust budget silently.
+
+**MCP (Model Context Protocol):** Optional **literacy** only—many products expose tools over standard protocols; you do **not** need a separate playbook project. If you skim MCP docs, tie it to the same rules: **explicit allowlist**, no arbitrary shell/file access in prod, secrets never in tool payloads logged verbatim.
+
+## Orchestration alignment
+
+When you add retrieval / orchestration code:
 
 - Keep retrieval and tool wiring **behind** your FastAPI service boundaries (easier to test).
 - Add regression runs to CI or pre-release checklist using `evals/*.jsonl`.

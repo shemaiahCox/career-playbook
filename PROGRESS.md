@@ -34,7 +34,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 - Initialized [career-playbook](.) with `FOCUS.md`, project specs, and checklists.
 - Created local practice repos: [01-webhook-receiver-lab](projects/01-webhook-receiver-lab) (Project 1) and [04-rag-llm-lab](projects/04-rag-llm-lab) (Project 4 skeleton: FastAPI, eval JSONL template, observability hooks).
-- **Next:** Run Project 1 locally, exercise idempotency + signature paths; flesh out RAG retrieval in Project 4 when LangChain work starts.
+- **Next:** Run Project 1 locally, exercise idempotency + signature paths; flesh out RAG retrieval in Project 4 when orchestration work starts (retrieval + chosen library/SDK stack).
 
 ---
 

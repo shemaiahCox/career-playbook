@@ -75,7 +75,7 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 
 ### Trace / span (optional stretch)
 
-**What:** **OpenTelemetry** (or vendor APM) records parent/child **spans** (e.g. “HTTP in” → “DB query”) with timings.
+**What:** **OpenTelemetry** is the **portable default** for traces in cross-language backends: parent/child **spans** (e.g. “HTTP in” → “DB query” → “LLM call”) with timings, exportable to vendors or a local collector. Vendor-specific APM SDKs still exist; OTel-first thinking maps cleanly when you change hosts.
 
 **Problem it solves:** Shows **where** latency lives (network vs DB vs external API) without printf debugging.
 
@@ -123,7 +123,7 @@ Implement these against **your** observability lab host ([`04-rag-llm-lab`](../p
 
 ## Stretch
 
-- OpenTelemetry export to console or local collector.
+- OpenTelemetry export to console or local collector (recommended path before tying traces to a single vendor).
 
 ## Companion reading
 
