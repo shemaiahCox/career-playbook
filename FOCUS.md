@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This playbook is for **deliberate practice**: phased labs in [project-specs/](project-specs/), shared [checklists](checklists/), and a [progress log](PROGRESS.md) so understanding and shipping discipline come first. **Career direction** below is context for what to practice—not the primary lens. Conversation-ready narratives are an optional downstream benefit of work you can actually run and explain.
+This playbook is for **deliberate practice**: phased labs in [career-project-specs/](career-project-specs/), shared [checklists](checklists/), and a [progress log](PROGRESS.md) so understanding and shipping discipline come first. **Career direction** below is context for what to practice—not the primary lens. Conversation-ready narratives are an optional downstream benefit of work you can actually run and explain.
 
 ## Role direction
 
@@ -12,18 +12,18 @@ This playbook is for **deliberate practice**: phased labs in [project-specs/](pr
 
 **Forward vector:** **Python** for model-backed services—**retrieval, orchestration libraries, and vendor APIs** under explicit boundaries—not “prompt-only” ownership. The implementation detail (LangChain, LangGraph, LlamaIndex, or a thin SDK plus your own retrieval) sits **behind** a stable HTTP contract; evals and observability stay load-bearing.
 
-**Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](project-specs/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
+**Flexible lane (optional but high leverage):** **Node + TypeScript** for one small service ([Project 6](career-project-specs/06-node-typescript-lab.md))—same reliability patterns as PHP/Python work, broader **SaaS / full-stack-adjacent** job surface. Not “every JS framework”; one HTTP stack + strict habits.
 
-**SQL / data depth (optional):** A dedicated Postgres lab ([Project 7](project-specs/07-sql-performance-lab.md)) for **plans, indexing, transactions, and pagination**—so everyday SQL use becomes **correctness and performance you can reason about under load**, not only incidental queries in other repos.
+**SQL / data depth (optional):** A dedicated Postgres lab ([Project 7](career-project-specs/07-sql-performance-lab.md)) for **plans, indexing, transactions, and pagination**—so everyday SQL use becomes **correctness and performance you can reason about under load**, not only incidental queries in other repos.
 
 ## Industry themes to practice (durable, not hype-chasing)
 
 1. **AI in real products** — Retrieval and tool boundaries, safety basics, regression **evals**, cost/latency awareness, logging around model paths.
 2. **Reliability and operability** — Idempotent handlers, retries/backoff patterns, dead-letter handling, structured logs, trace/request IDs, debuggable failures.
-3. **Security** — Secrets outside code, webhook signatures, auth boundaries, dependency hygiene, light threat modeling for integrations. **Cybersecurity literacy** (common web vulns, safe defaults) is part of modern backend work—optional [Project 8](project-specs/08-application-security-lab.md) (OWASP foundations: SQLi, XSS, sessions, forms/CSRF) complements P1’s integration-edge security; it does **not** replace a dedicated security team or mean a “security-only” career pivot.
+3. **Security** — Secrets outside code, webhook signatures, auth boundaries, dependency hygiene, light threat modeling for integrations. **Cybersecurity literacy** (common web vulns, safe defaults) is part of modern backend work—optional [Project 8](career-project-specs/08-application-security-lab.md) (OWASP foundations: SQLi, XSS, sessions, forms/CSRF) complements P1’s integration-edge security; it does **not** replace a dedicated security team or mean a “security-only” career pivot.
 4. **Async and events** — Webhooks, queues, eventual consistency; overlaps with integration work.
 5. **Developer experience** — OpenAPI/contract thinking, breaking-change discipline, tests where they protect contracts.
-6. **SQL correctness and performance** — Reason about **plans**, **index tradeoffs**, **isolation**, and **pagination** without ORM blind spots ([Project 7](project-specs/07-sql-performance-lab.md)).
+6. **SQL correctness and performance** — Reason about **plans**, **index tradeoffs**, **isolation**, and **pagination** without ORM blind spots ([Project 7](career-project-specs/07-sql-performance-lab.md)).
 
 ## Architectural thinking through practice
 
@@ -33,11 +33,11 @@ If your direction includes **systems-style or architect-shaped work across many 
 
 ## Polyglot learning apps (PacPal-style and others)
 
-Keep them; make each demo **one** future-facing property (e.g. offline tension, tracing, strict API contract) and note the tradeoff in this playbook’s [PROGRESS.md](PROGRESS.md).
+Keep them; make each demo **one** future-facing property (e.g. offline tension, tracing, strict API contract) and note the tradeoff in this playbook's [PROGRESS.md](PROGRESS.md). **Playbook labs** (**webhook**, **RAG**, **SQL**): work inside this repo under [`career-projects/`](career-projects/README.md) (see [Quick links — practice repos](README.md#quick-links-to-practice-repos)). **Breadth tutorials** (**Go**, **Rust**, **Unity**): tracked under [`exploration-projects/`](exploration-projects/README.md). **Commercial / unrelated product** repos may still live beside this repo under **`~/Documents/dev/business-projects/`**—that directory is optional for playbook milestones.
 
 ## Non-goals (this year)
 
 - Deep ML research or training custom models.
-- Chasing every new JS framework (**intentional exception:** one **Node + TypeScript** service lab is in-scope; see [Project 6](project-specs/06-node-typescript-lab.md)).
+- Chasing every new JS framework (**intentional exception:** one **Node + TypeScript** service lab is in-scope; see [Project 6](career-project-specs/06-node-typescript-lab.md)).
 - **Rust or Go** as open-ended study—only add when tied to a **shipping artifact** (real repo) or a **concrete job target**; patterns here transfer without a second systems language by default.
 - Turning this repo into a second resume (keep resume/CV separate unless you add a dedicated folder later).

@@ -15,7 +15,7 @@
 1. **System shape** — Service boundaries, sync vs durable work, APIs and contract evolution, data ownership, messaging, backpressure.
 2. **Semantics** — Consistency, concurrency models (conceptually), idempotency, delivery guarantees, timeouts.
 3. **Operations** — Observability, deploy/rollback, incident thinking, security at edges (auth, secrets, supply-chain awareness).
-4. **Data** — SQL, transactions, indexing, migrations—at **decision** depth (your [SQL lab](../../project-specs/07-sql-performance-lab.md) lane supports this).
+4. **Data** — SQL, transactions, indexing, migrations—at **decision** depth (your [SQL lab](../../career-project-specs/07-sql-performance-lab.md) lane supports this).
 5. **Ecosystem surface (shallow)** — Per stack: modules, tests, typical DI/async story—**maps**, not full courses (see [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short)).
 
 ## Practices (language-agnostic)

@@ -1,6 +1,6 @@
 # Per-project testing (labs + AI)
 
-How to choose **test layers**, use **AI assistants** responsibly, and stay aligned with each [project spec](../../project-specs/). **General theory** (pyramid, doubles, flaky tests) lives in the handbook: [Testing](../handbook/software-engineering.md#testing).
+How to choose **test layers**, use **AI assistants** responsibly, and stay aligned with each [project spec](../../career-project-specs/). **General theory** (pyramid, doubles, flaky tests) lives in the handbook: [Testing](../handbook/software-engineering.md#testing).
 
 Using an LLM to draft tests is **optional**. These pages describe what to aim for and **example prompts** you can copy—whether you write tests by hand or with help.
 
@@ -40,14 +40,14 @@ Skim the **Testing approach (lab)** section in each spec for stack-specific emph
 
 | Project | Spec | Typical primary layers |
 |---------|------|-------------------------|
-| 1 — Webhook receiver | [01-integration-webhook-receiver.md](../../project-specs/01-integration-webhook-receiver.md#testing-approach-lab) | Integration (HTTP + DB) + unit on crypto/idempotency helpers |
-| 2 — Contract-first API | [02-contract-first-api.md](../../project-specs/02-contract-first-api.md#testing-approach-lab) | Contract/schema + CI drift gate |
-| 3 — Observability | [03-observability-lab.md](../../project-specs/03-observability-lab.md#testing-approach-lab) | Integration or component tests on log/correlation shape |
-| 4 — RAG / LLM | [04-rag-llm-service.md](../../project-specs/04-rag-llm-service.md#testing-approach-lab) | Eval JSONL + runner; unit on deterministic seams |
-| 5 — Async worker | [05-async-worker-stretch.md](../../project-specs/05-async-worker-stretch.md#testing-approach-lab) | Integration (queue + worker + idempotency) |
-| 6 — Node / TypeScript | [06-node-typescript-lab.md](../../project-specs/06-node-typescript-lab.md#testing-approach-lab) | Same as track (A→P1, B→P2, C→P5 patterns) |
-| 7 — SQL performance | [07-sql-performance-lab.md](../../project-specs/07-sql-performance-lab.md#testing-approach-lab) | Exercise scripts + documented plan excerpts (correctness of SQL behavior) |
-| 8 — Application security | [08-application-security-lab.md](../../project-specs/08-application-security-lab.md#testing-approach-lab) | Targeted **reproduction** scripts + checklist pass |
+| 1 — Webhook receiver | [01-integration-webhook-receiver.md](../../career-project-specs/01-integration-webhook-receiver.md#testing-approach-lab) | Integration (HTTP + DB) + unit on crypto/idempotency helpers |
+| 2 — Contract-first API | [02-contract-first-api.md](../../career-project-specs/02-contract-first-api.md#testing-approach-lab) | Contract/schema + CI drift gate |
+| 3 — Observability | [03-observability-lab.md](../../career-project-specs/03-observability-lab.md#testing-approach-lab) | Integration or component tests on log/correlation shape |
+| 4 — RAG / LLM | [04-rag-llm-service.md](../../career-project-specs/04-rag-llm-service.md#testing-approach-lab) | Eval JSONL + runner; unit on deterministic seams |
+| 5 — Async worker | [05-async-worker-stretch.md](../../career-project-specs/05-async-worker-stretch.md#testing-approach-lab) | Integration (queue + worker + idempotency) |
+| 6 — Node / TypeScript | [06-node-typescript-lab.md](../../career-project-specs/06-node-typescript-lab.md#testing-approach-lab) | Same as track (A→P1, B→P2, C→P5 patterns) |
+| 7 — SQL performance | [07-sql-performance-lab.md](../../career-project-specs/07-sql-performance-lab.md#testing-approach-lab) | Exercise scripts + documented plan excerpts (correctness of SQL behavior) |
+| 8 — Application security | [08-application-security-lab.md](../../career-project-specs/08-application-security-lab.md#testing-approach-lab) | Targeted **reproduction** scripts + checklist pass |
 
 ## Review checklist (before merge)
 

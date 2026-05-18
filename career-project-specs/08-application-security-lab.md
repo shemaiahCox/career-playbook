@@ -33,7 +33,7 @@ _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contr
 |---|-----|
 | **GitHub** | _TBD_ |
 | **SSH** | _TBD_ |
-| **Local sibling** | _TBD — e.g. [`../projects/owasp-web-lab`](../projects/)_ |
+| **Local sibling** | _TBD — e.g. [`../career-projects/08-owasp-web-lab`](../career-projects/)_ |
 
 ## Stack (suggestion)
 

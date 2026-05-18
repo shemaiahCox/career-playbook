@@ -2,7 +2,7 @@
 
 **Use this:** You ship or review **Node** backends as **HTTP APIs** (**Express**, **Fastify**, **NestJS-shaped** layering)—**not** primarily React/Next. For **Next.js + React + SSR**, use [nextjs-react-typescript.md](nextjs-react-typescript.md) first; Node is still the server runtime there, but vocabulary and footguns differ.
 
-**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 6 — Node / TypeScript lab](../../project-specs/06-node-typescript-lab.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 6 — Node / TypeScript lab](../../career-project-specs/06-node-typescript-lab.md)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -25,7 +25,7 @@
 
 - **Middleware** chains (Express-style) or **hooks** (Fastify)—ordering matters: auth, body parsing, error handler last.
 - **Validation at the boundary:** **Zod**, **joi**, or framework schemas—same discipline as Pydantic in Python: reject bad input before business logic.
-- Align habits with [Project 6](../../project-specs/06-node-typescript-lab.md): **correlation IDs**, structured JSON logs.
+- Align habits with [Project 6](../../career-project-specs/06-node-typescript-lab.md): **correlation IDs**, structured JSON logs.
 
 **Async**
 
@@ -38,7 +38,7 @@
 
 **Observability**
 
-- **`pino`** / **`winston`** structured logs; **OpenTelemetry** SDKs for Node; propagate **`request_id`** on every line (tie to [observability lab](../../project-specs/03-observability-lab.md)).
+- **`pino`** / **`winston`** structured logs; **OpenTelemetry** SDKs for Node; propagate **`request_id`** on every line (tie to [observability lab](../../career-project-specs/03-observability-lab.md)).
 
 **Security**
 

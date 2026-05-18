@@ -33,7 +33,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 ## 2026-05-05 — Playbook scaffold
 
 - Initialized [career-playbook](.) with `FOCUS.md`, project specs, and checklists.
-- Created local practice repos: [01-webhook-receiver-lab](projects/01-webhook-receiver-lab) (Project 1) and [04-rag-llm-lab](projects/04-rag-llm-lab) (Project 4 skeleton: FastAPI, eval JSONL template, observability hooks).
+- Created local practice repos: [01-webhook-receiver-lab](career-projects/01-webhook-receiver-lab) (Project 1) and [04-rag-llm-lab](career-projects/04-rag-llm-lab) (Project 4 skeleton: FastAPI, eval JSONL template, observability hooks).
 - **Next:** Run Project 1 locally, exercise idempotency + signature paths; flesh out RAG retrieval in Project 4 when orchestration work starts (retrieval + chosen library/SDK stack).
 
 ---
@@ -41,7 +41,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 ## 2026-05-05 — Learning path + optional Node/TypeScript lab
 
 - README: added **Learning path (suggested)** table (phases 1–5 + stack reality callout).
-- New spec: [project-specs/06-node-typescript-lab.md](project-specs/06-node-typescript-lab.md) — optional **Node + TypeScript** parity (webhook, contract API, or webhook+worker); links from Projects 2, 3, and 5.
+- New spec: [career-project-specs/06-node-typescript-lab.md](career-project-specs/06-node-typescript-lab.md) — optional **Node + TypeScript** parity (webhook, contract API, or webhook+worker); links from Projects 2, 3, and 5.
 - [FOCUS.md](FOCUS.md): **Flexible lane** under forward vector; non-goals clarified (one TS service is in-scope; framework churn is not).
 
 ---
@@ -55,8 +55,8 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ## 2026-05-05 — Project 7: SQL performance / correctness lab
 
-- New spec: [project-specs/07-sql-performance-lab.md](project-specs/07-sql-performance-lab.md) — Postgres-focused plans, indexing, joins vs loop-shaped access, transactions, keyset pagination; optional rollup stretch.
-- Practice repo: [projects/07-sql-perf-lab](projects/07-sql-perf-lab) (Docker Compose, seeded schema, `exercises/*.sql`).
+- New spec: [career-project-specs/07-sql-performance-lab.md](career-project-specs/07-sql-performance-lab.md) — Postgres-focused plans, indexing, joins vs loop-shaped access, transactions, keyset pagination; optional rollup stretch.
+- Practice repo: [07-sql-perf-lab](career-projects/07-sql-perf-lab) (Docker Compose, seeded schema, `exercises/*.sql`).
 - [README.md](README.md): learning path row **4b**, updated SQL paragraph, quick-links row + SSH clone hint for **sql-perf-lab**.
 - [FOCUS.md](FOCUS.md): optional SQL/data depth lane + industry theme **#6** pointing at P7.
 - Cross-links from Projects **1**, **2**, and **5** to P7 for deeper relational work.
@@ -65,7 +65,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ## 2026-05-05 — sql-perf-lab as standalone repo
 
-- [projects/07-sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) is its own git repository (same pattern as webhook- and rag-llm labs); no longer committed inside **career-playbook** (`projects/*/` ignore restored).
+- [sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) is its own git repository (same pattern as webhook- and rag-llm labs); clone beside **career-playbook** into **`career-projects/07-sql-perf-lab`** (see main [README](README.md#quick-links-to-practice-repos)).
 - Spec **07** code-repo table matches **local sibling** clone path; main **README** quick links unchanged for local dev.
 
 ---
@@ -73,7 +73,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 ## 2026-05-06 — Architectural narrative + usage docs
 
 - [README.md](README.md): **Architectural narrative** — maps competencies to projects and checklists; habits for specs, PROGRESS entries, optional lab README diagrams.
-- [README.md](README.md): **Using this playbook** — how to work through `project-specs/`, pointers to checklists and this log.
+- [README.md](README.md): **Using this playbook** — how to work through `career-project-specs/`, pointers to checklists and this log.
 - [FOCUS.md](FOCUS.md): **Architectural thinking through practice** bridge linking README narrative and PROGRESS tradeoffs/failure modes.
 - [PROGRESS.md](PROGRESS.md): **How to use checklists and this log** — checklist timing, log cadence, milestone shape (**Tradeoff** / **Failure mode** prompts folded in).
 
@@ -81,7 +81,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ## 2026-05-06 — Exploration scenarios in project specs
 
-- All [project-specs/](project-specs/) (`01`–`07`, including `06`): new **Exploration scenarios** sections — Setup / Action / Expected outcome / optional Stretch; lab READMEs hold copy-paste commands where repos exist.
+- All [career-project-specs/](career-project-specs/) (`01`–`07`, including `06`): new **Exploration scenarios** sections — Setup / Action / Expected outcome / optional Stretch; lab READMEs hold copy-paste commands where repos exist.
 - [README.md](README.md): **Using this playbook** — step to run scenarios after Key concepts and before checklists.
 
 ---
@@ -91,7 +91,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 - [FOCUS.md](FOCUS.md): **Purpose** blurb (practice and understanding first); **Role direction** (replacing headline “optimize”); SQL depth wording; **Architectural thinking through practice**.
 - [README.md](README.md): engineering-first vocabulary in playbook steps; SQL paragraph emphasizes hands-on plan/index literacy from real runs.
 - [PROGRESS.md](PROGRESS.md): Tradeoff/cadence wording centered on explanation and retrospectives (not interviews-first).
-- [project-specs/](project-specs/) **01**, **03**, **06**, **07**: practice-first wording (Career relevance, Exploration intro, Maps to / summaries).
+- [career-project-specs/](career-project-specs/) **01**, **03**, **06**, **07**: practice-first wording (Career relevance, Exploration intro, Maps to / summaries).
 
 ---
 
@@ -134,5 +134,14 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ## 2026-05-13 — Handbook debugging + stack maps (Node, Java)
 
-- [docs/handbook/software-engineering.md](docs/handbook/software-engineering.md): **Debugging (workflow)** section; TOC + intro; cross-links from **Testing** and **Observability**. [docs/paths/learning-journey.md](docs/paths/learning-journey.md): P3/P4 skim row + ecosystem map rows below. [project-specs/03-observability-lab.md](project-specs/03-observability-lab.md): companion reading.
+- [docs/handbook/software-engineering.md](docs/handbook/software-engineering.md): **Debugging (workflow)** section; TOC + intro; cross-links from **Testing** and **Observability**. [docs/paths/learning-journey.md](docs/paths/learning-journey.md): P3/P4 skim row + ecosystem map rows below. [career-project-specs/03-observability-lab.md](career-project-specs/03-observability-lab.md): companion reading.
 - New stacks: [docs/stacks/node-typescript-backend.md](docs/stacks/node-typescript-backend.md), [docs/stacks/java-jvm.md](docs/stacks/java-jvm.md); [docs/stacks/README.md](docs/stacks/README.md), [docs/stacks/glossary.md](docs/stacks/glossary.md). [docs/README.md](docs/README.md): Observability/debugging + polyglot/stack exploration; stacks intro line.
+
+---
+
+## 2026-05-18 — Repo layout: `career-projects/`, `career-project-specs/`
+
+- **Labs:** Playbook workspaces (**`01-*`**, **`04-*`**, **`07-*`**) live inside this repo under **`career-projects/`** (nested git checkouts)—not **`exploration-projects/`** (sandboxes only) and no longer implied under **`~/Documents/dev/business-projects/`** unless you deliberately keep clones there (**`business-projects/`** is for unrelated product repos like PacPal).
+- **Specs:** Initiative docs moved **`project-specs/` → `career-project-specs/`**; [`project-specs/README.md`](project-specs/README.md) redirects old paths.
+- [`.gitignore`](.gitignore): ignore **`career-projects/*`** except **`README.md`** so nested lab checkouts remain separate repositories—not gitlinks inside this repo.
+- [README.md](README.md): quick-links, clone notes, **`Using this playbook`**, **`FOCUS`**, **`exploration-projects/README`**, and cross-links refreshed for the folder names above.

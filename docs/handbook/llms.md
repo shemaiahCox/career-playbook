@@ -2,7 +2,7 @@
 
 Concepts for **how modern text models behave**, **how retrieval and grounding differ from “just prompting,”** and **what shipping an LLM feature looks like next to ordinary backend practice**—evals, observability, latency/cost, and abuse boundaries.
 
-**Companion docs:** [Software engineering](software-engineering.md) · [Database design](database-design.md) · [Per-project testing (evals + layering)](../playbook/per-project-testing.md) · [AI-assisted unfamiliar stack](../paths/ai-assisted-unfamiliar-stack.md) · [Project 4: RAG / LLM service](../../project-specs/04-rag-llm-service.md) · [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
+**Companion docs:** [Software engineering](software-engineering.md) · [Database design](database-design.md) · [Per-project testing (evals + layering)](../playbook/per-project-testing.md) · [AI-assisted unfamiliar stack](../paths/ai-assisted-unfamiliar-stack.md) · [Project 4: RAG / LLM service](../../career-project-specs/04-rag-llm-service.md) · [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
 
 ---
 
@@ -27,7 +27,7 @@ Concepts for **how modern text models behave**, **how retrieval and grounding di
 | **Intermediate** | Compare fine-tuning vs RAG vs tool use; reason about chunking and stale corpora; design a minimal eval + logging story that ties responses to **`request_id`** and optional **chunk ids**. |
 | **Advanced** | Discuss provider tradeoffs (latency SLA, versioning, failover), degraded modes under timeout/cost pressure, and how **untrusted retrieved text** interacts with prompt structure—without treating the checklist as exhaustive security. |
 
-**Do not confuse this page with workflows:** gate releases with **[LLM feature ship](../../checklists/llm-feature-ship.md)** and the lab contract in **[Project 4](../../project-specs/04-rag-llm-service.md)**.
+**Do not confuse this page with workflows:** gate releases with **[LLM feature ship](../../checklists/llm-feature-ship.md)** and the lab contract in **[Project 4](../../career-project-specs/04-rag-llm-service.md)**.
 
 ---
 
@@ -84,7 +84,7 @@ flowchart LR
 
 - **Chunking tradeoffs:** tiny chunks improve precision but lose surrounding context; large chunks inflate noise in the prompt. Headers, structure-aware splits, and metadata (tenant, locale, freshness) materially change quality.
 - **Staleness:** if the corpus updates often, embeddings and filters must refresh; stale answers often look plausible.
-- Return **identifiers** alongside answers (see **`cited_chunk_ids`** in [Project 4](../../project-specs/04-rag-llm-service.md)) so support and debugging trace “wrong answer” to “wrong retrieval” versus “generation drift.”
+- Return **identifiers** alongside answers (see **`cited_chunk_ids`** in [Project 4](../../career-project-specs/04-rag-llm-service.md)) so support and debugging trace “wrong answer” to “wrong retrieval” versus “generation drift.”
 
 **Database crossover:** embeddings stores and hybrid search patterns touch concepts in [Database design](database-design.md) (consistency + operational tradeoffs)—the implementation varies by vendor; the engineering habit is versioning indexes and documenting refresh semantics.
 

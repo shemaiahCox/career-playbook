@@ -12,7 +12,7 @@ Try this gentle order:
 
 1. **Slow path** — Open the **[stacks glossary](glossary.md)** (one-page map of links) **or** jump to **“Plain language: terms used on this page”** at the bottom of any ecosystem note.
 2. **When a word matters for design or correctness** — Open [Software engineering breadth](../handbook/software-engineering.md) and search the term (examples: **idempotency**, **Isolation**, **API contracts**). The handbook carries the longer explanations; stack pages only point.
-3. **When you learn by building** — Use [project specs](../../project-specs/) first; stack notes are backup when a spec mentions something you never heard before.
+3. **When you learn by building** — Use [project specs](../../career-project-specs/) first; stack notes are backup when a spec mentions something you never heard before.
 
 Words used on this README:
 
@@ -42,7 +42,7 @@ Use this in your own notes or when extending handbook pages.
 ## Rules for a polyglot playbook
 
 - **One canonical example** per *pattern* (e.g. MVVM). Add a single **comparative line** for other stacks (“Android often …”) instead of three full codebases.
-- **Tutorials belong in labs** ([project-specs/](../../project-specs/)); this folder is for **vocabulary and pointers**.
+- **Tutorials belong in labs** ([career-project-specs/](../../career-project-specs/)); this folder is for **vocabulary and pointers**.
 
 ## Where the deeper explanations live
 

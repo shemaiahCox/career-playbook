@@ -32,7 +32,7 @@ Most backend roles assume you can **join**, **filter**, and **migrate** responsi
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
 | **SSH** | `git@github.com:shemaiahCox/sql-perf-lab.git` |
-| **Local sibling** | [`../projects/07-sql-perf-lab`](../projects/07-sql-perf-lab) |
+| **Local sibling** | [`../career-projects/07-sql-perf-lab`](../career-projects/07-sql-perf-lab) |
 
 ## Stack
 
@@ -86,7 +86,7 @@ WHERE o.tenant_id = 't-001' AND o.created_at > now() - interval '7 days';
 
 **Problem it solves:** Correct money-like state, inventory, and idempotency records without “half applied” stories or silent races.
 
-**In this repo:** [Exercise 4](../projects/07-sql-perf-lab/exercises/04_transactions.sql) walks **atomicity** (`ROLLBACK`), **consistency** (FK violation), and **isolation** (`FOR UPDATE` row lock + optional two-session lost-update drill). **Durability** is explained here; confirm in production with your operator’s backup/HA story, not this container alone.
+**In this repo:** [Exercise 4](../career-projects/07-sql-perf-lab/exercises/04_transactions.sql) walks **atomicity** (`ROLLBACK`), **consistency** (FK violation), and **isolation** (`FOR UPDATE` row lock + optional two-session lost-update drill). **Durability** is explained here; confirm in production with your operator's backup/HA story, not this container alone.
 
 ### Keyset pagination vs `OFFSET`
 
@@ -113,7 +113,7 @@ WHERE o.tenant_id = 't-001' AND o.created_at > now() - interval '7 days';
 | 5 | Keyset vs `OFFSET` pagination | `exercises/05_pagination.sql` |
 | 6 | Stretch: rollup / MV | `exercises/06_rollup_stretch.sql` |
 
-Run order and setup: see [projects/07-sql-perf-lab/README.md](../projects/07-sql-perf-lab/README.md).
+Run order and setup: see [07-sql-perf-lab/README.md](../career-projects/07-sql-perf-lab/README.md).
 
 ## Testing approach (lab)
 
@@ -138,7 +138,7 @@ Run order and setup: see [projects/07-sql-perf-lab/README.md](../projects/07-sql
 
 ## Exploration scenarios
 
-The repo already ships scripted exercises—use these scenarios as **learning goals** (what you should see before moving on). Commands and seeds: [07-sql-perf-lab README](../projects/07-sql-perf-lab/README.md) and `exercises/*.sql`.
+The repo already ships scripted exercises—use these scenarios as **learning goals** (what you should see before moving on). Commands and seeds: [07-sql-perf-lab README](../career-projects/07-sql-perf-lab/README.md) and `exercises/*.sql`.
 
 ### 1 — Plans: estimate vs reality (`01_plans.sql`)
 

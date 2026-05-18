@@ -344,7 +344,7 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **Beginner:** A standard way to **describe REST-style HTTP APIs** (endpoints, request/response shapes) so humans and tools can agree on contracts.
 
-**See also:** [REST](software-engineering.md#rest); [Contract-first API](../../project-specs/02-contract-first-api.md)
+**See also:** [REST](software-engineering.md#rest); [Contract-first API](../../career-project-specs/02-contract-first-api.md)
 
 ### OWASP
 

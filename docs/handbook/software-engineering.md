@@ -172,7 +172,7 @@ flowchart TB
 
 ## Integration: sync, async, and messaging
 
-**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — webhook receiver](../../project-specs/01-integration-webhook-receiver.md); [Stacks — ecosystem maps](../stacks/README.md) (how PHP, Python, Node, … express these ideas).
+**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md); [Stacks — ecosystem maps](../stacks/README.md) (how PHP, Python, Node, … express these ideas).
 
 ### Sync HTTP callers
 

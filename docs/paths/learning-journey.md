@@ -8,7 +8,7 @@ This guide gives **two views** of the same playbook: **dependency order** (what 
 
 ## Rules of thumb
 
-1. **One active project** — Pick **one** initiative spec ([project-specs/](../../project-specs/)) as the spine. Depth beats parallel half-finished labs.
+1. **One active project** — Pick **one** initiative spec ([career-project-specs/](../../career-project-specs/)) as the spine. Depth beats parallel half-finished labs.
 2. **Concepts on demand** — Use **Key concepts** in the active spec and [term cards](../stacks/README.md); if jargon overwhelms you, open the **[Stacks glossary](../stacks/glossary.md)** or scroll to **Plain language: terms used on this page** in the stack note. Open [software engineering](../handbook/software-engineering.md) for paragraphs when a term is **load-bearing** (idempotency, isolation, etc.).
 3. **Overlap is OK** — Phases can run in parallel calendar time (e.g. observability while building RAG); the table below is **dependency** order, not a ban on overlap.
 4. **Code examples** — Prefer **specs + lab repos** + reference **TOC sections** (see mapping below), not a second linear syllabus.
@@ -21,13 +21,13 @@ Ship and study in this **idea** order (aligned with [README Learning path](../..
 
 | Order | Phase theme | Specs | What you are practicing |
 |-------|-------------|-------|-------------------------|
-| 1 | Integration spine | [P1 — Webhook receiver](../../project-specs/01-integration-webhook-receiver.md) | Signatures, idempotency, thin HTTP path, dead letters |
-| 2 | Applied AI + ops | [P4 — RAG / LLM](../../project-specs/04-rag-llm-service.md), [P3 — Observability](../../project-specs/03-observability-lab.md) | Model boundaries, evals mindset, structured logs, correlation |
-| 3 | API contracts | [P2 — Contract-first API](../../project-specs/02-contract-first-api.md) | OpenAPI, breaking-change discipline |
-| 4 | Scale shape | [P5 — Async worker](../../project-specs/05-async-worker-stretch.md) | Queues, retries, DLQ, durable work |
-| 4b (optional) | SQL depth | [P7 — SQL performance](../../project-specs/07-sql-performance-lab.md) | Plans, indexes, transactions, pagination |
-| 4c (optional) | Cybersecurity / OWASP (web) | [P8 — Application security](../../project-specs/08-application-security-lab.md) | SQLi, XSS, auth/sessions, forms/CSRF; shipping-engineer literacy |
-| 5 (optional) | Flexible lane | [P6 — Node / TypeScript](../../project-specs/06-node-typescript-lab.md) | Same reliability patterns, broader market signal |
+| 1 | Integration spine | [P1 — Webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md) | Signatures, idempotency, thin HTTP path, dead letters |
+| 2 | Applied AI + ops | [P4 — RAG / LLM](../../career-project-specs/04-rag-llm-service.md), [P3 — Observability](../../career-project-specs/03-observability-lab.md) | Model boundaries, evals mindset, structured logs, correlation |
+| 3 | API contracts | [P2 — Contract-first API](../../career-project-specs/02-contract-first-api.md) | OpenAPI, breaking-change discipline |
+| 4 | Scale shape | [P5 — Async worker](../../career-project-specs/05-async-worker-stretch.md) | Queues, retries, DLQ, durable work |
+| 4b (optional) | SQL depth | [P7 — SQL performance](../../career-project-specs/07-sql-performance-lab.md) | Plans, indexes, transactions, pagination |
+| 4c (optional) | Cybersecurity / OWASP (web) | [P8 — Application security](../../career-project-specs/08-application-security-lab.md) | SQLi, XSS, auth/sessions, forms/CSRF; shipping-engineer literacy |
+| 5 (optional) | Flexible lane | [P6 — Node / TypeScript](../../career-project-specs/06-node-typescript-lab.md) | Same reliability patterns, broader market signal |
 
 **Stacks in this repo’s specs:** PHP (P1), Python (P4) with orchestration/retrieval behind FastAPI, optional Laravel vs FastAPI (P2), optional Node/TS (P6). TS-heavy API shops often sit beside Python LLM services—**P6** is optional parity, not a replacement spine. **Exploration maps** (no dedicated spec) include **Java/JVM**, **[Node + TypeScript API](../stacks/node-typescript-backend.md)**, and **[Next.js + React](../stacks/nextjs-react-typescript.md)** (full-stack—optional breadth)—see the [ecosystem maps](#ecosystem-maps-orientation-not-required-each-week) table below. You are **not** required to complete a separate “build” in Swift, Kotlin, C#, etc.—use [ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) when that stack becomes **real** work.
 

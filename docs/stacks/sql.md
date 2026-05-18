@@ -2,7 +2,7 @@
 
 **Use this:** You **design queries, migrations, or schema** and need a **shared vocabulary** across Postgres, MySQL, SQL Server, SQLite—**not** a duplicate of the full [database design](../handbook/database-design.md) reference.
 
-**Companion:** [term cards](README.md) · [SQL performance lab](../../project-specs/07-sql-performance-lab.md) · [database design](../handbook/database-design.md)
+**Companion:** [term cards](README.md) · [SQL performance lab](../../career-project-specs/07-sql-performance-lab.md) · [database design](../handbook/database-design.md)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 

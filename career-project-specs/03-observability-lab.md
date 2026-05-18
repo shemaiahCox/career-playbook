@@ -34,7 +34,7 @@ Production systems spend most of their life **failing in ways you did not expect
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | **SSH** | `git@github.com:shemaiahCox/rag-llm-lab.git` |
-| **Local sibling** | [`../projects/04-rag-llm-lab`](../projects/04-rag-llm-lab) |
+| **Local sibling** | [`../career-projects/04-rag-llm-lab`](../career-projects/04-rag-llm-lab) |
 
 **Alternatives:** A minimal Express/FastAPI/Laravel app; extend [Project 2 — Contract-first API](02-contract-first-api.md); for **TypeScript-first**, piggyback on [Project 6](06-node-typescript-lab.md) (any track) and apply the same success criteria there.
 
@@ -101,7 +101,7 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 
 ## Exploration scenarios
 
-Implement these against **your** observability lab host ([`04-rag-llm-lab`](../projects/04-rag-llm-lab) / [GitHub](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 6](06-node-typescript-lab.md)). Put concrete curls in the **service README**.
+Implement these against **your** observability lab host ([`04-rag-llm-lab`](../career-projects/04-rag-llm-lab) / [GitHub](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 6](06-node-typescript-lab.md)). Put concrete curls in the **service README**.
 
 ### 1 — Generated correlation id
 

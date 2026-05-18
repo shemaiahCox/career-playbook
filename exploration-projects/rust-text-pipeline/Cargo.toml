@@ -1,0 +1,9 @@
+# Cargo is Rust's package manager + build driver (like Go's go.mod + go build).
+[package]
+name = "rust-text-pipeline"
+version = "0.1.0"
+edition = "2021"
+description = "Beginner Rust lab: CLI args, file I/O, ownership, Result"
+
+# See https://doc.rust-lang.org/cargo/reference/manifest.html for every key.
+# No third-party crates yet—we only use standard library APIs you should meet first.

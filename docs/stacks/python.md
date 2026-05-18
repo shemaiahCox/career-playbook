@@ -2,7 +2,7 @@
 
 **Use this:** You ship or review **Python** backends (**FastAPI**, **Flask**, **Django**), **workers**, **CLI tools**, or **notebooks** that leave the lab. This is **vocabulary + runtime footguns**, not a syntax course.
 
-**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [RAG / LLM service](../../project-specs/04-rag-llm-service.md)
+**Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [RAG / LLM service](../../career-project-specs/04-rag-llm-service.md)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -28,7 +28,7 @@
 
 **LLM / RAG-shaped services**
 
-- Keep **`POST /query` (or equivalent) contract** and **eval JSONL** stable; treat **LangChain**, **LangGraph**, **LlamaIndex**, or **minimal SDK + custom retrieval** as **replaceable implementation** behind one service module ([RAG / LLM service](../../project-specs/04-rag-llm-service.md)).
+- Keep **`POST /query` (or equivalent) contract** and **eval JSONL** stable; treat **LangChain**, **LangGraph**, **LlamaIndex**, or **minimal SDK + custom retrieval** as **replaceable implementation** behind one service module ([RAG / LLM service](../../career-project-specs/04-rag-llm-service.md)).
 
 **Data access**
 
@@ -36,7 +36,7 @@
 
 **Observability**
 
-- **`structlog`** / standard **logging**; **OpenTelemetry** for traces—set **correlation IDs** at the request edge (aligns with [observability lab](../../project-specs/03-observability-lab.md)).
+- **`structlog`** / standard **logging**; **OpenTelemetry** for traces—set **correlation IDs** at the request edge (aligns with [observability lab](../../career-project-specs/03-observability-lab.md)).
 
 **Security**
 
