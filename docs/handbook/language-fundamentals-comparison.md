@@ -13,6 +13,12 @@
 - [Functions](#functions)
 - [Classes, structs, and interfaces](#classes-structs-and-interfaces)
 - [Built-in data structures](#built-in-data-structures)
+  - [Arrays and ordered lists](#arrays-and-ordered-lists)
+  - [Maps and dictionaries](#maps-and-dictionaries)
+  - [Sets](#sets)
+  - [Tuples and fixed-size pairs](#tuples-and-fixed-size-pairs)
+  - [Stack and queue idioms](#stack-and-queue-idioms)
+  - [Choosing at a glance](#choosing-at-a-glance)
 - [Operators and expressions](#operators-and-expressions)
 - [Conditionals and branching](#conditionals-and-branching)
 - [Loops and iteration](#loops-and-iteration)
@@ -36,7 +42,7 @@
 1. **Read** the section for the concept you are translating (e.g. “how do maps work in Go?”).
 2. **Skim** the comparison table, then read the **multi-language snippet**.
 3. **Run** the matching sandbox under [exploration-projects](../../exploration-projects/README.md) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
-4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](algorithms-and-data-structures.md)—this file covers **language spellings** of lists/maps/sets, not red-black tree theory.
+4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 
 **Comment style note:** Most languages use `//` for line comments. Rust also uses `//!` at the **top of a file** for module-level docs (not the same as `//` on one line).
 
@@ -248,56 +254,262 @@ public class Greeter {
 
 ## Built-in data structures
 
-**Lists/arrays**, **maps/dictionaries**, and **sets** exist everywhere; **literal syntax** and **mutability** differ. For when to pick which structure at algorithm level, see [Algorithms and data structures](algorithms-and-data-structures.md).
+**Lists/arrays**, **maps/dictionaries**, and **sets** exist everywhere. This section covers **how you create them**, **read and update elements**, and **common methods**—not when Big-O favors one over another ([Algorithms and data structures — Data structures](algorithms-and-data-structures.md#data-structures)).
+
+### Overview: literals and types
 
 | Structure | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
 |-----------|------------|-----|-----|------|------|--------|-------|-----|
-| Ordered list | `[1, 2, 3]` | `[1, 2, 3]` indexed + `array_values` | `[]int{1,2}` slice | `vec![1, 2]` | `List.of(1,2)` / `int[]` | `listOf(1, 2)` | `[1, 2, 3]` | `new[] {1,2}` / `List<int>` |
-| Map / dict | `{ key: "v" }` / `Map` | `['k' => 'v']` assoc array | `map[string]int{"a":1}` | `HashMap::from([...])` | `Map.of("a", 1)` | `mapOf("a" to 1)` | `["a": 1]` dict | `Dictionary<string,int>` |
-| Set | `new Set([1,2])` | `array_unique` / no native set until extensions | `map[T]struct{}` idiom | `HashSet::from([...])` | `Set.of(1,2)` | `setOf(1, 2)` | `Set([1,2])` | `HashSet<int>` |
-| String | immutable UTF-16 JS string | byte-safe concerns; mbstring | `string` immutable UTF-8 | `String` owned UTF-8 | `String` immutable | `String` | `String` UTF-8 | `string` immutable |
-| Iterate collection | `for...of`, `.forEach`, iterators | `foreach` on arrays/objects | `for range` on slice/map | `for x in iter` (`IntoIterator`) | enhanced `for` | `for (x in list)` | `for x in arr` | `foreach` |
+| Ordered list | `[1, 2, 3]` | `[0, 1]` indexed array | `[]int{1,2}` **slice** | `vec![1, 2]` | `List.of(1,2)` / `int[]` | `listOf(1, 2)` | `[1, 2, 3]` | `List<int>` |
+| Map / dict | `{ k: "v" }` / `new Map()` | `['k' => 'v']` assoc array | `map[string]int{}` | `HashMap<K,V>` | `Map.of("a", 1)` | `mapOf("a" to 1)` | `["a": 1]` | `Dictionary<K,V>` |
+| Set | `new Set([1,2])` | no native `Set` (see [Sets](#sets)) | `map[T]struct{}` idiom | `HashSet<T>` | `Set.of(1,2)` | `setOf(1, 2)` | `Set([1,2])` | `HashSet<T>` |
+| String | immutable UTF-16 | `mbstring` for Unicode | immutable UTF-8 `string` | owned `String` | immutable `String` | `String` | `String` | `string` |
+| Mutable by default? | arrays/objects yes | arrays yes | slice/map yes if variable mutable | needs `mut` on binding | `List` impls vary; `List.of` immutable | `mutableListOf` vs `listOf` | `var` array mutates | `List<T>` mutable impls |
+| Iterate | `for...of`, `.forEach` | `foreach` | `for range` | `for x in iter` | enhanced `for` | `for (x in list)` | `for x in arr` | `foreach` |
+
+Loop spellings: [Loops and iteration](#loops-and-iteration). String interpolation: [Strings, formatting, and destructuring](#strings-formatting-and-destructuring).
+
+### Arrays and ordered lists
+
+Ordered sequences with **integer indices** (0-based in JS, PHP, Java, Kotlin, Swift, C#). **Go:** prefer growable **slices** `[]T` over fixed **arrays** `[N]T`. **PHP:** indexed `[a, b]` and associative `['k' => v]` share the same `array` type.
+
+| Operation | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|-----------|------------|-----|-----|------|------|--------|-------|-----|
+| Create empty | `[]` | `[]` | `make([]int, 0)` or `nil` slice | `Vec::new()` | `new ArrayList<>()` | `mutableListOf()` | `[]` | `new List<int>()` |
+| Index read | `arr[i]` | `$arr[$i]` | `s[i]` | `arr[i]` | `list.get(i)` | `list[i]` | `arr[i]` | `list[i]` |
+| Length | `.length` | `count($arr)` | `len(s)` | `.len()` | `.size()` | `.size` | `.count` | `.Count` |
+| Append | `.push(x)` | `array_push($arr, $x)` | `append(s, x)` | `vec.push(x)` | `.add(x)` | `.add(x)` | `.append(x)` | `.Add(x)` |
+| Pop last | `.pop()` | `array_pop($arr)` | `s = s[:len(s)-1]` | `vec.pop()` | remove last | `.removeAt(last)` | `.removeLast()` | remove at end |
+| Slice / subrange | `arr.slice(1, 3)` | `array_slice($arr, 1, 2)` | `s[low:high]` | `&arr[1..3]` | `list.subList(1, 3)` | `list.subList(1, 3)` | `arr[1..<3]` | `list.GetRange(1, 2)` |
+| Sort | `.sort()` (in place) | `sort($arr)` | `sort.Ints(s)` | `vec.sort()` | `Collections.sort` | `.sort()` | `.sort()` | `.Sort()` |
+| Copy | `[...arr]` | `[...$a]` (spread 7.4+) | `slices.Clone(s)` | `.clone()` | `new ArrayList<>(list)` | `list.toList()` | `Array(arr)` | `new List<>(list)` |
 
 ```javascript
-// JavaScript — array methods + object literal as map
-const byId = { u1: { name: "Ada" } };
-const ids = Object.keys(byId);
-const users = [{ id: "u1", name: "Ada" }];
+// JavaScript — array ops
+const nums = [1, 2, 3];
+nums.push(4);
+const last = nums.pop();
+const mid = nums.slice(1, 3); // [2, 3]
+nums.sort((a, b) => a - b);
 ```
 
 ```php
 <?php
-// PHP — associative array is the everyday map
+// PHP — indexed array (0, 1, 2 …)
+$nums = [1, 2, 3];
+array_push($nums, 4);
+$last = array_pop($nums);
+$mid = array_slice($nums, 1, 2);
+sort($nums);
+```
+
+```go
+// Go — slice (growable); array [3]int has fixed length
+nums := []int{1, 2, 3}
+nums = append(nums, 4)
+nums = nums[1:3] // sub-slice
+sort.Ints(nums)
+```
+
+```rust
+// Rust — Vec; mut required to push
+let mut nums = vec![1, 2, 3];
+nums.push(4);
+if let Some(last) = nums.pop() {
+    let _ = last;
+}
+nums.sort();
+```
+
+```java
+// Java — ArrayList for mutable list; List.of is immutable
+var nums = new java.util.ArrayList<>(java.util.List.of(1, 2, 3));
+nums.add(4);
+nums.remove(nums.size() - 1);
+```
+
+### Maps and dictionaries
+
+Key–value lookup. **Missing keys:** JavaScript `undefined`; Go returns **zero value** + `ok`; Rust `get` returns `Option`; PHP `null` or notice depending on config—prefer `isset` / `array_key_exists`.
+
+| Operation | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|-----------|------------|-----|-----|------|------|--------|-------|-----|
+| Literal | `{ id: 1 }` | `['id' => 1]` | `map[string]int{"a": 1}` | `HashMap::from([("a", 1)])` | `Map.of("a", 1)` | `mapOf("a" to 1)` | `["a": 1]` | `new Dictionary { ["a"] = 1 }` |
+| Set | `m[k] = v` | `$m['k'] = $v` | `m[k] = v` | `m.insert(k, v)` | `map.put(k, v)` | `m[k] = v` | `m[k] = v` | `m[k] = v` |
+| Get | `m[k]` / `m.get(k)` | `$m['k']` | `v := m[k]` | `m.get(&k)` | `map.get(k)` | `m[k]` | `m[k]` | `m[k]` |
+| Has key | `k in m` / `m.has(k)` | `isset($m['k'])` | `_, ok := m[k]` | `m.contains_key(&k)` | `map.containsKey(k)` | `k in m` | `m[k] != nil` | `m.ContainsKey(k)` |
+| Delete | `delete m[k]` | `unset($m['k'])` | `delete(m, k)` | `m.remove(&k)` | `map.remove(k)` | `m.remove(k)` | `m[k] = nil` | `m.Remove(k)` |
+| Keys | `Object.keys(m)` | `array_keys($m)` | `for k := range m` | `m.keys()` | `map.keySet()` | `m.keys` | `m.keys` | `m.Keys` |
+
+```javascript
+// JavaScript — object or Map
+const byId = { u1: { name: "Ada" } };
+byId.u2 = { name: "Bob" };
+const map = new Map([["a", 1]]);
+map.set("b", 2);
+if (map.has("a")) {
+  const v = map.get("a");
+}
+```
+
+```php
+<?php
+// PHP — associative array as map
 $byId = ['u1' => ['name' => 'Ada']];
+$byId['u2'] = ['name' => 'Bob'];
+if (isset($byId['u1'])) {
+    $name = $byId['u1']['name'];
+}
 $names = array_column($users, 'name');
 ```
 
 ```go
-// Go — slice + map; zero value for missing key is typed zero
+// Go — comma-ok for missing keys
 scores := map[string]int{"ada": 10}
-v, ok := scores["bob"] // ok false if missing
-_ = v
+scores["bob"] = 5
+v, ok := scores["missing"]
+if !ok {
+    v = 0
+}
+delete(scores, "bob")
 ```
 
 ```rust
-// Rust — Vec + HashMap; explicit Option for missing keys
+// Rust — HashMap; get returns Option
 use std::collections::HashMap;
 let mut scores = HashMap::new();
 scores.insert("ada", 10);
+if let Some(v) = scores.get("ada") {
+    let _ = v;
+}
+scores.remove("ada");
 ```
 
 ```java
-// Java — List + Map interfaces; prefer immutable factories in modern code
-var scores = Map.of("ada", 10);
+// Java — Map.of immutable; HashMap for mutable
+var scores = new java.util.HashMap<String, Integer>();
+scores.put("ada", 10);
+scores.containsKey("ada");
 ```
 
-```swift
-// Swift — Array + Dictionary; value types copy by default
-var scores = ["ada": 10]
-scores["bob"] = nil // removes key
+### Sets
+
+Unordered **unique** values. **PHP** has no first-class `Set`; use `array_unique`, `in_array`, or SPL `SplObjectStorage` for objects.
+
+| Operation | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|-----------|------------|-----|-----|------|------|--------|-------|-----|
+| Create | `new Set([1,2])` | `(array) array_unique($a)` | `map[int]struct{}{}` | `HashSet::new()` | `Set.of(1,2)` | `setOf(1, 2)` | `Set([1,2])` | `new HashSet<int>()` |
+| Add | `.add(x)` | `$seen[$x] = true` idiom | `s[x] = struct{}{}` | `.insert(x)` | `.add(x)` | `.add(x)` | `.insert(x)` | `.Add(x)` |
+| Has | `.has(x)` | `isset($seen[$x])` | `_, ok := s[x]` | `.contains(&x)` | `.contains(x)` | `x in set` | `.contains(x)` | `.Contains(x)` |
+| Delete | `.delete(x)` | `unset($seen[$x])` | `delete(s, x)` | `.remove(&x)` | `.remove(x)` | `.remove(x)` | `.remove(x)` | `.Remove(x)` |
+
+```javascript
+const seen = new Set(["a", "b"]);
+seen.add("c");
+if (seen.has("a")) {
+  seen.delete("b");
+}
 ```
 
-Loop and foreach spellings: [Loops and iteration](#loops-and-iteration).
+```php
+<?php
+$unique = array_values(array_unique([1, 2, 2, 3]));
+$seen = [];
+$seen['a'] = true;
+if (isset($seen['a'])) { /* member */ }
+```
+
+```go
+// Go — empty struct values; no extra memory per entry
+seen := make(map[string]struct{})
+seen["a"] = struct{}{}
+if _, ok := seen["a"]; ok { /* member */ }
+delete(seen, "a")
+```
+
+```rust
+use std::collections::HashSet;
+let mut seen = HashSet::from(["a", "b"]);
+seen.insert("c");
+assert!(seen.contains("a"));
+```
+
+```java
+var seen = java.util.Set.of("a", "b");
+var mutable = new java.util.HashSet<>(seen);
+mutable.add("c");
+```
+
+### Tuples and fixed-size pairs
+
+Fixed-arity groupings without defining a class. **PHP:** use a small array `[id, name]` or a class/`readonly` DTO.
+
+| Idea | TypeScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| Pair | `[string, number]` | `[$id, $name]` | no tuple type (use struct) | `(String, i32)` | `record Pair(String id, int n)` | `Pair(id, name)` | `(String, Int)` tuples limited | `(string, int)` ValueTuple |
+| Destructure | `const [a, b] = pair` | `[$id, $name] = $row` | — | `let (a, b) = pair` | — | `val (a, b) = pair` | `let (a, b) = pair` | deconstruct |
+
+```typescript
+type StatusPair = [number, string];
+const row: StatusPair = [200, "ok"];
+const [code, label] = row;
+```
+
+```rust
+let pair = (404, "missing");
+let (code, label) = pair;
+```
+
+```kotlin
+val pair = "u1" to "Ada"
+val (id, name) = pair
+```
+
+### Stack and queue idioms
+
+Many languages use **array/list methods** instead of separate `Stack`/`Queue` types for simple cases.
+
+| Pattern | JavaScript | PHP | Go | Rust | Java |
+|---------|------------|-----|-----|------|------|
+| Stack (LIFO) | `push` / `pop` | `array_push` / `array_pop` | `append` / trim last | `vec.push` / `vec.pop` | `Deque` `push`/`pop` |
+| Queue (FIFO) | `push` / `shift` | `array_push` / `array_shift` | slice + copy front (or channel) | `VecDeque` | `ArrayDeque` |
+
+```javascript
+// Stack
+const stack = [];
+stack.push(1);
+stack.pop();
+
+// Queue (FIFO) — shift is O(n) on array; Deque in production
+const queue = [];
+queue.push(1);
+queue.shift();
+```
+
+```php
+<?php
+array_push($stack, 1);
+array_pop($stack);
+array_push($queue, 1);
+array_shift($queue);
+```
+
+```rust
+use std::collections::VecDeque;
+let mut q = VecDeque::new();
+q.push_back(1);
+q.pop_front();
+```
+
+### Choosing at a glance
+
+| You need | Reach for | Example |
+|----------|-----------|---------|
+| Stable **order**, index access | Array / list / slice / `Vec` | `[users[0], users[1]]` |
+| Fast **lookup by key** | Map / dict / `HashMap` | `byId[userId]` |
+| **Unique** membership | Set / `HashSet` / map keys | `seen.has(id)` |
+
+For **time/space tradeoffs** and interview structures (heap, tree, graph), see [Algorithms and data structures](algorithms-and-data-structures.md#data-structures).
 
 ---
 
@@ -1035,7 +1247,10 @@ Python is common in backends and ML but has **no dedicated exploration sandbox**
 | Loops | `for x in items:` · `while cond:` · `break`/`continue` |
 | Functions | `def add(a: int, b: int) -> int:` · `lambda x: x + 1` |
 | Classes | `class User:` · `@dataclass` for records |
-| Maps / lists | `{"a": 1}` · `[1, 2]` · comprehensions `[x*2 for x in nums]` |
+| List ops | `[1, 2]` · `.append(x)` · `len(arr)` · `arr[i]` · slice `arr[1:3]` |
+| Dict ops | `{"a": 1}` · `d["k"]` · `d.get("k", default)` · `"k" in d` · `del d["k"]` |
+| Set ops | `{1, 2}` · `.add(x)` · `x in s` · set comprehension `{x for x in nums}` |
+| Comprehensions | `[x*2 for x in nums]` · `{k: v for k, v in pairs}` |
 | Imports | `import os` · `from pathlib import Path` |
 | Null | `None` · test with `is None` |
 | Equality | `==` value · `is` identity |
@@ -1064,6 +1279,19 @@ if a == b:
 ```
 
 ```python
+# Python — lists, dicts, sets
+nums = [1, 2, 3]
+nums.append(4)
+last = nums.pop()
+by_id = {"u1": {"name": "Ada"}}
+by_id["u2"] = {"name": "Bob"}
+name = by_id.get("u1", {}).get("name")
+seen = {1, 2, 3}
+seen.add(4)
+doubled = [x * 2 for x in nums]
+```
+
+```python
 # Python — imports and destructuring
 from dataclasses import dataclass
 
@@ -1073,7 +1301,7 @@ class User:
     name: str
 
 user = User("u1", "Ada")
-id, name = user.id, user.name  # or manual fields
+id, name = user.id, user.name
 ```
 
 Stack map: [docs/stacks/python.md](../stacks/python.md).
@@ -1088,7 +1316,12 @@ Stack map: [docs/stacks/python.md](../stacks/python.md).
 | `export` / `public` / `pub fn` | [Functions](#functions) |
 | Closures / lambdas | [Functions — Closures](#closures-functions-that-capture-surroundings) |
 | `class` vs `struct` vs `trait` | [Classes, structs, and interfaces](#classes-structs-and-interfaces) |
-| Arrays, maps, sets | [Built-in data structures](#built-in-data-structures) |
+| `arr[i]`, `.push`, `len` | [Arrays and ordered lists](#arrays-and-ordered-lists) |
+| `map[k]`, `isset`, `contains_key` | [Maps and dictionaries](#maps-and-dictionaries) |
+| `Set`, `.has`, unique keys | [Sets](#sets) |
+| `(a, b)` tuple / `Pair` | [Tuples and fixed-size pairs](#tuples-and-fixed-size-pairs) |
+| LIFO / FIFO idioms | [Stack and queue idioms](#stack-and-queue-idioms) |
+| list vs map vs set | [Choosing at a glance](#choosing-at-a-glance) |
 | `+` `===` `??` `?.` | [Operators and expressions](#operators-and-expressions) |
 | `if` / `switch` / `match` | [Conditionals and branching](#conditionals-and-branching) |
 | `for` / `foreach` / `range` | [Loops and iteration](#loops-and-iteration) |
