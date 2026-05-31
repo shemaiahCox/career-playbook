@@ -89,7 +89,7 @@ Finish **[Go]** before optionally porting the probe to **[Rust]**—avoid too ma
 
 ## How to use the commented code
 
-- **[Language fundamentals comparison](../docs/handbook/language-fundamentals-comparison.md)** — one handbook reference: variables, functions, classes, collections, errors, nulls, async (JS/PHP anchored vs Go, Rust, C#, Java, Kotlin, Swift).
+- **[Language fundamentals comparison](../docs/handbook/language-fundamentals-comparison.md)** — one handbook reference: variables, operators, conditionals, loops, functions, classes, collections, modules, enums, errors, nulls, async (JS/PHP anchored vs Go, Rust, C#, Java, Kotlin, Swift).
 - Start with **module / file header comments**, then inline **why** comments in each sandbox.
 
 ## Git and artifacts

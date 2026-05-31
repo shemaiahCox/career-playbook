@@ -1,6 +1,6 @@
 # Language fundamentals comparison
 
-**Purpose:** One reference for the same **ideas** (variables, functions, classes, collections, errors, nulls, async) across languages you are likely to meet—anchored on **JavaScript/TypeScript** and **PHP**, compared to **Go**, **Rust**, **C#**, **Java**, **Kotlin**, and **Swift**.
+**Purpose:** One reference for the same **ideas**—variables, operators, conditionals, loops, functions, classes, collections, modules, enums, generics, strings, scope, errors, nulls, async—across languages you are likely to meet. Anchored on **JavaScript/TypeScript** and **PHP**, compared to **Go**, **Rust**, **C#**, **Java**, **Kotlin**, and **Swift**.
 
 **Companion docs:** [Software engineering](software-engineering.md) (patterns, concurrency ops) · [Algorithms and data structures](algorithms-and-data-structures.md) (Big-O, trees, interview structures) · [Exploration projects](../../exploration-projects/README.md) (runnable sandboxes)
 
@@ -13,6 +13,14 @@
 - [Functions](#functions)
 - [Classes, structs, and interfaces](#classes-structs-and-interfaces)
 - [Built-in data structures](#built-in-data-structures)
+- [Operators and expressions](#operators-and-expressions)
+- [Conditionals and branching](#conditionals-and-branching)
+- [Loops and iteration](#loops-and-iteration)
+- [Modules, imports, and packages](#modules-imports-and-packages)
+- [Enums, unions, and pattern matching](#enums-unions-and-pattern-matching)
+- [Generics and type parameters](#generics-and-type-parameters)
+- [Strings, formatting, and destructuring](#strings-formatting-and-destructuring)
+- [Scope, blocks, and casting](#scope-blocks-and-casting)
 - [Error handling](#error-handling)
 - [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness)
 - [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals)
@@ -134,6 +142,27 @@ public static void main(String[] args) { }
 fun main(args: Array<String>) { }
 ```
 
+### Closures (functions that capture surroundings)
+
+| Idea | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| Closure / lambda | `(x) => x + base` | `fn($x) => $x + $base` | `func(x int) int { return x + base }` | `\|x\| x + base` | `x -> x + base` | `{ x -> x + base }` | `{ $0 + base }` | `x => x + base` |
+
+```javascript
+// JavaScript — arrow function closes over `base`
+function makeAdder(base) {
+  return (x) => x + base;
+}
+const add10 = makeAdder(10);
+```
+
+```rust
+// Rust — closures can borrow or move captured values; types inferred
+fn make_adder(base: i32) -> impl Fn(i32) -> i32 {
+    move |x| x + base
+}
+```
+
 ---
 
 ## Classes, structs, and interfaces
@@ -227,6 +256,7 @@ public class Greeter {
 | Map / dict | `{ key: "v" }` / `Map` | `['k' => 'v']` assoc array | `map[string]int{"a":1}` | `HashMap::from([...])` | `Map.of("a", 1)` | `mapOf("a" to 1)` | `["a": 1]` dict | `Dictionary<string,int>` |
 | Set | `new Set([1,2])` | `array_unique` / no native set until extensions | `map[T]struct{}` idiom | `HashSet::from([...])` | `Set.of(1,2)` | `setOf(1, 2)` | `Set([1,2])` | `HashSet<int>` |
 | String | immutable UTF-16 JS string | byte-safe concerns; mbstring | `string` immutable UTF-8 | `String` owned UTF-8 | `String` immutable | `String` | `String` UTF-8 | `string` immutable |
+| Iterate collection | `for...of`, `.forEach`, iterators | `foreach` on arrays/objects | `for range` on slice/map | `for x in iter` (`IntoIterator`) | enhanced `for` | `for (x in list)` | `for x in arr` | `foreach` |
 
 ```javascript
 // JavaScript — array methods + object literal as map
@@ -265,6 +295,432 @@ var scores = Map.of("ada", 10);
 // Swift — Array + Dictionary; value types copy by default
 var scores = ["ada": 10]
 scores["bob"] = nil // removes key
+```
+
+Loop and foreach spellings: [Loops and iteration](#loops-and-iteration).
+
+---
+
+## Operators and expressions
+
+Operators combine values into expressions. Watch **integer division**, **null-safe access**, and languages that **forbid** `++` on primitives (Rust).
+
+| Category | JavaScript | TypeScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|----------|------------|------------|-----|-----|------|------|--------|-------|-----|
+| Arithmetic | `+ - * / % **` | same | same | same | same; `/` truncates ints in other langs | same | same | same | same |
+| Compare | `===` `!==` `<` | same | `==` loose · `===` strict | `==` `!=` (typed) | `==` (PartialEq) | `==` objects use `.equals()` | `==` | `==` | `==` |
+| Logical | `&&` `\|\|` `!` | same | `and` `or` `!` (also `&&`) | `&&` `\|\|` `!` | `&&` `\|\|` `!` | `&&` `\|\|` `!` | `&&` `\|\|` `!` | `&&` `\|\|` `!` | `&&` `\|\|` `!` |
+| Assign | `=` `+=` | same | `.=` | `=` `:=` (declare) | `=` | `=` | `=` | `=` | `=` |
+| Null-safe | `?.` `??` | same | `?->` `??` (since 7.0) | — (explicit checks) | — | `Optional` | `?.` `?:` | `?.` | `?.` `??` |
+| Increment | `++` `--` | same | `++` `--` | none (`i++` invalid) | none | `++` `--` | `++` `--` | none (`+= 1`) | `++` `--` |
+
+```javascript
+// JavaScript — nullish coalescing vs logical OR
+const timeout = config.ms ?? 3000; // only null/undefined
+const label = user.name || "guest"; // any falsy triggers default
+const city = user.address?.city;
+```
+
+```php
+<?php
+// PHP — strict compare for safety in conditionals
+if ($status === 200) { }
+$timeout = $config['ms'] ?? 3000;
+$city = $user?->address?->city;
+```
+
+```go
+// Go — no ternary; short-circuit && and ||
+if n > 0 && total/n > limit { }
+```
+
+```rust
+// Rust — no ++; integer ops explicit
+let mut n = 0;
+n += 1;
+let half = count / 2; // truncates for integers
+```
+
+---
+
+## Conditionals and branching
+
+Branch when logic diverges. **`switch`** (C-family) often **falls through** unless you `break`; **`match`** (Rust/Swift) is usually **exhaustive** and expression-oriented.
+
+| Idea | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| if / else | `if (x) { } else { }` | `if ($x) { }` | `if x { }` (no parens required) | `if x { }` | `if (x) { }` | `if (x) { }` | `if x { }` | `if (x) { }` |
+| switch | `switch (x) { case 1: ... }` | `switch ($x) { case 1: ...}` | `switch x { case 1: }` | `match x { ... }` | `switch (x)` | `when (x)` | `switch x` | `switch (x)` |
+| Ternary | `a ? b : c` | `$a ? $b : $c` | no ternary — use `if` | `if cond { a } else { b }` as expr | `a ? b : c` | `if (c) a else b` | `cond ? a : b` | `a ? b : c` |
+| Elvis / default | `??` | `?:` | — | — | — | `?:` | `??` | `??` |
+
+```javascript
+// JavaScript — switch needs break to avoid fall-through
+switch (status) {
+  case 200:
+    return "ok";
+  case 404:
+    return "missing";
+  default:
+    return "other";
+}
+```
+
+```php
+<?php
+// PHP — match (8.0+) is expression-like and strict
+$label = match ($status) {
+    200 => 'ok',
+    404 => 'missing',
+    default => 'other',
+};
+```
+
+```rust
+// Rust — match must cover all cases (compiler-checked)
+let label = match status {
+    200 => "ok",
+    404 => "missing",
+    _ => "other",
+};
+```
+
+```swift
+// Swift — switch must be exhaustive (default or all cases)
+switch status {
+case 200: label = "ok"
+case 404: label = "missing"
+default: label = "other"
+}
+```
+
+```kotlin
+// Kotlin — when replaces switch; smart casts after checks
+when (status) {
+    200 -> "ok"
+    404 -> "missing"
+    else -> "other"
+}
+```
+
+---
+
+## Loops and iteration
+
+Loops repeat work over **ranges**, **conditions**, or **collections**. Prefer **foreach / for-in** over manual indexing when the language supports it—fewer off-by-one bugs.
+
+| Idea | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| C-style for | `for (let i=0; i<n; i++)` | `for ($i=0; $i<$n; $i++)` | `for i := 0; i < n; i++` | `for i in 0..n` | `for (int i=0; i<n; i++)` | `for (i in 0 until n)` | `for i in 0..<n` | `for (int i=0; i<n; i++)` |
+| foreach / for-in | `for (const x of arr)` | `foreach ($arr as $x)` | `for _, v := range slice` | `for x in vec` | `for (var x : list)` | `for (x in list)` | `for x in arr` | `foreach (var x in list)` |
+| while | `while (cond)` | `while ($cond)` | `for cond { }` (only loop keyword) | `while cond { }` | `while (cond)` | `while (cond)` | `while cond { }` | `while (cond)` |
+| break / continue | `break` `continue` | same | same | same + `'label` | same | same | same | same |
+
+```javascript
+// JavaScript — for...of (values) vs for...in (keys on objects)
+for (const user of users) {
+  if (user.skip) continue;
+  console.log(user.name);
+}
+for (const key of Object.keys(map)) { /* ... */ }
+```
+
+```php
+<?php
+// PHP — foreach with key => value on associative arrays
+foreach ($byId as $id => $row) {
+    if ($row['skip'] ?? false) {
+        continue;
+    }
+    echo $row['name'];
+}
+```
+
+```go
+// Go — for is the only loop; range over slice and map
+for i, name := range names {
+    _ = i
+    _ = name
+}
+for k, v := range scores {
+    _ = k
+    _ = v
+}
+```
+
+```rust
+// Rust — for uses IntoIterator; consume or borrow depends on iter
+for score in scores.iter() {
+    println!("{score}");
+}
+```
+
+```java
+// Java — enhanced for over arrays and Iterable
+for (var entry : scores.entrySet()) {
+    System.out.println(entry.getKey());
+}
+```
+
+---
+
+## Modules, imports, and packages
+
+**Modules** group code for reuse. Path rules differ: Node **file paths**, Go **module path in go.mod**, Java **packages mirror folders**, PHP **namespaces + Composer autoload**.
+
+| Idea | JavaScript / TS | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|-----------------|-----|-----|------|------|--------|-------|-----|
+| Export | `export { fn }` · `export default` | `namespace` + autoload PSR-4 | Capitalized identifiers | `pub fn` · `pub mod` | `public class` | `public` | `public` | `public` |
+| Import | `import { fn } from "./file.js"` | `use App\\Models\\User;` | `import "example.com/pkg"` | `use crate::module;` | `import java.util.List;` | `import package.Class` | `import Foundation` | `using System;` |
+| Entry | `package.json` `"type":"module"` | `composer.json` autoload | `package main` + `go.mod` | `Cargo.toml` + `src/lib.rs` | `public static void main` | `@JvmStatic fun main` | `@main` | `static void Main` |
+
+```javascript
+// JavaScript (ESM) — explicit .js extension often required in Node
+import { parseTimeoutMs } from "./parse.js";
+export { parseTimeoutMs };
+```
+
+```php
+<?php
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+```
+
+```go
+// Go — module path + package name per directory
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+```
+
+```rust
+// Rust — mod tree in crate root; use brings names into scope
+mod http_probe;
+
+use std::fs::File;
+```
+
+```java
+// Java — package declaration matches directory layout
+package exploration.httpprobe;
+
+import java.net.http.HttpClient;
+```
+
+---
+
+## Enums, unions, and pattern matching
+
+**Enums** name a fixed set of variants. **Union types** (TS) and **sealed hierarchies** (Kotlin) model “one of several shapes.” **Pattern matching** dispatches on those shapes safely.
+
+| Idea | JavaScript / TS | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|-----------------|-----|-----|------|------|--------|-------|-----|
+| Named constants | `const enum`-like objects | `enum Status: string` (8.1+) | `const` + `iota` | `enum Status { Ok, Err }` | `enum Status { OK, ERR }` | `enum class Status` | `enum Status` | `enum Status` |
+| Union / sealed | `type R = A \| B` | limited | interface + types | `enum` variants with data | subclasses | `sealed class` | `enum` associated values | discriminated unions via records |
+| Dispatch | `switch` / `if` | `match` | `switch` | `match` (exhaustive) | `switch` | `when` | `switch` | `switch` / pattern matching (modern) |
+
+```typescript
+// TypeScript — union + narrowing
+type Result = { ok: true; data: string } | { ok: false; error: string };
+
+function handle(r: Result) {
+  if (r.ok) {
+    return r.data;
+  }
+  return r.error;
+}
+```
+
+```php
+<?php
+enum Status: string {
+    case Ok = 'ok';
+    case Failed = 'failed';
+}
+```
+
+```go
+// Go — iota for consecutive constants (not a sum type)
+const (
+    StatusPending = iota
+    StatusOK
+    StatusFailed
+)
+```
+
+```rust
+// Rust — enum variants can carry data; match must be exhaustive
+enum Response {
+    Ok(String),
+    Err(u16),
+}
+
+fn label(r: Response) -> &'static str {
+    match r {
+        Response::Ok(_) => "ok",
+        Response::Err(404) => "missing",
+        Response::Err(_) => "error",
+    }
+}
+```
+
+```swift
+// Swift — associated values on enum cases
+enum Response {
+    case ok(String)
+    case err(Int)
+}
+```
+
+```kotlin
+// Kotlin — sealed class + when with smart casts
+sealed class Response {
+    data class Ok(val body: String) : Response()
+    data class Err(val code: Int) : Response()
+}
+```
+
+---
+
+## Generics and type parameters
+
+**Generics** let one implementation work for many types while staying type-safe. PHP has **no reified generics** in the application language; Go added generics in **1.18+**.
+
+| Idea | TypeScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| Parameter | `<T>` on fn/type | — | `[T any]` | `<T>` + trait bounds | `<T>` | `<T>` | `<T>` | `<T>` |
+| Constraint | `extends` / `keyof` | — | `comparable`, interfaces | `T: Trait` | `extends Bound` | `:` bound | `:` protocol | `where T : IFace` |
+| Erasure | types erased at emit | — | monomorphized at compile | monomorphized | erased at runtime | erased on JVM | reified in Swift | reified in .NET |
+
+```typescript
+function first<T>(items: T[]): T | undefined {
+  return items[0];
+}
+```
+
+```go
+// Go 1.18+ — type parameters on functions and types
+func First[T any](items []T) (T, bool) {
+    if len(items) == 0 {
+        var zero T
+        return zero, false
+    }
+    return items[0], true
+}
+```
+
+```rust
+fn first<T>(items: &[T]) -> Option<&T> {
+    items.first()
+}
+```
+
+```java
+public static <T> T first(List<T> items) {
+    return items.isEmpty() ? null : items.get(0);
+}
+```
+
+```csharp
+public static T? First<T>(IList<T> items) =>
+    items.Count == 0 ? default : items[0];
+```
+
+---
+
+## Strings, formatting, and destructuring
+
+**Interpolation** embeds values in strings; **destructuring** pulls fields or elements into bindings in one step.
+
+| Idea | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| Interpolation | `` `hi ${name}` `` | `"hi $name"` · `"hi {$name}"` | `fmt.Sprintf("hi %s", name)` | `format!("hi {}", name)` | text blocks + `.formatted` (21+) | `"hi $name"` | `"hi \(name)"` | `$"hi {name}"` |
+| Substring / slice | `s.slice(0, 3)` | `substr` / `mb_substr` | `s[0:3]` bytes (UTF-8 care) | `&s[0..3]` | `s.substring(0, 3)` | `s.substring(0, 3)` | `String(s.prefix(3))` | `s[0..3]` |
+| Destructure | `const { id } = user` | `[$a, $b] = $pair` · `list()` | — (explicit fields) | `let (a, b) = pair` | — | `val (a, b) = pair` | `let (a, b) = pair` | `var (a, b) = pair` |
+
+```javascript
+// JavaScript — object and array destructuring + spread
+const { id, name } = user;
+const [head, ...rest] = ids;
+const merged = { ...defaults, ...overrides };
+```
+
+```php
+<?php
+// PHP — list destructuring; spread in arrays (7.4+)
+[$first, $second] = $parts;
+['id' => $id, 'name' => $name] = $row;
+```
+
+```rust
+// Rust — pattern destructuring in let, match, and function args
+let (code, message) = (404, "missing");
+let User { id, name } = user;
+```
+
+```kotlin
+// Kotlin — data class component functions
+val (id, name) = user
+```
+
+---
+
+## Scope, blocks, and casting
+
+**Block scope** limits where a name is visible. **Casting** converts between types at runtime—prefer type-safe patterns (generics, `Option`, `as?`) when the language offers them.
+
+| Idea | JavaScript | PHP | Go | Rust | Java | Kotlin | Swift | C# |
+|------|------------|-----|-----|------|------|--------|-------|-----|
+| Block scope | `{ let x = 1 }` | `{ $x = 1 }` | `{ x := 1 }` | `{ let x = 1 }` | `{ int x = 1 }` | `{ val x = 1 }` | `{ let x = 1 }` | `{ int x = 1 }` |
+| Hoisting | `var`/`function` hoisted | — | — | — | — | — | — | — |
+| Cast / assert | `Number(x)` · `String(x)` | `(int)$x` | `v, ok := x.(Type)` | `x as i32` | `(String) obj` | `as?` / `as` | `x as? String` | `x as string` · `is` |
+
+```javascript
+// JavaScript — let/const block-scoped; var function-scoped (legacy)
+function demo() {
+  if (true) {
+    let local = 1;
+  }
+  // local not visible here
+}
+const n = Number.parseInt(raw, 10);
+```
+
+```php
+<?php
+$count = (int) $raw;
+$value = is_string($x) ? $x : (string) $x;
+```
+
+```go
+// Go — type assertion on interface values
+if s, ok := v.(string); ok {
+    _ = s
+}
+```
+
+```rust
+// Rust — as for primitives; TryFrom for fallible conversion
+let n: i32 = s.parse()?; // str -> number via Result
+let byte = ch as u8;
+```
+
+```swift
+// Swift — conditional cast as?
+if let name = value as? String {
+    print(name)
+}
+```
+
+```csharp
+// C# — as returns null on failure; is for type tests
+var name = value as string;
+if (value is int n) { }
 ```
 
 ---
@@ -516,14 +972,13 @@ Short list of **non-obvious** items worth knowing when you leave JS/PHP—not fu
 
 ### JavaScript / TypeScript
 
-- **ESM vs CommonJS** — `import`/`export` vs `require()`; mixing breaks without tooling (`"type": "module"`, bundler).
-- **Truthy `if`** — see [equality section](#equality-gotchas).
+- **ESM vs CommonJS** — `import`/`export` vs `require()`; mixing breaks without tooling (`"type": "module"`, bundler). See [Modules](#modules-imports-and-packages).
+- **Truthy `if`** — see [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness).
 - **TypeScript** — structural typing; `strict` flags; types erased at emit.
 
 ### PHP
 
 - **`$` on all variables**; `->` for instance, `::` for static.
-- **Namespaces** — `namespace App\Http\Controllers;` · Composer PSR-4 autoload.
 - **`Throwable`** — catch both `Error` and `Exception` in modern code.
 - **Associative arrays** — everyday maps; JSON `json_encode`/`json_decode`.
 
@@ -538,8 +993,7 @@ Short list of **non-obvious** items worth knowing when you leave JS/PHP—not fu
 
 - **Ownership / borrow checker** — one mutable borrow OR many immutable borrows.
 - **`trait`** — shared behavior; no inheritance.
-- **`match`** — exhaustive pattern matching on enums/`Result`.
-- **Crate ecosystem** — `cargo` · `Cargo.toml` lockfile.
+- **Crate ecosystem** — `cargo` · `Cargo.toml` lockfile. Pattern matching: [Enums, unions, and pattern matching](#enums-unions-and-pattern-matching).
 
 ### Java
 
@@ -576,20 +1030,50 @@ Python is common in backends and ML but has **no dedicated exploration sandbox**
 | Idea | Python |
 |------|--------|
 | Binding | `name = "Ada"` · no `const`; convention `UPPER` for constants |
-| Functions | `def add(a: int, b: int) -> int:` |
+| Operators | `and` `or` `not` · `//` floor div · `**` pow · no `++` |
+| Conditionals | `if`/`elif`/`else` · `match` (3.10+) |
+| Loops | `for x in items:` · `while cond:` · `break`/`continue` |
+| Functions | `def add(a: int, b: int) -> int:` · `lambda x: x + 1` |
 | Classes | `class User:` · `@dataclass` for records |
-| Maps / lists | `{"a": 1}` · `[1, 2]` · comprehensions |
+| Maps / lists | `{"a": 1}` · `[1, 2]` · comprehensions `[x*2 for x in nums]` |
+| Imports | `import os` · `from pathlib import Path` |
 | Null | `None` · test with `is None` |
 | Equality | `==` value · `is` identity |
 | Async | `async def` · `await` · `asyncio` |
 | Errors | `try` / `except` · raise `ValueError` |
 
 ```python
-# Python — identity vs value
+# Python — conditionals and loops
+if status == 200:
+    label = "ok"
+elif status == 404:
+    label = "missing"
+else:
+    label = "other"
+
+for user in users:
+    if user.get("skip"):
+        continue
+    print(user["name"])
+
+# Identity vs value
 if x is None:
-    ...
+    pass
 if a == b:
-    ...
+    pass
+```
+
+```python
+# Python — imports and destructuring
+from dataclasses import dataclass
+
+@dataclass
+class User:
+    id: str
+    name: str
+
+user = User("u1", "Ada")
+id, name = user.id, user.name  # or manual fields
 ```
 
 Stack map: [docs/stacks/python.md](../stacks/python.md).
@@ -602,12 +1086,21 @@ Stack map: [docs/stacks/python.md](../stacks/python.md).
 |---------|---------|
 | `const` / `let` / `$var` / `let mut` | [Variables and mutability](#variables-and-mutability) |
 | `export` / `public` / `pub fn` | [Functions](#functions) |
+| Closures / lambdas | [Functions — Closures](#closures-functions-that-capture-surroundings) |
 | `class` vs `struct` vs `trait` | [Classes, structs, and interfaces](#classes-structs-and-interfaces) |
 | Arrays, maps, sets | [Built-in data structures](#built-in-data-structures) |
+| `+` `===` `??` `?.` | [Operators and expressions](#operators-and-expressions) |
+| `if` / `switch` / `match` | [Conditionals and branching](#conditionals-and-branching) |
+| `for` / `foreach` / `range` | [Loops and iteration](#loops-and-iteration) |
+| `import` / `namespace` / `package` | [Modules, imports, and packages](#modules-imports-and-packages) |
+| `enum` / union / `when` | [Enums, unions, and pattern matching](#enums-unions-and-pattern-matching) |
+| `<T>` generics | [Generics and type parameters](#generics-and-type-parameters) |
+| `` `${}` `` / destructuring | [Strings, formatting, and destructuring](#strings-formatting-and-destructuring) |
+| `let` scope / casts | [Scope, blocks, and casting](#scope-blocks-and-casting) |
 | `(T, error)` vs `Result` vs `try/catch` | [Error handling](#error-handling) |
 | `===` vs `==`, `Option`, `?.` | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) |
 | `async`/`await`, goroutines | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) |
-| Ownership, traits, namespaces | [Language-specific extras](#language-specific-extras) |
+| Ownership, traits, ESM | [Language-specific extras](#language-specific-extras) |
 
 ---
 
