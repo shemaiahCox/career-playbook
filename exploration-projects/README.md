@@ -89,8 +89,8 @@ Finish **[Go]** before optionally porting the probe to **[Rust]**—avoid too ma
 
 ## How to use the commented code
 
-- **[BEGINNER-SYNTAX-EXAMPLES.md](BEGINNER-SYNTAX-EXAMPLES.md)** — terse Go vs Rust vs C# plus compact JS/TS · PHP · Java/Kotlin · Swift flashcards.
-- Start with **module / file header comments**, then inline **why** comments.
+- **[Language fundamentals comparison](../docs/handbook/language-fundamentals-comparison.md)** — one handbook reference: variables, functions, classes, collections, errors, nulls, async (JS/PHP anchored vs Go, Rust, C#, Java, Kotlin, Swift).
+- Start with **module / file header comments**, then inline **why** comments in each sandbox.
 
 ## Git and artifacts
 
@@ -98,4 +98,4 @@ Tracked here: Markdown + sandbox sources. **`target/`**, **`node_modules/`**, **
 
 ---
 
-**Next:** Skim [BEGINNER-SYNTAX-EXAMPLES.md](BEGINNER-SYNTAX-EXAMPLES.md), then pick your lane starting at **[node-ts-http-probe/README.md](node-ts-http-probe/README.md)** or **[go-cli-http-probe/README.md](go-cli-http-probe/README.md)**.
+**Next:** Skim [Language fundamentals comparison](../docs/handbook/language-fundamentals-comparison.md), then pick your lane starting at **[node-ts-http-probe/README.md](node-ts-http-probe/README.md)** or **[go-cli-http-probe/README.md](go-cli-http-probe/README.md)**.

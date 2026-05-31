@@ -1,8 +1,8 @@
 # Software engineering
 
-Concepts for building maintainable systems, shipping safely, and communicating in interviews—from **paradigms** and **patterns** to **APIs**, **testing**, **debugging**, **DSA**, **observability**, and **cross-language gotchas** (Python, JavaScript, PHP, C#).
+Concepts for building maintainable systems, shipping safely, and communicating in interviews—from **paradigms** and **patterns** to **APIs**, **testing**, **debugging**, **DSA**, and **observability**. Language syntax comparisons live in [Language fundamentals comparison](language-fundamentals-comparison.md).
 
-**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md) · [Software engineering glossary (A–Z)](software-engineering-glossary.md)
+**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md) · [Language fundamentals comparison](language-fundamentals-comparison.md) · [Software engineering glossary (A–Z)](software-engineering-glossary.md)
 
 **If jargon-dense stack notes feel overwhelming first:** skim **[Stacks — New here?](../stacks/README.md#new-here-read-this-once)** and **[Stacks glossary](../stacks/glossary.md)**; come back here for **longer narratives and worked patterns** (delivery semantics, idempotent handlers, N+1). For ORM query shapes, see **[Database design — N+1 pattern](database-design.md#orms-and-the-n1-query-pattern)**.
 
@@ -31,7 +31,7 @@ Concepts for building maintainable systems, shipping safely, and communicating i
 - [Code review and documentation](#code-review-and-documentation)
 - [Observability: logs, metrics, traces](#observability-logs-metrics-traces)
 - [Security for applications](#security-for-applications)
-- [Cross-language concepts and gotchas](#cross-language-concepts-and-gotchas)
+- [Cross-language concepts and gotchas](#cross-language-concepts-and-gotchas) → see [Language fundamentals comparison](language-fundamentals-comparison.md)
 - [Data structures and algorithms](#data-structures-and-algorithms)
 - [Concurrency basics](#concurrency-basics)
 - [Internationalization and encoding](#internationalization-and-encoding)
@@ -387,66 +387,9 @@ Signals tell you **where** time went or **which** request failed; they rarely re
 
 ## Cross-language concepts and gotchas
 
-**Purpose:** Same **concept**, four **small snippets**. **TypeScript** note: optional strictness layer over JS—`strictNullChecks` catches many null bugs.
+Syntax fundamentals (variables, functions, classes, collections, errors, nulls, async) live in one place: **[Language fundamentals comparison](language-fundamentals-comparison.md)**. Use that doc for side-by-side snippets across JavaScript, TypeScript, PHP, Go, Rust, C#, Java, Kotlin, and Swift.
 
-### Equality
-
-| Language | Gotcha |
-|----------|--------|
-| **JavaScript** | `===` vs `==` (coercion)—prefer `===` |
-| **PHP** | **Type juggling** with `==`; use `===` for strict |
-| **Python** | `is` vs `==` (`is` for identity, e.g. `None`) |
-| **C#** | Value vs reference equality; override `Equals`/`GetHashCode` carefully |
-
-```python
-# Python
-if x is None: ...
-if a == b: ...
-```
-
-```javascript
-// JavaScript
-if (x === null) { }
-if (a === b) { }
-```
-
-```php
-<?php
-var_dump("1" == 1); // true
-var_dump("1" === 1); // false
-```
-
-```csharp
-// C#
-object a = "x";
-object b = "x";
-Console.WriteLine(a == b); // may be reference compare unless string
-```
-
-### Truthiness
-
-Know each language’s **falsy** set (e.g. JS: `0`, `""`, `NaN`, `null`, `undefined`, `false`; Python: empty containers are falsy; PHP: `"0"` is falsy).
-
-### Null / optional
-
-- **JS:** `null` vs `undefined`
-- **Python:** `None`
-- **PHP:** `null`; nullable types in 7.4+ `?string`
-- **C#:** `null`; **nullable reference types** (`string?`) warn on dereference
-
-### Exceptions
-
-- **Python / JS / C#:** try/catch/finally familiar
-- **PHP:** historical **Error** vs **Exception** split—modern code uses **Throwable**
-
-### Async sketch
-
-| Lang | Model |
-|------|--------|
-| **JS** | Promises, `async`/`await` |
-| **Python** | `asyncio`, `async def` |
-| **PHP** | Often request-per-process sync; async runtimes exist |
-| **C#** | `async Task` + `await` |
+This handbook file keeps **delivery-shaped** topics (integration, observability, concurrency under load). For equality/`===` vs PHP `==`, truthiness, and async spelling, see the comparison doc—especially [Null, optionals, equality, and truthiness](language-fundamentals-comparison.md#null-optionals-equality-and-truthiness) and [Async and concurrency (fundamentals)](language-fundamentals-comparison.md#async-and-concurrency-fundamentals).
 
 ---
 
@@ -466,7 +409,7 @@ For complexity, core structures, pattern recognition, and interview flow, use th
 
 **Intermediate:** Backend services less often have a literal “main thread,” but they still have **scarce resources**: **bounded thread pools**, **event loops**, **DB pool connections**. **Blocking** inside an async-only stack (FastAPI/asyncio; Node)—or **blocking the UI thread on mobile**—are the same **class** of mistake: starvation under load.
 
-**Where each language expresses async:** see [Async sketch (cross-language)](#async-sketch).
+**Where each language expresses async:** see [Language fundamentals comparison — Async](language-fundamentals-comparison.md#async-and-concurrency-fundamentals).
 
 ---
 
@@ -492,4 +435,4 @@ Store text as **UTF-8**. Separate **locale** from **language**; never assume sin
 - **Observability** three pillars; **SLI vs SLO**.
 - **OWASP** top-level categories you have mitigated in code.
 - **Big-O** of a nested loop; when **hash map** helps ([Algorithms and data structures](algorithms-and-data-structures.md)).
-- One **cross-language** bug (e.g. `==` in PHP vs `===`).
+- One **cross-language** bug (e.g. `==` in PHP vs `===` — [comparison doc](language-fundamentals-comparison.md#null-optionals-equality-and-truthiness)).

@@ -71,7 +71,7 @@ Use this when you want **reading tied to the lab you are in**, not abstract line
 | **P4** RAG + **P3** Observability | [Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces) · [Debugging (workflow)](../handbook/software-engineering.md#debugging-workflow) · [Testing](../handbook/software-engineering.md#testing) · [Security for applications](../handbook/software-engineering.md#security-for-applications) |
 | **P2** Contract API | [REST](../handbook/software-engineering.md#rest) · [Versioning and compatibility](../handbook/software-engineering.md#versioning-and-compatibility) · [Testing](../handbook/software-engineering.md#testing) |
 | **P5** Async worker | [Integration: sync, async, and messaging](../handbook/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency basics](../handbook/software-engineering.md#concurrency-basics) |
-| **P6** Node / TypeScript | [REST](../handbook/software-engineering.md#rest) · [Cross-language concepts and gotchas](../handbook/software-engineering.md#cross-language-concepts-and-gotchas) |
+| **P6** Node / TypeScript | [REST](../handbook/software-engineering.md#rest) · [Language fundamentals comparison](../handbook/language-fundamentals-comparison.md) |
 | **P8** Application security / OWASP | [Security for applications](../handbook/software-engineering.md#security-for-applications) · [Testing](../handbook/software-engineering.md#testing) |
 
 ### [Database design](../handbook/database-design.md)

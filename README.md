@@ -30,7 +30,7 @@ Skip reading every spec cover-to-cover up front; depth-read the project you are 
 
 ### Optional exploration ([exploration-projects/](exploration-projects/README.md))
 
-**`exploration-projects/`** holds only commented **syntax / ecosystem demos** (Go/Rust starters, Unity loop notes)—not playbook lab code. Prefer one active **spec-backed** lab under **`career-projects/`** for depth; dabble across languages without losing the phased ladder in [`career-project-specs/`](career-project-specs/). Log tradeoffs in [PROGRESS.md](PROGRESS.md).
+**`exploration-projects/`** holds commented **syntax / ecosystem demos** (Go/Rust starters, Unity loop notes)—not playbook lab code. Side-by-side fundamentals (variables, functions, classes, collections): [Language fundamentals comparison](docs/handbook/language-fundamentals-comparison.md). Prefer one active **spec-backed** lab under **`career-projects/`** for depth; dabble across languages without losing the phased ladder in [`career-project-specs/`](career-project-specs/). Log tradeoffs in [PROGRESS.md](PROGRESS.md).
 
 ### Unfamiliar stack + AI (still accountable)
 
