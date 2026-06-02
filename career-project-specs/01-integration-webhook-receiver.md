@@ -22,7 +22,7 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 **Real-world situations this project mirrors**
 
 - **Payment and billing providers** (Stripe, PayPal, Adyen, etc.) send the same webhook again after a **`5xx`**, a timeout, or their own redelivery policy. Your side must not double-apply ledger entries.
-- **iPaaS** (Boomi, MuleSoft, Workato, Zapier-style connectors) **retry** until they see `200`; your endpoint is their “success” signal, not your internal approval of the payload shape.
+- **iPaaS and automation** (Boomi, n8n, Workato, Zapier-style connectors) **retry** until they see `200`—your endpoint is their **success** signal. Same pattern as **fast ack + durable downstream step**: return quickly after you have **safely recorded** intent (idempotency row or enqueue), not after all Boomi-style map steps finish in-process.
 - **Forged traffic:** without verification, anyone who knows your URL can POST fake “subscription canceled” events. Signature verification is how you maintain **non-repudiation** at the HTTP boundary.
 - **Partial failure:** handler throws after **some** DB writes; without idempotency or compensation, replay might **duplicate** side effects. Dead-letter + abandon (or similar) is how you get back to a known state and retry deliberately.
 

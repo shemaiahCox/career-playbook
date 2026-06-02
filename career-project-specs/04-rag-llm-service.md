@@ -38,6 +38,18 @@ Employers are moving from “prompt in a notebook” to **production AI features
 
 Python **3.11+** (align with supported upstream versions for FastAPI/Pydantic); FastAPI; dependencies in `requirements.txt`. Pick an **orchestration / retrieval** approach when you wire real behavior—**LangChain**, **LangGraph**, **LlamaIndex**, or a **thin provider SDK + your own retrieval**—the **`POST /query` JSON contract**, **eval JSONL**, and **logging** conventions stay stable regardless.
 
+### Architecture split (Python + Go)
+
+| Layer | Stack | Owns |
+|-------|--------|------|
+| LLM + evals + citations policy | **Python** (this lab) | Prompt boundaries, eval JSONL, guardrails |
+| Concurrent retrieval / chunk fan-out | **Go** ([Project 9](09-go-retrieval-worker-lab.md)) | Timeouts, goroutine pools, retrieval gateway |
+| Chunk storage + indexes | **SQL** ([Project 7](07-sql-performance-lab.md)) | Plans, pgvector-style indexes when used |
+
+Python is the right place for **model vendor churn** and rapid eval iteration. Move **hot-path retrieval** to Go when profiling shows Python bound on I/O concurrency—not by default on day one.
+
+Industry context: vector stores (Milvus, Weaviate, Qdrant) often ship Go components; you do not need to operate them to benefit from the **split-boundary** habit.
+
 ## Key concepts (with definitions and code)
 
 ### RAG (retrieval-augmented generation)

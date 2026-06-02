@@ -30,6 +30,15 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
+## 2026-05-31 — Core stack refocus
+
+- **Decision:** Playbook scoped to **JS/TS, PHP, SQL, Go, Python** only—removed Java, C#, Kotlin, Swift, Rust, Unity, Next.js sandboxes and stack maps.
+- **Added:** [Project 9 Go retrieval/worker spec](career-project-specs/09-go-retrieval-worker-lab.md), [Go stack map](docs/stacks/go.md), [integration-automation map](docs/stacks/integration-automation.md), [Systems integration architect](docs/paths/systems-integration-architect.md), [Algorithms study path](docs/paths/algorithms-study-path.md).
+- **Narrative:** Integrations + automation + AI (Boomi/n8n patterns, RAG in Python, performance in Go).
+- **Next:** Pick active spec on new spine (P1 → P4/P3 → P2 → P5/P9 → P6); study algorithms path when starting P7 or P9.
+
+---
+
 ## 2026-05-05 — Playbook scaffold
 
 - Initialized [career-playbook](.) with `FOCUS.md`, project specs, and checklists.

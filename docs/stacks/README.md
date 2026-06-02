@@ -19,7 +19,7 @@ Words used on this README:
 | Says | Means in plain English |
 |------|------------------------|
 | **Term card** | A tiny worksheet: definition, why it matters, one example, how it bites you. Use it in your **own notes** or when adding ideas to [Software engineering breadth](../handbook/software-engineering.md). |
-| **Ecosystem map** | A checklist-style page for **one** language/community (Swift, Laravel, Python, …): what bites newcomers and where to study next. Not a beginner tutorial. |
+| **Ecosystem map** | A checklist-style page for **one** stack or pattern (Laravel, Go, Boomi-shaped integration, …): footguns and where to study next. Not a beginner tutorial. |
 | **Footgun** | A mistake that feels fine in a demo then hurts in production (leaks, wrong thread, swallowed errors, …). |
 | **Load-bearing term** | A word that changes **architecture** when you misunderstand it—not trivia. Spend real time there. |
 
@@ -39,10 +39,10 @@ Use this in your own notes or when extending handbook pages.
 | **Failure mode or tradeoff** | What breaks or what it costs (required—otherwise the term is trivia). |
 | **See also** (optional) | One link into [software engineering breadth](../handbook/software-engineering.md) or another handbook page. |
 
-## Rules for a polyglot playbook
+## Rules for this playbook
 
-- **One canonical example** per *pattern* (e.g. MVVM). Add a single **comparative line** for other stacks (“Android often …”) instead of three full codebases.
-- **Tutorials belong in labs** ([career-project-specs/](../../career-project-specs/)); this folder is for **vocabulary and pointers**.
+- **One canonical example** per pattern in career labs; stack maps are vocabulary only.
+- **Tutorials belong in labs** ([career-project-specs/](../../career-project-specs/)); this folder points to footguns and handbook depth.
 
 ## Where the deeper explanations live
 
@@ -50,26 +50,17 @@ The main breadth document is [Software engineering](../handbook/software-enginee
 
 **Concrete starting points (full understanding, not search-and-hope):** [Integration + idempotent webhook example](../handbook/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency basics](../handbook/software-engineering.md#concurrency-basics) · [Database design — N+1 pattern](../handbook/database-design.md#orms-and-the-n1-query-pattern). Each ecosystem map’s **Read next (handbook)** block at the bottom tailors links to that page’s vocabulary.
 
-## Ecosystem maps (optional, short)
+## Ecosystem maps (core stack)
 
-Maps stay **≤2 pages**: modules, tests, typical async/DI patterns, and **how this stack phrases** concepts from the [term-card template](#term-card-template)—not full tutorials.
+Maps stay **≤2 pages**: modules, tests, async patterns, footguns—not full tutorials.
 
-### Draft maps (this repo)
+| File | Stack / pattern |
+|------|-----------------|
+| [php-laravel.md](php-laravel.md) | PHP + Laravel — HTTP, queues, Eloquent |
+| [node-typescript-backend.md](node-typescript-backend.md) | Node.js + TypeScript — HTTP/API services |
+| [go.md](go.md) | Go — workers, concurrency, retrieval gateways |
+| [python.md](python.md) | Python — FastAPI, asyncio, RAG-shaped APIs |
+| [sql.md](sql.md) | SQL / Postgres — plans, transactions, migrations |
+| [integration-automation.md](integration-automation.md) | Boomi / n8n / workflow integration patterns |
 
-Quick links—including **Plain language** at the bottom of each file:
-
-| File | Stack |
-|------|-------|
-| [swift-ios.md](swift-ios.md) | Swift, Apple platforms (SwiftUI/UIKit, ARC, concurrency) |
-| [kotlin-android.md](kotlin-android.md) | Kotlin — Android primary, short JVM/server lane |
-| [nextjs-react-typescript.md](nextjs-react-typescript.md) | Next.js + React + TypeScript (one web lane) |
-| [csharp-dotnet.md](csharp-dotnet.md) | C# / .NET — backend-shaped (ASP.NET Core, DI, async) |
-| [php-laravel.md](php-laravel.md) | PHP + Laravel (Composer, HTTP/queues, Eloquent, Octane) |
-| [python.md](python.md) | Python — venv/packaging, asyncio vs sync, FastAPI-shaped APIs |
-| [sql.md](sql.md) | SQL / relational engines — transactions, plans, migrations (paired with [database design](../handbook/database-design.md)) |
-| [node-typescript-backend.md](node-typescript-backend.md) | Node.js + TypeScript — HTTP/API services (Express/Fastify), distinct from Next-centric map |
-| [java-jvm.md](java-jvm.md) | Java / JVM — Maven/Gradle, Spring Boot-shaped backend vocabulary |
-
-**One-page index of “where is plain English?”:** [Stacks glossary →](glossary.md)
-
-Add a separate **`php.md`** only if you often ship **non-Laravel** PHP.
+**Plain-language index:** [Stacks glossary →](glossary.md)

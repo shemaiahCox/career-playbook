@@ -52,6 +52,6 @@ Use [unfamiliar-stack-ship.md](../../checklists/unfamiliar-stack-ship.md) as a r
 ## Related
 
 - [Learning journey](learning-journey.md) — dependency path, optional week overlay, phase → reference skim.
-- [Systems architect across languages](systems-architect-across-languages.md) — depth order for polyglot **design** literacy.
+- [Systems integration architect](systems-integration-architect.md) — depth order for integration-shaped **design** literacy on your stack.
 - [Term cards and vocabulary](../stacks/README.md) — definition + minimal example + failure mode; **[Stacks glossary (plain-language index)](../stacks/glossary.md)** gathers links to newcomer-friendly blurbs under each ecosystem map.
 - [Ecosystem maps](../stacks/README.md#ecosystem-maps-optional-short) — stack-specific vocabulary (Swift, Kotlin, Next/TS, .NET, PHP/Laravel, Python, SQL).

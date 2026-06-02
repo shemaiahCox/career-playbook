@@ -1,6 +1,6 @@
 # Ecosystem map: Node.js + TypeScript (HTTP / API services)
 
-**Use this:** You ship or review **Node** backends as **HTTP APIs** (**Express**, **Fastify**, **NestJS-shaped** layering)—**not** primarily React/Next. For **Next.js + React + SSR**, use [nextjs-react-typescript.md](nextjs-react-typescript.md) first; Node is still the server runtime there, but vocabulary and footguns differ.
+**Use this:** You ship or review **Node** backends as **HTTP APIs** (**Express**, **Fastify**, **NestJS-shaped** layering)—the TypeScript lane in this playbook ([Project 6](../../career-project-specs/06-node-typescript-lab.md)).
 
 **Companion:** [term cards](README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 6 — Node / TypeScript lab](../../career-project-specs/06-node-typescript-lab.md)
 
@@ -75,7 +75,7 @@ Read this **after** the tables if the jargon felt dense.
 
 ### Read next (handbook)
 
-- **[Concurrency basics](../handbook/software-engineering.md#concurrency-basics)** and **[Async sketch](../handbook/software-engineering.md#async-sketch)** (see **JS** row in the table) — event loop vs workers.
+- **[Concurrency basics](../handbook/software-engineering.md#concurrency-basics)** — event loop vs workers on your stack.
 - **[Example: idempotent webhook or job](../handbook/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — HTTP + retries at integration edges.
 - **[ORMs and the N+1 pattern](../handbook/database-design.md#orms-and-the-n1-query-pattern)** — ORM-shaped data access.
 - **[Observability: logs, metrics, traces](../handbook/software-engineering.md#observability-logs-metrics-traces)** — correlation across services.
@@ -85,5 +85,6 @@ Read this **after** the tables if the jargon felt dense.
 
 ## See also
 
-- [Next.js + React + TypeScript](nextjs-react-typescript.md) — full-stack web and SSR; Node appears as **build and server** runtime.
+- [Go stack map](go.md) — workers and retrieval gateway beside Node/Python.
+- [Integration-automation patterns](integration-automation.md) — n8n custom node stretch for P6.
 - [Software engineering breadth](../handbook/software-engineering.md) — REST, versioning, security.

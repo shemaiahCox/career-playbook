@@ -130,7 +130,7 @@ JOIN profiles p ON p.user_id = u.id
 WHERE u.id IN ( /* page of ids */ );
 ```
 
-**Intermediate:** Inspect **logged SQL** in staging—not just “page loads.” ORM defaults often favor **lazy** loading for ergonomics while tutorials are small; **hot HTTP handlers** reveal N+1 as latency cliffs. Indexes help **each** query, but they **cannot** replace **fewer round trips** between app and DB (see stacks: [Python](../stacks/python.md), [PHP/Laravel](../stacks/php-laravel.md), [.NET](../stacks/csharp-dotnet.md), [SQL map](../stacks/sql.md)).
+**Intermediate:** Inspect **logged SQL** in staging—not just “page loads.” ORM defaults often favor **lazy** loading for ergonomics while tutorials are small; **hot HTTP handlers** reveal N+1 as latency cliffs. Indexes help **each** query, but they **cannot** replace **fewer round trips** between app and DB (see stacks: [Python](../stacks/python.md), [PHP/Laravel](../stacks/php-laravel.md), [SQL map](../stacks/sql.md)).
 
 ---
 

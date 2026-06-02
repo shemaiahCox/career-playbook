@@ -1,4 +1,4 @@
-# Project 6 — Node / TypeScript service lab (optional parity)
+# Project 6 — Node / TypeScript service lab (core stack)
 
 ## Problem
 
@@ -29,8 +29,10 @@ This is not about chasing every new JS framework; it is about **one disciplined 
 **Real-world situations this project mirrors**
 
 - **Greenfield API** in a startup that standardized on **Node + TS** while your last job was PHP/Laravel—you already know the integration playbook; this is **syntax + ecosystem**.
-- **BFF** that aggregates internal services for a **React/Next** app; TS end-to-end is the common setup.
-- **Queue workers** with **BullMQ** / Redis mirroring Laravel queues—**at-least-once** and **idempotent handlers** are the same concepts under production load as in PHP/Python labs.
+- **BFF** that aggregates internal services; TS end-to-end with your API consumers.
+- **Queue workers** with **BullMQ** / Redis mirroring Laravel queues—**at-least-once** and **idempotent handlers** are the same concepts under production load as in PHP/Go labs.
+
+**Stretch:** Custom **n8n node** (TypeScript)—same reliability habits (errors, secrets, idempotency) in a workflow step; see [integration-automation map](../docs/stacks/integration-automation.md).
 
 ## Code repo
 

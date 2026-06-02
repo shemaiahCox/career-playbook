@@ -4,7 +4,9 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 
 **Naming:** Older docs may say **`projects/`**; that folder name is now **`career-projects/`**.
 
-**Positioning (12–18 month headline):** Backend / API + integrations engineer who ships reliable, observable services and can add LLM features safely (RAG or tool-using flows with evals and guardrails). The same habits extend toward **systems-style thinking across stacks**—depth in **concepts** and **tradeoffs**, not in memorizing every language.
+**Positioning (12–18 month headline):** Integrations + automation backend engineer who ships **reliable, observable, event-driven** services—**Boomi/n8n-shaped** patterns, **RAG/LLM** boundaries in Python, **performance-critical** workers and retrieval in **Go**, APIs in **PHP/TypeScript**, data correctness in **SQL**.
+
+**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python — see [FOCUS.md](FOCUS.md). **Growth lanes:** Python (AI logic) + Go (throughput/workers); **ship today:** PHP, TypeScript, SQL at integration and data edges — [Growth lanes vs ship today](FOCUS.md#growth-lanes-vs-ship-today).
 
 - **Focus and themes:** [FOCUS.md](FOCUS.md)
 - **Shipped work and lessons:** [PROGRESS.md](PROGRESS.md)
@@ -28,9 +30,9 @@ Follow the [learning path](#learning-path-suggested) for ordering (dependency fl
 
 Skip reading every spec cover-to-cover up front; depth-read the project you are shipping.
 
-### Optional exploration ([exploration-projects/](exploration-projects/README.md))
+### Exploration sandboxes ([exploration-projects/](exploration-projects/README.md))
 
-**`exploration-projects/`** holds commented **syntax / ecosystem demos** (Go/Rust starters, Unity loop notes)—not playbook lab code. Side-by-side fundamentals (variables, functions, classes, collections): [Language fundamentals comparison](docs/handbook/language-fundamentals-comparison.md). Prefer one active **spec-backed** lab under **`career-projects/`** for depth; dabble across languages without losing the phased ladder in [`career-project-specs/`](career-project-specs/). Log tradeoffs in [PROGRESS.md](PROGRESS.md).
+**`exploration-projects/`** holds **three** commented probes aligned to your stack—PHP (Laravel slice), Node/TS HTTP, Go CLI—not playbook lab code. Fundamentals reference: [Language fundamentals comparison](docs/handbook/language-fundamentals-comparison.md). Prefer one active **spec-backed** lab under **`career-projects/`**; use sandboxes for syntax muscle memory only.
 
 ### Unfamiliar stack + AI (still accountable)
 
@@ -40,7 +42,7 @@ When you must deliver **product A** in **stack B** you have not shipped before�
 2. Use [term cards](docs/stacks/README.md) for vocabulary; if the tables confuse you first pass, jump to **[Stacks glossary](docs/stacks/glossary.md)** or the **Plain language** section at the bottom of the map you opened. Go deep in the [handbook](docs/handbook/software-engineering.md) when a term is load-bearing.
 3. Before calling it done, walk [unfamiliar-stack-ship](checklists/unfamiliar-stack-ship.md) (memory and lifecycle, failure paths, secrets, observability—scoped to what you built).
 
-For long-term polyglot **architecture** literacy (not six parallel syntax courses), see [Systems architect across languages](docs/paths/systems-architect-across-languages.md).
+For **integration-shaped architecture** on your stack, see [Systems integration architect](docs/paths/systems-integration-architect.md).
 
 ### Checklists and [PROGRESS.md](PROGRESS.md)
 
@@ -52,17 +54,15 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 
 | Phase | Projects | Notes |
 |-------|----------|--------|
-| **1 — Integration spine** | [01](career-project-specs/01-integration-webhook-receiver.md) | Hardened webhooks: signatures, idempotency, logs, dead letters. |
-| **2 — Applied AI + ops** | [04](career-project-specs/04-rag-llm-service.md), [03](career-project-specs/03-observability-lab.md) | RAG/evals + structured logging; P3 can piggyback on P4’s FastAPI or another small service. |
-| **3 — API contracts** | [02](career-project-specs/02-contract-first-api.md) | OpenAPI + consumer/contract discipline; helps every stack you use. |
-| **4 — Scale shape** | [05](career-project-specs/05-async-worker-stretch.md) | Queues, retries, DLQ; natural extension of P1. |
-| **4b — SQL depth (optional)** | [07](career-project-specs/07-sql-performance-lab.md) | Postgres lab: plans, indexing, transactions, pagination; complements P1/P2/P5. Can run alongside phase 3–4. |
-| **4c — Cybersecurity foundations (optional)** | [08](career-project-specs/08-application-security-lab.md) | OWASP-style web app risks: SQLi, XSS, auth/sessions, forms/CSRF—for shipping engineers, not a security-only pivot. Can run after P2/P6 or alongside P7. |
-| **5 — Flexible lane (optional)** | [06](career-project-specs/06-node-typescript-lab.md) | **Node + TypeScript:** one repo, track A/B/C—same patterns, broader market signal. |
+| **1 — Integration spine** | [01](career-project-specs/01-integration-webhook-receiver.md) | Hardened webhooks: signatures, idempotency, logs, dead letters; Boomi-style fast ack. |
+| **2 — Applied AI + ops** | [04](career-project-specs/04-rag-llm-service.md), [03](career-project-specs/03-observability-lab.md) | RAG/evals + structured logging; Python LLM boundary. |
+| **3 — API contracts** | [02](career-project-specs/02-contract-first-api.md) | OpenAPI + consumer/contract discipline. |
+| **4 — Event-driven scale** | [05](career-project-specs/05-async-worker-stretch.md), [09](career-project-specs/09-go-retrieval-worker-lab.md) | Queues, DLQ; **Go** workers + retrieval gateway beside Python RAG. |
+| **5 — TypeScript API lane** | [06](career-project-specs/06-node-typescript-lab.md) | Node + TypeScript HTTP service—core stack, same reliability patterns. |
+| **4b — SQL depth** | [07](career-project-specs/07-sql-performance-lab.md) | Postgres: plans, indexing, transactions, pagination, vector-adjacent retrieval. |
+| **4c — Security foundations** | [08](career-project-specs/08-application-security-lab.md) | OWASP web risks + integration-edge security literacy. |
 
-**Stack reality:** Specs reference **PHP** (P1), **Python** (P4), and **optional Laravel vs FastAPI** (P2). Many teams pair a **TypeScript** HTTP/BFF layer with a **Python** LLM or retrieval microservice—same playbook habits on both sides. **P6** closes the gap for **Node/TS** without replacing your anchors—see [FOCUS.md](FOCUS.md). **P8** is **stack-agnostic** (e.g. Laravel+Blade, FastAPI+Jinja, Node+templates)—see [Project 8](career-project-specs/08-application-security-lab.md). **Next.js / React** stays optional breadth ([docs/stacks/nextjs-react-typescript.md](docs/stacks/nextjs-react-typescript.md)), not a core playbook requirement.
-
-**SQL and performance:** You still touch SQL in P1, P2, P5, and timings in P3. For a **shipping artifact** and hands-on plan/index literacy you can show from real runs, the optional **[Project 7](career-project-specs/07-sql-performance-lab.md)** Postgres lab is the dedicated lane—skip it only if your roadmap is already data-limited. **Optional [Project 8](career-project-specs/08-application-security-lab.md)** adds **SQL injection** and related **OWASP** practice in an app-shaped lab (forms, sessions)—complements P7 without requiring it.
+**Stack reality:** **PHP** (P1), **Python** (P4), **Go** (P9 workers/retrieval), **TypeScript** (P6), **SQL** (P7). P2 may use Laravel or FastAPI; P8 is stack-agnostic within the core set. Study depth: [Algorithms study path](docs/paths/algorithms-study-path.md) for Big-O tied to labs—not optional for P7/P9/RAG chunk paths.
 
 ## Architectural narrative
 
@@ -78,6 +78,10 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | **Cybersecurity / OWASP foundations (web)** | [Project 8](career-project-specs/08-application-security-lab.md) SQLi, XSS, auth/sessions, forms/CSRF; [application security (web) checklist](checklists/application-security-web-owasp.md)—for shipping engineers, alongside P1 |
 | **Data shape under load** | [Project 7](career-project-specs/07-sql-performance-lab.md) plans, indexes, transactions, pagination |
 | **AI product boundaries** | [Project 4](career-project-specs/04-rag-llm-service.md); [LLM feature ship](checklists/llm-feature-ship.md) |
+| **Event-driven + automation patterns** | P1 → P5 → P9; [integration-automation map](docs/stacks/integration-automation.md) |
+| **Go concurrency + retrieval boundary** | [Project 9](career-project-specs/09-go-retrieval-worker-lab.md); [Go stack map](docs/stacks/go.md) |
+| **Performance under load (Big-O)** | [Algorithms study path](docs/paths/algorithms-study-path.md); P7, P9, RAG chunk pipelines |
+| **TypeScript API lane** | [Project 6](career-project-specs/06-node-typescript-lab.md) |
 | **Unfamiliar stack + AI** | [AI-assisted unfamiliar stack](docs/paths/ai-assisted-unfamiliar-stack.md); [unfamiliar-stack ship](checklists/unfamiliar-stack-ship.md) |
 
 **Habits:** Treat each spec as a *design brief*—especially **Career relevance**, **Real-world situations**, and **Key concepts**. After each shipped milestone, log **one explicit tradeoff** (what you rejected and why) and **one production failure mode** you guarded against in [PROGRESS.md](PROGRESS.md). Before calling integration or LLM work done, walk the checklists above. Optional: in each lab repo README, add one diagram plus three bullets—components, data flow, failure modes.
@@ -89,10 +93,11 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | 1 | Integration webhook receiver | [01-webhook-receiver-lab](career-projects/01-webhook-receiver-lab) | [shemaiahCox/webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab) |
 | 2 | Contract-first API | _TBD_ | _TBD — see [career-project-specs/02-contract-first-api.md](career-project-specs/02-contract-first-api.md)_ |
 | 4 | RAG / LLM service (FastAPI + eval harness) | [04-rag-llm-lab](career-projects/04-rag-llm-lab) | [shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
-| 5 | Async worker (stretch) | _TBD_ | _Often extends P1/P6 — see [career-project-specs/05-async-worker-stretch.md](career-project-specs/05-async-worker-stretch.md)_ |
-| 6 | Node / TypeScript lab (optional) | _TBD_ | _TBD — see [career-project-specs/06-node-typescript-lab.md](career-project-specs/06-node-typescript-lab.md)_ |
-| 7 | SQL performance / correctness lab | [07-sql-perf-lab](career-projects/07-sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
-| 8 | OWASP / cybersecurity foundations (web) | _TBD_ | _TBD — see [career-project-specs/08-application-security-lab.md](career-project-specs/08-application-security-lab.md)_ |
+| 5 | Async worker | _TBD_ | _Often extends P1 — see [P5](career-project-specs/05-async-worker-stretch.md)_ |
+| 6 | Node / TypeScript lab | _TBD_ | _TBD — see [P6](career-project-specs/06-node-typescript-lab.md)_ |
+| 7 | SQL performance lab | [07-sql-perf-lab](career-projects/07-sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
+| 8 | OWASP / security foundations | _TBD_ | _TBD — see [P8](career-project-specs/08-application-security-lab.md)_ |
+| 9 | Go retrieval + worker lab | _TBD_ | _TBD — see [P9](career-project-specs/09-go-retrieval-worker-lab.md)_ |
 
 **Default layout:** Clone or open playbook-backed labs inside **`career-projects/`** as **`NN-*`** folders (often **nested `.git`** checkouts)—see [**`career-projects/README.md`**](career-projects/README.md). To add a missing lab from the playbook root: `git clone <ssh-url> career-projects/<folder-name>` (for example **`01-webhook-receiver-lab`**). **Separate commercial / product** repos unrelated to playbook labs may live beside this repo under **`~/Documents/dev/business-projects/`** (optional index: [sibling **`business-projects/README.md`**](../business-projects/README.md)).
 

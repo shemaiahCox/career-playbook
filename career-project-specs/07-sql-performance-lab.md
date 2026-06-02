@@ -38,6 +38,8 @@ Most backend roles assume you can **join**, **filter**, and **migrate** responsi
 
 **Postgres 16** (Docker Compose) as the reference engine: `EXPLAIN (ANALYZE, BUFFERS)`, partial indexes, and concurrency demos match what most teams mean by “production Postgres.” Application code stays **optional and thin**—`psql`, small shell helpers, or a short Python runner only to load seeds or time batches.
 
+**RAG + retrieval path:** When [Project 4](04-rag-llm-service.md) or [Project 9](09-go-retrieval-worker-lab.md) store chunks or embeddings in Postgres, the same **index and plan** habits apply—vector indexes are not a substitute for understanding **seq scan vs index scan** and **write amplification**. See [Vector databases and embeddings](../docs/handbook/database-design.md#vector-databases-and-embeddings).
+
 **Dialect deltas (MySQL / SQL Server):** Concepts transfer; syntax does not. Use their `EXPLAIN` / actual-plan equivalents, learn **MVCC vs locking** basics for your engine, and re-run the same **logical** exercises (missing index, bad pagination, isolation) with dialect-appropriate DDL. Keep one **primary** repo engine so commits stay reviewable.
 
 ## Key concepts (with definitions and patterns)

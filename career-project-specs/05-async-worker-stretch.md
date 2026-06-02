@@ -34,7 +34,9 @@ Optional pattern: keep [webhook-receiver-lab](https://github.com/shemaiahCox/web
 
 ## Stack (suggestions)
 
-Redis + PHP worker, Laravel queues, **BullMQ (Node)**—see [Project 6 — track C](06-node-typescript-lab.md) for a TS-shaped webhook + worker story—or RDS outbox pattern.
+Redis + PHP worker, Laravel queues, **Go worker** ([Project 9](09-go-retrieval-worker-lab.md)), **BullMQ (Node)**—see [Project 6](06-node-typescript-lab.md)—or RDS outbox pattern.
+
+**When to choose Go for the consumer:** high throughput, many concurrent I/O-bound steps, or you are practicing the **AI + integration** performance lane from [FOCUS.md](../FOCUS.md). PHP/Laravel queues remain valid when ops familiarity and team stack matter more than raw concurrency.
 
 **Deeper SQL:** Workers that UPDATE/INSERT in batches benefit from the same index and transaction thinking as the web tier—see [Project 7 — SQL performance lab](07-sql-performance-lab.md).
 

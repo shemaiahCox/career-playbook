@@ -45,9 +45,10 @@ Skim the **Testing approach (lab)** section in each spec for stack-specific emph
 | 3 — Observability | [03-observability-lab.md](../../career-project-specs/03-observability-lab.md#testing-approach-lab) | Integration or component tests on log/correlation shape |
 | 4 — RAG / LLM | [04-rag-llm-service.md](../../career-project-specs/04-rag-llm-service.md#testing-approach-lab) | Eval JSONL + runner; unit on deterministic seams |
 | 5 — Async worker | [05-async-worker-stretch.md](../../career-project-specs/05-async-worker-stretch.md#testing-approach-lab) | Integration (queue + worker + idempotency) |
-| 6 — Node / TypeScript | [06-node-typescript-lab.md](../../career-project-specs/06-node-typescript-lab.md#testing-approach-lab) | Same as track (A→P1, B→P2, C→P5 patterns) |
+| 6 — Node / TypeScript | [06-node-typescript-lab.md](../../career-project-specs/06-node-typescript-lab.md#testing-approach-lab) | Core stack: same patterns as P1/P2/P5 tracks |
 | 7 — SQL performance | [07-sql-performance-lab.md](../../career-project-specs/07-sql-performance-lab.md#testing-approach-lab) | Exercise scripts + documented plan excerpts (correctness of SQL behavior) |
 | 8 — Application security | [08-application-security-lab.md](../../career-project-specs/08-application-security-lab.md#testing-approach-lab) | Targeted **reproduction** scripts + checklist pass |
+| 9 — Go retrieval/worker | [09-go-retrieval-worker-lab.md](../../career-project-specs/09-go-retrieval-worker-lab.md#testing-approach-lab) | Table-driven unit + integration (queue/idempotency) |
 
 ## Review checklist (before merge)
 

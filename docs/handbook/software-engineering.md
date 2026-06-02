@@ -172,7 +172,7 @@ flowchart TB
 
 ## Integration: sync, async, and messaging
 
-**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md); [Stacks — ecosystem maps](../stacks/README.md) (how PHP, Python, Node, … express these ideas).
+**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md); [integration-automation stack map](../stacks/integration-automation.md); [Stacks README](../stacks/README.md) (PHP, Node, Go, Python, SQL).
 
 ### Sync HTTP callers
 
@@ -229,6 +229,21 @@ on POST /webhooks/orders:
 - **Verify signatures** where the integration provides them—before you trust payloads or enqueue work (**[integration hardening](../../checklists/integration-hardening.md)**).
 - Return **success only after** you have durably expressed “this **`event_id`** is handled” or applied an equivalent **business-key upsert**.
 - Slow work (**PDFs, ML, third-party chaining**) belongs in **async jobs** keyed by the same **`event_id`** or business id—the HTTP handler acknowledges **intent recorded**, not “world finished.”
+
+### Event-driven integration
+
+**Basic:** An **event** announces that something already happened (“OrderPlaced”, “InvoicePaid”). A **command** asks something to happen (“ChargeCustomer”). Integration platforms (Boomi, n8n, custom buses) chain **steps** that react to events or commands. Your code mirrors this with **webhooks → queue → worker**.
+
+**Events vs commands (failure modes):**
+
+- **Events** are often **immutable facts**—consumers must tolerate **duplicate delivery** and **out-of-order** arrival when multiple partitions or retries exist. Design **idempotent** handlers keyed by `event_id` or business natural key.
+- **Commands** imply **intent**—duplicates can **double-charge** if you only check HTTP success. Use **idempotency keys**, unique constraints, or “insert processed_commands first” patterns like the webhook example above.
+
+**Outbox pattern (one paragraph):** When you must **write DB state and publish a message atomically**, write both intent to an **outbox table** in the same transaction; a separate **relay process** publishes to the queue. Failure mode without outbox: DB commits, message never sent—or message sent, DB rolls back—partners see inconsistent worlds.
+
+**Saga (one paragraph):** A **long-running business process** split into **local transactions** with **compensating steps** (cancel shipment if payment fails). Failure mode: you compensate late or skip compensation—money and inventory diverge. Prefer explicit saga state machine or workflow engine when steps cross teams; do not hide saga logic in ad-hoc nested callbacks.
+
+**Playbook mapping:** [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (ingress) → [Project 5](../../career-project-specs/05-async-worker-stretch.md) (durable steps) → [Project 9](../../career-project-specs/09-go-retrieval-worker-lab.md) (concurrent workers). Vocabulary: [integration-automation stack map](../stacks/integration-automation.md).
 
 ---
 
@@ -409,7 +424,18 @@ For complexity, core structures, pattern recognition, and interview flow, use th
 
 **Intermediate:** Backend services less often have a literal “main thread,” but they still have **scarce resources**: **bounded thread pools**, **event loops**, **DB pool connections**. **Blocking** inside an async-only stack (FastAPI/asyncio; Node)—or **blocking the UI thread on mobile**—are the same **class** of mistake: starvation under load.
 
-**Where each language expresses async:** see [Language fundamentals comparison — Async](language-fundamentals-comparison.md#async-and-concurrency-fundamentals).
+### Concurrency on your core stack
+
+| Runtime | Model | Typical mistake |
+|---------|--------|-----------------|
+| **PHP (FPM)** | One request ≈ one worker process; memory resets | Long CPU work in webhook handler → partner retries flood you |
+| **Node / TS** | Single-threaded event loop + thread pool for some I/O | Blocking sync file/DB call stalls all requests |
+| **Python (asyncio)** | Event loop + `async def` | Calling blocking libraries without `to_thread` / executor |
+| **Go** | Goroutines + channels + `context` | Unbounded `go handler()` per message → memory spike |
+
+**Go worker guidance:** bound concurrency with a **worker pool** or **semaphore**; propagate **context cancel** from HTTP timeout or job deadline. See [Go stack map](../stacks/go.md) and [Project 9](../../career-project-specs/09-go-retrieval-worker-lab.md).
+
+**Where each language expresses async:** [Language fundamentals comparison — Async](language-fundamentals-comparison.md#async-and-concurrency-fundamentals).
 
 ---
 
