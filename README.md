@@ -13,7 +13,7 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 - **Initiative specs:** [career-project-specs/](career-project-specs/)
 - **Reusable checklists:** [checklists/](checklists/)
 - **Docs index:** [docs/README.md](docs/README.md) — maps [paths/](docs/paths/), [handbook/](docs/handbook/), [stacks/](docs/stacks/), [playbook/](docs/playbook/) (per-lab testing + AI prompts) · **SE terms (A–Z):** [Software engineering glossary](docs/handbook/software-engineering-glossary.md)
-- **Learning journey (dependency path + optional week overlay):** [docs/paths/learning-journey.md](docs/paths/learning-journey.md)
+- **Learning journey (dependency path + optional week overlay):** [docs/paths/learning-journey.md](docs/paths/learning-journey.md) — start with [AI + automation + cloud quick map](docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map) if that is your focus
 - **Build A in unfamiliar stack B (with AI):** [docs/paths/ai-assisted-unfamiliar-stack.md](docs/paths/ai-assisted-unfamiliar-stack.md) · ship rubric: [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md) · **Ecosystem maps:** [docs/stacks/README.md#ecosystem-maps-optional-short](docs/stacks/README.md#ecosystem-maps-optional-short) · **Plain-language index:** [docs/stacks/glossary.md](docs/stacks/glossary.md)
 
 ## Using this playbook
@@ -80,6 +80,7 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | **AI product boundaries** | [Project 4](career-project-specs/04-rag-llm-service.md); [LLM feature ship](checklists/llm-feature-ship.md) |
 | **Event-driven + automation patterns** | P1 → P5 → P9; [integration-automation map](docs/stacks/integration-automation.md) |
 | **Go concurrency + retrieval boundary** | [Project 9](career-project-specs/09-go-retrieval-worker-lab.md); [Go stack map](docs/stacks/go.md) |
+| **AI + automation + cloud (one spine)** | [Learning journey — quick map](docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map); capstone: P1/P6 → P5 → P9 → P4 → P7 |
 | **Performance under load (Big-O)** | [Algorithms study path](docs/paths/algorithms-study-path.md); P7, P9, RAG chunk pipelines |
 | **TypeScript API lane** | [Project 6](career-project-specs/06-node-typescript-lab.md) |
 | **Unfamiliar stack + AI** | [AI-assisted unfamiliar stack](docs/paths/ai-assisted-unfamiliar-stack.md); [unfamiliar-stack ship](checklists/unfamiliar-stack-ship.md) |

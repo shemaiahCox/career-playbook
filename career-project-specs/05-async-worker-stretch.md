@@ -136,6 +136,14 @@ These assume **producer + broker + worker + DLQ** (Redis/Laravel/BullMQ/SQS-styl
 - **Action:** Fix bug; **replay** from DLQ or re-publish one poison message with same business key.
 - **Expected outcome:** Documented safe replay—aligns with [Project 1](01-integration-webhook-receiver.md) abandon/retry story.
 
+## Stretch
+
+- **Go consumer** — Same queue semantics with a Go worker ([Project 9](09-go-retrieval-worker-lab.md)); document idempotency + DLQ in README.
+- **Event bus (after DLQ is solid)** — Publish job lifecycle events (NATS / Redis Streams); subscribers must tolerate duplicates—see P9 stretch and [integration-automation map](../docs/stacks/integration-automation.md).
+- **Cloud** — Document Redis local vs managed queue (SQS-compatible); optional `docker compose` for broker + worker.
+
+**Capstone:** This project is the **durable work** half of the AI + automation spine—pair with P1/P6 ingress and P9/P4 retrieval. [Learning journey — quick map](../docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map).
+
 ## Maps to
 
 Scale, background jobs, integration-heavy systems.

@@ -32,6 +32,23 @@ Industry context: many **vector DBs**, **workflow engines**, and **K8s tooling**
 
 ---
 
+## What to practice here vs defer
+
+Generic “build anything in Go” lists are broader than this playbook. Use this filter so **AI + automation + cloud** stay on one spine:
+
+| Go is used for (in scope) | Practice in | Defer (not playbook spine) |
+|---------------------------|-------------|----------------------------|
+| Queue workers, DLQ, ingest jobs | [P5](../../career-project-specs/05-async-worker-stretch.md), [P9](../../career-project-specs/09-go-retrieval-worker-lab.md) | Full e‑commerce/blog API in Go (use P2/P6) |
+| Retrieval gateway, chunk fan-out | [P9](../../career-project-specs/09-go-retrieval-worker-lab.md) | LLM/evals in Go (use [P4](../../career-project-specs/04-rag-llm-service.md)) |
+| Small HTTP service boundaries | P9 `/retrieve`, health | Greenfield chat apps unless capstone stretch |
+| CLI / ops probes | [go-cli-http-probe](../../exploration-projects/go-cli-http-probe/README.md) | Backup utilities unrelated to labs |
+| Event bus / streams (stretch) | P9 after P5 queues | Building a Boomi/n8n clone |
+| Cloud-native habits | Docker Compose, managed queue in README | K8s/AWS cert curriculum |
+
+**Easy follow path:** [Learning journey — AI, automation, cloud](../paths/learning-journey.md#ai-automation-and-cloud--quick-map) · [Integrated capstone](../paths/learning-journey.md#integrated-capstone-one-system-not-five-go-repos).
+
+---
+
 ## Footguns
 
 - **Ignoring `err`** — silent failures in workers poison queues.

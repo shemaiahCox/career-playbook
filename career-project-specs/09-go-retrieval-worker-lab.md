@@ -89,9 +89,24 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 
 ## Stretch
 
+**Core (any one):**
+
 - Prometheus metrics endpoint.
 - Benchmark retrieval with 1k chunks—relate to [Algorithms study path](../docs/paths/algorithms-study-path.md) (O(n) scan vs indexed lookup).
 - Share queue with PHP/Laravel or Node producer from P1/P6.
+
+**AI + automation capstone (after success criteria green):**
+
+- **Concurrent ingestion pipeline** — `ingest_batch` jobs from P1/P6 enqueue; worker pool with **backpressure**; idempotent chunk upserts into [P7](07-sql-performance-lab.md) tables.
+- **Event bus** — NATS or Redis Streams for `ingest_complete` / `chunks_ready`; at-least-once consumers; document replay—**after** queue + DLQ basics from [P5](05-async-worker-stretch.md).
+- **Real-time notify (optional)** — SSE or WebSocket on gateway for job status; handbook: [WebSockets](../docs/handbook/servers-and-networking.md#websockets-and-long-polling).
+
+**Cloud / ops:**
+
+- `docker compose` for Go service + Postgres + Redis/NATS; document local → managed queue (e.g. SQS) in README.
+- Small ops CLI: replay DLQ, drain queue (ties to [go-cli-http-probe](../exploration-projects/go-cli-http-probe/README.md) patterns).
+
+Capstone wiring guide: [Learning journey — integrated capstone](../docs/paths/learning-journey.md#integrated-capstone-one-system-not-five-go-repos).
 
 ## Related
 

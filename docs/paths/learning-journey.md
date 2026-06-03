@@ -8,6 +8,45 @@ Two views of the same playbook: **dependency order** (what to learn first) and a
 
 ---
 
+## AI, automation, and cloud — quick map
+
+If your goal is **AI features + integration/automation + cloud-shaped ops**, use this table first—then follow **View A** below for order.
+
+| Theme | What you are proving | Primary specs | Stack lane |
+|-------|----------------------|---------------|------------|
+| **AI (product)** | Grounded RAG, evals, citations, guardrails | [P4](../career-project-specs/04-rag-llm-service.md), [P3](../career-project-specs/03-observability-lab.md) | **Python** |
+| **Automation** | Fast ack, idempotent steps, queues, DLQ (Boomi/n8n mental model) | [P1](../career-project-specs/01-integration-webhook-receiver.md), [P5](../career-project-specs/05-async-worker-stretch.md), [integration-automation](../stacks/integration-automation.md) | **PHP** or **TypeScript** ingress |
+| **Throughput / scale** | Workers, retrieval fan-out, bounded concurrency | [P9](../career-project-specs/09-go-retrieval-worker-lab.md) (with P5) | **Go** |
+| **Data / vectors** | Correct indexes, plans, chunk storage | [P7](../career-project-specs/07-sql-performance-lab.md) | **SQL** (Postgres) |
+| **Cloud (practice)** | Containers, durable queues, optional single deploy | P7 Docker Compose; P5/P6/P9 queue + `docker compose` in lab README | Ops discipline—not a separate cert track |
+
+**Who owns what (avoid duplicate repos):**
+
+| Job | Owner | Not this |
+|-----|--------|----------|
+| LLM calls, eval JSONL, prompt boundaries | **Python (P4)** | A second “AI bot” repo in Go |
+| Webhooks, partner HTTP, n8n nodes | **PHP (P1)** or **TS (P6)** | Rebuilding the same ingress in Go first |
+| Queue drain, ingest jobs, `/retrieve` fan-out | **Go (P5/P9)** | Full REST monolith in Go |
+| Embeddings storage, vector indexes | **SQL (P7)** | Operating a separate vector DB product on day one |
+
+**Start retrieval in Python (P4).** Move hot-path retrieval to **Go (P9)** only when profiling shows I/O concurrency is the bottleneck—see [P4 architecture split](../career-project-specs/04-rag-llm-service.md#architecture-split-python--go).
+
+### Integrated capstone (one system, not five Go repos)
+
+After P4 has a minimal `/query` + eval path and P9 core is green, wire **one** story (diagram in P9 README; contract in OpenAPI):
+
+1. **Ingress** — P1 or P6 track C: webhook validates → enqueue.
+2. **Durable work** — P5/P9 Go worker: ingest/normalize documents (optional stretch).
+3. **Data** — P7 Postgres: chunks/embeddings; plans under load.
+4. **AI path** — P4 calls P9 `POST /retrieve` → LLM + citations.
+5. **Optional** — Event bus or WebSocket notify (P9 stretch) for “ingest complete.”
+
+Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs Go gateway). Full architecture lens: [Systems integration architect](systems-integration-architect.md).
+
+**Out of scope this year:** IoT/robotics/game/blockchain Go projects; Milvus/Weaviate operator tracks; cloning Boomi/n8n; deep ML training — [FOCUS non-goals](../../FOCUS.md#non-goals-this-year).
+
+---
+
 ## Rules of thumb
 
 1. **One active project** — Pick **one** spec as spine. Depth beats parallel half-finished labs.
@@ -40,7 +79,8 @@ Two views of the same playbook: **dependency order** (what to learn first) and a
 | **1–2** | Phase 1 (P1) | Ship webhook success criteria; run exploration scenarios |
 | **3–5** | Phase 2 (P4 + P3) | RAG slice + structured logging on same service |
 | **6–7** | Phase 3 (P2) | Contract-first API milestone |
-| **8–10** | Phase 4 (P5 + P9) | Queue + Go worker/retrieval; idempotency under duplicate delivery |
+| **7–8** | Go prep (sandbox) | [go-cli-http-probe](../../exploration-projects/go-cli-http-probe/README.md) — CLI/HTTP only, not a lab milestone |
+| **8–10** | Phase 4 (P5 + P9) | Queue + Go worker/retrieval; optional [integrated capstone](#integrated-capstone-one-system-not-five-go-repos) wiring |
 | **11–12** | Phase 5 (P6) | Node/TS service with same integration habits |
 | **Parallel** | P7 | Algorithms study path + Postgres exercises |
 | **Parallel** | P8 | OWASP lab after or alongside P2/P6 |
