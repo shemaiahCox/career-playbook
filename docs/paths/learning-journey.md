@@ -4,7 +4,7 @@ Two views of the same playbook: **dependency order** (what to learn first) and a
 
 **Companion:** [README — Learning path](../../README.md#learning-path-suggested) · [Systems integration architect](systems-integration-architect.md) · [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md)
 
-**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python — [FOCUS.md](../../FOCUS.md). **Python + Go** = long-term growth lanes; **PHP, TypeScript, SQL** = ship-today ingress and data — [Growth lanes vs ship today](../../FOCUS.md#growth-lanes-vs-ship-today).
+**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python · Rust (Tier‑2) — [FOCUS.md](../../FOCUS.md). **Python + Go** = long-term growth lanes; **Rust** after P9 Go; **PHP, TypeScript, SQL** = ship-today ingress and data — [Growth lanes vs ship today](../../FOCUS.md#growth-lanes-vs-ship-today).
 
 ---
 
@@ -16,7 +16,7 @@ If your goal is **AI features + integration/automation + cloud-shaped ops**, use
 |-------|----------------------|---------------|------------|
 | **AI (product)** | Grounded RAG, evals, citations, guardrails | [P4](../career-project-specs/04-rag-llm-service.md), [P3](../career-project-specs/03-observability-lab.md) | **Python** |
 | **Automation** | Fast ack, idempotent steps, queues, DLQ (Boomi/n8n mental model) | [P1](../career-project-specs/01-integration-webhook-receiver.md), [P5](../career-project-specs/05-async-worker-stretch.md), [integration-automation](../stacks/integration-automation.md) | **PHP** or **TypeScript** ingress |
-| **Throughput / scale** | Workers, retrieval fan-out, bounded concurrency | [P9](../career-project-specs/09-go-retrieval-worker-lab.md) (with P5) | **Go** |
+| **Throughput / scale** | Workers, retrieval fan-out, bounded concurrency | [P9](../career-project-specs/09-go-retrieval-worker-lab.md) (with P5) | **Go** (Rust Tier‑2 after P9 — [below](#rust-tier-2-after-p9-go)) |
 | **Data / vectors** | Correct indexes, plans, chunk storage | [P7](../career-project-specs/07-sql-performance-lab.md) | **SQL** (Postgres) |
 | **Cloud (practice)** | Containers, durable queues, optional single deploy | P7 Docker Compose; P5/P6/P9 queue + `docker compose` in lab README | Ops discipline—not a separate cert track |
 
@@ -26,7 +26,8 @@ If your goal is **AI features + integration/automation + cloud-shaped ops**, use
 |-----|--------|----------|
 | LLM calls, eval JSONL, prompt boundaries | **Python (P4)** | A second “AI bot” repo in Go |
 | Webhooks, partner HTTP, n8n nodes | **PHP (P1)** or **TS (P6)** | Rebuilding the same ingress in Go first |
-| Queue drain, ingest jobs, `/retrieve` fan-out | **Go (P5/P9)** | Full REST monolith in Go |
+| Queue drain, ingest jobs, `/retrieve` fan-out | **Go (P5/P9)** | Full REST monolith in Go; **Rust worker spine in parallel with unfinished P9** |
+| Hot-path reimplementation (optional) | **Rust (Tier‑2)** after P9 Go green | Rust before any Go P9 artifact |
 | Embeddings storage, vector indexes | **SQL (P7)** | Operating a separate vector DB product on day one |
 
 **Start retrieval in Python (P4).** Move hot-path retrieval to **Go (P9)** only when profiling shows I/O concurrency is the bottleneck—see [P4 architecture split](../career-project-specs/04-rag-llm-service.md#architecture-split-python--go).
@@ -43,7 +44,21 @@ After P4 has a minimal `/query` + eval path and P9 core is green, wire **one** s
 
 Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs Go gateway). Full architecture lens: [Systems integration architect](systems-integration-architect.md).
 
-**Out of scope this year:** IoT/robotics/game/blockchain Go projects; Milvus/Weaviate operator tracks; cloning Boomi/n8n; deep ML training — [FOCUS non-goals](../../FOCUS.md#non-goals-this-year).
+**Out of scope this year:** Full IoT/robotics/embedded curriculum; Milvus/Weaviate operator tracks; cloning Boomi/n8n; deep ML training; **Rust as a second active worker spine** — [FOCUS non-goals](../../FOCUS.md#non-goals-this-year).
+
+### Rust Tier‑2 (after P9 Go)
+
+**When:** After [P9](../career-project-specs/09-go-retrieval-worker-lab.md) success criteria are green—not in parallel as a second spine.
+
+| Step | Action |
+|------|--------|
+| 1 | Optional anytime: [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/README.md) for ownership, `Result`, Cargo |
+| 2 | Read [Rust ecosystem map](../stacks/rust.md) — when Rust vs Go vs Python |
+| 3 | **P9 stretch:** reimplement retrieval gateway or worker in Rust; **same** HTTP/queue contract as Go |
+| 4 | Log ADR in [PROGRESS.md](../../PROGRESS.md): Go vs Rust for this boundary (latency, ops, team, safety) |
+| 5 | Optional IoT/edge stretch: MQTT ingest side demo—tie to one load-bearing property only |
+
+**LinkedIn alignment:** AI Systems · Cloud · Automation · **Go · Python · Rust · TypeScript · SQL · PHP** — playbook spine matches; Rust is depth after Go, not breadth on day one.
 
 ---
 
@@ -67,6 +82,7 @@ Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs G
 | 5 | TypeScript API | [P6 — Node / TS](../career-project-specs/06-node-typescript-lab.md) | Core stack HTTP service, optional n8n node stretch |
 | 4b | SQL depth | [P7 — SQL performance](../career-project-specs/07-sql-performance-lab.md) | Plans, indexes, transactions, vector-adjacent retrieval |
 | 4c | Security | [P8 — Application security](../career-project-specs/08-application-security-lab.md) | OWASP + integration-edge security |
+| 4d | Rust Tier‑2 (optional) | [P9 stretch](../career-project-specs/09-go-retrieval-worker-lab.md#stretch), [rust map](../stacks/rust.md) | After P9 Go green: sandbox + optional reimplementation |
 
 ---
 
@@ -82,6 +98,7 @@ Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs G
 | **7–8** | Go prep (sandbox) | [go-cli-http-probe](../../exploration-projects/go-cli-http-probe/README.md) — CLI/HTTP only, not a lab milestone |
 | **8–10** | Phase 4 (P5 + P9) | Queue + Go worker/retrieval; optional [integrated capstone](#integrated-capstone-one-system-not-five-go-repos) wiring |
 | **11–12** | Phase 5 (P6) | Node/TS service with same integration habits |
+| **13+** | Rust Tier‑2 (optional) | [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/README.md) → P9 Rust stretch after Go core green |
 | **Parallel** | P7 | Algorithms study path + Postgres exercises |
 | **Parallel** | P8 | OWASP lab after or alongside P2/P6 |
 
@@ -109,6 +126,7 @@ Log tradeoffs in [PROGRESS.md](../../PROGRESS.md).
 | PHP / Laravel (P1/P2) | [php-laravel](../stacks/php-laravel.md) |
 | Python / FastAPI (P4) | [python](../stacks/python.md) |
 | Go (P9, P5 worker) | [go](../stacks/go.md) |
+| Rust (Tier‑2, after P9) | [rust](../stacks/rust.md) |
 | Node + TS (P6) | [node-typescript-backend](../stacks/node-typescript-backend.md) |
 | SQL / Postgres (P7) | [sql](../stacks/sql.md) |
 | Boomi / n8n patterns | [integration-automation](../stacks/integration-automation.md) |
@@ -120,6 +138,7 @@ Log tradeoffs in [PROGRESS.md](../../PROGRESS.md).
 | [laravel-route-slice](../../exploration-projects/laravel-route-slice/) | Before/during P1 |
 | [node-ts-http-probe](../../exploration-projects/node-ts-http-probe/) | Before/during P6 |
 | [go-cli-http-probe](../../exploration-projects/go-cli-http-probe/) | Before/during P9 |
+| [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/) | Before P9 (syntax) or after P9 Go (Tier‑2 stretch prep) |
 
 ---
 

@@ -1,0 +1,9 @@
+[package]
+name = "rust-cli-http-probe"
+version = "0.1.0"
+edition = "2021"
+description = "HTTP GET probe sandbox — mirrors go-cli-http-probe for Rust Tier-2 prep"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+ureq = { version = "2", features = ["tls"] }

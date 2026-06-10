@@ -30,7 +30,14 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
-## 2026-05-31 — Core stack refocus
+## 2026-06-03 — Rust Tier‑2 growth lane
+
+- **Decision:** Add **Rust** as Tier‑2 after P9 Go (not parallel spine)—aligns with LinkedIn stack (Go · Python · Rust · TypeScript · SQL · PHP) and AI/automation/cloud themes.
+- **Added:** [docs/stacks/rust.md](docs/stacks/rust.md), [rust-cli-http-probe](exploration-projects/rust-cli-http-probe/) sandbox, [learning journey — Rust Tier‑2](docs/paths/learning-journey.md#rust-tier-2-after-p9-go), P9 Rust stretch bullets.
+- **Updated:** [FOCUS.md](FOCUS.md) (removed Rust from non-goals; Tier‑2 table), README, exploration-projects README, go.md cross-links.
+- **Next:** Ship P9 in Go first; optional rust-cli-http-probe for syntax; P9 Rust reimplementation + Go-vs-Rust ADR when Go core is green.
+
+---
 
 - **Decision:** Playbook scoped to **JS/TS, PHP, SQL, Go, Python** only—removed Java, C#, Kotlin, Swift, Rust, Unity, Next.js sandboxes and stack maps.
 - **Added:** [Project 9 Go retrieval/worker spec](career-project-specs/09-go-retrieval-worker-lab.md), [Go stack map](docs/stacks/go.md), [integration-automation map](docs/stacks/integration-automation.md), [Systems integration architect](docs/paths/systems-integration-architect.md), [Algorithms study path](docs/paths/algorithms-study-path.md).

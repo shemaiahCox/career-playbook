@@ -106,10 +106,18 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 - `docker compose` for Go service + Postgres + Redis/NATS; document local → managed queue (e.g. SQS) in README.
 - Small ops CLI: replay DLQ, drain queue (ties to [go-cli-http-probe](../exploration-projects/go-cli-http-probe/README.md) patterns).
 
+**Rust Tier‑2 (after Go core green — not a parallel spine):**
+
+- Reimplement **retrieval gateway** or **worker** in Rust with the **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
+- Prep with [rust-cli-http-probe](../exploration-projects/rust-cli-http-probe/README.md); read [Rust ecosystem map](../docs/stacks/rust.md).
+- Optional IoT/edge stretch: MQTT ingest side demo—one load-bearing property only.
+
 Capstone wiring guide: [Learning journey — integrated capstone](../docs/paths/learning-journey.md#integrated-capstone-one-system-not-five-go-repos).
 
 ## Related
 
 - [Go ecosystem map](../docs/stacks/go.md)
+- [Rust ecosystem map](../docs/stacks/rust.md) (Tier‑2 after this lab)
 - [go-cli-http-probe sandbox](../exploration-projects/go-cli-http-probe/README.md)
+- [rust-cli-http-probe sandbox](../exploration-projects/rust-cli-http-probe/README.md)
 - [Integration hardening checklist](../checklists/integration-hardening.md)

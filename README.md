@@ -4,9 +4,9 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 
 **Naming:** Older docs may say **`projects/`**; that folder name is now **`career-projects/`**.
 
-**Positioning (12–18 month headline):** Integrations + automation backend engineer who ships **reliable, observable, event-driven** services—**Boomi/n8n-shaped** patterns, **RAG/LLM** boundaries in Python, **performance-critical** workers and retrieval in **Go**, APIs in **PHP/TypeScript**, data correctness in **SQL**.
+**Positioning (12–18 month headline):** Integrations + automation backend engineer who ships **reliable, observable, event-driven** services—**Boomi/n8n-shaped** patterns, **RAG/LLM** boundaries in Python, **performance-critical** workers and retrieval in **Go**, optional **Rust** hot-path depth after P9, APIs in **PHP/TypeScript**, data correctness in **SQL**.
 
-**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python — see [FOCUS.md](FOCUS.md). **Growth lanes:** Python (AI logic) + Go (throughput/workers); **ship today:** PHP, TypeScript, SQL at integration and data edges — [Growth lanes vs ship today](FOCUS.md#growth-lanes-vs-ship-today).
+**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python · Rust — see [FOCUS.md](FOCUS.md). **Growth lanes:** Python (AI logic) + Go (throughput/workers); **Rust Tier‑2** after P9 Go; **ship today:** PHP, TypeScript, SQL at integration and data edges — [Growth lanes vs ship today](FOCUS.md#growth-lanes-vs-ship-today).
 
 - **Focus and themes:** [FOCUS.md](FOCUS.md)
 - **Shipped work and lessons:** [PROGRESS.md](PROGRESS.md)
@@ -32,7 +32,7 @@ Skip reading every spec cover-to-cover up front; depth-read the project you are 
 
 ### Exploration sandboxes ([exploration-projects/](exploration-projects/README.md))
 
-**`exploration-projects/`** holds **three** commented probes aligned to your stack—PHP (Laravel slice), Node/TS HTTP, Go CLI—not playbook lab code. Fundamentals reference: [Language fundamentals comparison](docs/handbook/language-fundamentals-comparison.md). Prefer one active **spec-backed** lab under **`career-projects/`**; use sandboxes for syntax muscle memory only.
+**`exploration-projects/`** holds **four** commented probes aligned to your stack—PHP (Laravel slice), Node/TS HTTP, Go CLI, Rust CLI—not playbook lab code. Fundamentals reference: [Language fundamentals comparison](docs/handbook/language-fundamentals-comparison.md). Prefer one active **spec-backed** lab under **`career-projects/`**; use sandboxes for syntax muscle memory only.
 
 ### Unfamiliar stack + AI (still accountable)
 
@@ -80,6 +80,7 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | **AI product boundaries** | [Project 4](career-project-specs/04-rag-llm-service.md); [LLM feature ship](checklists/llm-feature-ship.md) |
 | **Event-driven + automation patterns** | P1 → P5 → P9; [integration-automation map](docs/stacks/integration-automation.md) |
 | **Go concurrency + retrieval boundary** | [Project 9](career-project-specs/09-go-retrieval-worker-lab.md); [Go stack map](docs/stacks/go.md) |
+| **Rust Tier‑2 (after P9 Go)** | [P9 stretch](career-project-specs/09-go-retrieval-worker-lab.md#stretch); [Rust stack map](docs/stacks/rust.md); [rust-cli-http-probe](exploration-projects/rust-cli-http-probe/README.md) |
 | **AI + automation + cloud (one spine)** | [Learning journey — quick map](docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map); capstone: P1/P6 → P5 → P9 → P4 → P7 |
 | **Performance under load (Big-O)** | [Algorithms study path](docs/paths/algorithms-study-path.md); P7, P9, RAG chunk pipelines |
 | **TypeScript API lane** | [Project 6](career-project-specs/06-node-typescript-lab.md) |

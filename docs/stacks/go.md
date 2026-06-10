@@ -45,7 +45,7 @@ Generic “build anything in Go” lists are broader than this playbook. Use thi
 | Event bus / streams (stretch) | P9 after P5 queues | Building a Boomi/n8n clone |
 | Cloud-native habits | Docker Compose, managed queue in README | K8s/AWS cert curriculum |
 
-**Easy follow path:** [Learning journey — AI, automation, cloud](../paths/learning-journey.md#ai-automation-and-cloud--quick-map) · [Integrated capstone](../paths/learning-journey.md#integrated-capstone-one-system-not-five-go-repos).
+**Easy follow path:** [Learning journey — AI, automation, cloud](../paths/learning-journey.md#ai-automation-and-cloud--quick-map) · [Integrated capstone](../paths/learning-journey.md#integrated-capstone-one-system-not-five-go-repos) · [Rust Tier‑2](../paths/learning-journey.md#rust-tier-2-after-p9-go) (after P9, not parallel).
 
 ---
 

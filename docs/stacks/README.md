@@ -59,6 +59,7 @@ Maps stay **≤2 pages**: modules, tests, async patterns, footguns—not full tu
 | [php-laravel.md](php-laravel.md) | PHP + Laravel — HTTP, queues, Eloquent |
 | [node-typescript-backend.md](node-typescript-backend.md) | Node.js + TypeScript — HTTP/API services |
 | [go.md](go.md) | Go — workers, concurrency, retrieval gateways |
+| [rust.md](rust.md) | Rust — Tier‑2 after P9 Go; optional reimplementation, edge stretch |
 | [python.md](python.md) | Python — FastAPI, asyncio, RAG-shaped APIs |
 | [sql.md](sql.md) | SQL / Postgres — plans, transactions, migrations |
 | [integration-automation.md](integration-automation.md) | Boomi / n8n / workflow integration patterns |
