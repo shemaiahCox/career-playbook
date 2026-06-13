@@ -1,9 +1,10 @@
 # career-projects
 
-Playbook-backed **numbered lab workspaces** live here (**`01-*`**, **`04-*`**, **`07-*`**, …). Each folder is normally a **nested git clone**—not something this parent repo duplicates in its own commits unless you consciously vendor.
+Numbered lab workspaces (**`01-*`**, **`02-*`**, **`04-*`**, …). Each folder is normally a **nested git clone** — not duplicated in this parent repo unless you consciously vendor.
 
-- **Companion specs:** [`career-project-specs/`](../career-project-specs/) at the playbook root · [README quick links](../README.md#quick-links-to-practice-repos)
-- **`exploration-projects/`** next door holds **PHP, Node/TS, and Go** syntax sandboxes—not full labs.
-- **`project-specs/`** was renamed **`career-project-specs/`**; [`project-specs/README.md`](../project-specs/README.md) is the stub pointer.
+- **Path:** [README.md](../README.md#progression-step-1--20) (Project 1 → 20)
+- **Specs:** [career-project-specs/](../career-project-specs/)
 
-Separate **PacPal-shaped** apps and unrelated commercial repos may live beside **career-playbook** under **`~/Documents/dev/business-projects/`**—that path is unrelated to playbook lab numbering.
+Folder number matches project step (e.g. `02-rag-llm-lab` for Project 2). GitHub remote names may differ — see each spec's **Code repo** section.
+
+Separate commercial repos may live under **`~/Documents/dev/business-projects/`** — unrelated to playbook numbering.

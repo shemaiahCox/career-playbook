@@ -1,6 +1,6 @@
 # Checklist — application security (OWASP foundations, web)
 
-Use before calling the [Project 8](../career-project-specs/08-application-security-lab.md) milestone **done**. This complements [integration-hardening.md](integration-hardening.md) (inbound integrations / webhooks)—here the focus is **browser, forms, sessions, and application SQL**.
+Use before calling the [Project 8](../career-project-specs/09-application-security-lab.md) milestone **done**. This complements [integration-hardening.md](integration-hardening.md) (inbound integrations / webhooks)—here the focus is **browser, forms, sessions, and application SQL**.
 
 ## Scope reminder
 

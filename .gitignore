@@ -6,36 +6,3 @@
 # Nested playbook lab clones live under career-projects/ (each has its own .git)
 career-projects/*
 !career-projects/README.md
-
-# exploration-projects: editor / build outputs (keep this repo doc-first)
-exploration-projects/**/Library/
-exploration-projects/**/Temp/
-exploration-projects/**/Logs/
-exploration-projects/**/UserSettings/
-exploration-projects/**/obj/
-exploration-projects/**/bin/
-exploration-projects/**/target/
-exploration-projects/**/*.csproj
-exploration-projects/**/*.sln
-exploration-projects/**/*.user
-exploration-projects/**/*.unitypackage
-exploration-projects/**/.vs/
-
-# exploration-projects — Node / Next / TS
-exploration-projects/**/node_modules/
-exploration-projects/**/.next/
-exploration-projects/**/dist/
-exploration-projects/**/*.tsbuildinfo
-
-# exploration-projects — Laravel / PHP (scaffold leftovers)
-exploration-projects/**/vendor/
-exploration-projects/**/storage/logs/
-exploration-projects/**/bootstrap/cache/
-
-# exploration-projects — Gradle (Kotlin JVM)
-exploration-projects/**/build/
-exploration-projects/**/.gradle/
-
-# exploration-projects — SwiftPM / Xcode stray outputs
-exploration-projects/**/.build/
-exploration-projects/**/DerivedData/

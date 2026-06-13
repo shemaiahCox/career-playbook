@@ -1,8 +1,27 @@
 # Project 13 — Real-time dashboard lab
 
+## Progress
+
+| | |
+|---|---|
+| **Step** | 13 of 20 |
+| **Previous** | [Project 12 — Multi-tenant auth + SaaS slice lab](12-multi-tenant-auth-lab.md) |
+| **Next** | [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md) |
+
+## What you will learn
+
+- SSE/WebSocket push with reconnect
+- Backpressure and stale UI handling
+- Live updates from worker events
+
+## Before you start
+
+- **Requires:** [Project 6](06-async-worker-stretch.md) or [Project 8](08-go-retrieval-worker-lab.md) event vocabulary
+- **Handbook:** [Memory and performance — client retention](../docs/concepts/memory-and-performance.md#memory-patterns)
+
 ## Problem
 
-Build a **TypeScript dashboard** that consumes live events from [P5](05-async-worker-stretch.md) / [P9](09-go-retrieval-worker-lab.md)—SSE or WebSocket—with reconnect, backpressure awareness, and readable ops UI (queue depth, job status, ingest progress).
+Build a **TypeScript dashboard** that consumes live events from [Project 6](06-async-worker-stretch.md) / [Project 8](08-go-retrieval-worker-lab.md)—SSE or WebSocket—with reconnect, backpressure awareness, and readable ops UI (queue depth, job status, ingest progress).
 
 ## Career relevance
 
@@ -10,17 +29,18 @@ Build a **TypeScript dashboard** that consumes live events from [P5](05-async-wo
 
 ### In depth
 
-Real-time UIs fail on **reconnect storms**, **duplicate events**, and **unbounded client buffers**. This lab pairs with event-bus stretches in P9 and [P23](23-iot-edge-lab.md) telemetry feeds.
+Real-time UIs fail on **reconnect storms**, **duplicate events**, and **unbounded client buffers**. This lab pairs with event-bus stretches in Project 8 and [Project 20](20-iot-edge-lab.md) telemetry feeds.
 
-## Concept spotlight
+## Important concepts
 
-**Pillars:** Full-Stack Platforms · IoT & Edge
+### Concept spotlight
 
-| Concept | In this project you… | Pillars |
-|---------|----------------------|---------|
-| **SSE / WebSocket push** | Server pushes job/telemetry events; client handles disconnect | Full-Stack, IoT |
-| **Reconnect + last-event-id** | Resume or dedupe after reconnect; document policy | Full-Stack, DevOps |
-| **Backpressure awareness** | UI drops or batches high-rate events; no unbounded DOM growth | Full-Stack |
+| **SSE / WebSocket push** | Server pushes job/telemetry events; client handles disconnect |
+| **Reconnect + last-event-id** | Resume or dedupe after reconnect; document policy |
+| **Backpressure awareness** | UI drops or batches high-rate events; no unbounded DOM growth |
+
+**Interview line:** *“The dashboard uses SSE with reconnect and last-event-id so ops see live queue health without polling the API every second.”*
+
 
 **Interview line:** *“The dashboard uses SSE with reconnect and last-event-id so ops see live queue health without polling the API every second.”*
 
@@ -31,12 +51,12 @@ _TBD — e.g. `realtime-dashboard-lab`._ Suggested folder: [`../career-projects/
 ## Stack
 
 - **TypeScript** — minimal UI (Vite/React or server-rendered + HTMX-style updates)
-- Event source: P9 HTTP SSE endpoint, Redis stream, or NATS (document choice)
-- [Handbook — WebSockets](../docs/handbook/servers-and-networking.md#websockets-and-long-polling)
+- Event source: Project 8 HTTP SSE endpoint, Redis stream, or NATS (document choice)
+- [Handbook — WebSockets](../docs/concepts/servers-and-networking.md#websockets-and-long-polling)
 
 ## Success criteria
 
-- [ ] Live updates when worker completes/fails jobs (wired to real or mocked P5/P9).
+- [ ] Live updates when worker completes/fails jobs (wired to real or mocked Project 6/Project 8).
 - [ ] Reconnect after server restart documented and tested.
 - [ ] README diagram: event producer → bus/stream → dashboard.
 - [ ] No API secrets in frontend bundle.
@@ -53,10 +73,11 @@ Simulate event burst; assert UI stability or batching policy.
 
 ## Stretch
 
-- Share components with [P11](11-llm-web-app-lab.md) for query progress.
-- Consume [P23](23-iot-edge-lab.md) MQTT-forwarded telemetry.
+- Share components with [Project 11](11-llm-web-app-lab.md) for query progress.
+- Consume [Project 20](20-iot-edge-lab.md) MQTT-forwarded telemetry.
 
-## Related
+## When you're done
 
-- [P9 Go lab stretches](09-go-retrieval-worker-lab.md#stretch)
-- [Engineering pillars](../docs/paths/engineering-pillars.md)
+- Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Log in [PROGRESS.md](../PROGRESS.md)
+- **Next:** [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md)

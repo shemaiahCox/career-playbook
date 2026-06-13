@@ -1,8 +1,26 @@
 # Project 10 — Automation bot / workflow connector lab
 
+## Progress
+
+| | |
+|---|---|
+| **Step** | 10 of 20 |
+| **Previous** | [Project 9 — OWASP / cybersecurity foundations](09-application-security-lab.md) |
+| **Next** | [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md) |
+
+## What you will learn
+
+- Build workflow steps with idempotent side effects
+- Handle secrets and structured errors in n8n-style automation
+- Call Project 1 or 2 boundaries reliably
+
+## Before you start
+
+- **Patterns:** [Integration-automation map](../docs/concepts/integration-automation.md)
+
 ## Problem
 
-Ship a **workflow-shaped automation** piece—custom **n8n node**, scheduled job, or Boomi-adjacent connector step—that calls your [P4](04-rag-llm-service.md) or [P1](01-integration-webhook-receiver.md) boundaries with **secrets, errors, and idempotency** handled like production integration code.
+Ship a **workflow-shaped automation** piece—custom **n8n node**, scheduled job, or Boomi-adjacent connector step—that calls your [Project 5](02-rag-llm-service.md) or [Project 1](01-integration-webhook-receiver.md) boundaries with **secrets, errors, and idempotency** handled like production integration code.
 
 ## Career relevance
 
@@ -10,19 +28,20 @@ Ship a **workflow-shaped automation** piece—custom **n8n node**, scheduled job
 
 ### In depth
 
-iPaaS and workflow tools (n8n, Boomi, Zapier-class) are how many enterprises glue systems. Backend engineers who can **author reliable steps** (typed I/O, idempotent side effects, structured errors) stand out from “I built a flow in the UI.” This lab bridges [integration-automation map](../docs/stacks/integration-automation.md) vocabulary and shippable TypeScript or Python.
+iPaaS and workflow tools (n8n, Boomi, Zapier-class) are how many enterprises glue systems. Backend engineers who can **author reliable steps** (typed I/O, idempotent side effects, structured errors) stand out from “I built a flow in the UI.” This lab bridges [integration-automation map](../docs/concepts/integration-automation.md) vocabulary and shippable TypeScript or Python.
 
 **Real-world situations:** Partner workflow retries a failed node; your step must not double-create tickets. API key rotation without plaintext in exported JSON. Clear error messages for ops when downstream LLM times out.
 
-## Concept spotlight
+## Important concepts
 
-**Pillars:** AI & Automation
+### Concept spotlight
 
-| Concept | In this project you… | Pillars |
-|---------|----------------------|---------|
-| **Idempotent side effects** | Key outbound writes on business id; safe on workflow retry | AI/Automation |
-| **Secrets hygiene** | Credentials via env/vault; never commit workflow export secrets | AI/Automation, Security |
-| **Fast failure + structured errors** | Return actionable errors to workflow engine; log `request_id` | AI/Automation, DevOps |
+| **Idempotent side effects** | Key outbound writes on business id; safe on workflow retry |
+| **Secrets hygiene** | Credentials via env/vault; never commit workflow export secrets |
+| **Fast failure + structured errors** | Return actionable errors to workflow engine; log `request_id` |
+
+**Interview line:** *“Our n8n node treats retries like webhooks—idempotent keys and structured errors so workflow replays don’t duplicate side effects.”*
+
 
 **Interview line:** *“Our n8n node treats retries like webhooks—idempotent keys and structured errors so workflow replays don’t duplicate side effects.”*
 
@@ -33,10 +52,10 @@ _TBD — e.g. `automation-bot-lab` or n8n community node package._ Suggested fol
 ## Stack
 
 - **TypeScript** (n8n custom node) **or** **Python** (scheduled worker calling APIs)
-- Calls existing [P4](04-rag-llm-lab) or [P1](01-integration-webhook-receiver.md) endpoints
-- Structured logging aligned with [P3](03-observability-lab.md)
+- Calls existing [Project 2](02-rag-llm-service.md) or [Project 1](01-integration-webhook-receiver.md) endpoints
+- Structured logging aligned with [Project 3](03-observability-lab.md)
 
-## Key concepts
+### Key concepts
 
 ### Workflow step vs HTTP service
 
@@ -46,7 +65,7 @@ _TBD — e.g. `automation-bot-lab` or n8n community node package._ Suggested fol
 
 ## Success criteria
 
-- [ ] Step/node calls P4 or P1 with auth; secrets outside repo.
+- [ ] Step/node calls Project 5 or Project 1 with auth; secrets outside repo.
 - [ ] **Idempotent** outbound effect documented (key + store or natural idempotency).
 - [ ] Errors surface to workflow with log correlation id.
 - [ ] README: diagram of trigger → step → downstream API.
@@ -59,15 +78,16 @@ Integration test: run step twice with same input → one side effect.
 
 1. Downstream 503 → workflow retries → no duplicate writes.
 2. Invalid API key → clear error, no partial state.
-3. LLM timeout from P4 → bounded wait; documented fallback.
+3. LLM timeout from Project 5 → bounded wait; documented fallback.
 
 ## Stretch
 
 - Publish as private n8n community package with version tag.
-- Enqueue to [P5](05-async-worker-stretch.md) instead of sync call.
+- Enqueue to [Project 7](06-async-worker-stretch.md) instead of sync call.
 
-## Related
+## When you're done
 
-- [Engineering pillars — AI & Automation](../docs/paths/engineering-pillars.md#pillar-1--ai--automation-python--go--ts)
-- [P6 n8n stretch](06-node-typescript-lab.md)
-- [Integration hardening checklist](../checklists/integration-hardening.md)
+- Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
+- Log in [PROGRESS.md](../PROGRESS.md)
+- **Next:** [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md)

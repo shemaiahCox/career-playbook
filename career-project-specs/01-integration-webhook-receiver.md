@@ -1,5 +1,25 @@
 # Project 1 — Integration webhook receiver (hardened)
 
+## Progress
+
+| | |
+|---|---|
+| **Step** | 1 of 20 |
+| **Previous** | — |
+| **Next** | [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md) |
+
+## What you will learn
+
+- Verify webhook callers with HMAC over the raw body
+- Make retries safe with idempotency keys and a durable store
+- Return fast ack after recording intent; park poison messages in a DLQ
+- Leave an audit trail with request IDs and structured logs
+
+## Before you start
+
+- **New to PHP?** → [PHP + Laravel map](../docs/languages/php-laravel.md) · [Stacks glossary](../docs/languages/glossary.md) · [Language fundamentals](../docs/languages/language-fundamentals-comparison.md)
+- **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Event-driven integration](../docs/concepts/software-engineering.md#event-driven-integration) · [Security](../docs/concepts/software-engineering.md#security-for-applications)
+
 ## Problem
 
 Practice a **production-shaped** HTTP inbound integration: verify caller, dedupe replays, log usefully, and optionally park poison messages.
@@ -26,16 +46,17 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 - **Forged traffic:** without verification, anyone who knows your URL can POST fake “subscription canceled” events. Signature verification is how you maintain **non-repudiation** at the HTTP boundary.
 - **Partial failure:** handler throws after **some** DB writes; without idempotency or compensation, replay might **duplicate** side effects. Dead-letter + abandon (or similar) is how you get back to a known state and retry deliberately.
 
-## Concept spotlight
+## Important concepts
 
-**Pillars:** AI & Automation · Security & Systems (integration edge)
+### Concept spotlight
 
-| Concept | In this project you… | Pillars |
-|---------|----------------------|---------|
-| **Idempotency** | Key on `Idempotency-Key` (header or body); store outcome; replay returns same response without double side effects | AI/Automation, Full-Stack |
-| **HMAC verification** | Verify signature over **raw body** before parsing; reject forgeries with 401 | Security/Systems |
-| **Dead letter + replay** | Park poison payloads with evidence; document safe replay after fix | AI/Automation, DevOps |
-| **Fast ack** | Return 2xx after durable record of intent—not after all downstream work | AI/Automation |
+| **Idempotency** | Key on `Idempotency-Key` (header or body); store outcome; replay returns same response without double side effects |
+| **HMAC verification** | Verify signature over **raw body** before parsing; reject forgeries with 401 |
+| **Dead letter + replay** | Park poison payloads with evidence; document safe replay after fix |
+| **Fast ack** | Return 2xx after durable record of intent—not after all downstream work |
+
+**Interview line:** *“Partners retry webhooks; we dedupe on Idempotency-Key and return the stored response so transport duplicates never double-apply business effects.”*
+
 
 **Interview line:** *“Partners retry webhooks; we dedupe on Idempotency-Key and return the stored response so transport duplicates never double-apply business effects.”*
 
@@ -49,11 +70,11 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 
 ## Stack
 
-PHP 8.1+, SQLite (file), no framework (readable in one sitting). Swap to Laravel later if you want ORM and queues. **Same behavior in Node + TypeScript:** [Project 6 — track A](06-node-typescript-lab.md).
+PHP 8.1+, SQLite (file), no framework (readable in one sitting). Swap to Laravel later if you want ORM and queues. **Same behavior in Node + TypeScript:** [Project 7 — track A](07-node-typescript-lab.md).
 
-**Deeper SQL:** For `EXPLAIN`, indexing, transaction isolation, and pagination drills beyond this lab’s SQLite usage, see [Project 7 — SQL performance lab](07-sql-performance-lab.md).
+**Deeper SQL:** For `EXPLAIN`, indexing, transaction isolation, and pagination drills beyond this lab’s SQLite usage, see [Project 4 — SQL performance lab](04-sql-performance-lab.md).
 
-## Key concepts (with definitions and code)
+### Key concepts (with definitions and code)
 
 ### `Idempotency-Key` (HTTP header)
 
@@ -160,7 +181,7 @@ header('X-Request-Id: ' . $requestId);
 “Generate `POST /webhook` integration tests: valid HMAC over raw body, replay same `Idempotency-Key`, invalid signature → 401, missing key → 400. Use [test framework]. DB is SQLite file or `:memory:` per test. No mocking `file_get_contents('php://input')`—use framework request abstraction if needed.”  
 “Given `SignatureVerifier`, add unit tests for constant-time behavior expectations and header format parsing—not testing PHP internals.”
 
-**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/concepts/per-project-testing.md).
 
 ## Success criteria
 
@@ -237,6 +258,9 @@ Hands-on cases to **drive the code paths** and deepen **engineering vocabulary**
 - Docker Compose with `php` service and mounted volume for SQLite.
 - Replay tool: CLI script to re-drive a dead-letter id.
 
-## Maps to
+## When you're done
 
-Boomi / integration patterns, event-driven backends, reliability under retries and partner SLAs.
+- Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
+- Log in [PROGRESS.md](../PROGRESS.md)
+- **Next:** [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md)

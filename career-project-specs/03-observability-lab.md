@@ -1,5 +1,24 @@
 # Project 3 — Observability lab
 
+## Progress
+
+| | |
+|---|---|
+| **Step** | 3 of 20 |
+| **Previous** | [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md) |
+| **Next** | [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md) |
+
+## What you will learn
+
+- Propagate correlation IDs through logs and response headers
+- Log structured JSON with latency breakdowns—not prose-only strings
+- Make production incidents grep-able in minutes
+
+## Before you start
+
+- **Apply on Project 2 lab:** [02-rag-llm-service.md](02-rag-llm-service.md) (default path)
+- **Handbook:** [Observability](../docs/concepts/software-engineering.md#observability-logs-metrics-traces) · [Testing](../docs/concepts/software-engineering.md#testing) · [Memory and performance](../docs/concepts/memory-and-performance.md#measure-before-tuning)
+
 ## Problem
 
 Make a small service **debuggable in production**: correlate requests, log structured facts, optional traces.
@@ -26,31 +45,32 @@ Production systems spend most of their life **failing in ways you did not expect
 - **Latency mysteries:** a **noisy neighbor** query or N+1 only appears under load; spans show **which hop** ate the budget (DB vs HTTP vs cache vs LLM) without attaching a debugger in prod.
 - **Distributed lies:** the edge returned **200** but async work or a downstream **billing** call failed—without shared context, each service’s logs look “fine”; with correlation, the failure is **one narrative**.
 
-## Concept spotlight
+## Important concepts
 
-**Pillars:** DevOps & Cloud (all pillars use these habits)
+### Concept spotlight
 
-| Concept | In this project you… | Pillars |
-|---------|----------------------|---------|
-| **Correlation ID** | Generate or echo `request_id` / `X-Request-Id`; include on every log line and response header | DevOps, Full-Stack, AI/Automation |
-| **Structured logging** | JSON logs with level, duration_ms, route, error class—not prose-only strings | DevOps |
-| **Latency attribution** | Log segment timings (DB, partner HTTP, LLM) to find dominant hop | DevOps, AI/Automation |
+| **Correlation ID** | Generate or echo `request_id` / `X-Request-Id`; include on every log line and response header |
+| **Structured logging** | JSON logs with level, duration_ms, route, error class—not prose-only strings |
+| **Latency attribution** | Log segment timings (DB, partner HTTP, LLM) to find dominant hop |
+
+**Interview line:** *“Every request gets a correlation id propagated through logs so support can grep one id and reconstruct the full path.”*
+
 
 **Interview line:** *“Every request gets a correlation id propagated through logs so support can grep one id and reconstruct the full path.”*
 
 ## Code repo
 
-**Default (playbook phase 2):** Meet the observability success criteria on the **same codebase** as [Project 4 — RAG / LLM service](04-rag-llm-service.md)—the FastAPI skeleton already exposes **request id + JSON logs** (`request_context` middleware).
+**Default (playbook phase 2):** Meet the observability success criteria on the **same codebase** as [Project 2 — RAG / LLM service](02-rag-llm-service.md)—the FastAPI skeleton already exposes **request id + JSON logs** (`request_context` middleware).
 
 | | URL |
 |---|-----|
 | **GitHub** | [https://github.com/shemaiahCox/rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab) |
 | **SSH** | `git@github.com:shemaiahCox/rag-llm-lab.git` |
-| **Local sibling** | [`../career-projects/04-rag-llm-lab`](../career-projects/04-rag-llm-lab) |
+| **Local sibling** | [`../career-projects/02-rag-llm-lab`](../career-projects/02-rag-llm-lab) |
 
-**Alternatives:** A minimal Express/FastAPI/Laravel app; extend [Project 2 — Contract-first API](02-contract-first-api.md); for **TypeScript-first**, piggyback on [Project 6](06-node-typescript-lab.md) (any track) and apply the same success criteria there.
+**Alternatives:** A minimal Express/FastAPI/Laravel app; extend [Project 5 — Contract-first API](05-contract-first-api.md); for **TypeScript-first**, piggyback on [Project 7](07-node-typescript-lab.md) (any track) and apply the same success criteria there.
 
-## Key concepts (with definitions and code)
+### Key concepts (with definitions and code)
 
 ### Correlation / trace id
 
@@ -102,7 +122,7 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 **Example asks for AI (optional):**  
 “Using [framework], add middleware tests: first request without `X-Request-Id` gets a generated id echoed on response header; second request with supplied UUID preserves it; logs captured in test include the same id for success and forced 500.”
 
-**Shared patterns:** [Per-project testing (labs + AI)](../docs/playbook/per-project-testing.md).
+**Shared patterns:** [Per-project testing (labs + AI)](../docs/concepts/per-project-testing.md).
 
 ## Success criteria
 
@@ -113,7 +133,7 @@ fwrite(STDERR, json_encode($row, JSON_UNESCAPED_SLASHES) . "\n");
 
 ## Exploration scenarios
 
-Implement these against **your** observability lab host ([`04-rag-llm-lab`](../career-projects/04-rag-llm-lab) / [GitHub](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 6](06-node-typescript-lab.md)). Put concrete curls in the **service README**.
+Implement these against **your** observability lab host ([`02-rag-llm-lab`](../career-projects/02-rag-llm-lab) / [GitHub](https://github.com/shemaiahCox/rag-llm-lab) already exposes request ids + JSON logs; or any minimal service from [Project 7](07-node-typescript-lab.md)). Put concrete curls in the **service README**.
 
 ### 1 — Generated correlation id
 
@@ -152,8 +172,10 @@ Implement these against **your** observability lab host ([`04-rag-llm-lab`](../c
 
 ## Companion reading
 
-- [Debugging (workflow)](../docs/handbook/software-engineering.md#debugging-workflow) — structured loop for narrowing failures once you have correlation IDs and logs.
+- [Debugging (workflow)](../docs/concepts/software-engineering.md#debugging-workflow) — structured loop for narrowing failures once you have correlation IDs and logs.
 
-## Maps to
+## When you're done
 
-SRE-minded backend roles, on-call readiness.
+- Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Log in [PROGRESS.md](../PROGRESS.md)
+- **Next:** [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md)

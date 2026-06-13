@@ -53,4 +53,4 @@ Definition-of-done rubric when you are **building in a stack you have not master
 
 ## Pointer
 
-Workflow context: [AI-assisted unfamiliar stack](../docs/paths/ai-assisted-unfamiliar-stack.md) · Concept depth: [Software engineering](../docs/handbook/software-engineering.md)
+Workflow context: [AI-assisted unfamiliar stack](../docs/concepts/ai-assisted-unfamiliar-stack.md) · Concept depth: [Software engineering](../docs/concepts/software-engineering.md)

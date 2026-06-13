@@ -1,29 +1,42 @@
-# Documentation map
+# Documentation
 
-Material here supports both the **project ladder** ([README.md](../README.md)) and **“build A in stack B”** work—especially when B is unfamiliar and you are using AI for velocity.
+**Your path:** [README.md](../README.md#progression-step-1--20) (Project 1 → 20). Each project spec links what you need under **languages/** or **concepts/**.
 
-## Choose your job
+Entry point: [README.md](../README.md)
 
-Pick the folder that matches what you need right now:
+---
 
-- **[playbook/](playbook/)** — **How do I test each lab (and use AI helpers responsibly)?** [Per-project testing (labs + AI)](playbook/per-project-testing.md) links layered testing and example prompts to every `career-project-specs/` file. Pair with [Testing](handbook/software-engineering.md#testing) in the handbook for pyramid and doubles.
-- **[paths/](paths/)** — **Where am I going?** [Learning journey](paths/learning-journey.md) · [Engineering pillars — P1–P23](paths/engineering-pillars.md) · [Project catalog](../career-project-specs/README.md) · [Systems integration architect](paths/systems-integration-architect.md)
-- **[handbook/](handbook/)** — **What should I know deeply?** Long-form study notes: CLI, networking, databases, software engineering breadth ([software engineering](handbook/software-engineering.md), [database design](handbook/database-design.md), [algorithms and data structures](handbook/algorithms-and-data-structures.md), [language fundamentals comparison](handbook/language-fundamentals-comparison.md), [command-line tooling](handbook/command-line-tooling.md), [servers and networking](handbook/servers-and-networking.md), [LLMs](handbook/llms.md)). **Jargon on one page (A–Z):** [Software engineering glossary](handbook/software-engineering-glossary.md). Deep dives and interview breadth—**worked examples:** [Integration + idempotent webhook](handbook/software-engineering.md#integration-sync-async-and-messaging) · [ORM N+1 pattern](handbook/database-design.md#orms-and-the-n1-query-pattern).
-- **[stacks/](stacks/)** — Ecosystem maps for **core stack**: PHP/Laravel, Node/TS, Go, Python, SQL, integration/automation patterns.
+## Languages (new to a stack?)
 
-  **Totally confused?** Start with [Stacks glossary (plain-language jump links)](stacks/glossary.md) or the newcomer intro in [Stacks README — New here?](stacks/README.md#new-here-read-this-once). Dense tables plus the printable **term-card** worksheet live in [stacks/README.md](stacks/README.md).
+Syntax, ecosystem maps, and plain-language vocabulary.
 
-**Checklists** at the repo root under [checklists/](../checklists/) include [unfamiliar-stack-ship.md](../checklists/unfamiliar-stack-ship.md) for a definition-of-done pass before you call AI-assisted work “shipped.”
+| Doc | Stack |
+|-----|-------|
+| [languages/glossary.md](languages/glossary.md) | **Start here** — index to all maps |
+| [languages/language-fundamentals-comparison.md](languages/language-fundamentals-comparison.md) | Side-by-side syntax (PHP, Python, Go, TS, Rust, SQL) |
+| [languages/php-laravel.md](languages/php-laravel.md) | PHP + Laravel |
+| [languages/python.md](languages/python.md) | Python / FastAPI |
+| [languages/node-typescript-backend.md](languages/node-typescript-backend.md) | Node + TypeScript |
+| [languages/go.md](languages/go.md) | Go workers / gateways |
+| [languages/rust.md](languages/rust.md) | Rust (after Project 8 Go) |
+| [languages/sql.md](languages/sql.md) | SQL / Postgres |
 
-## By topic
+---
 
-One primary pointer per theme (details stay in specs and handbook):
+## Concepts (theory and patterns)
 
-- **Testing (labs + optional AI prompts)** — [Per-project testing](playbook/per-project-testing.md) · handbook [Testing](handbook/software-engineering.md#testing).
-- **Integrations** — [Project 1: webhook receiver](../career-project-specs/01-integration-webhook-receiver.md); handbook: [integration (sync, async, messaging)](handbook/software-engineering.md#integration-sync-async-and-messaging).
-- **AI + LLM** — handbook [Large language models (LLMs)](handbook/llms.md); [Project 4: RAG / LLM service](../career-project-specs/04-rag-llm-service.md); checklist [LLM feature ship](../checklists/llm-feature-ship.md); workflow [AI-assisted unfamiliar stack](paths/ai-assisted-unfamiliar-stack.md) when the stack is new.
-- **SQL** — [Project 7: SQL performance lab](../career-project-specs/07-sql-performance-lab.md); handbook [Database design](handbook/database-design.md); stack lens [SQL ecosystem map](stacks/sql.md).
-- **Observability** — [Project 3: observability lab](../career-project-specs/03-observability-lab.md); handbook [Observability: logs, metrics, traces](handbook/software-engineering.md#observability-logs-metrics-traces) · [Debugging (workflow)](handbook/software-engineering.md#debugging-workflow) (narrow failures once you have signals).
-- **Security / OWASP (web)** — [Project 8: application security lab](../career-project-specs/08-application-security-lab.md); checklist [application-security-web-owasp](../checklists/application-security-web-owasp.md); handbook [Security for applications](handbook/software-engineering.md#security-for-applications).
-- **Five engineering pillars (P1–P23)** — [Engineering pillars](paths/engineering-pillars.md) · [Project catalog](../career-project-specs/README.md) · Concept spotlight in each spec.
-- **AI + automation + cloud (capstone)** — [Learning journey quick map](paths/learning-journey.md#ai-automation-and-cloud--quick-map) · [P4 RAG](../career-project-specs/04-rag-llm-service.md) · [P5 worker](../career-project-specs/05-async-worker-stretch.md) · [P9 Go](../career-project-specs/09-go-retrieval-worker-lab.md) · [integration-automation](stacks/integration-automation.md).
+Integration, testing, security, algorithms, architecture — stack-agnostic.
+
+| Doc | Use when |
+|-----|----------|
+| [concepts/software-engineering.md](concepts/software-engineering.md) | Integration, testing, concurrency, security, observability |
+| [concepts/memory-and-performance.md](concepts/memory-and-performance.md) | Measure-then-tune: latency, throughput, memory, profiling |
+| [concepts/database-design.md](concepts/database-design.md) | Transactions, indexes, N+1, vectors |
+| [concepts/per-project-testing.md](concepts/per-project-testing.md) | How to test each lab |
+| [concepts/integration-automation.md](concepts/integration-automation.md) | Boomi / n8n workflow patterns |
+| [concepts/algorithms-study-path.md](concepts/algorithms-study-path.md) | Projects 4, 8, and RAG retrieval work |
+| [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Optional architecture deep-dive |
+| [concepts/engineering-pillars.md](concepts/engineering-pillars.md) | Optional topic index (not the path) |
+| [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) | Learning a new stack with AI helpers |
+
+Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md)

@@ -1,5 +1,23 @@
 # Project 12 — Multi-tenant auth + SaaS slice lab
 
+## Progress
+
+| | |
+|---|---|
+| **Step** | 12 of 20 |
+| **Previous** | [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md) |
+| **Next** | [Project 13 — Real-time dashboard lab](13-realtime-dashboard-lab.md) |
+
+## What you will learn
+
+- Row-level tenant isolation
+- JWT/session patterns with scoped queries
+- AuthZ on every data path
+
+## Before you start
+
+- **Requires:** [Project 5](05-contract-first-api.md) and [Project 4](04-sql-performance-lab.md)
+
 ## Problem
 
 Add **authentication** and **tenant isolation** to a small API + SQL schema: users belong to tenants; every read/write scoped by `tenant_id`; JWT or session boundary documented and tested.
@@ -10,27 +28,28 @@ Add **authentication** and **tenant isolation** to a small API + SQL schema: use
 
 ### In depth
 
-Multi-tenant bugs are **cross-customer data leaks**—career-ending severity. This lab builds on [P2](02-contract-first-api.md) contracts and [P7](07-sql-performance-lab.md) indexing (`tenant_id` in composite indexes). Complements [P8](08-application-security-lab.md) session hygiene.
+Multi-tenant bugs are **cross-customer data leaks**—career-ending severity. This lab builds on [Project 6](05-contract-first-api.md) contracts and [Project 2](04-sql-performance-lab.md) indexing (`tenant_id` in composite indexes). Complements [Project 8](09-application-security-lab.md) session hygiene.
 
-## Concept spotlight
+## Important concepts
 
-**Pillars:** Full-Stack Platforms · Security & Systems
+### Concept spotlight
 
-| Concept | In this project you… | Pillars |
-|---------|----------------------|---------|
-| **Tenant isolation** | Every query filters by authenticated tenant; tests prove no cross-tenant read | Full-Stack, Security |
-| **Auth boundary** | JWT or session; secure cookies; logout invalidates server state where used | Full-Stack, Security |
-| **Idempotent provisioning** | Sign-up or invite webhook uses idempotency key ([P1](01-integration-webhook-receiver.md) pattern) | Full-Stack, AI/Automation |
+| **Tenant isolation** | Every query filters by authenticated tenant; tests prove no cross-tenant read |
+| **Auth boundary** | JWT or session; secure cookies; logout invalidates server state where used |
+| **Idempotent provisioning** | Sign-up or invite webhook uses idempotency key ([Project 1](01-integration-webhook-receiver.md) pattern) |
+
+**Interview line:** *“Tenant id comes from auth context, never from client body—we index and test for cross-tenant leakage.”*
+
 
 **Interview line:** *“Tenant id comes from auth context, never from client body—we index and test for cross-tenant leakage.”*
 
 ## Code repo
 
-_TBD — extend [P6](06-node-typescript-lab.md) or [P2](02-contract-first-api.md) repo._ Suggested folder: [`../career-projects/12-multi-tenant-auth-lab`](../career-projects/12-multi-tenant-auth-lab).
+_TBD — extend [Project 4](07-node-typescript-lab.md) or [Project 6](05-contract-first-api.md) repo._ Suggested folder: [`../career-projects/12-multi-tenant-auth-lab`](../career-projects/12-multi-tenant-auth-lab).
 
 ## Stack
 
-- **TypeScript** (Fastify/Express) or Laravel/FastAPI from P2
+- **TypeScript** (Fastify/Express) or Laravel/FastAPI from Project 6
 - **Postgres** — shared schema, row-level tenant column (RLS optional stretch)
 - Migrations checked in
 
@@ -54,10 +73,10 @@ Two tenant fixtures; assert isolation on list and detail endpoints.
 ## Stretch
 
 - Postgres RLS policies mirroring app checks.
-- Link to [P11](11-llm-web-app-lab.md) for tenant-scoped RAG queries.
+- Link to [Project 11](11-llm-web-app-lab.md) for tenant-scoped RAG queries.
 
-## Related
+## When you're done
 
-- [P8 Application security](08-application-security-lab.md)
-- [P7 SQL performance](07-sql-performance-lab.md)
-- [Engineering pillars — Full-Stack](../docs/paths/engineering-pillars.md#pillar-2--full-stack-platforms-ts--gorust)
+- Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Log in [PROGRESS.md](../PROGRESS.md)
+- **Next:** [Project 13 — Real-time dashboard lab](13-realtime-dashboard-lab.md)
