@@ -62,6 +62,7 @@ _TBD — e.g. `rust-retrieval-lab` or sibling crate in Project 8 repo._
 - [ ] Contract doc unchanged or versioned with no breaking change.
 - [ ] ADR in [PROGRESS.md](../PROGRESS.md): Go vs Rust decision **including p95 and peak RSS** (or alloc/op) for the same benchmark.
 - [ ] `cargo test` for idempotency helper + one integration path.
+- [ ] **Tokio** (or documented sync-first path) for async HTTP/worker—name runtime choice in README.
 
 ## Testing approach (lab)
 
@@ -77,6 +78,7 @@ Port Project 8 table-driven cases; docker-compose integration optional.
 
 - Share queue with Go producer during migration window.
 - [Project 19](19-wasm-secure-component-lab.md) extract hot filter to WASM.
+- **`proptest`** on idempotency helper — property: duplicate `job_id` never double-applies side effect.
 
 ## Portfolio artifacts
 

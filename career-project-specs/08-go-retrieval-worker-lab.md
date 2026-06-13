@@ -17,6 +17,7 @@
 ## Before you start
 
 - **New to Go?** → [Go map](../docs/languages/go.md) · [Stacks glossary](../docs/languages/glossary.md)
+- **Brokers (career context):** [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
 - **Deep dive (optional):** [Systems integration architect](../docs/concepts/systems-integration-architect.md)
 - **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency](../docs/concepts/software-engineering.md#concurrency-basics) · [Memory and performance](../docs/concepts/memory-and-performance.md)
 
@@ -110,6 +111,7 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 - [ ] **Contract doc** for Python ↔ Go boundary (JSON schema or OpenAPI fragment).
 - [ ] README diagram: sync retrieval path vs async worker path; three failure modes named.
 - [ ] `go test` covers at least idempotency helper and one handler/table-driven case.
+- [ ] **Prometheus `/metrics`** endpoint (request count, latency histogram, or queue depth)—document scrape path in README.
 
 ## Testing approach (lab)
 
@@ -126,9 +128,10 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 
 **Core (any one):**
 
-- Prometheus metrics endpoint.
 - Benchmark retrieval with 1k chunks—relate to [Algorithms study path](../docs/concepts/algorithms-study-path.md) (O(n) scan vs indexed lookup).
 - Share queue with PHP/Laravel or Node producer from Project 1/Project 4.
+- **Kafka consumer** — same idempotency/DLQ semantics as Redis worker; document consumer group + replay ([Messaging and RPC](../docs/concepts/messaging-and-rpc.md)).
+- **gRPC retrieve endpoint** — protobuf `Retrieve` RPC as internal alternative to REST JSON; Python Project 2 client unchanged at HTTP boundary or updated with gRPC client (document choice in ADR).
 
 **AI + automation capstone (after success criteria green):**
 

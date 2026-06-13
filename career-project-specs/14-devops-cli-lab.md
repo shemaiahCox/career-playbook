@@ -17,6 +17,7 @@
 ## Before you start
 
 - **Handbook:** [Command-line tooling](../docs/concepts/command-line-tooling.md)
+- **Pre-Rust CLI sandbox:** [rust-cli-http-probe](../exploration-projects/rust-cli-http-probe/) — ownership + HTTP probe before [Project 18](18-rust-hot-path-lab.md)
 
 ## Problem
 

@@ -156,7 +156,7 @@ Pick scenarios for **your declared track** (A, B, or C). **Track A** mirrors [Pr
 ## Stretch
 
 - Dockerfile + `docker compose` for app + Redis (if using queue).
-- GitHub Action: `typecheck` + `lint` on PR.
+- **GitHub Actions** — `typecheck` + `lint` + test on PR (same pattern as [Project 15](15-cloud-deploy-lab.md); CI badge in README).
 
 ## Portfolio artifacts
 

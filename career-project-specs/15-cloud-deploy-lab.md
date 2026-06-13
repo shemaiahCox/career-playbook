@@ -50,8 +50,8 @@ _Document deploy in Project 8/Project 6 lab repo or `_TBD` `cloud-deploy-lab` wr
 ## Stack
 
 - **Docker Compose** — app + Postgres + Redis/NATS
-- One cloud target (document choice in README)
-- Optional: minimal GitHub Action or deploy script (no full CI curriculum)
+- One cloud target (document choice in README — Fly, Railway, **ECS**, or **EKS**-compatible image)
+- **GitHub Actions** — lint + test on PR (see success criteria)
 
 ## Success criteria
 
@@ -59,6 +59,7 @@ _Document deploy in Project 8/Project 6 lab repo or `_TBD` `cloud-deploy-lab` wr
 - [ ] One successful deploy to chosen platform documented step-by-step.
 - [ ] Secrets never in git; `.env.example` lists keys only.
 - [ ] Health URL returns 200; README lists rollback steps.
+- [ ] **GitHub Actions** workflow runs lint + test on PR (badge in README).
 
 ## Testing approach (lab)
 

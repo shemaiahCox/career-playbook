@@ -93,6 +93,8 @@ Every project spec includes: **Progress** (step, prev/next) · **What you will l
 | Doc | Use when |
 |-----|----------|
 | [docs/languages/glossary.md](docs/languages/glossary.md) | New to a language — start here |
+| [docs/career/target-alignment.md](docs/career/target-alignment.md) | UK Backend & Systems targeting — project ideas, £80k milestones, job matrix |
+| [docs/concepts/messaging-and-rpc.md](docs/concepts/messaging-and-rpc.md) | Kafka vs Redis, REST vs gRPC (career + lab context) |
 | [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md) | Theory depth (testing, integration, security) |
 | [docs/concepts/per-project-testing.md](docs/concepts/per-project-testing.md) | How to test each lab |
 | [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) | Resume-ready diagram, ADR, perf, failure modes |

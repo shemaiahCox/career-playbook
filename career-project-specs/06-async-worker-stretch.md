@@ -17,6 +17,7 @@
 ## Before you start
 
 - **Patterns:** [Integration-automation map](../docs/concepts/integration-automation.md)
+- **Brokers (career context):** [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
 - **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency basics](../docs/concepts/software-engineering.md#concurrency-basics) · [Memory and performance — throughput vs latency](../docs/concepts/memory-and-performance.md#measure-before-tuning)
 
 ## Problem
@@ -171,6 +172,7 @@ These assume **producer + broker + worker + DLQ** (Redis/Laravel/BullMQ/SQS-styl
 ## Stretch
 
 - **Go consumer** — Same queue semantics with a Go worker ([Project 8](08-go-retrieval-worker-lab.md)); document idempotency + DLQ in README.
+- **Kafka consumer** — Optional broker swap; same idempotency keys and DLQ story ([Messaging and RPC](../docs/concepts/messaging-and-rpc.md)).
 - **Event bus (after DLQ is solid)** — Publish job lifecycle events (NATS / Redis Streams); subscribers must tolerate duplicates—see [Project 8 stretch](08-go-retrieval-worker-lab.md#stretch) and [integration-automation map](../docs/concepts/integration-automation.md).
 - **Cloud** — Document Redis local vs managed queue (SQS-compatible); optional `docker compose` for broker + worker.
 

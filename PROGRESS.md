@@ -35,6 +35,15 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
+## 2026-06-13 — UK career targeting + job-market alignment
+
+- **Added** [docs/career/target-alignment.md](docs/career/target-alignment.md) — project ideas → playbook map, UK employer ask matrix, £80k milestones, GitHub pin order, interview themes.
+- **Added** [docs/concepts/messaging-and-rpc.md](docs/concepts/messaging-and-rpc.md) — Kafka vs Redis/NATS, REST vs gRPC career context.
+- **Strengthened** specs: Project 8 (Prometheus required; Kafka/gRPC stretches), Project 15 (GitHub Actions required), Project 6 (Kafka stretch), Project 12 (OAuth stretch), Project 18 (Tokio + proptest), Project 7 (CI cross-link), Project 14 (rust-cli-http-probe link).
+- **Updated** [rust.md](docs/languages/rust.md) Career positioning; wired from [README.md](README.md) and [docs/README.md](docs/README.md).
+
+---
+
 ## 2026-06-03 — Language ecosystem maps (top-to-bottom story)
 
 - **Added** [docs/templates/language-ecosystem-map.md](docs/templates/language-ecosystem-map.md) — shared H2 outline for all stack maps.

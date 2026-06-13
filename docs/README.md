@@ -31,6 +31,7 @@ Integration, testing, security, algorithms, architecture — stack-agnostic.
 |-----|----------|
 | [concepts/software-engineering.md](concepts/software-engineering.md) | Integration, testing, concurrency, security, observability |
 | [concepts/memory-and-performance.md](concepts/memory-and-performance.md) | Measure-then-tune: latency, throughput, memory, profiling |
+| [concepts/messaging-and-rpc.md](concepts/messaging-and-rpc.md) | Kafka vs Redis/NATS; REST vs gRPC; career + lab broker choice |
 | [concepts/database-design.md](concepts/database-design.md) | Transactions, indexes, N+1, vectors |
 | [concepts/per-project-testing.md](concepts/per-project-testing.md) | How to test each lab |
 | [concepts/integration-automation.md](concepts/integration-automation.md) | Boomi / n8n workflow patterns |
@@ -40,6 +41,14 @@ Integration, testing, security, algorithms, architecture — stack-agnostic.
 | [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) | Learning a new stack with AI helpers |
 
 Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md)
+
+---
+
+## Career (UK market alignment)
+
+| Doc | Use when |
+|-----|----------|
+| [career/target-alignment.md](career/target-alignment.md) | Project ideas → playbook map, £80k milestones, employer ask matrix, GitHub pin order |
 
 ---
 

@@ -115,8 +115,25 @@ myworker/
 
 ---
 
+## Career positioning
+
+**Target profile:** Backend & Systems Engineer (Rust + Go) in the UK £70k–£100k band — not HFT/trading or blockchain OMS unless you pivot deliberately.
+
+| Playbook milestone | Interview signal |
+|--------------------|-------------------|
+| [Project 8 Go](../../career-project-specs/08-go-retrieval-worker-lab.md) green | Throughput, idempotency, Python↔Go boundary |
+| [Project 18 Rust](../../career-project-specs/18-rust-hot-path-lab.md) + ADR | Hot-path evidence with p95 + peak RSS; Tokio async |
+| [Project 21 capstone](../../career-project-specs/21-integrated-platform-capstone.md) | Distributed system narrative |
+
+**Pre-Project 18 CLI practice:** [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/) · formal ops CLI in [Project 14](../../career-project-specs/14-devops-cli-lab.md) (Rust stretch).
+
+Full mapping: [Career targeting — UK market](../career/target-alignment.md)
+
+---
+
 ## See also
 
 - [Go stack map](go.md) — primary throughput lane before Rust
 - [Python stack map](python.md) — LLM lane
+- [Career targeting — UK market](../career/target-alignment.md)
 - [Language fundamentals comparison](language-fundamentals-comparison.md) — syntax side-by-side (includes Rust column)

@@ -192,7 +192,7 @@ flowchart TB
 | **At-least-once** | **Common default** after retries: the **same logical message** may arrive **twice** | Consumer must be **idempotent** or **dedupe** with a **stable id** |
 | **Exactly-once** (end-to-end) | Marketed promise; in distributed systems you usually build **effectively-once** from **at-least-once** + **idempotent writes** + careful **outbox/transaction** patterns | Design for **duplicate delivery** first; then narrow the window where it hurts |
 
-**Message queues (reminder):** **At-least-once** delivery is the usual mental model—**consumers must be idempotent**. See also [GraphQL, gRPC, and webhooks](#graphql-grpc-and-webhooks) for **webhook**-specific notes (signatures, fast ack vs slow work).
+**Message queues (reminder):** **At-least-once** delivery is the usual mental model—**consumers must be idempotent**. See also [GraphQL, gRPC, and webhooks](#graphql-grpc-and-webhooks) for **webhook**-specific notes (signatures, fast ack vs slow work). **Career context:** [Messaging and RPC](messaging-and-rpc.md) (Kafka vs Redis, REST vs gRPC).
 
 ### Example: idempotent webhook or job consumer
 
@@ -288,7 +288,7 @@ on POST /webhooks/orders:
 #### GraphQL, gRPC, webhooks (going deeper)
 
 - **GraphQL** — Clients request exactly the fields they need; the cost is **resolver** performance and **N+1** database access unless you batch/dataloader. Schema evolution and auth live in the graph layer.
-- **gRPC** — **Protobuf** contracts, HTTP/2, strong typing—excellent **service-to-service** on internal networks; browsers need a gateway (gRPC-Web) for typical web apps.
+- **gRPC** — **Protobuf** contracts, HTTP/2, strong typing—excellent **service-to-service** on internal networks; browsers need a gateway (gRPC-Web) for typical web apps. Hands-on stretch: [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md); career context: [Messaging and RPC](messaging-and-rpc.md).
 - **Webhooks** — Outbound HTTP callbacks; treat every delivery as **at-least-once**—verify **HMAC signatures**, respond quickly (queue work), and make handlers **idempotent** on event IDs.
 
 **Optional:** **SSE** for one-way server streams; **WebSockets** for bidirectional—see [Servers and networking](servers-and-networking.md).

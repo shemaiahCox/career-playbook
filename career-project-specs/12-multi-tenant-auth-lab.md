@@ -74,6 +74,7 @@ Two tenant fixtures; assert isolation on list and detail endpoints.
 
 - Postgres RLS policies mirroring app checks.
 - Link to [Project 11](11-llm-web-app-lab.md) for tenant-scoped RAG queries.
+- **OAuth/OIDC** — "Sign in with Google" (or similar) → issue your existing JWT/session; document token exchange and tenant mapping on first login.
 
 ## Portfolio artifacts
 
