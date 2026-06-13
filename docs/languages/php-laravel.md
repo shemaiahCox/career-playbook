@@ -8,14 +8,76 @@
 
 ---
 
-## Mental model
+## Best for, alternatives, and playbook fit
 
-| Piece | What to know |
-|--------|----------------|
-| **Runtime** | **PHP-FPM** spins workers that handle **one web request lifecycle**—memory resets naturally. **CLI** scripts (`artisan`, queues) and **Octane/long-lived worker** setups **reuse RAM** across requests—you must rethink globals/singleton caches. |
-| **Deps** | **Composer** (`composer.json` + lock) restores libraries; **PSR-4 autoload** maps namespaces to folders. **`vendor/`** is upstream code—fork inside `vendor/` is a trap. |
-| **Laravel boot** | Incoming HTTP traverses kernel → ordered **middleware** → matched **route** → **controller/action**; the **service container** wires injected dependencies (“this class needs Logger X”). |
-| **Config** | `config/*.php` reads **environment** (`APP_ENV`, `.env`). `php artisan config:cache` bakes configs in prod—flip env vars without rebuilding at your peril. |
+| Best for | Use instead when | Primary projects |
+|----------|------------------|------------------|
+| Integration HTTP ingress, Laravel queues/contracts, webhook receivers | Node/Python when the spec names them for BFF or LLM paths | [Project 1 — Integration webhook](../../career-project-specs/01-integration-webhook-receiver.md) |
+
+---
+
+## How it runs
+
+| Execution | Typing | Memory / concurrency |
+|-----------|--------|----------------------|
+| **Interpreted** per request under **PHP-FPM** (memory resets each request); **Octane/long-lived** workers reuse RAM across requests | Dynamic typing with optional **typed properties** and return types (PHP 7.4+) | Request-scoped by default; statics/singleton caches become footguns under Octane |
+
+---
+
+## Environment setup
+
+1. Verify: `php -v` (8.2+ typical for Laravel 11).
+2. Install deps: `composer install` in project root—commit **`composer.lock`**.
+3. Copy env: `cp .env.example .env` then `php artisan key:generate`.
+4. Optional scaffold before Project 1 lab clone:
+
+```bash
+composer create-project laravel/laravel laravel-scaffold && cd laravel-scaffold && php artisan serve
+```
+
+Paste into `routes/web.php`:
+
+```php
+Route::get('/exploration/hello', function () {
+    return response()->json([
+        'ok' => true,
+        'via' => 'closure-route',
+        'at' => now()->toIso8601String(),
+    ]);
+});
+```
+
+Webhook and integration work belongs in the **Project 1 lab** under [`career-projects/`](../../career-projects/)—not a separate sandbox repo.
+
+---
+
+## Project layout
+
+```
+my-app/
+├── app/                 # models, jobs, HTTP layer
+├── routes/
+│   ├── web.php
+│   └── api.php
+├── config/              # reads .env — cache in prod with care
+├── database/
+│   └── migrations/
+├── tests/
+├── composer.json
+└── .env                 # local only — not committed
+```
+
+---
+
+## Commands you'll use often
+
+| Intent | Command | Notes |
+|--------|---------|-------|
+| Dev server | `php artisan serve` | Local HTTP on :8000 |
+| Test | `php artisan test` or `./vendor/bin/phpunit` | Match CI |
+| Queue worker | `php artisan queue:work` | Idempotent handlers—at-least-once |
+| Migrate | `php artisan migrate` | Reversible migrations where possible |
+| Config cache (prod) | `php artisan config:cache` | Env changes need rebuild |
 
 ---
 
@@ -43,31 +105,7 @@
 
 ---
 
-## Optional local scaffold
-
-If you need a throwaway Laravel app before [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) lab clone:
-
-```bash
-composer create-project laravel/laravel laravel-scaffold && cd laravel-scaffold && php artisan serve
-```
-
-Paste into `routes/web.php`:
-
-```php
-Route::get('/exploration/hello', function () {
-    return response()->json([
-        'ok' => true,
-        'via' => 'closure-route',
-        'at' => now()->toIso8601String(),
-    ]);
-});
-```
-
-Webhook and integration work belongs in the **Project 1 lab** under [`career-projects/`](../../career-projects/)—not a separate sandbox repo.
-
----
-
-## Footgun checklist
+## Footguns
 
 - [ ] **`APP_DEBUG`** / **`APP_ENV`** never wrong in prod; `.env` not committed; **keys** (`APP_KEY`) managed.
 - [ ] **Secrets** in env or secret manager—not in repo, not in `config` committed with real values.
@@ -103,14 +141,11 @@ Laravel hides ceremony—come here when tutorials assume buzzwords sunk in overn
 
 ---
 
-## Plain PHP (no Laravel)
-
-Only spin up a separate note if you maintain **legacy scripts** or **micro-sites** without the framework—same **PHP** section above applies; you lose Laravel’s **structured HTTP/queue/DI** guardrails, so **explicit** structure matters more.
-
----
-
 ## See also
 
+- [Language fundamentals comparison — PHP](language-fundamentals-comparison.md) — syntax side-by-side
 - [Integration hardening](../../checklists/integration-hardening.md)
 - [Software engineering breadth](../concepts/software-engineering.md)
 - Laravel docs: **Requests**, **Queues**, **Eloquent**, **Octane**
+
+**Plain PHP (no Laravel):** Only spin up a separate note if you maintain **legacy scripts** or **micro-sites** without the framework—same runtime notes above apply; you lose Laravel’s **structured HTTP/queue/DI** guardrails, so **explicit** structure matters more.

@@ -8,40 +8,82 @@
 
 ---
 
-## Mental model
+## Best for, alternatives, and playbook fit
 
-| Piece | What to know |
-|--------|----------------|
-| **Ownership** | Each value has one owner; **borrow** (`&T`) for read-only access; **mut borrow** (`&mut T`) exclusive. Compiler enforces at compile time—no GC. |
-| **Result / Option** | Errors and absence are explicit: `Result<T, E>`, `Option<T>`—`?` propagates errors like Go’s `if err != nil` chain. |
-| **Crates** | `Cargo.toml` + `cargo build` / `cargo test`; crates.io for dependencies (unlike Go stdlib-first probes). |
-| **Async** | `async`/`await` + runtimes (**tokio** common)—learn **after** a sync HTTP/worker path unless your lab README commits to async. |
-| **HTTP / workers** | **axum**, **actix-web**, **reqwest**/**ureq**—same integration boundaries as Go Project 8; same idempotency/DLQ semantics. |
+| Best for | Use instead when | Primary projects |
+|----------|------------------|------------------|
+| Hot-path ADR reimplementation after Go baseline; WASM/edge stretch reading | Go for day-to-day queue workers and retrieval gateway; Python for LLM/evals | [Project 18 — Rust hot-path](../../career-project-specs/18-rust-hot-path-lab.md); optional stretch in Projects 20–21 |
 
----
-
-## When Rust vs Go vs Python in this playbook
-
-| Use Rust | Use Go | Use Python |
-|----------|--------|------------|
-| Optional **reimplementation** of Project 8 gateway/worker (compare ADR) | **Primary** queue workers, retrieval gateway on spine | LLM, evals, orchestration |
-| Edge/IoT **stretch** reading (MQTT, embedded) after spine green | Day-to-day throughput practice first | Rapid eval iteration |
-| Systems literacy for roles listing Rust | Smaller team ops surface, fast compile cycles | Rich ML ecosystem |
-
-**Order:** Ship Project 8 in **Go** first. Use [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) for Rust syntax and hot-path ADR **after** Project 8 Go is green—**do not** run Go + Rust reimplementation as parallel spines.
-
----
-
-## What to practice here vs defer
+**In scope vs defer:**
 
 | Rust is used for (in scope) | Practice in | Defer (not playbook spine) |
 |-----------------------------|-------------|----------------------------|
-| HTTP/CLI probe, ownership + `Result` | [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | Greenfield Rust API replacing Project 5/Project 7 |
-| Project 8 gateway or worker **reimplementation** | [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | Second concurrent worker engine while Project 8 Go unfinished |
-| IoT / edge ingest (optional) | Future stretch note + side project in [PROGRESS.md](../../PROGRESS.md) | Full embedded/robotics curriculum |
+| HTTP/CLI probe, ownership + `Result` | [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | Greenfield Rust API replacing Project 5/7 |
+| Project 8 gateway or worker **reimplementation** | Project 18 | Second concurrent worker engine while Project 8 Go unfinished |
+| IoT / edge ingest (optional) | Future stretch + [PROGRESS.md](../../PROGRESS.md) notes | Full embedded/robotics curriculum |
 | WASM / CLI tools | Side demos tied to one load-bearing property | Blockchain, game engines |
 
-**Easy follow path:** [Project 18 — Rust hot-path](../../career-project-specs/18-rust-hot-path-lab.md) (after Project 8) · [Go map](go.md) (primary throughput lane).
+**Order:** Ship Project 8 in **Go** first. Use Project 18 for Rust syntax and hot-path ADR **after** Project 8 Go is green—**do not** run Go + Rust reimplementation as parallel spines.
+
+---
+
+## How it runs
+
+| Execution | Typing | Memory / concurrency |
+|-----------|--------|----------------------|
+| **AOT compiled** via `cargo build`; no runtime interpreter | Static typing; **ownership** + **borrow checker** enforce memory safety at compile time | No GC; **`Result`/`Option`** for errors/absence; **`async`/`await`** + **tokio** after sync path is solid |
+
+---
+
+## Environment setup
+
+1. Install: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` then `rustc --version`.
+2. New project: `cargo new myworker --bin` (or `--lib`).
+3. Optional pin: `rust-toolchain.toml` with `channel = "stable"` for CI parity.
+4. Commit **`Cargo.lock`** for binaries; library crates may omit per team policy—follow project README.
+5. Project 18 lab clone under [`career-projects/`](../../career-projects/) per spec.
+
+---
+
+## Project layout
+
+```
+myworker/
+├── src/
+│   ├── main.rs          # binary entry (or lib.rs for library crate)
+│   └── ...
+├── Cargo.toml           # deps + package metadata
+├── Cargo.lock
+└── target/              # build artifacts — gitignored
+```
+
+---
+
+## Commands you'll use often
+
+| Intent | Command | Notes |
+|--------|---------|-------|
+| Run | `cargo run` | Dev binary |
+| Test | `cargo test` | Unit + integration |
+| Release build | `cargo build --release` | Deploy artifact |
+| Lint | `cargo clippy` | Stricter than `cargo check` |
+| Format | `cargo fmt` | CI formatting gate |
+
+---
+
+## How concepts show up
+
+**Ownership / errors**
+
+- Each value has one owner; **borrow** (`&T`) for read-only access; **`Result<T,E>`** + **`?`** at integration boundaries—map to HTTP 500 / DLQ like Go workers.
+
+**HTTP / workers**
+
+- **axum**, **actix-web**, **reqwest**/**ureq**—same integration boundaries as Go Project 8; same idempotency/DLQ semantics.
+
+**Async**
+
+- **`async fn`** + **`.await`** on **tokio**—learn **after** a sync HTTP/worker path unless your lab README commits to async ([Language fundamentals — async Rust](language-fundamentals-comparison.md)).
 
 ---
 
@@ -55,15 +97,6 @@
 
 ---
 
-## Read next (handbook)
-
-- [Concurrency basics](../concepts/software-engineering.md#concurrency-basics)
-- [Memory and performance](../concepts/memory-and-performance.md)
-- [Integration: sync, async, messaging](../concepts/software-engineering.md#integration-sync-async-and-messaging)
-- [Language fundamentals comparison — Rust](language-fundamentals-comparison.md)
-
----
-
 ## Plain language: terms used on this page
 
 | Term | Means |
@@ -72,3 +105,18 @@
 | **Borrow** | Temporary access to data without taking ownership (`&foo`). |
 | **Crate** | Rust package (library or binary) built by Cargo. |
 | **Tier‑2 growth lane** | Practice **after** the Go spine milestone—not in parallel with it as a second active lab. |
+
+### Read next (handbook)
+
+- [Concurrency basics](../concepts/software-engineering.md#concurrency-basics)
+- [Memory and performance](../concepts/memory-and-performance.md)
+- [Integration: sync, async, messaging](../concepts/software-engineering.md#integration-sync-async-and-messaging)
+- [Language fundamentals comparison — Rust](language-fundamentals-comparison.md)
+
+---
+
+## See also
+
+- [Go stack map](go.md) — primary throughput lane before Rust
+- [Python stack map](python.md) — LLM lane
+- [Language fundamentals comparison](language-fundamentals-comparison.md) — syntax side-by-side (includes Rust column)

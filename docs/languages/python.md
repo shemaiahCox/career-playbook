@@ -8,14 +8,56 @@
 
 ---
 
-## Mental model
+## Best for, alternatives, and playbook fit
 
-| Piece | What to know |
-|--------|----------------|
-| **Runtime** | Most people run **CPython** (the normal `python` interpreter). A **GIL** (Global Interpreter Lock) means **only one thread runs Python bytecode at a time**, so extra threads help when work **waits on network or disk** (*I/O-bound*), not for parallel **heavy CPU on one machine** (use **multiprocessing**, job runners, or native extensions for that). |
-| **Environments** | A **venv** (or similar) isolates libraries per project—like a sandbox so Project A cannot break Project B. Lockfiles (**pip-tools**, **Poetry**, **PDM**, **uv**) pin versions; **`pyproject.toml`** is where modern projects declare tooling. Treat “whatever Python my laptop woke up with” as **never** prod. |
-| **Packaging** | **Modules** = files; **packages** = dirs (often with `__init__.py`; “namespace packages” also exist—know how your repo is laid out). Tweaking **`PYTHONPATH`** everywhere usually means imports are wired wrong somewhere else. |
-| **Async** | **`async` / `await`** runs on **`asyncio`’s** event loop (**one thread juggling many waits**). **FastAPI** uses this model—calling **blocking** APIs (slow disk, naive `requests.get`) inside async routes **stalls everyone** waiting on that worker (offload to thread pools etc.). |
+| Best for | Use instead when | Primary projects |
+|----------|------------------|------------------|
+| LLM/RAG services, eval harnesses, FastAPI product APIs | Go for retrieval throughput and queue workers; PHP/Node when the spec names them for HTTP ingress | [Project 2 — RAG / LLM](../../career-project-specs/02-rag-llm-service.md), observability and eval labs |
+
+---
+
+## How it runs
+
+| Execution | Typing | Memory / concurrency |
+|-----------|--------|----------------------|
+| **CPython** interprets bytecode; **GIL** limits parallel CPU in one process | Gradual typing (`type hints` + mypy/pyright optional) | GC; **asyncio** event loop for I/O-bound ASGI; threads help I/O waits, not CPU-heavy bytecode |
+
+---
+
+## Environment setup
+
+1. Verify: `python3 --version` (match project README; 3.11+ common for FastAPI labs).
+2. Create venv: `python3 -m venv .venv && source .venv/bin/activate` (Windows: `.venv\Scripts\activate`).
+3. Install deps: `pip install -r requirements.txt` or `uv sync` when `pyproject.toml` is the source of truth.
+4. Lock habit: commit `requirements.txt` / `uv.lock` / `poetry.lock`—never “whatever my laptop has.”
+5. Project 2 lab clone lives under [`career-projects/`](../../career-projects/) per spec.
+
+---
+
+## Project layout
+
+```
+my-service/
+├── app/                 # package: routes, services, models
+│   ├── main.py          # FastAPI app entry (or app/__init__.py)
+│   └── ...
+├── tests/
+├── evals/               # Project 2 eval JSONL + harness
+├── requirements.txt     # or pyproject.toml + lockfile
+└── .env                 # local only — not committed
+```
+
+---
+
+## Commands you'll use often
+
+| Intent | Command | Notes |
+|--------|---------|-------|
+| Run dev API | `uvicorn app.main:app --reload --host 0.0.0.0 --port 8000` | Adjust module path to your app |
+| Run module | `python -m app` | Prefer over `python app/main.py` (import paths) |
+| Test | `pytest` | Add `-v` / `-k name` as needed |
+| Lint / types | `ruff check .` · `mypy app` | Match what CI runs |
+| Dependency audit | `pip-audit` | Supply chain for integrations |
 
 ---
 
@@ -45,7 +87,7 @@
 
 ---
 
-## Footgun checklist
+## Footguns
 
 - [ ] **Mutable default arguments** (`def f(x=[]):`) and **shared mutable state** across requests—classic bug class.
 - [ ] **`except Exception:`** swallowing without log context—production blindness.
@@ -86,5 +128,7 @@ Read this **after** the tables if they felt like alphabet soup. You can come bac
 
 ## See also
 
+- [Language fundamentals comparison — Python](language-fundamentals-comparison.md) — syntax side-by-side
+- [Go stack map](go.md) — retrieval throughput lane beside Python
 - [Software engineering breadth](../concepts/software-engineering.md)
 - [SQL ecosystem map](sql.md) when the system is **data-heavy**

@@ -8,13 +8,53 @@
 
 ---
 
-## Mental model
+## Best for, alternatives, and playbook fit
 
-| Piece | What to know |
-|--------|----------------|
-| **SQL role** | **Declarative** means you describe *what* rows you want, not micromanage each algorithm step—the database **query planner** picks **indexes, joins, and order**. |
-| **Dialects** | **ANSI SQL** is a loose shared baseline; Postgres, MySQL, SQL Server, SQLite each extend it (**`LIMIT`/`OFFSET`**, **`RETURNING`**, window functions, etc.—details differ). Pick **one** production engine story when you can—it cuts surprises. |
-| **Boundaries** | **ORMs** (Object-Relational Mappers—Django, SQLAlchemy, EF, Eloquent…) **generate** SQL—you still inspect **plans** when performance or correctness breaks. |
+| Best for | Use instead when | Primary projects |
+|----------|------------------|------------------|
+| Data correctness, query plans, migrations, transactional invariants | Application business logic in PHP/Python/Go—SQL owns persistence shape, not feature orchestration | [Project 4 — SQL performance lab](../../career-project-specs/04-sql-performance-lab.md); ORM-backed apps in Projects 1–2, 5–7 |
+
+---
+
+## How it runs
+
+| Execution | Typing | Memory / concurrency |
+|-----------|--------|----------------------|
+| **Declarative**—you describe *what* rows; the **query planner** chooses *how* | **Typed schema** (columns, constraints) + **untyped ad-hoc** queries in application code | **Dialect-specific** (Postgres primary in this playbook); transactions + isolation levels coordinate concurrent writers |
+
+---
+
+## Environment setup
+
+1. Start Postgres from Project 4 lab **Docker Compose** (or local install)—one primary engine story cuts surprises.
+2. Connect: `psql "$DATABASE_URL"` or `psql -h localhost -U postgres -d mydb`.
+3. Verify: `\conninfo` and `\dt` after migrations run.
+4. Migration runner: Laravel `artisan migrate`, Flyway, golang-migrate, or raw SQL files in CI—match your app stack.
+5. Project 4 exercises live under [`career-projects/`](../../career-projects/) per spec.
+
+---
+
+## Project layout
+
+```
+db/
+├── migrations/          # ordered schema changes (001_init.sql, …)
+├── schema.sql           # optional full snapshot for docs
+├── seeds/               # dev/test fixtures
+└── exercises/           # Project 4 ad-hoc query files (*.sql)
+```
+
+---
+
+## Commands you'll use often
+
+| Intent | Command | Notes |
+|--------|---------|-------|
+| Interactive shell | `psql "$DATABASE_URL"` | Meta-commands start with `\` |
+| List tables | `\dt` | Inside psql |
+| Explain plan | `EXPLAIN ANALYZE SELECT ...` | Verify index use on hot queries |
+| Run file | `psql "$DATABASE_URL" -f exercises/01.sql` | Lab exercises |
+| Describe table | `\d table_name` | Columns, indexes, constraints |
 
 ---
 
@@ -40,7 +80,7 @@
 
 ---
 
-## Footgun checklist
+## Footguns
 
 - [ ] **N+1 queries** from ORM defaults—profile request paths; use **eager loading** or **SQL joins** intentionally.
 - [ ] **`SELECT *`** in hot paths—breaks when schema evolves; select **columns** you need.

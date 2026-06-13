@@ -8,44 +8,90 @@
 
 ---
 
-## Mental model
+## Best for, alternatives, and playbook fit
 
-| Piece | What to know |
-|--------|----------------|
-| **Runtime** | Compiled binary, **GC**, goroutines (lightweight threads), **no classes**—structs + methods + interfaces. |
-| **Modules** | `go.mod` / `go.sum`; import path = module path + package dir. |
-| **Errors** | `(T, error)` return—caller checks every time; `if err != nil`. |
-| **Concurrency** | `go fn()` + channels + `context` for cancel/timeouts; prefer **explicit** over shared mutable state. |
-| **HTTP** | `net/http` stdlib server/client; common pattern for workers and small services. |
+| Best for | Use instead when | Primary projects |
+|----------|------------------|------------------|
+| Queue consumers, retrieval gateway, strict latency/timeouts on chunk fetch | Python for LLM calls, eval harness, orchestration; Node/PHP for spec-named HTTP ingress | [Project 6](../../career-project-specs/06-async-worker-stretch.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md), [Project 14 CLI](../../career-project-specs/14-devops-cli-lab.md) |
 
----
+**In scope vs defer** (playbook filter—not a generic “learn all Go” list):
 
-## When Go vs Python in this playbook
+| Go is used for (in scope) | Practice in | Defer (not playbook spine) |
+|---------------------------|-------------|----------------------------|
+| Queue workers, DLQ, ingest jobs | Project 6, Project 8 | Full e‑commerce/blog API in Go (use Project 5/7) |
+| Retrieval gateway, chunk fan-out | Project 8 | LLM/evals in Go (use [Project 2](../../career-project-specs/02-rag-llm-service.md)) |
+| Small HTTP service boundaries | Project 8 `/retrieve`, health | Greenfield chat apps unless capstone stretch |
+| CLI / ops probes | Project 8, Project 14 | Backup utilities unrelated to labs |
+| Event bus / streams (stretch) | Project 8 after Project 6 queues | Building a Boomi/n8n clone |
+| Cloud-native habits | Docker Compose, managed queue in README | K8s/AWS cert curriculum |
 
-| Use Go | Use Python |
-|--------|------------|
-| Queue consumers, high fan-out retrieval | LLM calls, eval harness, orchestration libraries |
-| Strict latency/timeouts on chunk fetch | Prompt design, citation policy, rapid iteration |
-| Small static binaries for workers | FastAPI product API with rich ML ecosystem |
+**Easy follow path:** [Project catalog](../../README.md#progression-step-1--21) · [Project 8 capstone stretch](../../career-project-specs/08-go-retrieval-worker-lab.md#stretch-connect-your-labs) · [Project 18 Rust](../../career-project-specs/18-rust-hot-path-lab.md) (after Project 8 Go is green—not parallel).
 
 Industry context: many **vector DBs**, **workflow engines**, and **K8s tooling** are Go—useful reading fluency, not a requirement to memorize every project.
 
 ---
 
-## What to practice here vs defer
+## How it runs
 
-Generic “build anything in Go” lists are broader than this playbook. Use this filter so **AI + automation + cloud** stay on one spine:
+| Execution | Typing | Memory / concurrency |
+|-----------|--------|----------------------|
+| **AOT compiled** binary (`go build`) | Static typing; structs + methods + **implicit interfaces** | GC; **goroutines** + channels + **`context`** for cancel/timeouts—prefer explicit over shared mutable state |
 
-| Go is used for (in scope) | Practice in | Defer (not playbook spine) |
-|---------------------------|-------------|----------------------------|
-| Queue workers, DLQ, ingest jobs | [Project 6](../../career-project-specs/06-async-worker-stretch.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Full e‑commerce/blog API in Go (use Project 5/Project 7) |
-| Retrieval gateway, chunk fan-out | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | LLM/evals in Go (use [Project 2](../../career-project-specs/02-rag-llm-service.md)) |
-| Small HTTP service boundaries | Project 8 `/retrieve`, health | Greenfield chat apps unless capstone stretch |
-| CLI / ops probes | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md), [Project 14](../../career-project-specs/14-devops-cli-lab.md) | Backup utilities unrelated to labs |
-| Event bus / streams (stretch) | Project 8 after Project 6 queues | Building a Boomi/n8n clone |
-| Cloud-native habits | Docker Compose, managed queue in README | K8s/AWS cert curriculum |
+---
 
-**Easy follow path:** [Project catalog](../../README.md#progression-step-1--21) · [Project 8 capstone stretch](../../career-project-specs/08-go-retrieval-worker-lab.md#stretch-connect-your-labs) · [Project 18 Rust](../../career-project-specs/18-rust-hot-path-lab.md) (after Project 8, not parallel).
+## Environment setup
+
+1. Install: [go.dev/dl](https://go.dev/dl/) or `brew install go`; verify `go version` (1.21+ typical).
+2. New module: `go mod init example.com/myworker` in an empty directory.
+3. Add deps as you import; run `go mod tidy` before commit.
+4. Commit **`go.sum`** with **`go.mod`**—CI and prod must resolve the same graph.
+5. Project 8 lab clone under [`career-projects/`](../../career-projects/) per spec.
+
+---
+
+## Project layout
+
+```
+myworker/
+├── cmd/
+│   └── worker/
+│       └── main.go      # package main — entry
+├── internal/            # private packages (not importable outside module)
+│   ├── queue/
+│   └── retrieve/
+├── go.mod
+├── go.sum
+└── *_test.go            # tests alongside code
+```
+
+---
+
+## Commands you'll use often
+
+| Intent | Command | Notes |
+|--------|---------|-------|
+| Run | `go run ./cmd/worker` or `go run .` | From module root |
+| Test | `go test ./...` | `-race` under load paths |
+| Build | `go build -o bin/worker ./cmd/worker` | Static binary for deploy |
+| Vet / lint | `go vet ./...` | CI baseline; add `staticcheck` if project uses it |
+| Tidy deps | `go mod tidy` | After import changes |
+
+---
+
+## How concepts show up
+
+**Errors**
+
+- `(T, error)` return—caller checks every time; `if err != nil`. Same boundary discipline as Rust `Result` at integration edges.
+
+**HTTP / workers**
+
+- **`net/http`** stdlib server/client; common pattern for Project 8 gateway and health checks.
+- Queue consumers: **idempotency**, **DLQ**, **max retries** aligned with [Project 6](../../career-project-specs/06-async-worker-stretch.md) semantics.
+
+**Observability**
+
+- Structured logs + **correlation IDs**; **pprof** before tuning goroutine pools ([Memory and performance](../concepts/memory-and-performance.md)).
 
 ---
 
@@ -59,15 +105,6 @@ Generic “build anything in Go” lists are broader than this playbook. Use thi
 
 ---
 
-## Read next (handbook)
-
-- [Concurrency basics](../concepts/software-engineering.md#concurrency-basics)
-- [Memory and performance](../concepts/memory-and-performance.md)
-- [Integration: sync, async, messaging](../concepts/software-engineering.md#integration-sync-async-and-messaging)
-- [Algorithms study path](../concepts/algorithms-study-path.md)
-
----
-
 ## Plain language: terms used on this page
 
 | Term | Means |
@@ -76,3 +113,18 @@ Generic “build anything in Go” lists are broader than this playbook. Use thi
 | **`context`** | Carries deadlines and cancellation through API calls—use in HTTP handlers and workers. |
 | **Module** | Your project’s import path root (`go.mod`). |
 | **Interface** | Set of methods; types satisfy interfaces **implicitly** (no `implements` keyword). |
+
+### Read next (handbook)
+
+- [Concurrency basics](../concepts/software-engineering.md#concurrency-basics)
+- [Memory and performance](../concepts/memory-and-performance.md)
+- [Integration: sync, async, messaging](../concepts/software-engineering.md#integration-sync-async-and-messaging)
+- [Algorithms study path](../concepts/algorithms-study-path.md)
+
+---
+
+## See also
+
+- [Language fundamentals comparison — Go](language-fundamentals-comparison.md) — syntax side-by-side
+- [Python stack map](python.md) — LLM/RAG lane beside Go
+- [Rust stack map](rust.md) — Tier-2 after Project 8 Go

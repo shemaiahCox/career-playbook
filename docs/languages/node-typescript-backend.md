@@ -8,14 +8,57 @@
 
 ---
 
-## Mental model
+## Best for, alternatives, and playbook fit
 
-| Piece | What to know |
-|--------|----------------|
-| **Runtime** | **Node.js** runs **JavaScript** (or compiled **TypeScript**) on a **single-threaded event loop** per process for most I/O-bound APIs—many concurrent waits, not many cores chewing CPU in one thread. **CPU-heavy** work on the hot path **blocks** other requests unless you offload (**worker threads**, **child processes**, or a dedicated worker service). |
-| **Tooling** | **`package.json`** declares scripts and dependencies; **npm**, **pnpm**, or **yarn** install into `node_modules`. Commit a **lockfile** (`package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock`) so CI and prod resolve the same graph. |
-| **TypeScript** | Adds static types over JS—**`tsc`** compiles to JS, or **tsx** / **ts-node** runs dev without a separate build step. `strict` mode catches whole classes of null/undefined bugs at compile time. |
-| **Module systems** | **ESM** (`import` / `export`) vs **CommonJS** (`require`) still collide in real repos—bundlers, `"type": "module"`, and interop shims matter when something breaks only in prod. |
+| Best for | Use instead when | Primary projects |
+|----------|------------------|------------------|
+| BFF and contract APIs, BullMQ worker track, TypeScript-first HTTP | PHP for Project 1 webhook parity; Python for LLM/RAG when spec says so | [Project 7 — Node / TypeScript lab](../../career-project-specs/07-node-typescript-lab.md) |
+
+---
+
+## How it runs
+
+| Execution | Typing | Memory / concurrency |
+|-----------|--------|----------------------|
+| **Node** interprets JS on a **single-threaded event loop** per process; **TS** compiles to JS (`tsc`) or runs via **tsx** in dev | Structural typing with **`strict`** tsconfig | V8 GC; async I/O via Promises—CPU-heavy work blocks the loop unless offloaded to worker threads or another service |
+
+---
+
+## Environment setup
+
+1. Verify: `node -v` and `npm -v` (or `pnpm -v`); match project README (Node 20 LTS common).
+2. Install: `npm install` or `pnpm install` in repo root—commit **lockfile** (`package-lock.json`, `pnpm-lock.yaml`, or `yarn.lock`).
+3. TypeScript: ensure `"strict": true` in `tsconfig.json`; set `"type": "module"` when using ESM.
+4. Dev script: `npm run dev` (project defines entry—often `tsx watch src/index.ts`).
+5. Project 7 lab clone under [`career-projects/`](../../career-projects/) per spec.
+
+---
+
+## Project layout
+
+```
+my-api/
+├── src/
+│   ├── index.ts         # HTTP server entry
+│   ├── routes/
+│   └── middleware/
+├── package.json
+├── package-lock.json    # or pnpm-lock.yaml
+├── tsconfig.json
+└── dist/                # tsc output when not using tsx-only deploy
+```
+
+---
+
+## Commands you'll use often
+
+| Intent | Command | Notes |
+|--------|---------|-------|
+| Dev server | `npm run dev` | Usually tsx/watch or nodemon |
+| Test | `npm test` | Often vitest or jest |
+| Build | `npm run build` | `tsc` → `dist/` |
+| Typecheck only | `npx tsc --noEmit` | CI without emit |
+| Lint | `npm run lint` | eslint if configured |
 
 ---
 
@@ -46,7 +89,7 @@
 
 ---
 
-## Footgun checklist
+## Footguns
 
 - [ ] **`unhandledRejection` / `uncaughtException`** — log, metric, and exit policy documented; swallowed promises in async routes.
 - [ ] **Blocking the event loop** — sync fs on large files, heavy JSON parse, `crypto` misuse on hot paths.
@@ -87,6 +130,7 @@ Read this **after** the tables if the jargon felt dense.
 
 ## See also
 
-- [Go stack map](go.md) — workers and retrieval gateway beside Node/Python.
-- [Integration-automation patterns](../concepts/integration-automation.md) — n8n custom node stretch for Project 7.
-- [Software engineering breadth](../concepts/software-engineering.md) — REST, versioning, security.
+- [Language fundamentals comparison — JS/TS](language-fundamentals-comparison.md) — syntax side-by-side
+- [Go stack map](go.md) — workers and retrieval gateway beside Node/Python
+- [Integration-automation patterns](../concepts/integration-automation.md) — n8n custom node stretch for Project 7
+- [Software engineering breadth](../concepts/software-engineering.md) — REST, versioning, security

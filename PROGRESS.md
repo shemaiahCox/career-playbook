@@ -33,6 +33,17 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
+---
+
+## 2026-06-03 — Language ecosystem maps (top-to-bottom story)
+
+- **Added** [docs/templates/language-ecosystem-map.md](docs/templates/language-ecosystem-map.md) — shared H2 outline for all stack maps.
+- **Restructured** all six ecosystem maps ([python](docs/languages/python.md), [go](docs/languages/go.md), [node-typescript-backend](docs/languages/node-typescript-backend.md), [php-laravel](docs/languages/php-laravel.md), [rust](docs/languages/rust.md), [sql](docs/languages/sql.md)): best for → how it runs → environment setup → project layout → daily commands → playbook concepts.
+- **Extended** [language-fundamentals-comparison.md](docs/languages/language-fundamentals-comparison.md) with **Rust** column (~20 tables), snippets, and quick-reference rows.
+- **Updated** [glossary](docs/languages/glossary.md) (Rust row, template link, fundamentals note) and [docs/README](docs/README.md) languages intro.
+
+---
+
 ## 2026-06-03 — Capstone, portfolio artifacts, production checklist
 
 - **Added** [Project 21 — Integrated platform capstone](career-project-specs/21-integrated-platform-capstone.md) (Step 21): compose Projects 1–20 into one flagship demo/deploy stack.

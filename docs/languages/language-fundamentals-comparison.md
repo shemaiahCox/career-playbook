@@ -1,8 +1,8 @@
 # Language fundamentals comparison
 
-**Purpose:** One reference for the same **ideas**—variables, operators, conditionals, loops, functions, classes, collections, modules, enums, generics, strings, scope, errors, nulls, async—across the **core stack** for **integration and AI engineers**: **JavaScript/TypeScript**, **PHP**, **Go**, and **Python**. Query syntax lives in [SQL stack](sql.md).
+**Purpose:** One reference for the same **ideas**—variables, operators, conditionals, loops, functions, classes, collections, modules, enums, generics, strings, scope, errors, nulls, async—across the **core stack** for **integration and AI engineers**: **JavaScript/TypeScript**, **PHP**, **Go**, **Python**, and **Rust** (Tier-2 after Project 8 Go—see [Rust stack](rust.md)). Query syntax lives in [SQL stack](sql.md).
 
-**Companion docs:** [Software engineering](../concepts/software-engineering.md) (patterns, concurrency ops) · [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) (Big-O, trees, interview structures) · [Python stack](python.md) · [SQL stack](sql.md)
+**Companion docs:** [Software engineering](../concepts/software-engineering.md) (patterns, concurrency ops) · [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) (Big-O, trees, interview structures) · [Python stack](python.md) · [Rust stack](rust.md) · [SQL stack](sql.md)
 
 ---
 
@@ -33,7 +33,6 @@
 - [Language-specific extras](#language-specific-extras)
 - [Python (scripting lane)](#python-scripting-lane)
 - [Quick reference index](#quick-reference-index)
-- [Runnable sandboxes in this repo](#runnable-sandboxes-in-this-repo)
 
 ---
 
@@ -45,7 +44,7 @@
 4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
 
-**Comment style note:** JavaScript, TypeScript, Go, and PHP use `//` for line comments. Python uses `#`. PHP block comments use `/* ... */` like JS.
+**Comment style note:** JavaScript, TypeScript, Go, Rust, and PHP use `//` for line comments. Python uses `#`. PHP block comments use `/* ... */` like JS.
 
 ---
 
@@ -53,12 +52,12 @@
 
 Every language lets you bind a name to a value; they differ on **whether rebinding or mutation is allowed by default** and on **type syntax**.
 
-| Idea | JavaScript | TypeScript | PHP | Go | Python |
-|------|------------|------------|-----|-----|--------|
-| Immutable binding | `const x = 1` | `const x: number = 1` | No `const` for vars; use `final` in classes sparingly | `x := 1` then no rebind with `:=` on same name in same scope; or `const` in Go 1.22+ block | Convention: `UPPER = 1` for constants; no enforced immutability |
-| Mutable binding | `let s = ""` | `let s: string = ""` | `$s = ''` | `s := ""` then `s = "hi"` | `s = ""` |
-| Type annotation | optional | `const url: string` | `string $name` (PHP 7.4+) | `var name string = "Ada"` | `name: str = "Ada"` (optional hints) |
-| Module-level export | `export const API = ...` | same | `namespace` + class constants | Capitalized name = exported in package | module-level names; `__all__` for public API |
+| Idea | JavaScript | TypeScript | PHP | Go | Python | Rust |
+|------|------------|------------|-----|-----|--------|------|
+| Immutable binding | `const x = 1` | `const x: number = 1` | No `const` for vars; use `final` in classes sparingly | `x := 1` then no rebind with `:=` on same name in same scope; or `const` in Go 1.22+ block | Convention: `UPPER = 1` for constants; no enforced immutability | `let x = 1` immutable default; `const` compile-time |
+| Mutable binding | `let s = ""` | `let s: string = ""` | `$s = ''` | `s := ""` then `s = "hi"` | `s = ""` | `let mut s = String::new()` |
+| Type annotation | optional | `const url: string` | `string $name` (PHP 7.4+) | `var name string = "Ada"` | `name: str = "Ada"` (optional hints) | `name: String` · inference |
+| Module-level export | `export const API = ...` | same | `namespace` + class constants | Capitalized name = exported in package | module-level names; `__all__` for public API | `pub const` · `pub fn` · `pub struct` |
 
 ```javascript
 // JavaScript — const = no rebinding; object innards can still mutate
@@ -86,18 +85,24 @@ limits = {"max": 10}
 limits["max"] = 20  # dict is mutable even if name is "constant"
 ```
 
+```rust
+// Rust — immutable by default
+const API_BASE: &str = "https://example.com";
+let mut limits = HashMap::from([("max", 10)]);
+```
+
 ---
 
 ## Functions
 
 Functions group logic; **methods** attach to types. Visibility and **multiple return values** vary widely.
 
-| Idea | JavaScript/TS | PHP | Go | Python |
-|------|---------------|-----|-----|--------|
-| Named function | `function add(a, b) { return a + b }` | `function add(int $a, int $b): int` | `func add(a, b int) int` | `def add(a: int, b: int) -> int:` |
-| Arrow / expression | `const add = (a, b) => a + b` | fn expr rare in PHP 8+ | — | `lambda x: x + 1` |
-| Multiple returns | array/tuple destructuring | array or object; no native tuple | `(value, error)` idiomatic | `return a, b` → tuple |
-| Export / visibility | `export function` | `public function` in class | Capitalized = exported | leading `_` convention for "private" |
+| Idea | JavaScript/TS | PHP | Go | Python | Rust |
+|------|---------------|-----|-----|--------|------|
+| Named function | `function add(a, b) { return a + b }` | `function add(int $a, int $b): int` | `func add(a, b int) int` | `def add(a: int, b: int) -> int:` | `fn add(a: i32, b: i32) -> i32` |
+| Arrow / expression | `const add = (a, b) => a + b` | fn expr rare in PHP 8+ | — | `lambda x: x + 1` | closures `|x| x + 1` |
+| Multiple returns | array/tuple destructuring | array or object; no native tuple | `(value, error)` idiomatic | `return a, b` → tuple | `Result<T,E>` · tuples |
+| Export / visibility | `export function` | `public function` in class | Capitalized = exported | leading `_` convention for "private" | `pub fn` · module privacy |
 
 ```typescript
 // TypeScript — export + typed params (Node sandbox: node-ts-http-probe)
@@ -136,11 +141,19 @@ def parse_timeout_ms(raw: str | None) -> int:
     return n
 ```
 
+```rust
+fn parse_timeout_ms(raw: Option<&str>) -> Result<u64, String> {
+    let n: u64 = raw.unwrap_or("3000").parse().map_err(|e| e.to_string())?;
+    if n == 0 { return Err("invalid timeout".into()); }
+    Ok(n)
+}
+```
+
 ### Closures (functions that capture surroundings)
 
-| Idea | JavaScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| Closure / lambda | `(x) => x + base` | `fn($x) => $x + $base` | `func(x int) int { return x + base }` | `lambda x: x + base` |
+| Idea | JavaScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| Closure / lambda | `(x) => x + base` | `fn($x) => $x + $base` | `func(x int) int { return x + base }` | `lambda x: x + base` | `|x| x + base` · move/borrow rules |
 
 ```javascript
 // JavaScript — arrow function closes over `base`
@@ -160,18 +173,24 @@ def make_adder(base):
 add10 = make_adder(10)
 ```
 
+```rust
+fn make_adder(base: i32) -> impl Fn(i32) -> i32 {
+    move |x| x + base
+}
+```
+
 ---
 
 ## Classes, structs, and interfaces
 
 **OOP** languages center on **classes**; **Go** favors **structs** + behavior attached separately. **TypeScript** adds structural interfaces; **Python** uses duck typing with optional `Protocol` types.
 
-| Idea | JavaScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| Type definition | `class User { }` | `class User { }` | `type User struct { }` | `class User:` · `@dataclass` |
-| Interface / protocol | duck typing; `implements` in TS | `interface` + traits | implicit interfaces | `Protocol` / duck typing |
-| Inheritance | `extends` | `extends` | composition, no subclassing | `class Child(Parent):` |
-| Method on type | `method() { }` | `public function method()` | `func (u *User) Save()` | `def save(self):` |
+| Idea | JavaScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| Type definition | `class User { }` | `class User { }` | `type User struct { }` | `class User:` · `@dataclass` | `struct User` · `enum` |
+| Interface / protocol | duck typing; `implements` in TS | `interface` + traits | implicit interfaces | `Protocol` / duck typing | `trait` · implicit impl |
+| Inheritance | `extends` | `extends` | composition, no subclassing | `class Child(Parent):` | no inheritance — compose |
+| Method on type | `method() { }` | `public function method()` | `func (u *User) Save()` | `def save(self):` | `impl User { fn save(&self) }` |
 
 ```javascript
 // JavaScript — class + constructor field shorthand
@@ -218,6 +237,13 @@ class Greeter:
         return f"hi {self.name}"
 ```
 
+```rust
+struct Greeter { name: String }
+impl Greeter {
+    fn hello(&self) -> String { format!("hi {}", self.name) }
+}
+```
+
 ---
 
 ## Built-in data structures
@@ -226,14 +252,14 @@ class Greeter:
 
 ### Overview: literals and types
 
-| Structure | JavaScript | PHP | Go | Python |
-|-----------|------------|-----|-----|--------|
-| Ordered list | `[1, 2, 3]` | `[0, 1]` indexed array | `[]int{1,2}` **slice** | `[1, 2, 3]` |
-| Map / dict | `{ k: "v" }` / `new Map()` | `['k' => 'v']` assoc array | `map[string]int{}` | `{"a": 1}` |
-| Set | `new Set([1,2])` | no native `Set` (see [Sets](#sets)) | `map[T]struct{}` idiom | `{1, 2}` |
-| String | immutable UTF-16 | `mbstring` for Unicode | immutable UTF-8 `string` | immutable `str` |
-| Mutable by default? | arrays/objects yes | arrays yes | slice/map yes if variable mutable | list/dict/set yes |
-| Iterate | `for...of`, `.forEach` | `foreach` | `for range` | `for x in items:` |
+| Structure | JavaScript | PHP | Go | Python | Rust |
+|-----------|------------|-----|-----|--------|------|
+| Ordered list | `[1, 2, 3]` | `[0, 1]` indexed array | `[]int{1,2}` **slice** | `[1, 2, 3]` | `vec![1,2,3]` **Vec** |
+| Map / dict | `{ k: "v" }` / `new Map()` | `['k' => 'v']` assoc array | `map[string]int{}` | `{"a": 1}` | `HashMap<K,V>` |
+| Set | `new Set([1,2])` | no native `Set` (see [Sets](#sets)) | `map[T]struct{}` idiom | `{1, 2}` | `HashSet<T>` |
+| String | immutable UTF-16 | `mbstring` for Unicode | immutable UTF-8 `string` | immutable `str` | `String` / `&str` |
+| Mutable by default? | arrays/objects yes | arrays yes | slice/map yes if variable mutable | list/dict/set yes | `let mut` for mutable |
+| Iterate | `for...of`, `.forEach` | `foreach` | `for range` | `for x in items:` | `for x in &items` |
 
 Loop spellings: [Loops and iteration](#loops-and-iteration). String interpolation: [Strings, formatting, and destructuring](#strings-formatting-and-destructuring).
 
@@ -241,16 +267,16 @@ Loop spellings: [Loops and iteration](#loops-and-iteration). String interpolatio
 
 Ordered sequences with **integer indices** (0-based in JS, PHP, Python). **Go:** prefer growable **slices** `[]T` over fixed **arrays** `[N]T`. **PHP:** indexed `[a, b]` and associative `['k' => v]` share the same `array` type.
 
-| Operation | JavaScript | PHP | Go | Python |
-|-----------|------------|-----|-----|--------|
-| Create empty | `[]` | `[]` | `make([]int, 0)` or `nil` slice | `[]` |
-| Index read | `arr[i]` | `$arr[$i]` | `s[i]` | `arr[i]` |
-| Length | `.length` | `count($arr)` | `len(s)` | `len(arr)` |
-| Append | `.push(x)` | `array_push($arr, $x)` | `append(s, x)` | `.append(x)` |
-| Pop last | `.pop()` | `array_pop($arr)` | `s = s[:len(s)-1]` | `.pop()` |
-| Slice / subrange | `arr.slice(1, 3)` | `array_slice($arr, 1, 2)` | `s[low:high]` | `arr[1:3]` |
-| Sort | `.sort()` (in place) | `sort($arr)` | `sort.Ints(s)` | `.sort()` / `sorted(arr)` |
-| Copy | `[...arr]` | `[...$a]` (spread 7.4+) | `slices.Clone(s)` | `arr.copy()` / `list(arr)` |
+| Operation | JavaScript | PHP | Go | Python | Rust |
+|-----------|------------|-----|-----|--------|------|
+| Create empty | `[]` | `[]` | `make([]int, 0)` or `nil` slice | `[]` | `Vec::new()` |
+| Index read | `arr[i]` | `$arr[$i]` | `s[i]` | `arr[i]` | `v[i]` |
+| Length | `.length` | `count($arr)` | `len(s)` | `len(arr)` | `v.len()` |
+| Append | `.push(x)` | `array_push($arr, $x)` | `append(s, x)` | `.append(x)` | `v.push(x)` |
+| Pop last | `.pop()` | `array_pop($arr)` | `s = s[:len(s)-1]` | `.pop()` | `v.pop()` |
+| Slice / subrange | `arr.slice(1, 3)` | `array_slice($arr, 1, 2)` | `s[low:high]` | `arr[1:3]` | `&v[1..3]` |
+| Sort | `.sort()` (in place) | `sort($arr)` | `sort.Ints(s)` | `.sort()` / `sorted(arr)` | `v.sort()` |
+| Copy | `[...arr]` | `[...$a]` (spread 7.4+) | `slices.Clone(s)` | `arr.copy()` / `list(arr)` | `v.clone()` |
 
 ```javascript
 // JavaScript — array ops
@@ -288,18 +314,26 @@ mid = nums[1:3]
 nums.sort()
 ```
 
+```rust
+let mut nums = vec![1, 2, 3];
+nums.push(4);
+nums.pop();
+let mid = &nums[1..3];
+nums.sort();
+```
+
 ### Maps and dictionaries
 
 Key–value lookup. **Missing keys:** JavaScript `undefined`; Go returns **zero value** + `ok`; PHP `null` or notice depending on config—prefer `isset` / `array_key_exists`; Python raises `KeyError`—prefer `.get()`.
 
-| Operation | JavaScript | PHP | Go | Python |
-|-----------|------------|-----|-----|--------|
-| Literal | `{ id: 1 }` | `['id' => 1]` | `map[string]int{"a": 1}` | `{"a": 1}` |
-| Set | `m[k] = v` | `$m['k'] = $v` | `m[k] = v` | `m[k] = v` |
-| Get | `m[k]` / `m.get(k)` | `$m['k']` | `v := m[k]` | `m[k]` / `m.get(k, default)` |
-| Has key | `k in m` / `m.has(k)` | `isset($m['k'])` | `_, ok := m[k]` | `"k" in m` |
-| Delete | `delete m[k]` | `unset($m['k'])` | `delete(m, k)` | `del m["k"]` |
-| Keys | `Object.keys(m)` | `array_keys($m)` | `for k := range m` | `m.keys()` |
+| Operation | JavaScript | PHP | Go | Python | Rust |
+|-----------|------------|-----|-----|--------|------|
+| Literal | `{ id: 1 }` | `['id' => 1]` | `map[string]int{"a": 1}` | `{"a": 1}` | `HashMap::from([...])` |
+| Set | `m[k] = v` | `$m['k'] = $v` | `m[k] = v` | `m[k] = v` | `m.insert(k, v)` |
+| Get | `m[k]` / `m.get(k)` | `$m['k']` | `v := m[k]` | `m[k]` / `m.get(k, default)` | `m.get(&k)` → `Option` |
+| Has key | `k in m` / `m.has(k)` | `isset($m['k'])` | `_, ok := m[k]` | `"k" in m` | `m.contains_key(&k)` |
+| Delete | `delete m[k]` | `unset($m['k'])` | `delete(m, k)` | `del m["k"]` | `m.remove(&k)` |
+| Keys | `Object.keys(m)` | `array_keys($m)` | `for k := range m` | `m.keys()` | `m.keys()` |
 
 ```javascript
 // JavaScript — object or Map
@@ -343,16 +377,22 @@ if "u1" in by_id:
     del by_id["u1"]
 ```
 
+```rust
+use std::collections::HashMap;
+let mut by_id: HashMap<&str, &str> = HashMap::new();
+by_id.insert("u1", "Ada");
+```
+
 ### Sets
 
 Unordered **unique** values. **PHP** has no first-class `Set`; use `array_unique`, `in_array`, or SPL `SplObjectStorage` for objects.
 
-| Operation | JavaScript | PHP | Go | Python |
-|-----------|------------|-----|-----|--------|
-| Create | `new Set([1,2])` | `(array) array_unique($a)` | `map[int]struct{}{}` | `{1, 2}` |
-| Add | `.add(x)` | `$seen[$x] = true` idiom | `s[x] = struct{}{}` | `.add(x)` |
-| Has | `.has(x)` | `isset($seen[$x])` | `_, ok := s[x]` | `x in s` |
-| Delete | `.delete(x)` | `unset($seen[$x])` | `delete(s, x)` | `.discard(x)` / `.remove(x)` |
+| Operation | JavaScript | PHP | Go | Python | Rust |
+|-----------|------------|-----|-----|--------|------|
+| Create | `new Set([1,2])` | `(array) array_unique($a)` | `map[int]struct{}{}` | `{1, 2}` | `HashSet::from([...])` |
+| Add | `.add(x)` | `$seen[$x] = true` idiom | `s[x] = struct{}{}` | `.add(x)` | `s.insert(x)` |
+| Has | `.has(x)` | `isset($seen[$x])` | `_, ok := s[x]` | `x in s` | `s.contains(&x)` |
+| Delete | `.delete(x)` | `unset($seen[$x])` | `delete(s, x)` | `.discard(x)` / `.remove(x)` | `s.remove(&x)` |
 
 ```javascript
 const seen = new Set(["a", "b"]);
@@ -385,14 +425,20 @@ if "a" in seen:
     seen.discard("b")
 ```
 
+```rust
+use std::collections::HashSet;
+let mut seen: HashSet<&str> = ["a", "b"].into_iter().collect();
+seen.insert("c");
+```
+
 ### Tuples and fixed-size pairs
 
 Fixed-arity groupings without defining a class. **PHP:** use a small array `[id, name]` or a class/`readonly` DTO. **Go:** no tuple type—use a small struct.
 
-| Idea | TypeScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| Pair | `[string, number]` | `[$id, $name]` | small struct `{ID string; N int}` | `(id, name)` tuple |
-| Destructure | `const [a, b] = pair` | `[$id, $name] = $row` | explicit fields | `a, b = pair` |
+| Idea | TypeScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| Pair | `[string, number]` | `[$id, $name]` | small struct `{ID string; N int}` | `(id, name)` tuple | `(String, i32)` or struct |
+| Destructure | `const [a, b] = pair` | `[$id, $name] = $row` | explicit fields | `a, b = pair` | `let (a, b) = pair` |
 
 ```typescript
 type StatusPair = [number, string];
@@ -410,10 +456,10 @@ id, name = "u1", "Ada"  # also valid tuple unpacking
 
 Many languages use **array/list methods** instead of separate `Stack`/`Queue` types for simple cases.
 
-| Pattern | JavaScript | PHP | Go | Python |
-|---------|------------|-----|-----|--------|
-| Stack (LIFO) | `push` / `pop` | `array_push` / `array_pop` | `append` / trim last | `.append` / `.pop()` |
-| Queue (FIFO) | `push` / `shift` | `array_push` / `array_shift` | slice + copy front (or channel) | `collections.deque` |
+| Pattern | JavaScript | PHP | Go | Python | Rust |
+|---------|------------|-----|-----|--------|------|
+| Stack (LIFO) | `push` / `pop` | `array_push` / `array_pop` | `append` / trim last | `.append` / `.pop()` | `Vec::push` / `pop` |
+| Queue (FIFO) | `push` / `shift` | `array_push` / `array_shift` | slice + copy front (or channel) | `collections.deque` | `VecDeque` |
 
 ```javascript
 // Stack
@@ -463,14 +509,14 @@ For **time/space tradeoffs** and interview structures (heap, tree, graph), see [
 
 Operators combine values into expressions. Watch **integer division**, **null-safe access**, and languages that **forbid** `++` on primitives (Go, Python).
 
-| Category | JavaScript | TypeScript | PHP | Go | Python |
-|----------|------------|------------|-----|-----|--------|
-| Arithmetic | `+ - * / % **` | same | same | same | same; `//` floor div |
-| Compare | `===` `!==` `<` | same | `==` loose · `===` strict | `==` `!=` (typed) | `==` value · `is` identity |
-| Logical | `&&` `\|\|` `!` | same | `and` `or` `!` (also `&&`) | `&&` `\|\|` `!` | `and` `or` `not` |
-| Assign | `=` `+=` | same | `.=` | `=` `:=` (declare) | `=` `+=` |
-| Null-safe | `?.` `??` | same | `?->` `??` (since 7.0) | — (explicit checks) | — (explicit checks) |
-| Increment | `++` `--` | same | `++` `--` | none (`i++` invalid) | none (`+= 1`) |
+| Category | JavaScript | TypeScript | PHP | Go | Python | Rust |
+|----------|------------|------------|-----|-----|--------|------|
+| Arithmetic | `+ - * / % **` | same | same | same | same; `//` floor div | same |
+| Compare | `===` `!==` `<` | same | `==` loose · `===` strict | `==` `!=` (typed) | `==` value · `is` identity | `==` via `PartialEq` |
+| Logical | `&&` `\|\|` `!` | same | `and` `or` `!` (also `&&`) | `&&` `\|\|` `!` | `and` `or` `not` | `&&` `\|\|` `!` |
+| Assign | `=` `+=` | same | `.=` | `=` `:=` (declare) | `=` `+=` | `=` · `let mut` |
+| Null-safe | `?.` `??` | same | `?->` `??` (since 7.0) | — (explicit checks) | — (explicit checks) | `Option` + `match` |
+| Increment | `++` `--` | same | `++` `--` | none (`i++` invalid) | none (`+= 1`) | none (`+= 1`) |
 
 ```javascript
 // JavaScript — nullish coalescing vs logical OR
@@ -504,12 +550,12 @@ timeout = config.get("ms") or 3000  # or: config.get("ms", 3000)
 
 Branch when logic diverges. **`switch`** (C-family) often **falls through** unless you `break`; **`match`** (PHP 8+, Python 3.10+) is usually **expression-oriented** and strict.
 
-| Idea | JavaScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| if / else | `if (x) { } else { }` | `if ($x) { }` | `if x { }` (no parens required) | `if x:` / `elif` / `else:` |
-| switch | `switch (x) { case 1: ... }` | `switch ($x)` · `match` (8.0+) | `switch x { case 1: }` | `match x:` (3.10+) |
-| Ternary | `a ? b : c` | `$a ? $b : $c` | no ternary — use `if` | `b if cond else c` |
-| Elvis / default | `??` | `?:` | — | `or` / `if not` patterns |
+| Idea | JavaScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| if / else | `if (x) { } else { }` | `if ($x) { }` | `if x { }` (no parens required) | `if x:` / `elif` / `else:` | `if x { } else { }` |
+| switch | `switch (x) { case 1: ... }` | `switch ($x)` · `match` (8.0+) | `switch x { case 1: }` | `match x:` (3.10+) | `match` exhaustive |
+| Ternary | `a ? b : c` | `$a ? $b : $c` | no ternary — use `if` | `b if cond else c` | no ternary — `if` expr |
+| Elvis / default | `??` | `?:` | — | `or` / `if not` patterns | `unwrap_or` · `Option` |
 
 ```javascript
 // JavaScript — switch needs break to avoid fall-through
@@ -544,18 +590,26 @@ match status:
         label = "other"
 ```
 
+```rust
+let label = match status {
+    200 => "ok",
+    404 => "missing",
+    _ => "other",
+};
+```
+
 ---
 
 ## Loops and iteration
 
 Loops repeat work over **ranges**, **conditions**, or **collections**. Prefer **foreach / for-in** over manual indexing when the language supports it—fewer off-by-one bugs.
 
-| Idea | JavaScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| C-style for | `for (let i=0; i<n; i++)` | `for ($i=0; $i<$n; $i++)` | `for i := 0; i < n; i++` | `for i in range(n):` |
-| foreach / for-in | `for (const x of arr)` | `foreach ($arr as $x)` | `for _, v := range slice` | `for x in items:` |
-| while | `while (cond)` | `while ($cond)` | `for cond { }` (only loop keyword) | `while cond:` |
-| break / continue | `break` `continue` | same | same | same |
+| Idea | JavaScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| C-style for | `for (let i=0; i<n; i++)` | `for ($i=0; $i<$n; $i++)` | `for i := 0; i < n; i++` | `for i in range(n):` | `for i in 0..n` |
+| foreach / for-in | `for (const x of arr)` | `foreach ($arr as $x)` | `for _, v := range slice` | `for x in items:` | `for x in &items` |
+| while | `while (cond)` | `while ($cond)` | `for cond { }` (only loop keyword) | `while cond:` | `while cond { }` |
+| break / continue | `break` `continue` | same | same | same | `break` `continue` |
 
 ```javascript
 // JavaScript — for...of (values) vs for...in (keys on objects)
@@ -602,17 +656,24 @@ for key, value in scores.items():
     pass
 ```
 
+```rust
+for user in &users {
+    if user.skip { continue; }
+    println!("{}", user.name);
+}
+```
+
 ---
 
 ## Modules, imports, and packages
 
 **Modules** group code for reuse. Path rules differ: Node **file paths**, Go **module path in go.mod**, PHP **namespaces + Composer autoload**, Python **packages + `__init__.py`**.
 
-| Idea | JavaScript / TS | PHP | Go | Python |
-|------|-----------------|-----|-----|--------|
-| Export | `export { fn }` · `export default` | `namespace` + autoload PSR-4 | Capitalized identifiers | module-level names; `__all__` |
-| Import | `import { fn } from "./file.js"` | `use App\\Models\\User;` | `import "example.com/pkg"` | `from pkg import fn` |
-| Entry | `package.json` `"type":"module"` | `composer.json` autoload | `package main` + `go.mod` | `if __name__ == "__main__":` |
+| Idea | JavaScript / TS | PHP | Go | Python | Rust |
+|------|-----------------|-----|-----|--------|------|
+| Export | `export { fn }` · `export default` | `namespace` + autoload PSR-4 | Capitalized identifiers | module-level names; `__all__` | `pub fn` · `pub mod` |
+| Import | `import { fn } from "./file.js"` | `use App\\Models\\User;` | `import "example.com/pkg"` | `from pkg import fn` | `use crate::...` |
+| Entry | `package.json` `"type":"module"` | `composer.json` autoload | `package main` + `go.mod` | `if __name__ == "__main__":` | `fn main()` + `Cargo.toml` |
 
 ```javascript
 // JavaScript (ESM) — explicit .js extension often required in Node
@@ -646,17 +707,22 @@ from pathlib import Path
 # from .utils import parse_timeout_ms
 ```
 
+```rust
+mod utils;
+use crate::utils::parse_timeout_ms;
+```
+
 ---
 
 ## Enums, unions, and pattern matching
 
 **Enums** name a fixed set of variants. **Union types** (TS) and **match** (PHP, Python) model “one of several shapes” and dispatch safely.
 
-| Idea | JavaScript / TS | PHP | Go | Python |
-|------|-----------------|-----|-----|--------|
-| Named constants | `const enum`-like objects | `enum Status: string` (8.1+) | `const` + `iota` | `class Status(Enum):` |
-| Union / sealed | `type R = A \| B` | limited | interface + types | `Union` / `TypedDict` |
-| Dispatch | `switch` / `if` | `match` | `switch` | `match` / `if`/`elif` |
+| Idea | JavaScript / TS | PHP | Go | Python | Rust |
+|------|-----------------|-----|-----|--------|------|
+| Named constants | `const enum`-like objects | `enum Status: string` (8.1+) | `const` + `iota` | `class Status(Enum):` | `enum Status { Ok, Failed }` |
+| Union / sealed | `type R = A \| B` | limited | interface + types | `Union` / `TypedDict` | `enum` variants |
+| Dispatch | `switch` / `if` | `match` | `switch` | `match` / `if`/`elif` | `match` preferred |
 
 ```typescript
 // TypeScript — union + narrowing
@@ -701,11 +767,11 @@ class Status(str, Enum):
 
 **Generics** let one implementation work for many types while staying type-safe. PHP has **no reified generics** in the application language; Go added generics in **1.18+**; Python generics are primarily for static checkers.
 
-| Idea | TypeScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| Parameter | `<T>` on fn/type | — | `[T any]` | `def first[T](items: list[T])` (3.12+) |
-| Constraint | `extends` / `keyof` | — | `comparable`, interfaces | `TypeVar` with bound |
-| Erasure | types erased at emit | — | monomorphized at compile | erased at runtime |
+| Idea | TypeScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| Parameter | `<T>` on fn/type | — | `[T any]` | `def first[T](items: list[T])` (3.12+) | `<T>` on fn/struct |
+| Constraint | `extends` / `keyof` | — | `comparable`, interfaces | `TypeVar` with bound | trait bounds · `where` |
+| Erasure | types erased at emit | — | monomorphized at compile | erased at runtime | monomorphized at compile |
 
 ```typescript
 function first<T>(items: T[]): T | undefined {
@@ -739,11 +805,11 @@ def first(items: list[T]) -> T | None:
 
 **Interpolation** embeds values in strings; **destructuring** pulls fields or elements into bindings in one step.
 
-| Idea | JavaScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| Interpolation | `` `hi ${name}` `` | `"hi $name"` · `"hi {$name}"` | `fmt.Sprintf("hi %s", name)` | `f"hi {name}"` |
-| Substring / slice | `s.slice(0, 3)` | `substr` / `mb_substr` | `s[0:3]` bytes (UTF-8 care) | `s[0:3]` |
-| Destructure | `const { id } = user` | `[$a, $b] = $pair` · `list()` | explicit fields | `a, b = pair` · `**kwargs` |
+| Idea | JavaScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| Interpolation | `` `hi ${name}` `` | `"hi $name"` · `"hi {$name}"` | `fmt.Sprintf("hi %s", name)` | `f"hi {name}"` | `format!("hi {}", name)` |
+| Substring / slice | `s.slice(0, 3)` | `substr` / `mb_substr` | `s[0:3]` bytes (UTF-8 care) | `s[0:3]` | `&s[0..3]` |
+| Destructure | `const { id } = user` | `[$a, $b] = $pair` · `list()` | explicit fields | `a, b = pair` · `**kwargs` | struct destructuring |
 
 ```javascript
 // JavaScript — object and array destructuring + spread
@@ -772,11 +838,11 @@ merged = {**defaults, **overrides}
 
 **Block scope** limits where a name is visible. **Casting** converts between types at runtime—prefer type-safe patterns (generics, guards, `isinstance`) when the language offers them.
 
-| Idea | JavaScript | PHP | Go | Python |
-|------|------------|-----|-----|--------|
-| Block scope | `{ let x = 1 }` | `{ $x = 1 }` | `{ x := 1 }` | indentation block |
-| Hoisting | `var`/`function` hoisted | — | — | — |
-| Cast / assert | `Number(x)` · `String(x)` | `(int)$x` | `v, ok := x.(Type)` | `int(x)` · `isinstance(x, str)` |
+| Idea | JavaScript | PHP | Go | Python | Rust |
+|------|------------|-----|-----|--------|------|
+| Block scope | `{ let x = 1 }` | `{ $x = 1 }` | `{ x := 1 }` | indentation block | `{ let x = 1; }` |
+| Hoisting | `var`/`function` hoisted | — | — | — | — |
+| Cast / assert | `Number(x)` · `String(x)` | `(int)$x` | `v, ok := x.(Type)` | `int(x)` · `isinstance(x, str)` | `x as i32` · `downcast` |
 
 ```javascript
 // JavaScript — let/const block-scoped; var function-scoped (legacy)
@@ -818,9 +884,10 @@ Same lesson everywhere: distinguish **expected failures** (network down, bad use
 
 | Style | Languages | Mental model |
 |-------|-----------|--------------|
-| Return + check | Go `(T, error)` | Caller must handle every time |
+| Return + check | Go `(T, error)`, Rust `Result<T,E>` + `?` | Caller must handle every time |
 | Exceptions | JS, PHP, Python | Throw up the stack; catch at boundary |
 | Mixed | TypeScript (same as JS) | Typed catches; `unknown` in catch |
+| Panic | Rust (libraries avoid) | Unwind on bug—use `Result` at service boundaries |
 
 ### Go — returned `error`
 
@@ -867,6 +934,15 @@ except json.JSONDecodeError as e:
     raise ValueError("invalid payload") from e
 ```
 
+
+### Rust — `Result` and `?`
+
+```rust
+let resp = client.get(url).send().await?;
+let body = resp.text().await?;
+// ? propagates Err; map to HTTP 500 or DLQ at boundary
+```
+
 **Transferable takeaway:** Pick the boundary (HTTP handler, CLI `main`, worker job) where failures become **user-visible messages** or **logged errors**—regardless of language spelling.
 
 ---
@@ -882,6 +958,7 @@ except json.JSONDecodeError as e:
 | PHP | `null`; coalesce `??`; typed `?string` |
 | Go | Pointer `nil`; no generic optional type |
 | Python | `None`; test with `is None` (not `== None`) |
+| Rust | `Option<T>` (`Some`/`None`); no null in safe code |
 
 ```typescript
 // TypeScript — optional property + guard
@@ -908,6 +985,7 @@ def endpoint(url: str | None) -> str:
 | **PHP** | **Type juggling** with `==`; use `===` for strict |
 | **Python** | `is` vs `==` (`is` for identity, e.g. `None`) |
 | **Go** | `==` works on comparable types; slices/maps not comparable with `==` |
+| **Rust** | `PartialEq`; no truthiness—use `match` / `if let` |
 
 ```javascript
 // JavaScript
@@ -938,6 +1016,7 @@ Know each language’s **falsy** set before writing `if (value)`:
 | PHP | `false`, `0`, `0.0`, `""`, `"0"`, `[]`, `null` |
 | Python | `False`, `None`, `0`, `""`, empty containers |
 | Go | only `false` for booleans; `if` requires bool—no truthy ints |
+| Rust | only `false` in `if`; explicit `Option`/`Result` handling |
 
 ---
 
@@ -952,6 +1031,7 @@ This section is **syntax and models** only. Operational concurrency (thread pool
 | **PHP** | Often **sync per request** (FPM); queues/Octane for async work | `dispatch(new Job($payload))` |
 | **Go** | Goroutines + channels; `go fn()` | `go worker()` · `context` for cancel |
 | **Python** | `asyncio` coroutines | `async def` · `await` · `asyncio.run()` |
+| **Rust** | `async`/`await` + **tokio** (after sync path) | `async fn` · `.await` · `#[tokio::main]` |
 
 ```javascript
 // JavaScript — Promise + await (Node probe)
@@ -981,6 +1061,14 @@ async def fetch(url: str) -> bytes:
 asyncio.run(fetch("https://example.com"))
 ```
 
+```rust
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let _body = reqwest::get("https://example.com").await?.text().await?;
+    Ok(())
+}
+```
+
 ---
 
 ## Language-specific extras
@@ -1005,6 +1093,16 @@ Short list of **non-obvious** items worth knowing when you move between core-sta
 - **Interfaces** — implicit satisfaction (no `implements` keyword).
 - **No inheritance** — compose with struct embedding.
 - **`defer`** — run cleanup when function returns.
+
+
+### Rust
+
+- **`let` vs `let mut`** — bindings immutable by default.
+- **Ownership / borrow** — see [Rust stack](rust.md); not duplicated here.
+- **`Result<T,E>` / `Option<T>` / `?`** — expected failures as values.
+- **`match` / `if let`** — exhaustive dispatch for enums.
+- **`pub`** — export at crate boundary.
+- Stack map: [Rust stack](rust.md).
 
 ### Python
 
@@ -1074,6 +1172,11 @@ Stack map: [Python stack](python.md). Database queries: [SQL stack](sql.md).
 | `===` vs `==`, `None`, `?.` | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) |
 | `async`/`await`, goroutines | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) |
 | ESM, traits, comprehensions | [Language-specific extras](#language-specific-extras) |
+| `Option<T>` / `Result<T,E>` | [Error handling](#error-handling) · [Null, optionals](#null-optionals-equality-and-truthiness) |
+| `match` / `if let` | [Conditionals](#conditionals-and-branching) · [Enums](#enums-unions-and-pattern-matching) |
+| `Vec` / `HashMap` | [Arrays](#arrays-and-ordered-lists) · [Maps](#maps-and-dictionaries) |
+| `pub` / `crate::` | [Modules](#modules-imports-and-packages) |
+
 | SQL queries | [SQL stack](sql.md) |
 
 ---
