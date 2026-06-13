@@ -4,16 +4,16 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 
 **Naming:** Older docs may say **`projects/`**; that folder name is now **`career-projects/`**.
 
-**Positioning (12–18 month headline):** Integrations + automation backend engineer who ships **reliable, observable, event-driven** services—**Boomi/n8n-shaped** patterns, **RAG/LLM** boundaries in Python, **performance-critical** workers and retrieval in **Go**, optional **Rust** hot-path depth after P9, APIs in **PHP/TypeScript**, data correctness in **SQL**.
+**Positioning (12–36 month headline):** Multi-pillar engineer (AI/Automation · Full-Stack · DevOps/Cloud · Security/Systems · IoT/Edge) who ships **reliable, observable, event-driven** systems on **Go · Python · Rust · TypeScript · SQL · PHP**—see [Engineering pillars](docs/paths/engineering-pillars.md) and [project catalog](career-project-specs/README.md).
 
-**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python · Rust — see [FOCUS.md](FOCUS.md). **Growth lanes:** Python (AI logic) + Go (throughput/workers); **Rust Tier‑2** after P9 Go; **ship today:** PHP, TypeScript, SQL at integration and data edges — [Growth lanes vs ship today](FOCUS.md#growth-lanes-vs-ship-today).
+**Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python · Rust — see [FOCUS.md](FOCUS.md). **Catalog:** [P1–P23 specs](career-project-specs/README.md) with **Concept spotlight** in each. **One active milestone** at a time; [waves](docs/paths/learning-journey.md#view-c--pillars-and-waves) over ~18–36 months.
 
 - **Focus and themes:** [FOCUS.md](FOCUS.md)
 - **Shipped work and lessons:** [PROGRESS.md](PROGRESS.md)
 - **Initiative specs:** [career-project-specs/](career-project-specs/)
 - **Reusable checklists:** [checklists/](checklists/)
 - **Docs index:** [docs/README.md](docs/README.md) — maps [paths/](docs/paths/), [handbook/](docs/handbook/), [stacks/](docs/stacks/), [playbook/](docs/playbook/) (per-lab testing + AI prompts) · **SE terms (A–Z):** [Software engineering glossary](docs/handbook/software-engineering-glossary.md)
-- **Learning journey (dependency path + optional week overlay):** [docs/paths/learning-journey.md](docs/paths/learning-journey.md) — start with [AI + automation + cloud quick map](docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map) if that is your focus
+- **Learning journey (dependency + pillars + calendar):** [docs/paths/learning-journey.md](docs/paths/learning-journey.md) · [Engineering pillars — P1–P23 catalog](docs/paths/engineering-pillars.md) · [Project catalog](career-project-specs/README.md)
 - **Build A in unfamiliar stack B (with AI):** [docs/paths/ai-assisted-unfamiliar-stack.md](docs/paths/ai-assisted-unfamiliar-stack.md) · ship rubric: [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md) · **Ecosystem maps:** [docs/stacks/README.md#ecosystem-maps-optional-short](docs/stacks/README.md#ecosystem-maps-optional-short) · **Plain-language index:** [docs/stacks/glossary.md](docs/stacks/glossary.md)
 
 ## Using this playbook
@@ -22,7 +22,7 @@ Single source of truth for **future-facing engineering themes**, a **phased proj
 
 Follow the [learning path](#learning-path-suggested) for ordering (dependency flow, not necessarily calendar order). For a **pacing / week overlay** that stays aligned with one active project, see [Learning journey](docs/paths/learning-journey.md). For the **active** spec only:
 
-1. Read **Problem** and **Career relevance** before coding—intent and engineering vocabulary first.
+1. Read **Problem**, **Career relevance**, and **Concept spotlight** before coding.
 2. Build against **Success criteria** in the linked lab repo (create the repo when the spec still says _TBD_). Each spec includes **Testing approach (lab)** plus [Per-project testing (labs + AI)](docs/playbook/per-project-testing.md) for layers and optional AI prompts.
 3. Use **Key concepts** as a glossary while designing or debugging—not as a linear tutorial.
 4. Run **Exploration scenarios** (hands-on cases after **Success criteria** in each spec) to drive failure modes and deepen understanding; paste exact curls/commands in the **lab README** when helpful.
@@ -62,7 +62,9 @@ Phases are **ordered for dependency flow**, not calendar weeks—you can overlap
 | **4b — SQL depth** | [07](career-project-specs/07-sql-performance-lab.md) | Postgres: plans, indexing, transactions, pagination, vector-adjacent retrieval. |
 | **4c — Security foundations** | [08](career-project-specs/08-application-security-lab.md) | OWASP web risks + integration-edge security literacy. |
 
-**Stack reality:** **PHP** (P1), **Python** (P4), **Go** (P9 workers/retrieval), **TypeScript** (P6), **SQL** (P7). P2 may use Laravel or FastAPI; P8 is stack-agnostic within the core set. Study depth: [Algorithms study path](docs/paths/algorithms-study-path.md) for Big-O tied to labs—not optional for P7/P9/RAG chunk paths.
+**Waves 2–3 (pillar depth + advanced):** [P10–P23](career-project-specs/README.md) — automation bot, LLM web app, multi-tenant auth, dashboard, DevOps CLI, cloud deploy, K8s, proxy, Rust hot-path, WASM, IoT edge. See [Engineering pillars](docs/paths/engineering-pillars.md).
+
+**Stack reality:** **PHP** (P1), **Python** (P4), **Go** (P9), **TypeScript** (P6+), **Rust** (P21+), **SQL** (P7). One active spec at a time.
 
 ## Architectural narrative
 
@@ -81,7 +83,8 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | **Event-driven + automation patterns** | P1 → P5 → P9; [integration-automation map](docs/stacks/integration-automation.md) |
 | **Go concurrency + retrieval boundary** | [Project 9](career-project-specs/09-go-retrieval-worker-lab.md); [Go stack map](docs/stacks/go.md) |
 | **Rust Tier‑2 (after P9 Go)** | [P9 stretch](career-project-specs/09-go-retrieval-worker-lab.md#stretch); [Rust stack map](docs/stacks/rust.md); [rust-cli-http-probe](exploration-projects/rust-cli-http-probe/README.md) |
-| **AI + automation + cloud (one spine)** | [Learning journey — quick map](docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map); capstone: P1/P6 → P5 → P9 → P4 → P7 |
+| **Five engineering pillars (full catalog)** | [Engineering pillars](docs/paths/engineering-pillars.md); [P1–P23](career-project-specs/README.md); Concept spotlight per spec |
+| **AI + automation + cloud (capstone)** | [Learning journey — quick map](docs/paths/learning-journey.md#ai-automation-and-cloud--quick-map); P1/P6 → P5 → P9 → P4 → P7 |
 | **Performance under load (Big-O)** | [Algorithms study path](docs/paths/algorithms-study-path.md); P7, P9, RAG chunk pipelines |
 | **TypeScript API lane** | [Project 6](career-project-specs/06-node-typescript-lab.md) |
 | **Unfamiliar stack + AI** | [AI-assisted unfamiliar stack](docs/paths/ai-assisted-unfamiliar-stack.md); [unfamiliar-stack ship](checklists/unfamiliar-stack-ship.md) |
@@ -100,6 +103,9 @@ The phased ladder doubles as **systems-thinking** practice: boundaries, failure 
 | 7 | SQL performance lab | [07-sql-perf-lab](career-projects/07-sql-perf-lab) | [shemaiahCox/sql-perf-lab](https://github.com/shemaiahCox/sql-perf-lab) |
 | 8 | OWASP / security foundations | _TBD_ | _TBD — see [P8](career-project-specs/08-application-security-lab.md)_ |
 | 9 | Go retrieval + worker lab | _TBD_ | _TBD — see [P9](career-project-specs/09-go-retrieval-worker-lab.md)_ |
+| 10–23 | Wave 2–3 pillar projects | _TBD_ | _See [catalog](career-project-specs/README.md)_ |
+
+Full list: [career-project-specs/README.md](career-project-specs/README.md).
 
 **Default layout:** Clone or open playbook-backed labs inside **`career-projects/`** as **`NN-*`** folders (often **nested `.git`** checkouts)—see [**`career-projects/README.md`**](career-projects/README.md). To add a missing lab from the playbook root: `git clone <ssh-url> career-projects/<folder-name>` (for example **`01-webhook-receiver-lab`**). **Separate commercial / product** repos unrelated to playbook labs may live beside this repo under **`~/Documents/dev/business-projects/`** (optional index: [sibling **`business-projects/README.md`**](../business-projects/README.md)).
 

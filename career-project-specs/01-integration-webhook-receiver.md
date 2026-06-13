@@ -26,6 +26,19 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 - **Forged traffic:** without verification, anyone who knows your URL can POST fake “subscription canceled” events. Signature verification is how you maintain **non-repudiation** at the HTTP boundary.
 - **Partial failure:** handler throws after **some** DB writes; without idempotency or compensation, replay might **duplicate** side effects. Dead-letter + abandon (or similar) is how you get back to a known state and retry deliberately.
 
+## Concept spotlight
+
+**Pillars:** AI & Automation · Security & Systems (integration edge)
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **Idempotency** | Key on `Idempotency-Key` (header or body); store outcome; replay returns same response without double side effects | AI/Automation, Full-Stack |
+| **HMAC verification** | Verify signature over **raw body** before parsing; reject forgeries with 401 | Security/Systems |
+| **Dead letter + replay** | Park poison payloads with evidence; document safe replay after fix | AI/Automation, DevOps |
+| **Fast ack** | Return 2xx after durable record of intent—not after all downstream work | AI/Automation |
+
+**Interview line:** *“Partners retry webhooks; we dedupe on Idempotency-Key and return the stored response so transport duplicates never double-apply business effects.”*
+
 ## Code repo
 
 | | URL |

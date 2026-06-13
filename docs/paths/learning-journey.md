@@ -1,8 +1,8 @@
 # Learning journey (easy to follow)
 
-Two views of the same playbook: **dependency order** (what to learn first) and an **optional calendar overlay**. Study load-bearing handbook sections—do not skim—especially [Algorithms study path](algorithms-study-path.md) during P7, P9, and RAG retrieval work.
+Three views of the same playbook: **dependency order** (View A), **calendar overlay** (View B), and **five engineering pillars** (View C). Every spec **P1–P23** includes a **Concept spotlight**. Study load-bearing handbook sections—do not skim—especially [Algorithms study path](algorithms-study-path.md) during P7, P9, and RAG retrieval work.
 
-**Companion:** [README — Learning path](../../README.md#learning-path-suggested) · [Systems integration architect](systems-integration-architect.md) · [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md)
+**Companion:** [README — Learning path](../../README.md#learning-path-suggested) · [Engineering pillars](engineering-pillars.md) · [Project catalog](../../career-project-specs/README.md) · [Systems integration architect](systems-integration-architect.md)
 
 **Core stack:** JavaScript · TypeScript · PHP · SQL · Go · Python · Rust (Tier‑2) — [FOCUS.md](../../FOCUS.md). **Python + Go** = long-term growth lanes; **Rust** after P9 Go; **PHP, TypeScript, SQL** = ship-today ingress and data — [Growth lanes vs ship today](../../FOCUS.md#growth-lanes-vs-ship-today).
 
@@ -54,9 +54,9 @@ Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs G
 |------|--------|
 | 1 | Optional anytime: [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/README.md) for ownership, `Result`, Cargo |
 | 2 | Read [Rust ecosystem map](../stacks/rust.md) — when Rust vs Go vs Python |
-| 3 | **P9 stretch:** reimplement retrieval gateway or worker in Rust; **same** HTTP/queue contract as Go |
+| 3 | **P9 stretch:** reimplement in Rust → [P21](../career-project-specs/21-rust-hot-path-lab.md) | Same contract as Go |
 | 4 | Log ADR in [PROGRESS.md](../../PROGRESS.md): Go vs Rust for this boundary (latency, ops, team, safety) |
-| 5 | Optional IoT/edge stretch: MQTT ingest side demo—tie to one load-bearing property only |
+| 5 | Optional IoT: [P23](../career-project-specs/23-iot-edge-lab.md) after P5 + P7 |
 
 **LinkedIn alignment:** AI Systems · Cloud · Automation · **Go · Python · Rust · TypeScript · SQL · PHP** — playbook spine matches; Rust is depth after Go, not breadth on day one.
 
@@ -64,10 +64,11 @@ Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs G
 
 ## Rules of thumb
 
-1. **One active project** — Pick **one** spec as spine. Depth beats parallel half-finished labs.
-2. **Concepts on demand** — Use **Key concepts** in the active spec and [stack maps](../stacks/README.md). Open [software engineering](../handbook/software-engineering.md) for **paragraphs** when a term is load-bearing.
-3. **Study, don’t skim** — For integration, concurrency, security, and Big-O, follow the paths linked in the phase table below.
-4. **Overlap is OK** — Phases can run in parallel calendar time; the table is **dependency** order.
+1. **One active milestone** — Pick **one** spec as spine; ship its success criteria before starting the next. The full catalog is [P1–P23](../../career-project-specs/README.md)—not five parallel half-finished repos.
+2. **Concept spotlight** — Each spec names 2–4 primary concepts + an **interview line**; reuse vocabulary (e.g. idempotency from P1 → P5 → P10 → P23).
+3. **Controlled parallelism** — **OK:** P7 SQL drills or P8 reading while another spec is spine. **Not OK:** two Wave-2+ specs both chasing ship criteria.
+4. **Concepts on demand** — Use **Key concepts** in the active spec and [stack maps](../stacks/README.md).
+5. **Overlap is OK** — Calendar overlap; dependency order in View A still applies.
 
 ---
 
@@ -82,7 +83,29 @@ Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs G
 | 5 | TypeScript API | [P6 — Node / TS](../career-project-specs/06-node-typescript-lab.md) | Core stack HTTP service, optional n8n node stretch |
 | 4b | SQL depth | [P7 — SQL performance](../career-project-specs/07-sql-performance-lab.md) | Plans, indexes, transactions, vector-adjacent retrieval |
 | 4c | Security | [P8 — Application security](../career-project-specs/08-application-security-lab.md) | OWASP + integration-edge security |
-| 4d | Rust Tier‑2 (optional) | [P9 stretch](../career-project-specs/09-go-retrieval-worker-lab.md#stretch), [rust map](../stacks/rust.md) | After P9 Go green: sandbox + optional reimplementation |
+| 4d | Rust / advanced systems | [P21 — Rust hot-path](../career-project-specs/21-rust-hot-path-lab.md) (after P9 Go) | Formal Tier‑2; Go vs Rust ADR |
+
+---
+
+## View C — Pillars and waves
+
+Navigate by **engineering pillar** or **wave**. Full tables: [Engineering pillars](engineering-pillars.md) · [Project catalog](../../career-project-specs/README.md).
+
+| Wave | Months (illustrative) | Specs | Pillars covered |
+|------|----------------------|-------|-----------------|
+| **1 — Foundation** | 1–12 | P1–P9 | All pillars (baseline) |
+| **2 — Pillar depth** | 12–24 | P10, P11, P12, P13, P15, P16 | AI/Automation, Full-Stack, DevOps |
+| **3 — Advanced** | 24–36 | P17, P18, P21, P22, P23 | DevOps, Security/Systems, IoT/Edge |
+
+| Pillar | Wave 2–3 specs (after foundation) |
+|--------|-------------------------------------|
+| **AI & Automation** | [P10](../career-project-specs/10-automation-bot-lab.md), [P11](../career-project-specs/11-llm-web-app-lab.md) |
+| **Full-Stack Platforms** | [P12](../career-project-specs/12-multi-tenant-auth-lab.md), [P13](../career-project-specs/13-realtime-dashboard-lab.md) |
+| **DevOps & Cloud** | [P15](../career-project-specs/15-devops-cli-lab.md), [P16](../career-project-specs/16-cloud-deploy-lab.md), [P17](../career-project-specs/17-k8s-controller-lab.md), [P18](../career-project-specs/18-proxy-load-balancer-lab.md) |
+| **Security & Systems** | [P21](../career-project-specs/21-rust-hot-path-lab.md), [P22](../career-project-specs/22-wasm-secure-component-lab.md) |
+| **IoT & Edge** | [P23](../career-project-specs/23-iot-edge-lab.md) (+ [P13](../career-project-specs/13-realtime-dashboard-lab.md) dashboard) |
+
+**Concept index:** [Engineering pillars — concept matrix](engineering-pillars.md#concept--project-matrix)
 
 ---
 
@@ -98,7 +121,9 @@ Log one ADR in [PROGRESS.md](../../PROGRESS.md) (e.g. Python-only retrieval vs G
 | **7–8** | Go prep (sandbox) | [go-cli-http-probe](../../exploration-projects/go-cli-http-probe/README.md) — CLI/HTTP only, not a lab milestone |
 | **8–10** | Phase 4 (P5 + P9) | Queue + Go worker/retrieval; optional [integrated capstone](#integrated-capstone-one-system-not-five-go-repos) wiring |
 | **11–12** | Phase 5 (P6) | Node/TS service with same integration habits |
-| **13+** | Rust Tier‑2 (optional) | [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/README.md) → P9 Rust stretch after Go core green |
+| **13–18** | Wave 1 finish + capstone | P7, P8, integrated capstone wiring |
+| **19–30** | Wave 2 (pillar depth) | P10 → P11 → P12 → P13 → P15 → P16 (one at a time) |
+| **31+** | Wave 3 (advanced) | P17, P18, P21, P22, P23 |
 | **Parallel** | P7 | Algorithms study path + Postgres exercises |
 | **Parallel** | P8 | OWASP lab after or alongside P2/P6 |
 
@@ -144,6 +169,8 @@ Log tradeoffs in [PROGRESS.md](../../PROGRESS.md).
 
 ## Related
 
+- [Engineering pillars](engineering-pillars.md) — full P1–P23 catalog by pillar
+- [Project catalog](../../career-project-specs/README.md)
 - [README](../../README.md) — Architectural narrative, quick links
 - [Systems integration architect](systems-integration-architect.md)
 - [Algorithms study path](algorithms-study-path.md)

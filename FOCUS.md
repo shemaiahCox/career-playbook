@@ -35,7 +35,11 @@ Practice order still follows the [learning path](README.md#learning-path-suggest
 
 ## Role direction
 
-**Integrations + automation backend engineer** who ships **reliable, observable, event-driven** services and can add **LLM features safely** (retrieval, tool calling where appropriate, with **evals**, **guardrails**, and **operational visibility**).
+**Multi-pillar engineer** (AI/Automation · Full-Stack · DevOps/Cloud · Security/Systems · IoT/Edge) who ships **reliable, observable, event-driven** services and **LLM features safely**—on **Go · Python · Rust · TypeScript · SQL · PHP**.
+
+**Full project catalog:** [P1–P23 specs](career-project-specs/README.md) · [Engineering pillars](docs/paths/engineering-pillars.md). Each spec includes **Concept spotlight** (primary concepts + interview line). **One active milestone** at a time across [waves](docs/paths/learning-journey.md#view-c--pillars-and-waves).
+
+**Integrations + automation** remain the spine: Boomi/n8n-shaped patterns, webhooks, queues, RAG in Python, throughput in Go, optional Rust in [P21](career-project-specs/21-rust-hot-path-lab.md).
 
 **Credibility anchors:** PHP/Laravel, WordPress plugins, SQL, custom APIs, **Boomi-style integrations**, Docker, CLI, version control.
 

@@ -26,6 +26,18 @@ Employers are moving from “prompt in a notebook” to **production AI features
 - **Runaway spend:** unbounded context, infinite tool loops, or per-request retries cause **cost spikes**; **token counts + latency** in structured logs expose the bad pattern before finance pings you.
 - **Abuse and data boundaries:** users paste **prompt-injecting** text or upload hostile PDFs; security review expects an explicit **allowlist**, data-handling rules, and **what never** goes to the model. A short README section is how you practice that conversation.
 
+## Concept spotlight
+
+**Pillars:** AI & Automation
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **RAG + eval regression** | Maintain eval JSONL; run before release; cite `cited_chunk_ids` in responses | AI/Automation |
+| **Guardrails / boundaries** | Document what never goes to the model; handle bad retrieval explicitly | AI/Automation, Security |
+| **Contract to retrieval** | Stable `POST /query` JSON; optional Go `/retrieve` boundary ([P9](09-go-retrieval-worker-lab.md)) | AI/Automation, Full-Stack |
+
+**Interview line:** *“We ship RAG with eval JSONL regression and citations so model bumps don’t silently drift on domain facts.”*
+
 ## Code repo
 
 | | URL |

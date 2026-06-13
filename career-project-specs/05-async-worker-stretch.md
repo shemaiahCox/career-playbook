@@ -26,6 +26,18 @@ Almost every mature product eventually splits **fast acknowledgment** (HTTP 200 
 - **Rate limits and partners:** a downstream API **429s** you; workers **back off** and spread load instead of tying up web workers or cascading timeouts to users.
 - **Operational safety:** one malformed message **crashes** the consumer loop; **DLQ + alerting** isolates the bad payload so the main queue **drains** while someone replays or patches the handler.
 
+## Concept spotlight
+
+**Pillars:** AI & Automation · DevOps & Cloud
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **At-least-once delivery** | Assume duplicate messages; design worker for safe redelivery | AI/Automation, DevOps, IoT |
+| **Idempotency (worker)** | Dedupe on `job_id` or business key before side effects | AI/Automation, Full-Stack |
+| **DLQ + backoff** | Poison messages to DLQ after N tries; transient failures retry with backoff | DevOps, AI/Automation |
+
+**Interview line:** *“The queue may deliver twice—we idempotent-key side effects so redelivery never double-writes.”*
+
 ## Code repo
 
 _TBD — often extends [Project 1](01-integration-webhook-receiver.md) (same domain)._ Link it here.

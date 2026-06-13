@@ -37,7 +37,7 @@
 | Rust is used for (in scope) | Practice in | Defer (not playbook spine) |
 |-----------------------------|-------------|----------------------------|
 | HTTP/CLI probe, ownership + `Result` | [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/README.md) | Greenfield Rust API replacing P2/P6 |
-| P9 gateway or worker **reimplementation** | [P9 Stretch](../../career-project-specs/09-go-retrieval-worker-lab.md#stretch) after Go core green | Second concurrent worker engine while P9 Go unfinished |
+| P9 gateway or worker **reimplementation** | [P21](../../career-project-specs/21-rust-hot-path-lab.md) | Second concurrent worker engine while P9 Go unfinished |
 | IoT / edge ingest (optional) | Future stretch note + side project in [PROGRESS.md](../../PROGRESS.md) | Full embedded/robotics curriculum |
 | WASM / CLI tools | Side demos tied to one load-bearing property | Blockchain, game engines |
 

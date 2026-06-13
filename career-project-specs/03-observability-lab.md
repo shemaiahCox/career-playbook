@@ -26,6 +26,18 @@ Production systems spend most of their life **failing in ways you did not expect
 - **Latency mysteries:** a **noisy neighbor** query or N+1 only appears under load; spans show **which hop** ate the budget (DB vs HTTP vs cache vs LLM) without attaching a debugger in prod.
 - **Distributed lies:** the edge returned **200** but async work or a downstream **billing** call failed—without shared context, each service’s logs look “fine”; with correlation, the failure is **one narrative**.
 
+## Concept spotlight
+
+**Pillars:** DevOps & Cloud (all pillars use these habits)
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **Correlation ID** | Generate or echo `request_id` / `X-Request-Id`; include on every log line and response header | DevOps, Full-Stack, AI/Automation |
+| **Structured logging** | JSON logs with level, duration_ms, route, error class—not prose-only strings | DevOps |
+| **Latency attribution** | Log segment timings (DB, partner HTTP, LLM) to find dominant hop | DevOps, AI/Automation |
+
+**Interview line:** *“Every request gets a correlation id propagated through logs so support can grep one id and reconstruct the full path.”*
+
 ## Code repo
 
 **Default (playbook phase 2):** Meet the observability success criteria on the **same codebase** as [Project 4 — RAG / LLM service](04-rag-llm-service.md)—the FastAPI skeleton already exposes **request id + JSON logs** (`request_context` middleware).

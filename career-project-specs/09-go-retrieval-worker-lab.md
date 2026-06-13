@@ -24,6 +24,18 @@ Production RAG and automation stacks often split **slow, rich** Python services 
 - Webhook path **enqueues**; Go worker **drains** queue extending [Project 1](01-integration-webhook-receiver.md).
 - Connector-style microservice with **OpenAPI JSON** contract and structured logs ([Project 3](03-observability-lab.md)).
 
+## Concept spotlight
+
+**Pillars:** AI & Automation · DevOps & Cloud
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **Concurrency + backpressure** | Bounded goroutine pool for chunk fan-out; `context` timeouts on handlers and jobs | DevOps, AI/Automation |
+| **Idempotency (worker)** | Dedupe on `job_id` before writes; safe under at-least-once queue delivery | AI/Automation, IoT |
+| **Performance boundary** | Go `/retrieve` serves Python [P4](04-rag-llm-service.md); document JSON contract | AI/Automation, Full-Stack |
+
+**Interview line:** *“Python owns LLM and evals; Go owns concurrent retrieval with strict timeouts—we split on profiling and failure isolation, not hype.”*
+
 ## Code repo
 
 _TBD — create sibling repo (e.g. `go-retrieval-worker-lab`) when you start._ Link GitHub + local path here.
@@ -108,9 +120,7 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 
 **Rust Tier‑2 (after Go core green — not a parallel spine):**
 
-- Reimplement **retrieval gateway** or **worker** in Rust with the **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
-- Prep with [rust-cli-http-probe](../exploration-projects/rust-cli-http-probe/README.md); read [Rust ecosystem map](../docs/stacks/rust.md).
-- Optional IoT/edge stretch: MQTT ingest side demo—one load-bearing property only.
+- Reimplement **retrieval gateway** or **worker** per [P21](21-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
 
 Capstone wiring guide: [Learning journey — integrated capstone](../docs/paths/learning-journey.md#integrated-capstone-one-system-not-five-go-repos).
 

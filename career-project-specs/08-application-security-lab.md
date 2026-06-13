@@ -25,6 +25,18 @@ Employers increasingly expect **baseline cybersecurity hygiene** from backend an
 - **Session issues:** fixation, weak cookie flags, or logout that doesn’t invalidate server-side session.
 - **CSRF:** state-changing POST from another origin when the app relies on **session cookies** alone.
 
+## Concept spotlight
+
+**Pillars:** Security & Systems · Full-Stack Platforms
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **Parameterized data access** | No string-concat SQL; bound parameters / safe ORM APIs only | Security, Full-Stack |
+| **XSS + output encoding** | Escape or sanitize by context; note CSP where applicable | Security, Full-Stack |
+| **Session + CSRF hygiene** | Secure cookie flags; CSRF tokens on state-changing forms | Security, Full-Stack ([P12](12-multi-tenant-auth-lab.md) builds on this) |
+
+**Interview line:** *“We treat OWASP basics as ship criteria—parameterized queries, encoded output, and CSRF on cookie-authenticated forms—not a separate security phase.”*
+
 ## Code repo
 
 _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contract/API repo with server-rendered routes) when you start._ Link it here and in [README.md](../README.md) quick links.

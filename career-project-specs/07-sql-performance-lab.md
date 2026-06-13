@@ -26,6 +26,18 @@ Most backend roles assume you can **join**, **filter**, and **migrate** responsi
 - **Double spends / double inserts** when two workers race without a **transaction boundary** or **unique** constraint aligned to the business key.
 - **Staging-only miracles:** fixes that used indexes present in prod but not in CI’s dataset—your lab teaches **repeatable** seeds and plans checked into the repo.
 
+## Concept spotlight
+
+**Pillars:** Full-Stack Platforms · AI & Automation (data layer)
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **Query plans** | Run `EXPLAIN (ANALYZE, BUFFERS)`; compare seq scan vs index scan with evidence | Full-Stack, AI/Automation |
+| **Index tradeoffs** | Add partial/covering indexes; note write amplification in README | Full-Stack, DevOps |
+| **Transactions + idempotent writes** | Use constraints/transactions so duplicate worker upserts stay safe ([P5](05-async-worker-stretch.md), [P9](09-go-retrieval-worker-lab.md)) | AI/Automation, IoT |
+
+**Interview line:** *“I fixed p95 with a plan-backed index change—I can show seq scan vs index scan and what it cost on writes.”*
+
 ## Code repo
 
 | | URL |

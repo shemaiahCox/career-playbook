@@ -30,6 +30,15 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
+## 2026-06-10 — Full pillar project catalog (P1–P23)
+
+- **Decision:** Restructure playbook into **five engineering pillars** with dedicated specs P10–P23; **Concept spotlight** on every spec P1–P23.
+- **Added:** [engineering-pillars.md](docs/paths/engineering-pillars.md), [career-project-specs/README.md](career-project-specs/README.md), specs P10–P16 (Wave 2), P17–P18/P21–P23 (Wave 3).
+- **Updated:** [learning-journey.md](docs/paths/learning-journey.md) View C + waves, [FOCUS.md](FOCUS.md), [README.md](README.md).
+- **Next:** Ship Wave 1 foundation (active spine); Wave 2 starts after P9 capstone green.
+
+---
+
 ## 2026-06-03 — Rust Tier‑2 growth lane
 
 - **Decision:** Add **Rust** as Tier‑2 after P9 Go (not parallel spine)—aligns with LinkedIn stack (Go · Python · Rust · TypeScript · SQL · PHP) and AI/automation/cloud themes.

@@ -26,6 +26,18 @@ Public and partner APIs are **long-lived contracts**. Teams that treat the spec 
 - **Audit and reviews:** legal or security asks what the API **guaranteed** at release time; `openapi.yaml` committed next to the code is a cheap, reviewable artifact (especially compared to stale wiki pages).
 - **Multi-team codegen:** you need a **TypeScript or Kotlin client** (or internal SDK) without hand-writing DTOs—the spec becomes the **single generator input** for all consumers.
 
+## Concept spotlight
+
+**Pillars:** Full-Stack Platforms
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **OpenAPI as source of truth** | Check in `openapi.yaml`; validate implementation against spec in CI | Full-Stack |
+| **Breaking vs non-breaking change** | Document and gate renames, required fields, error shape changes | Full-Stack |
+| **Versioning discipline** | Path or header versioning; deprecation window for consumers | Full-Stack |
+
+**Interview line:** *“The OpenAPI file is the contract—we diff it in CI and treat breaking changes like API semver, not surprise refactors.”*
+
 ## Code repo
 
 _TBD — create a sibling repo (e.g. `contract-api-lab`) when you start._ Link it here.

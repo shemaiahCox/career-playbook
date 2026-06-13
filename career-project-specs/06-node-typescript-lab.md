@@ -34,6 +34,18 @@ This is not about chasing every new JS framework; it is about **one disciplined 
 
 **Stretch:** Custom **n8n node** (TypeScript)—same reliability habits (errors, secrets, idempotency) in a workflow step; see [integration-automation map](../docs/stacks/integration-automation.md).
 
+## Concept spotlight
+
+**Pillars:** Full-Stack Platforms · AI & Automation
+
+| Concept | In this project you… | Pillars |
+|---------|----------------------|---------|
+| **Typed API boundary** | Strict TS validation (Zod or equivalent) on body/headers/query | Full-Stack |
+| **Integration parity** | Track A: HMAC + idempotency like [P1](01-integration-webhook-receiver.md); Track C: queue + worker | AI/Automation, Full-Stack |
+| **Contract in code** | Track B: OpenAPI aligned with [P2](02-contract-first-api.md) | Full-Stack |
+
+**Interview line:** *“Our TS service uses schema-first validation and the same idempotency habits as our PHP webhook—polyglot discipline, not different reliability rules per language.”*
+
 ## Code repo
 
 _TBD — create a sibling repo (e.g. `ts-webhook-lab` or `ts-api-lab`) when you start._ Link GitHub + local path here.
