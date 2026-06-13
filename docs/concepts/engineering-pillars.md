@@ -1,10 +1,10 @@
 # Engineering pillars — topic index (optional)
 
-> **Not the learning path.** Follow projects in order: [README.md](../../README.md#progression-step-1--20) (Project 1 → 20).
+> **Not the learning path.** Follow projects in order: [README.md](../../README.md#progression-step-1--21) (Project 1 → 21).
 
 Browse by **engineering pillar** when you want every project that touches a domain (AI/Automation, Full-Stack, DevOps/Cloud, Security/Systems, IoT/Edge).
 
-**Companion:** [Project catalog](../../README.md#progression-step-1--20) · [Concept matrix](#concept--project-matrix)
+**Companion:** [Project catalog](../../README.md#progression-step-1--21) · [Concept matrix](#concept--project-matrix)
 
 ---
 
@@ -18,7 +18,7 @@ Browse by **engineering pillar** when you want every project that touches a doma
 | **Security & Systems** | Rust, any | Project 1, Project 9 | — | Project 18, Project 19 |
 | **IoT & Edge** | Rust, Python, TS | — | — | Project 20 |
 
-**Integrated capstone:** Wire Project 1 → Project 6 → Project 8 → Project 2 → Project 4; extend with Project 12/Project 13 when ready. One diagram in the active lab README.
+**Integrated capstone:** [Project 21 — Integrated platform capstone](../../career-project-specs/21-integrated-platform-capstone.md) composes Projects 1–20 into one deployable flagship system (orchestration repo + linked `docs/portfolio/` per lab).
 
 ---
 
@@ -90,12 +90,13 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 | **1 — Foundation** | 1–12 | Project 1 → Project 2/Project 3 → Project 5 → Project 6/Project 8 → Project 7 → Project 4 → Project 9 | Shared habits + capstone |
 | **2 — Pillar depth** | 12–24 | Project 10, Project 11, Project 12, Project 13, Project 14, Project 15 | Dedicated pillar projects |
 | **3 — Advanced** | 24–36 | Project 16, Project 17, Project 18, Project 19, Project 20 | K8s, Rust systems, IoT |
+| **4 — Capstone** | After Wave 3 | [Project 21](../../career-project-specs/21-integrated-platform-capstone.md) | Flagship integrated platform demo |
 
 **Dependencies (highlights):**
 
 - Project 10 after Project 1 + Project 2 · Project 11 after Project 2 + Project 7 · Project 12 after Project 5/Project 7 + Project 4
 - Project 13 after Project 6/Project 8 · Project 14 after Project 6 · Project 15 after Project 8
-- Project 16 after Project 15 · Project 18 after Project 8 Go green · Project 20 after Project 6 + Project 4
+- Project 16 after Project 15 · Project 18 after Project 8 Go green · Project 20 after Project 6 + Project 4 · **Project 21 after Projects 1–20 green (or documented deferrals)**
 
 **Controlled parallelism:** Project 4 drills or Project 9 reading while another spec is spine—not a second ship target.
 
@@ -123,6 +124,6 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 
 ## Related
 
-- [Project catalog](../../README.md#progression-step-1--20)
+- [Project catalog](../../README.md#progression-step-1--21)
 - [Systems integration architect](systems-integration-architect.md)
 - [README.md](../../README.md)

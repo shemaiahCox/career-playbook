@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 1 of 20 |
+| **Step** | 1 of 21 |
 | **Previous** | — |
 | **Next** | [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md) |
 
@@ -258,9 +258,21 @@ Hands-on cases to **drive the code paths** and deepen **engineering vocabulary**
 - Docker Compose with `php` service and mounted volume for SQLite.
 - Replay tool: CLI script to re-drive a dead-letter id.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — partner → HMAC verify → idempotency store → handler / DLQ paths.
+- [ ] **ADR** — e.g. SQLite file vs shared Postgres; raw-body HMAC before parse.
+- [ ] **Performance numbers** — webhook ack latency (p95) or N/A with reason for minimal PHP lab.
+- [ ] **Failure modes** — duplicate delivery, forged signature, poison payload without DLQ.
+- [ ] **Observability evidence** — log excerpt with `request_id` and accept/reject outcome.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 1)
 - Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md)

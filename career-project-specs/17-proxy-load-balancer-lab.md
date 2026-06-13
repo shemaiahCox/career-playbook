@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 17 of 20 |
+| **Step** | 17 of 21 |
 | **Previous** | [Project 16 — Kubernetes controller-lite lab](16-k8s-controller-lab.md) |
 | **Next** | [Project 18 — Rust hot-path reimplementation lab](18-rust-hot-path-lab.md) |
 
@@ -76,8 +76,20 @@ Integration: kill upstream; assert failover or error behavior.
 - TLS termination stub (local certs).
 - Rust reimplementation benchmark vs Go ([Project 18](18-rust-hot-path-lab.md)).
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — client → proxy → upstream pool with timeout budgets.
+- [ ] **ADR** — connection pool sizing and graceful shutdown approach.
+- [ ] **Performance numbers** — p95 with vs without proxy; upstream timeout behavior.
+- [ ] **Failure modes** — retry storm; pool exhaustion; slow upstream blocking all clients.
+- [ ] **Observability evidence** — access log with status, duration, upstream timing.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 17)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 18 — Rust hot-path reimplementation lab](18-rust-hot-path-lab.md)

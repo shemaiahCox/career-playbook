@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 18 of 20 |
+| **Step** | 18 of 21 |
 | **Previous** | [Project 17 — Proxy / load-balancer lab](17-proxy-load-balancer-lab.md) |
 | **Next** | [Project 19 — WASM / secure network component lab](19-wasm-secure-component-lab.md) |
 
@@ -78,8 +78,20 @@ Port Project 8 table-driven cases; docker-compose integration optional.
 - Share queue with Go producer during migration window.
 - [Project 19](19-wasm-secure-component-lab.md) extract hot filter to WASM.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — same contract as Project 8 Go; Rust service in parallel or swap.
+- [ ] **ADR** — **required:** Go vs Rust with p95 **and** peak RSS (or alloc/op) on same benchmark.
+- [ ] **Performance numbers** — benchmark table in ADR (before Go / after Rust on same workload).
+- [ ] **Failure modes** — ops complexity of dual stack; `.clone()` hot path without measurement.
+- [ ] **Observability evidence** — Rust service log matching Project 8 request/job correlation.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 18)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 19 — WASM / secure network component lab](19-wasm-secure-component-lab.md)

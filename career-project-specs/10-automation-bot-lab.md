@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 10 of 20 |
+| **Step** | 10 of 21 |
 | **Previous** | [Project 9 — OWASP / cybersecurity foundations](09-application-security-lab.md) |
 | **Next** | [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md) |
 
@@ -85,9 +85,21 @@ Integration test: run step twice with same input → one side effect.
 - Publish as private n8n community package with version tag.
 - Enqueue to [Project 6](06-async-worker-stretch.md) instead of sync call.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — workflow trigger → your Project 1/2 API with secrets boundary.
+- [ ] **ADR** — sync HTTP call vs enqueue to Project 6 for long steps.
+- [ ] **Performance numbers** — workflow step timeout budget documented.
+- [ ] **Failure modes** — duplicate workflow run; secrets in repo; unbounded LLM wait.
+- [ ] **Observability evidence** — step log with correlation to downstream `request_id`.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 10)
 - Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md)

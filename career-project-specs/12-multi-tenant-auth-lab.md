@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 12 of 20 |
+| **Step** | 12 of 21 |
 | **Previous** | [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md) |
 | **Next** | [Project 13 — Real-time dashboard lab](13-realtime-dashboard-lab.md) |
 
@@ -75,8 +75,20 @@ Two tenant fixtures; assert isolation on list and detail endpoints.
 - Postgres RLS policies mirroring app checks.
 - Link to [Project 11](11-llm-web-app-lab.md) for tenant-scoped RAG queries.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — auth gate → tenant context → scoped queries on every path.
+- [ ] **ADR** — row-level `tenant_id` vs RLS; JWT vs session for this lab.
+- [ ] **Performance numbers** — composite index impact on tenant-scoped list query (optional).
+- [ ] **Failure modes** — cross-tenant read/write; missing tenant on insert; session fixation.
+- [ ] **Observability evidence** — log showing tenant id on authenticated request (redacted).
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 12)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 13 — Real-time dashboard lab](13-realtime-dashboard-lab.md)

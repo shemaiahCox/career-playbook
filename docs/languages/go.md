@@ -45,7 +45,7 @@ Generic “build anything in Go” lists are broader than this playbook. Use thi
 | Event bus / streams (stretch) | Project 8 after Project 6 queues | Building a Boomi/n8n clone |
 | Cloud-native habits | Docker Compose, managed queue in README | K8s/AWS cert curriculum |
 
-**Easy follow path:** [Project catalog](../../README.md#progression-step-1--20) · [Project 8 capstone stretch](../../career-project-specs/08-go-retrieval-worker-lab.md#stretch-connect-your-labs) · [Project 18 Rust](../../career-project-specs/18-rust-hot-path-lab.md) (after Project 8, not parallel).
+**Easy follow path:** [Project catalog](../../README.md#progression-step-1--21) · [Project 8 capstone stretch](../../career-project-specs/08-go-retrieval-worker-lab.md#stretch-connect-your-labs) · [Project 18 Rust](../../career-project-specs/18-rust-hot-path-lab.md) (after Project 8, not parallel).
 
 ---
 

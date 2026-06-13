@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 14 of 20 |
+| **Step** | 14 of 21 |
 | **Previous** | [Project 13 — Real-time dashboard lab](13-realtime-dashboard-lab.md) |
 | **Next** | [Project 15 — Cloud deploy + infra automation lab](15-cloud-deploy-lab.md) |
 
@@ -75,8 +75,20 @@ Table-driven tests for parsing; integration test against docker-compose queue.
 - Prometheus textfile exporter subcommand.
 - Wire to [Project 15](15-cloud-deploy-lab.md) deploy hooks.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — CLI → queue/DLQ/HTTP probe with exit-code mapping.
+- [ ] **ADR** — flag naming and exit-code conventions (ops contract).
+- [ ] **Performance numbers** — DLQ replay duration for N messages.
+- [ ] **Failure modes** — wrong exit code masking failure; unbounded replay without dry-run.
+- [ ] **Observability evidence** — CLI stdout/stderr sample on success and failure paths.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 14)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 15 — Cloud deploy + infra automation lab](15-cloud-deploy-lab.md)

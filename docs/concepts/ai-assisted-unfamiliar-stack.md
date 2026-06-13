@@ -51,7 +51,7 @@ Use [unfamiliar-stack-ship.md](../../checklists/unfamiliar-stack-ship.md) as a r
 
 ## Related
 
-- [Career projects](../../README.md#progression-step-1--20) — linear path; each spec links handbook and stack maps.
+- [Career projects](../../README.md#progression-step-1--21) — linear path; each spec links handbook and stack maps.
 - [Systems integration architect](systems-integration-architect.md) — depth order for integration-shaped **design** literacy on your stack.
 - [docs README](../README.md) — definition + minimal example + failure mode; **[Stacks glossary (plain-language index)](../languages/glossary.md)** gathers links to newcomer-friendly blurbs under each ecosystem map.
 - [Ecosystem maps](../README.md#languages-new-to-a-stack) — stack-specific vocabulary (PHP/Laravel, Python, Node/TS, Go, Rust, SQL).

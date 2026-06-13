@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 8 of 20 |
+| **Step** | 8 of 21 |
 | **Previous** | [Project 7 — Node / TypeScript service lab](07-node-typescript-lab.md) |
 | **Next** | [Project 9 — OWASP / cybersecurity foundations](09-application-security-lab.md) |
 
@@ -157,9 +157,21 @@ When Projects 2, 4, 6, and 8 are green, wire one integrated story:
 
 Log one ADR in [PROGRESS.md](../PROGRESS.md). Optional deep dive: [Systems integration architect](../docs/concepts/systems-integration-architect.md).
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — Python `/query` vs Go `/retrieve` + queue consumer paths.
+- [ ] **ADR** — why Go owns retrieval/worker boundary (latency, concurrency, isolation).
+- [ ] **Performance numbers** — `/retrieve` p95 vs Python-only baseline if measured.
+- [ ] **Failure modes** — retrieval timeout cascading; unbounded goroutines; DLQ without replay story.
+- [ ] **Observability evidence** — cross-service log with shared trace/request id.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 8)
 - Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 9 — OWASP / cybersecurity foundations](09-application-security-lab.md)

@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 19 of 20 |
+| **Step** | 19 of 21 |
 | **Previous** | [Project 18 — Rust hot-path reimplementation lab](18-rust-hot-path-lab.md) |
 | **Next** | [Project 20 — IoT / edge ingest + local inference lab](20-iot-edge-lab.md) |
 
@@ -77,8 +77,20 @@ Rust unit tests + host integration test with golden vectors.
 - Wire into [Project 1](01-integration-webhook-receiver.md) signature verify path as experiment.
 - wasi preview2 note for edge deployment story.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — host runtime → WASM sandbox → narrow function boundary.
+- [ ] **ADR** — what runs in WASM vs native (e.g. HMAC helper, normalizer).
+- [ ] **Performance numbers** — WASM vs native call overhead for one hot function.
+- [ ] **Failure modes** — sandbox escape assumptions; FFI panic taking down host.
+- [ ] **Observability evidence** — log on WASM invoke success/failure with input hash only.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 19)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 20 — IoT / edge ingest + local inference lab](20-iot-edge-lab.md)

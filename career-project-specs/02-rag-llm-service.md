@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 2 of 20 |
+| **Step** | 2 of 21 |
 | **Previous** | [Project 1 — Integration webhook receiver](01-integration-webhook-receiver.md) |
 | **Next** | [Project 3 — Observability lab](03-observability-lab.md) |
 
@@ -233,9 +233,21 @@ When you add retrieval / orchestration code:
 - Add regression runs to CI or pre-release checklist using `evals/*.jsonl`.
 - Document environment variables (`OPENAI_API_KEY`, etc.) in `.env.example` only—never commit secrets.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — `POST /query` → retrieval → LLM → response with `cited_chunk_ids`.
+- [ ] **ADR** — orchestration library choice (LangChain vs thin SDK) or embedding store decision.
+- [ ] **Performance numbers** — query p95 and/or eval runner duration baseline.
+- [ ] **Failure modes** — model timeout, empty retrieval, eval regression on prompt change.
+- [ ] **Observability evidence** — structured log with `request_id`, latency, token usage if available.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 2)
 - Checklist: [LLM feature ship checklist](../checklists/llm-feature-ship.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 3 — Observability lab](03-observability-lab.md)

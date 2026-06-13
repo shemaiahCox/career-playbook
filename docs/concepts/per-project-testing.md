@@ -60,6 +60,7 @@ Skim the **Testing approach (lab)** section in each spec for stack-specific emph
 | 18 — Rust hot-path | [18-rust-hot-path-lab.md](../../career-project-specs/18-rust-hot-path-lab.md#testing-approach-lab) | Contract parity vs Project 8 + benchmarks |
 | 19 — WASM component | [19-wasm-secure-component-lab.md](../../career-project-specs/19-wasm-secure-component-lab.md#testing-approach-lab) | Sandbox boundary + FFI tests |
 | 20 — IoT / edge | [20-iot-edge-lab.md](../../career-project-specs/20-iot-edge-lab.md#testing-approach-lab) | Integration on MQTT idempotency + offline buffer |
+| 21 — Integrated capstone | [21-integrated-platform-capstone.md](../../career-project-specs/21-integrated-platform-capstone.md#testing-approach-lab) | E2E smoke + tenant isolation + cross-service trace |
 
 ## Review checklist (before merge)
 

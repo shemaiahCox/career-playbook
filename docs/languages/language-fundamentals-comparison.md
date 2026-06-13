@@ -41,7 +41,7 @@
 
 1. **Read** the section for the concept you are translating (e.g. “how do maps work in Go?”).
 2. **Skim** the comparison table, then read the **multi-language snippet**.
-3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--20) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
+3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--21) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
 4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
 
@@ -1078,4 +1078,4 @@ Stack map: [Python stack](python.md). Database queries: [SQL stack](sql.md).
 
 ---
 
-**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-step-1--20).
+**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-step-1--21).

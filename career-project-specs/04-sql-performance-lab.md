@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 4 of 20 |
+| **Step** | 4 of 21 |
 | **Previous** | [Project 3 — Observability lab](03-observability-lab.md) |
 | **Next** | [Project 5 — Contract-first API](05-contract-first-api.md) |
 
@@ -210,8 +210,20 @@ The repo already ships scripted exercises—use these scenarios as **learning go
 - **Action:** Describe how ORM **eager load** would map to scenario 3’s join shape for your day-job stack.
 - **Expected outcome:** Single paragraph linking this SQL lab to how your application stack loads data (ORM, batching, pagination)—something you could explain in a design review or postmortem.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — schema + query paths (list, join, pagination exercise flows).
+- [ ] **ADR** — index choice for one hot query (partial vs covering vs none).
+- [ ] **Performance numbers** — `EXPLAIN ANALYZE` before/after for at least one exercise.
+- [ ] **Failure modes** — N+1, offset pagination at scale, lost update without transaction.
+- [ ] **Observability evidence** — query timing log or plan excerpt (N/A for psql-only if noted).
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 4)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 5 — Contract-first API](05-contract-first-api.md)

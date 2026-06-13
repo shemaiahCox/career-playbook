@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 9 of 20 |
+| **Step** | 9 of 21 |
 | **Previous** | [Project 8 — Go retrieval gateway and worker lab](08-go-retrieval-worker-lab.md) |
 | **Next** | [Project 10 — Automation bot / workflow connector lab](10-automation-bot-lab.md) |
 
@@ -200,9 +200,21 @@ Use these to drive **failure modes** after the happy path works. Capture **curl*
 - **Automated security tests** (e.g. CSRF test in CI, dependency audit gate on PR).
 - Short **STRIDE** or “assets / adversaries / data flows” diagram in README **≤1 page**.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — browser → forms/sessions → app → database trust boundaries.
+- [ ] **ADR** — session vs token model; CSRF strategy for your stack.
+- [ ] **Performance numbers** — N/A acceptable; note if login or form POST timed.
+- [ ] **Failure modes** — SQLi via concatenation; stored XSS; CSRF on state-changing forms.
+- [ ] **Observability evidence** — security-relevant log (auth failure) without leaking secrets.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 9)
 - Checklist: [Application security checklist](../checklists/application-security-web-owasp.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 10 — Automation bot / workflow connector lab](10-automation-bot-lab.md)

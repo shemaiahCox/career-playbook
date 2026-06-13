@@ -6,6 +6,8 @@
 
 Use them **when you are close to shipping** a slice (or before you call a lab milestone done)—not as everyday task lists.
 
+- **Platform engineering gate (every step):** [checklists/production-readiness.md](checklists/production-readiness.md) — rate limits, retries, idempotency, DLQ, metrics, logs, tracing, health, versioning, security. See applicability matrix for your step.
+- **Portfolio artifacts (every step):** [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) — diagram, ADR, performance numbers, failure modes, observability evidence in lab `docs/portfolio/`.
 - **Inbound webhooks, partner HTTP, sync integration edges** (and HTTP fronts that enqueue later): [checklists/integration-hardening.md](checklists/integration-hardening.md).
 - **User-facing model / RAG / tool paths**: [checklists/llm-feature-ship.md](checklists/llm-feature-ship.md).
 - **OWASP / web application security (Project 9)** — forms, SQLi, XSS, sessions, CSRF: [checklists/application-security-web-owasp.md](checklists/application-security-web-owasp.md).
@@ -22,11 +24,21 @@ Suggested shape for a **lab milestone** (keep it short):
 - **What shipped** — fact-level outcome.
 - **Tradeoff** *(optional, high signal for explaining decisions later)* — what you rejected and why.
 - **Failure mode** *(optional)* — what breaks in prod without what you built.
+- **Portfolio** *(optional)* — link to lab `docs/portfolio/` or note deferred artifacts ([template](docs/templates/portfolio-artifacts.md)).
 - **Next** *(optional)* — one concrete next step.
 
 You do not need daily entries. Aim for **one section per slice** you would summarize in a weekly update, retrospective, or coaching conversation.
 
 For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** when you can. See [Systems integration architect](docs/concepts/systems-integration-architect.md).
+
+---
+
+## 2026-06-03 — Capstone, portfolio artifacts, production checklist
+
+- **Added** [Project 21 — Integrated platform capstone](career-project-specs/21-integrated-platform-capstone.md) (Step 21): compose Projects 1–20 into one flagship demo/deploy stack.
+- **Added** [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) and **Portfolio artifacts** section in all 21 specs.
+- **Added** [checklists/production-readiness.md](checklists/production-readiness.md) with Step 1–21 applicability matrix; wired into **When you're done** and [PROGRESS.md](PROGRESS.md) checklist intro.
+- **Updated** [README.md](README.md) progression (Step 1 → 21), [career-projects/README.md](career-projects/README.md), [engineering-pillars.md](docs/concepts/engineering-pillars.md), [systems-integration-architect.md](docs/concepts/systems-integration-architect.md).
 
 ---
 

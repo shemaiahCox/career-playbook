@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 11 of 20 |
+| **Step** | 11 of 21 |
 | **Previous** | [Project 10 — Automation bot / workflow connector lab](10-automation-bot-lab.md) |
 | **Next** | [Project 12 — Multi-tenant auth + SaaS slice lab](12-multi-tenant-auth-lab.md) |
 
@@ -75,9 +75,21 @@ E2E or integration: mock Project 2 failure modes; assert UI messages.
 - Wire [Project 13](13-realtime-dashboard-lab.md) job-status events for long queries.
 - Auth gate before query ([Project 12](12-multi-tenant-auth-lab.md)).
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — browser → BFF → Project 2 `POST /query` (no keys in browser).
+- [ ] **ADR** — streaming vs polling UX; error surface for retrieval vs model failures.
+- [ ] **Performance numbers** — time-to-first-token or query round-trip p95.
+- [ ] **Failure modes** — API keys in frontend; generic 500 hiding retrieval vs model errors.
+- [ ] **Observability evidence** — UI dev panel or log showing `request_id` from Project 2.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 11)
 - Checklist: [LLM feature ship checklist](../checklists/llm-feature-ship.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 12 — Multi-tenant auth + SaaS slice lab](12-multi-tenant-auth-lab.md)

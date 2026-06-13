@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 16 of 20 |
+| **Step** | 16 of 21 |
 | **Previous** | [Project 15 — Cloud deploy + infra automation lab](15-cloud-deploy-lab.md) |
 | **Next** | [Project 17 — Proxy / load-balancer lab](17-proxy-load-balancer-lab.md) |
 
@@ -75,8 +75,20 @@ Envtest or fake client unit tests for reconcile function.
 - Full CRD + status subresource.
 - Prometheus metrics on reconcile duration/errors.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — informer → reconcile loop → desired vs actual state.
+- [ ] **ADR** — controller-lite scope vs full CRD operator.
+- [ ] **Performance numbers** — reconcile loop latency or queue depth under drift.
+- [ ] **Failure modes** — RBAC denied silent failure; hot loop without backoff; non-idempotent apply.
+- [ ] **Observability evidence** — controller log on successful reconcile with resource id.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 16)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 17 — Proxy / load-balancer lab](17-proxy-load-balancer-lab.md)

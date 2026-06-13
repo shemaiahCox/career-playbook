@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 13 of 20 |
+| **Step** | 13 of 21 |
 | **Previous** | [Project 12 — Multi-tenant auth + SaaS slice lab](12-multi-tenant-auth-lab.md) |
 | **Next** | [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md) |
 
@@ -76,8 +76,20 @@ Simulate event burst; assert UI stability or batching policy.
 - Share components with [Project 11](11-llm-web-app-lab.md) for query progress.
 - Consume [Project 20](20-iot-edge-lab.md) MQTT-forwarded telemetry.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — event source → SSE/WS → client reconnect and buffer policy.
+- [ ] **ADR** — SSE vs WebSocket for this dashboard; duplicate event handling.
+- [ ] **Performance numbers** — reconnect storm or client buffer limit note.
+- [ ] **Failure modes** — unbounded client buffer; duplicate events after reconnect; stale UI state.
+- [ ] **Observability evidence** — dashboard + log showing live event with correlation id.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 13)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md)

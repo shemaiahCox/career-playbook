@@ -1,6 +1,6 @@
 # Documentation
 
-**Your path:** [README.md](../README.md#progression-step-1--20) (Project 1 → 20). Each project spec links what you need under **languages/** or **concepts/**.
+**Your path:** [README.md](../README.md#progression-step-1--21) (Project 1 → 21). Each project spec links what you need under **languages/** or **concepts/**.
 
 Entry point: [README.md](../README.md)
 
@@ -40,3 +40,12 @@ Integration, testing, security, algorithms, architecture — stack-agnostic.
 | [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) | Learning a new stack with AI helpers |
 
 Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md)
+
+---
+
+## Templates and checklists
+
+| Doc | Use when |
+|-----|----------|
+| [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Resume-ready diagram, ADR, perf, failure modes per lab |
+| [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate (rate limits → security) per step |

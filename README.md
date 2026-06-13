@@ -1,6 +1,6 @@
 # career-playbook
 
-Practice projects for **AI Systems · Cloud · Automation · IoT** — one linear path, 20 projects.
+Practice projects for **AI Systems · Cloud · Automation · IoT** — one linear path, **21 steps** (Projects 1–20 + integrated capstone).
 
 **Rule:** one active project at a time.
 
@@ -9,9 +9,9 @@ Practice projects for **AI Systems · Cloud · Automation · IoT** — one linea
 1. **[Project 1](career-project-specs/01-integration-webhook-receiver.md)** — begin the path below
 2. **[PROGRESS.md](PROGRESS.md)** — log what you're working on
 
-Finish each project's success criteria → log in PROGRESS → open **Next** in the spec.
+Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 21** composes Projects 1–20 into your flagship portfolio system.
 
-## Progression (Step 1 → 20)
+## Progression (Step 1 → 21)
 
 | Step | Project | Stack | You will learn | Lab |
 |------|---------|-------|----------------|-----|
@@ -35,6 +35,7 @@ Finish each project's success criteria → log in PROGRESS → open **Next** in 
 | 18 | [Rust hot-path](career-project-specs/18-rust-hot-path-lab.md) | Rust | Same Project 8 contract; Go vs Rust ADR | _TBD_ |
 | 19 | [WASM secure component](career-project-specs/19-wasm-secure-component-lab.md) | Rust | Sandboxed logic, FFI boundaries | _TBD_ |
 | 20 | [IoT / edge ingest](career-project-specs/20-iot-edge-lab.md) | Rust/Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
+| 21 | [Integrated platform capstone](career-project-specs/21-integrated-platform-capstone.md) | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
 
 Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = step number** (e.g. step 2 → `02-rag-llm-lab`, step 4 → `04-sql-perf-lab`). GitHub repo names may differ — each spec's **Code repo** section is authoritative.
 
@@ -55,6 +56,7 @@ Not the learning order — use when you want every project that practices a conc
 | **Performance (measure and tune)** | 3, 4, 8, 17, 18 |
 | **Memory / resource limits** | 2, 8, 13, 18, 19, 20 |
 | Rust / systems ADR | 18, 17, 19 |
+| **Integrated capstone** | 21 |
 
 Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional topic index).
 
@@ -79,11 +81,12 @@ Build platforms that integrate systems, automate workflows, and layer AI — wit
 2. Read **What you will learn**, **Before you start**, and **Important concepts**
 3. Build in [`career-projects/`](career-projects/) (nested git clone when a lab exists)
 4. Meet success criteria; test per [per-project testing](docs/concepts/per-project-testing.md)
-5. Log in [PROGRESS.md](PROGRESS.md) → open **Next** in the spec
+5. Commit [portfolio artifacts](docs/templates/portfolio-artifacts.md) in the lab repo; gate with [production readiness](checklists/production-readiness.md)
+6. Log in [PROGRESS.md](PROGRESS.md) → open **Next** in the spec
 
 ## Spec shape
 
-Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · Testing · **When you're done**.
+Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · Testing · **Portfolio artifacts** · **When you're done**.
 
 ## Reference (not the path)
 
@@ -92,6 +95,8 @@ Every project spec includes: **Progress** (step, prev/next) · **What you will l
 | [docs/languages/glossary.md](docs/languages/glossary.md) | New to a language — start here |
 | [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md) | Theory depth (testing, integration, security) |
 | [docs/concepts/per-project-testing.md](docs/concepts/per-project-testing.md) | How to test each lab |
+| [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) | Resume-ready diagram, ADR, perf, failure modes |
+| [checklists/production-readiness.md](checklists/production-readiness.md) | Platform engineering gate per step |
 | [docs/concepts/engineering-pillars.md](docs/concepts/engineering-pillars.md) | Optional topic index |
 
 Full index: [docs/README.md](docs/README.md)

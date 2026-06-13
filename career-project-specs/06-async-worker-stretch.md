@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 6 of 20 |
+| **Step** | 6 of 21 |
 | **Previous** | [Project 5 — Contract-first API](05-contract-first-api.md) |
 | **Next** | [Project 7 — Node / TypeScript service lab](07-node-typescript-lab.md) |
 
@@ -176,9 +176,21 @@ These assume **producer + broker + worker + DLQ** (Redis/Laravel/BullMQ/SQS-styl
 
 **Capstone:** Pair with [Project 1](01-integration-webhook-receiver.md) ingress and [Project 8](08-go-retrieval-worker-lab.md) retrieval. See [Stretch: connect your labs](08-go-retrieval-worker-lab.md#stretch-connect-your-labs) when Project 8 is green.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — HTTP enqueue → queue → worker → idempotent side effect / DLQ.
+- [ ] **ADR** — queue technology (Redis, DB outbox, etc.) and ack timing.
+- [ ] **Performance numbers** — worker throughput or job processing p95.
+- [ ] **Failure modes** — duplicate delivery double-apply; poison message infinite retry.
+- [ ] **Observability evidence** — log line for job id + `request_id` correlation.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 6)
 - Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 7 — Node / TypeScript service lab](07-node-typescript-lab.md)

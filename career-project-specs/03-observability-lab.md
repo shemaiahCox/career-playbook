@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 3 of 20 |
+| **Step** | 3 of 21 |
 | **Previous** | [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md) |
 | **Next** | [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md) |
 
@@ -174,8 +174,20 @@ Implement these against **your** observability lab host ([`02-rag-llm-lab`](../c
 
 - [Debugging (workflow)](../docs/concepts/software-engineering.md#debugging-workflow) — structured loop for narrowing failures once you have correlation IDs and logs.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — request middleware → `request_id` → JSON log fields across handlers.
+- [ ] **ADR** — log format (JSON schema) and correlation id header name.
+- [ ] **Performance numbers** — middleware overhead or p95 before/after structured logging.
+- [ ] **Failure modes** — untraceable incidents without request ids; PII in logs.
+- [ ] **Observability evidence** — screenshot or log excerpt (this artifact is the milestone centerpiece).
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 3)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md)

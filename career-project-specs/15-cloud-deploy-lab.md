@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 15 of 20 |
+| **Step** | 15 of 21 |
 | **Previous** | [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md) |
 | **Next** | [Project 16 — Kubernetes controller-lite lab](16-k8s-controller-lab.md) |
 
@@ -75,8 +75,20 @@ Smoke test script post-deploy: hit health + one API path.
 - Terraform/Pulumi stub for queue + DB (single file, not full platform).
 - Blue/green or canary note in README (theory OK if not implemented).
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — compose services, networks, secrets, health dependencies.
+- [ ] **ADR** — cloud target choice and rollback strategy.
+- [ ] **Performance numbers** — deploy smoke test duration or cold-start note.
+- [ ] **Failure modes** — secrets in git; deploy without health check; no rollback path.
+- [ ] **Observability evidence** — health endpoint 200 + one structured log post-deploy.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 15)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 16 — Kubernetes controller-lite lab](16-k8s-controller-lab.md)

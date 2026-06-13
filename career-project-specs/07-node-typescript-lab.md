@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 7 of 20 |
+| **Step** | 7 of 21 |
 | **Previous** | [Project 6 — Async worker](06-async-worker-stretch.md) |
 | **Next** | [Project 8 — Go retrieval gateway and worker lab](08-go-retrieval-worker-lab.md) |
 
@@ -158,9 +158,21 @@ Pick scenarios for **your declared track** (A, B, or C). **Track A** mirrors [Pr
 - Dockerfile + `docker compose` for app + Redis (if using queue).
 - GitHub Action: `typecheck` + `lint` on PR.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — track-specific (webhook A, OpenAPI B, or queue C) HTTP boundaries.
+- [ ] **ADR** — framework choice (Express vs Fastify) or OpenAPI generation approach.
+- [ ] **Performance numbers** — HTTP p95 for primary track endpoint.
+- [ ] **Failure modes** — HMAC on parsed body; replay without idempotency (track A/C).
+- [ ] **Observability evidence** — JSON log with correlation id on one curl path.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 7)
 - Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 8 — Go retrieval gateway and worker lab](08-go-retrieval-worker-lab.md)

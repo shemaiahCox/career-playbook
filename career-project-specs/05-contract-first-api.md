@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 5 of 20 |
+| **Step** | 5 of 21 |
 | **Previous** | [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md) |
 | **Next** | [Project 6 — Async worker](06-async-worker-stretch.md) |
 
@@ -182,8 +182,20 @@ Use these once the lab repo exists; wire **copy-paste HTTP examples** into that 
 - **Action:** Hit list endpoint with valid and invalid query params.
 - **Expected outcome:** Documented defaults; stable sort keys for consumers building UI—pairs well with [Project 4](04-sql-performance-lab.md) for performance stories later.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — OpenAPI contract → validation layer → handlers → persistence.
+- [ ] **ADR** — versioning strategy (URL prefix vs header) and breaking-change policy.
+- [ ] **Performance numbers** — list endpoint p95 or validation overhead baseline.
+- [ ] **Failure modes** — silent schema drift; consumers break on undeclared breaking change.
+- [ ] **Observability evidence** — log with `request_id` on validation error path.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 5)
 - Log in [PROGRESS.md](../PROGRESS.md)
 - **Next:** [Project 6 — Async worker](06-async-worker-stretch.md)

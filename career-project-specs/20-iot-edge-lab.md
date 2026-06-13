@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 20 of 20 |
+| **Step** | 20 of 21 |
 | **Previous** | [Project 19 — WASM / secure network component lab](19-wasm-secure-component-lab.md) |
 | **Next** | — |
 
@@ -77,9 +77,20 @@ Publish duplicate MQTT messages; assert single row. Simulate disconnect/reconnec
 - TLS to MQTT broker.
 - [Project 18](18-rust-hot-path-lab.md) ingest consumer in Rust ADR.
 
+## Portfolio artifacts
+
+Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+
+- [ ] **Architecture diagram** — MQTT/HTTP ingest → queue/worker → Postgres → optional Project 2 query → Project 13 dashboard hook.
+- [ ] **ADR** — QoS level, offline buffer strategy, edge vs cloud inference boundary.
+- [ ] **Performance numbers** — ingest throughput or duplicate-delivery handling latency; N/A only with reason.
+- [ ] **Failure modes** — duplicate QoS1 delivery, broker offline buffer overflow, cross-tenant telemetry leak.
+- [ ] **Observability evidence** — live reading on dashboard or structured log with device id + sequence.
+- [ ] Artifacts committed in lab repo `docs/portfolio/`.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Integration hardening checklist](../checklists/integration-hardening.md)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 20) · [Integration hardening](../checklists/integration-hardening.md) when HTTP/MQTT ingress applies
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** — (path complete)
+- **Next:** [Project 21 — Integrated platform capstone](21-integrated-platform-capstone.md)
