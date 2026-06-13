@@ -1,6 +1,6 @@
 # Ecosystem map: Rust
 
-**Use this:** **Rust** is a **Tier‑2 growth lane**—after you ship [Project 9 Go](../../career-project-specs/08-go-retrieval-worker-lab.md)—for comparing hot-path implementations, edge/IoT-adjacent stretches, and systems literacy. **Go remains the primary throughput lane** on the playbook spine; **Python** owns LLM logic.
+**Use this:** **Rust** is a **Tier‑2 growth lane**—after you ship [Project 8 Go](../../career-project-specs/08-go-retrieval-worker-lab.md)—for comparing hot-path implementations, edge/IoT-adjacent stretches, and systems literacy. **Go remains the primary throughput lane** on the playbook spine; **Python** owns LLM logic.
 
 **Companion:** [docs README](../README.md) · [Project 8 — optional Rust stretch](../../career-project-specs/08-go-retrieval-worker-lab.md#stretch) · [Language fundamentals — Rust](language-fundamentals-comparison.md)
 

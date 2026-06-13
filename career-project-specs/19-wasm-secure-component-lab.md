@@ -29,7 +29,7 @@ Ship a **small Rust component** compiled to **WASM** (or a hardened network micr
 
 ### In depth
 
-**Wave 3 — advanced.** Optional after [Project 17](18-rust-hot-path-lab.md). Scope small: one function (e.g. payload normalizer, HMAC verify helper) not a full service.
+**Wave 3 — advanced.** Optional after [Project 18](18-rust-hot-path-lab.md). Scope small: one function (e.g. payload normalizer, HMAC verify helper) not a full service.
 
 ## Important concepts
 

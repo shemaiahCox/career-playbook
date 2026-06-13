@@ -34,7 +34,7 @@ Employers increasingly expect **baseline cybersecurity hygiene** from backend an
 
 - **Interview signal:** You can explain **why** string-concat SQL is unsafe, **where** XSS bites (contexts, encoding, CSP), and **what** CSRF protects when cookies carry session auth—stories grounded in **your** repo, not textbook lists.
 - **Production reality:** Vulns still ship as **one unescaped field**, **one raw query**, **one missing CSRF token**, or **session fixation**-shaped mistakes. A lab repo is where you **reproduce** and **remediate** without risking production users.
-- **Complements Project 1:** [Project 1](01-integration-webhook-receiver.md) and [integration-hardening.md](../checklists/integration-hardening.md) cover **integration-edge** security (signatures, idempotency). Project 8 covers **browser + database + forms**—how most business apps actually behave.
+- **Complements Project 1:** [Project 1](01-integration-webhook-receiver.md) and [integration-hardening.md](../checklists/integration-hardening.md) cover **integration-edge** security (signatures, idempotency). Project 9 covers **browser + database + forms**—how most business apps actually behave.
 
 **Real-world situations this project mirrors**
 
@@ -64,7 +64,7 @@ _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contr
 |---|-----|
 | **GitHub** | _TBD_ |
 | **SSH** | _TBD_ |
-| **Local sibling** | _TBD — e.g. [`../career-projects/08-owasp-web-lab`](../career-projects/)_ |
+| **Local sibling** | _TBD — e.g. [`../career-projects/09-owasp-web-lab`](../career-projects/09-owasp-web-lab)_ |
 
 ## Stack (suggestion)
 
@@ -78,7 +78,7 @@ _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contr
 
 **Not gated on** [Project 5](05-contract-first-api.md): you may add **JSON endpoints** and OpenAPI later (optional **API Top 10** slice), but the **core** success criteria assume **HTML forms** and a **relational** store.
 
-**Pairs with** [Project 4](04-sql-performance-lab.md): shared SQL engine discipline; Project 2 is about **plans and correctness under load**—Project 8 adds **injection** failure modes and **safe query** habits. Neither requires the other first.
+**Pairs with** [Project 4](04-sql-performance-lab.md): shared SQL engine discipline; Project 4 is about **plans and correctness under load**—Project 9 adds **injection** failure modes and **safe query** habits. Neither requires the other first.
 
 ### Non-goals
 

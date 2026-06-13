@@ -1,8 +1,8 @@
 # Ecosystem map: Node.js + TypeScript (HTTP / API services)
 
-**Use this:** You ship or review **Node** backends as **HTTP APIs** (**Express**, **Fastify**, **NestJS-shaped** layering)—the TypeScript lane in this playbook ([Project 6](../../career-project-specs/07-node-typescript-lab.md)).
+**Use this:** You ship or review **Node** backends as **HTTP APIs** (**Express**, **Fastify**, **NestJS-shaped** layering)—the TypeScript lane in this playbook ([Project 7](../../career-project-specs/07-node-typescript-lab.md)).
 
-**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 6 — Node / TypeScript lab](../../career-project-specs/07-node-typescript-lab.md)
+**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 7 — Node / TypeScript lab](../../career-project-specs/07-node-typescript-lab.md)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -25,7 +25,7 @@
 
 - **Middleware** chains (Express-style) or **hooks** (Fastify)—ordering matters: auth, body parsing, error handler last.
 - **Validation at the boundary:** **Zod**, **joi**, or framework schemas—same discipline as Pydantic in Python: reject bad input before business logic.
-- Align habits with [Project 6](../../career-project-specs/07-node-typescript-lab.md): **correlation IDs**, structured JSON logs.
+- Align habits with [Project 7](../../career-project-specs/07-node-typescript-lab.md): **correlation IDs**, structured JSON logs.
 
 **Async**
 

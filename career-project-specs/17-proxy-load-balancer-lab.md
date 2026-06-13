@@ -74,7 +74,7 @@ Integration: kill upstream; assert failover or error behavior.
 ## Stretch
 
 - TLS termination stub (local certs).
-- Rust reimplementation benchmark vs Go ([Project 17](18-rust-hot-path-lab.md)).
+- Rust reimplementation benchmark vs Go ([Project 18](18-rust-hot-path-lab.md)).
 
 ## When you're done
 

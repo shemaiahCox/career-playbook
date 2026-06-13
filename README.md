@@ -15,10 +15,10 @@ Finish each project's success criteria → log in PROGRESS → open **Next** in 
 
 | Step | Project | Stack | You will learn | Lab |
 |------|---------|-------|----------------|-----|
-| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | PHP | Idempotency, HMAC, fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/integration-automation-api) |
-| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Python | RAG, evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-service) |
+| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | PHP | Idempotency, HMAC, fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/webhook-receiver-lab) |
+| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Python | RAG, evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-lab) |
 | 3 | [Observability lab](career-project-specs/03-observability-lab.md) | Any (on Project 2 lab) | Correlation IDs, structured logs, latency | On Project 2 lab |
-| 4 | [SQL performance lab](career-project-specs/04-sql-performance-lab.md) | Postgres | Plans, indexes, vectors, transactions | [Lab exists](https://github.com/shemaiahCox/sql-data-platform) |
+| 4 | [SQL performance lab](career-project-specs/04-sql-performance-lab.md) | Postgres | Plans, indexes, vectors, transactions | [Lab exists](https://github.com/shemaiahCox/sql-perf-lab) |
 | 5 | [Contract-first API](career-project-specs/05-contract-first-api.md) | Laravel / FastAPI / TS | OpenAPI, versioning, breaking changes | _TBD_ |
 | 6 | [Async worker stretch](career-project-specs/06-async-worker-stretch.md) | PHP / Go / TS | Queues, at-least-once, idempotency, DLQ | _TBD_ |
 | 7 | [Node / TypeScript lab](career-project-specs/07-node-typescript-lab.md) | TypeScript | Typed HTTP API, webhooks, queue track | _TBD_ |
@@ -36,7 +36,7 @@ Finish each project's success criteria → log in PROGRESS → open **Next** in 
 | 19 | [WASM secure component](career-project-specs/19-wasm-secure-component-lab.md) | Rust | Sandboxed logic, FFI boundaries | _TBD_ |
 | 20 | [IoT / edge ingest](career-project-specs/20-iot-edge-lab.md) | Rust/Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
 
-Local lab folders live under [`career-projects/`](career-projects/). GitHub repo names may differ from folder numbers — each spec's **Code repo** section is authoritative.
+Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = step number** (e.g. step 2 → `02-rag-llm-lab`, step 4 → `04-sql-perf-lab`). GitHub repo names may differ — each spec's **Code repo** section is authoritative.
 
 ## Browse by topic (optional)
 

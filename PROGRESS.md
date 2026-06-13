@@ -30,6 +30,21 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
+## 2026-06-03 — Local lab folders aligned to step numbers
+
+- **Renamed** nested clones: `04-rag-llm-lab` → `02-rag-llm-lab` (step 2), `07-sql-perf-lab` → `04-sql-perf-lab` (step 4).
+- **Fixed** [README.md](README.md) GitHub lab links to match spec **Code repo** tables (`rag-llm-lab`, `sql-perf-lab`, `webhook-receiver-lab`).
+- **Clarified** folder prefix = step number in README and [career-projects/README.md](career-projects/README.md).
+
+---
+
+## 2026-06-03 — Align inline project numbers with Step 1–20 path
+
+- **Fixed** stale labels from the old P1–P23 renumbering: inline “Project N” text and `[Project N](spec)` links now match the learning path in [README.md](README.md) (e.g. RAG = Project 2, async worker = Project 6, security = Project 9, Rust = Project 18).
+- **Touched** specs 8–12, 14–20, 09; [llms.md](docs/concepts/llms.md), [rust.md](docs/languages/rust.md), [node-typescript-backend.md](docs/languages/node-typescript-backend.md), [application-security-web-owasp.md](checklists/application-security-web-owasp.md).
+
+---
+
 ## 2026-06-03 — Remove specs README stub and exploration-projects
 
 - **Deleted** [career-project-specs/README.md](career-project-specs/README.md) (catalog lives in [README.md](README.md) only).
@@ -111,7 +126,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 ---
 
 - **Decision:** Playbook scoped to **JS/TS, PHP, SQL, Go, Python** only—removed Java, C#, Kotlin, Swift, Rust, Unity, Next.js sandboxes and stack maps.
-- **Added:** [Project 9 Go retrieval/worker spec](career-project-specs/08-go-retrieval-worker-lab.md), [Go stack map](docs/languages/go.md), [integration-automation map](docs/concepts/integration-automation.md), [Systems integration architect](docs/concepts/systems-integration-architect.md), [Algorithms study path](docs/concepts/algorithms-study-path.md).
+- **Added:** [Project 8 Go retrieval/worker spec](career-project-specs/08-go-retrieval-worker-lab.md), [Go stack map](docs/languages/go.md), [integration-automation map](docs/concepts/integration-automation.md), [Systems integration architect](docs/concepts/systems-integration-architect.md), [Algorithms study path](docs/concepts/algorithms-study-path.md).
 - **Narrative:** Integrations + automation + AI (Boomi/n8n patterns, RAG in Python, performance in Go).
 - **Next:** Pick active spec on new spine (Project 1 → Project 2/Project 3 → Project 5 → Project 6/Project 8 → Project 7); study algorithms path when starting Project 4 or Project 8.
 

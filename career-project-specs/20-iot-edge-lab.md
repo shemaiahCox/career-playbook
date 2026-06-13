@@ -21,7 +21,7 @@
 
 ## Problem
 
-Build an **edge ingest path**: MQTT (or HTTP) telemetry from sensor simulator or Raspberry Pi → **idempotent** upsert into [Project 2](04-sql-performance-lab.md) Postgres → optional **local inference** call to [Project 5](02-rag-llm-service.md) or small model stub → events to [Project 13](13-realtime-dashboard-lab.md).
+Build an **edge ingest path**: MQTT (or HTTP) telemetry from sensor simulator or Raspberry Pi → **idempotent** upsert into [Project 4](04-sql-performance-lab.md) Postgres → optional **local inference** call to [Project 2](02-rag-llm-service.md) or small model stub → events to [Project 13](13-realtime-dashboard-lab.md).
 
 ## Career relevance
 
@@ -29,7 +29,7 @@ Build an **edge ingest path**: MQTT (or HTTP) telemetry from sensor simulator or
 
 ### In depth
 
-**Wave 3 — advanced.** Requires [Project 7](06-async-worker-stretch.md) queue/idempotency habits and [Project 2](04-sql-performance-lab.md) storage. Smart-home / sensor network scope stays **one load-bearing demo**, not a firmware degree.
+**Wave 3 — advanced.** Requires [Project 6](06-async-worker-stretch.md) queue/idempotency habits and [Project 4](04-sql-performance-lab.md) storage. Smart-home / sensor network scope stays **one load-bearing demo**, not a firmware degree.
 
 ## Important concepts
 
@@ -52,7 +52,7 @@ _TBD — e.g. `iot-edge-lab`._ Suggested folder: [`../career-projects/20-iot-edg
 
 - **Ingest:** Go or Rust MQTT consumer (document choice)
 - **Simulator:** Python or Mosquitto pub script; Pi optional
-- **Store:** Postgres from Project 2 schema extension
+- **Store:** Postgres from Project 4 schema extension
 - **UI hook:** [Project 13](13-realtime-dashboard-lab.md) SSE events
 
 ## Success criteria
@@ -70,12 +70,12 @@ Publish duplicate MQTT messages; assert single row. Simulate disconnect/reconnec
 
 1. Duplicate QoS1 delivery → one stored reading.
 2. Broker down 5 min → buffer → replay without gaps/dupes per policy.
-3. Optional Project 5 query on aggregated telemetry → citation or guardrail note.
+3. Optional Project 2 query on aggregated telemetry → citation or guardrail note.
 
 ## Stretch
 
 - TLS to MQTT broker.
-- [Project 17](18-rust-hot-path-lab.md) ingest consumer in Rust ADR.
+- [Project 18](18-rust-hot-path-lab.md) ingest consumer in Rust ADR.
 
 ## When you're done
 

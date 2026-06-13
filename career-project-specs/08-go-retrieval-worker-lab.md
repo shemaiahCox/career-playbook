@@ -76,9 +76,9 @@ Suggested local folder: [`../career-projects/08-go-retrieval-worker-lab`](../car
 
 | Component | Owner | Responsibility |
 |-----------|--------|----------------|
-| `POST /query`, eval JSONL, citations policy | Python (Project 5) | LLM call, guardrails, regression evals |
+| `POST /query`, eval JSONL, citations policy | Python (Project 2) | LLM call, guardrails, regression evals |
 | `POST /retrieve`, chunk fan-out, timeouts | Go (Project 8) | Concurrent fetch, cache-friendly read path |
-| Job enqueue / DLQ | Project 1/Project 7 pattern | Fast HTTP ack; durable Go consumer |
+| Job enqueue / DLQ | Project 1/Project 6 pattern | Fast HTTP ack; durable Go consumer |
 
 Document the **HTTP or queue contract** in OpenAPI or README—stable for both services.
 
@@ -132,8 +132,8 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 
 **AI + automation capstone (after success criteria green):**
 
-- **Concurrent ingestion pipeline** — `ingest_batch` jobs from Project 1/Project 4 enqueue; worker pool with **backpressure**; idempotent chunk upserts into [Project 2](04-sql-performance-lab.md) tables.
-- **Event bus** — NATS or Redis Streams for `ingest_complete` / `chunks_ready`; at-least-once consumers; document replay—**after** queue + DLQ basics from [Project 7](06-async-worker-stretch.md).
+- **Concurrent ingestion pipeline** — `ingest_batch` jobs from Project 1/Project 4 enqueue; worker pool with **backpressure**; idempotent chunk upserts into [Project 4](04-sql-performance-lab.md) tables.
+- **Event bus** — NATS or Redis Streams for `ingest_complete` / `chunks_ready`; at-least-once consumers; document replay—**after** queue + DLQ basics from [Project 6](06-async-worker-stretch.md).
 - **Real-time notify (optional)** — SSE or WebSocket on gateway for job status; handbook: [WebSockets](../docs/concepts/servers-and-networking.md#websockets-and-long-polling).
 
 **Cloud / ops:**
@@ -143,7 +143,7 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 
 **Rust Tier‑2 (after Go core green — not a parallel spine):**
 
-- Reimplement **retrieval gateway** or **worker** per [Project 17](18-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
+- Reimplement **retrieval gateway** or **worker** per [Project 18](18-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
 
 
 ## Stretch: connect your labs

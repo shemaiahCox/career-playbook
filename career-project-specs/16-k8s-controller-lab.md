@@ -28,7 +28,7 @@ Build a **minimal Kubernetes controller or operator pattern** in Go: watch a res
 
 ### In depth
 
-**Wave 3 — advanced.** Complete [Project 14](15-cloud-deploy-lab.md) first. Start with **controller-lite** (informers + sync loop) before a full CRD operator if time-boxed.
+**Wave 3 — advanced.** Complete [Project 15](15-cloud-deploy-lab.md) first. Start with **controller-lite** (informers + sync loop) before a full CRD operator if time-boxed.
 
 ## Important concepts
 
@@ -51,7 +51,7 @@ _TBD — e.g. `k8s-controller-lab`._ Suggested folder: [`../career-projects/16-k
 
 - **Go** — `controller-runtime` or client-go informers (document choice)
 - **kind** or **minikube** for local cluster
-- Deploy target from [Project 14](15-cloud-deploy-lab.md)
+- Deploy target from [Project 15](15-cloud-deploy-lab.md)
 
 ## Success criteria
 

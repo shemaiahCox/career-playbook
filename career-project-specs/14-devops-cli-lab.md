@@ -50,8 +50,8 @@ _TBD — e.g. `devops-cli-lab`._ Suggested folder: [`../career-projects/14-devop
 ## Stack
 
 - **Go 1.22+** — `cobra` or stdlib `flag` (document choice)
-- Reads same Redis/SQS/Postgres DLQ as [Project 7](06-async-worker-stretch.md)
-- Optional Rust port after [Project 17](18-rust-hot-path-lab.md)
+- Reads same Redis/SQS/Postgres DLQ as [Project 6](06-async-worker-stretch.md)
+- Optional Rust port after [Project 18](18-rust-hot-path-lab.md)
 
 ## Success criteria
 
@@ -73,7 +73,7 @@ Table-driven tests for parsing; integration test against docker-compose queue.
 ## Stretch
 
 - Prometheus textfile exporter subcommand.
-- Wire to [Project 14](15-cloud-deploy-lab.md) deploy hooks.
+- Wire to [Project 15](15-cloud-deploy-lab.md) deploy hooks.
 
 ## When you're done
 

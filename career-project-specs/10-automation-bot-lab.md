@@ -20,7 +20,7 @@
 
 ## Problem
 
-Ship a **workflow-shaped automation** piece—custom **n8n node**, scheduled job, or Boomi-adjacent connector step—that calls your [Project 5](02-rag-llm-service.md) or [Project 1](01-integration-webhook-receiver.md) boundaries with **secrets, errors, and idempotency** handled like production integration code.
+Ship a **workflow-shaped automation** piece—custom **n8n node**, scheduled job, or Boomi-adjacent connector step—that calls your [Project 2](02-rag-llm-service.md) or [Project 1](01-integration-webhook-receiver.md) boundaries with **secrets, errors, and idempotency** handled like production integration code.
 
 ## Career relevance
 
@@ -65,7 +65,7 @@ _TBD — e.g. `automation-bot-lab` or n8n community node package._ Suggested fol
 
 ## Success criteria
 
-- [ ] Step/node calls Project 5 or Project 1 with auth; secrets outside repo.
+- [ ] Step/node calls Project 2 or Project 1 with auth; secrets outside repo.
 - [ ] **Idempotent** outbound effect documented (key + store or natural idempotency).
 - [ ] Errors surface to workflow with log correlation id.
 - [ ] README: diagram of trigger → step → downstream API.
@@ -78,12 +78,12 @@ Integration test: run step twice with same input → one side effect.
 
 1. Downstream 503 → workflow retries → no duplicate writes.
 2. Invalid API key → clear error, no partial state.
-3. LLM timeout from Project 5 → bounded wait; documented fallback.
+3. LLM timeout from Project 2 → bounded wait; documented fallback.
 
 ## Stretch
 
 - Publish as private n8n community package with version tag.
-- Enqueue to [Project 7](06-async-worker-stretch.md) instead of sync call.
+- Enqueue to [Project 6](06-async-worker-stretch.md) instead of sync call.
 
 ## When you're done
 

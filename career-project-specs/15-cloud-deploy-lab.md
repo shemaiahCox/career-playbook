@@ -28,7 +28,7 @@ Take [Project 8](08-go-retrieval-worker-lab.md) (or Project 6+Project 4 stack) t
 
 ### In depth
 
-Employers hiring for Go/Python/TS backends expect **Docker literacy** and basic deploy hygiene. This lab is prerequisite for [Project 15](16-k8s-controller-lab.md) (K8s assumes you already ship containers).
+Employers hiring for Go/Python/TS backends expect **Docker literacy** and basic deploy hygiene. This lab is prerequisite for [Project 16](16-k8s-controller-lab.md) (K8s assumes you already ship containers).
 
 ## Important concepts
 

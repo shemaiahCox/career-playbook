@@ -20,7 +20,7 @@
 
 ## Problem
 
-Ship a **thin TypeScript web app** (server-rendered or minimal SPA) that talks to [Project 5](02-rag-llm-service.md) `POST /query`—streaming or polling UX, auth to your API, and **eval-aware** error states when retrieval or model fails.
+Ship a **thin TypeScript web app** (server-rendered or minimal SPA) that talks to [Project 2](02-rag-llm-service.md) `POST /query`—streaming or polling UX, auth to your API, and **eval-aware** error states when retrieval or model fails.
 
 ## Career relevance
 
@@ -41,7 +41,7 @@ Ship a **thin TypeScript web app** (server-rendered or minimal SPA) that talks t
 **Interview line:** *“The browser never holds model keys—the BFF calls Project 2 and surfaces retrieval vs model failures differently for support.”*
 
 
-**Interview line:** *“The browser never holds model keys—the BFF calls Project 5 and surfaces retrieval vs model failures differently for support.”*
+**Interview line:** *“The browser never holds model keys—the BFF calls Project 2 and surfaces retrieval vs model failures differently for support.”*
 
 ## Code repo
 
@@ -50,23 +50,23 @@ _TBD — e.g. `llm-web-app-lab`._ Suggested folder: [`../career-projects/11-llm-
 ## Stack
 
 - **TypeScript** — Vite + minimal SSR, or Express/Fastify BFF + static UI
-- **Backend:** [Project 5](02-rag-llm-service.md) (required dependency)
+- **Backend:** [Project 2](02-rag-llm-service.md) (required dependency)
 - Optional: session auth stub for [Project 12](12-multi-tenant-auth-lab.md) prep
 
 ## Success criteria
 
-- [ ] User can submit query; see answer with citations when Project 5 returns `cited_chunk_ids`.
+- [ ] User can submit query; see answer with citations when Project 2 returns `cited_chunk_ids`.
 - [ ] Loading, error, and empty-retrieval states documented in UI.
-- [ ] `request_id` from Project 5 shown in dev/support panel or logs.
-- [ ] README: sequence diagram browser → BFF → Project 5.
+- [ ] `request_id` from Project 2 shown in dev/support panel or logs.
+- [ ] README: sequence diagram browser → BFF → Project 2.
 
 ## Testing approach (lab)
 
-E2E or integration: mock Project 5 failure modes; assert UI messages.
+E2E or integration: mock Project 2 failure modes; assert UI messages.
 
 ## Exploration scenarios
 
-1. Project 5 timeout → user sees retry-safe message.
+1. Project 2 timeout → user sees retry-safe message.
 2. Empty retrieval → no hallucinated “success” UI.
 3. Stream interrupted → client cleanup documented.
 

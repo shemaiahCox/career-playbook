@@ -28,7 +28,7 @@ Add **authentication** and **tenant isolation** to a small API + SQL schema: use
 
 ### In depth
 
-Multi-tenant bugs are **cross-customer data leaks**—career-ending severity. This lab builds on [Project 6](05-contract-first-api.md) contracts and [Project 2](04-sql-performance-lab.md) indexing (`tenant_id` in composite indexes). Complements [Project 8](09-application-security-lab.md) session hygiene.
+Multi-tenant bugs are **cross-customer data leaks**—career-ending severity. This lab builds on [Project 5](05-contract-first-api.md) contracts and [Project 4](04-sql-performance-lab.md) indexing (`tenant_id` in composite indexes). Complements [Project 9](09-application-security-lab.md) session hygiene.
 
 ## Important concepts
 
@@ -45,11 +45,11 @@ Multi-tenant bugs are **cross-customer data leaks**—career-ending severity. Th
 
 ## Code repo
 
-_TBD — extend [Project 4](07-node-typescript-lab.md) or [Project 6](05-contract-first-api.md) repo._ Suggested folder: [`../career-projects/12-multi-tenant-auth-lab`](../career-projects/12-multi-tenant-auth-lab).
+_TBD — extend [Project 7](07-node-typescript-lab.md) or [Project 5](05-contract-first-api.md) repo._ Suggested folder: [`../career-projects/12-multi-tenant-auth-lab`](../career-projects/12-multi-tenant-auth-lab).
 
 ## Stack
 
-- **TypeScript** (Fastify/Express) or Laravel/FastAPI from Project 6
+- **TypeScript** (Fastify/Express) or Laravel/FastAPI from Project 5
 - **Postgres** — shared schema, row-level tenant column (RLS optional stretch)
 - Migrations checked in
 
