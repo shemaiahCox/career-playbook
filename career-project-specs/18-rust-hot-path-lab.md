@@ -18,6 +18,7 @@
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) green first
 - **New to Rust?** → [Rust map](../docs/languages/rust.md)
+- **Cross-stack depth:** [Ownership and iterators](../docs/languages/language-fundamentals-comparison.md#ownership-borrowing-and-memory-models) · [Error philosophy](../docs/languages/language-fundamentals-comparison.md#error-philosophy-and-control-flow) · [Lazy evaluation](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators)
 - **Handbook:** [Memory and performance](../docs/concepts/memory-and-performance.md)
 
 ## Problem

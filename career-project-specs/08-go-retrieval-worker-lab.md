@@ -17,6 +17,7 @@
 ## Before you start
 
 - **New to Go?** → [Go map](../docs/languages/go.md) · [Stacks glossary](../docs/languages/glossary.md)
+- **Cross-stack depth:** [Generators and iterators](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators) · [Concurrency beyond syntax](../docs/languages/language-fundamentals-comparison.md#concurrency-beyond-syntax)
 - **Brokers (career context):** [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
 - **Deep dive (optional):** [Systems integration architect](../docs/concepts/systems-integration-architect.md)
 - **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency](../docs/concepts/software-engineering.md#concurrency-basics) · [Memory and performance](../docs/concepts/memory-and-performance.md)

@@ -30,6 +30,13 @@
 - [Error handling](#error-handling)
 - [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness)
 - [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals)
+- [Intermediate and advanced concepts (cross-stack)](#intermediate-and-advanced-concepts-cross-stack)
+  - [Lazy evaluation: generators and iterators](#lazy-evaluation-generators-and-iterators)
+  - [Ownership, borrowing, and memory models](#ownership-borrowing-and-memory-models)
+  - [Type systems beyond annotations](#type-systems-beyond-annotations)
+  - [Error philosophy and control flow](#error-philosophy-and-control-flow)
+  - [Metaprogramming: decorators, macros, traits](#metaprogramming-decorators-macros-traits)
+  - [Concurrency beyond syntax](#concurrency-beyond-syntax)
 - [Language-specific extras](#language-specific-extras)
 - [Python (scripting lane)](#python-scripting-lane)
 - [Quick reference index](#quick-reference-index)
@@ -43,6 +50,7 @@
 3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--21) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
 4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
+6. **Senior-depth language features** (generators, ownership, type-system edges) live in [Intermediate and advanced concepts](#intermediate-and-advanced-concepts-cross-stack)—read when translating between stacks during an active lab. Operational concurrency (thread pools, backpressure, queue workers) stays in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
 
 **Comment style note:** JavaScript, TypeScript, Go, Rust, and PHP use `//` for line comments. Python uses `#`. PHP block comments use `/* ... */` like JS.
 
@@ -1071,6 +1079,463 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ---
 
+## Intermediate and advanced concepts (cross-stack)
+
+**Purpose:** Curated **translation reference** for senior-level language features—generators, ownership, type-system edges, error philosophy, metaprogramming—when you move between stacks during an active lab. Not a parallel language course or interview cram sheet; each topic ties to a playbook project.
+
+**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-step-1--21). DS&A theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
+
+### Lazy evaluation: generators and iterators
+
+Senior engineers use **lazy sequences** for streaming I/O, pagination, and memory-bounded pipelines—without loading entire datasets into RAM.
+
+| Lang | Mechanism | Typical use |
+|------|-----------|-------------|
+| **Python** | `yield` / generator expressions | Stream rows from DB or files; chunk RAG ingestion |
+| **JavaScript** | `function*` / `yield` | Paginated API consumption; sync iterables |
+| **TypeScript** | Same as JS; `AsyncGenerator` for async streams | Typed pagination; SSE/chunk readers |
+| **Go** | `iter.Seq` (Go 1.23+) or channels | Worker pipelines; bounded fan-out |
+| **Rust** | `Iterator` trait + adapters (`map`, `filter`, `take`) | Zero-copy transforms in hot paths |
+| **PHP** | `yield` in user functions | Chunked CSV/HTTP reads in Laravel jobs |
+
+| Lang | Gotcha |
+|------|--------|
+| **Python** | Generators are **single-pass**—exhaust once; `list(gen)` materializes and defeats laziness |
+| **JavaScript** | Mixing sync iterables with **async iterables** (`for await`)—different protocols |
+| **Go** | Channel **close/send rules**—send on closed channel panics; range until close |
+| **Rust** | Iterators are **consume-once**; `.collect()` allocates; prefer `.take(n)` for bounds |
+| **PHP** | Generators are single-pass like Python; cannot rewind without re-calling the function |
+
+**Same scenario:** yield IDs from a paginated source without loading all pages.
+
+```python
+# Python — generator for paginated fetch
+def page_ids(url: str, page_size: int = 100):
+    page = 0
+    while True:
+        rows = fetch_page(url, page, page_size)
+        if not rows:
+            break
+        for row in rows:
+            yield row["id"]
+        page += 1
+```
+
+```javascript
+// JavaScript — sync generator for paginated API
+function* pageIds(fetchPage, pageSize = 100) {
+  let page = 0;
+  while (true) {
+    const rows = fetchPage(page, pageSize);
+    if (!rows.length) break;
+    for (const row of rows) yield row.id;
+    page += 1;
+  }
+}
+```
+
+```go
+// Go — iter.Seq (Go 1.23+) or channel pipeline
+func pageIDs(ctx context.Context, fetch func(int) ([]Row, error)) iter.Seq[string] {
+    return func(yield func(string) bool) {
+        for page := 0; ; page++ {
+            rows, err := fetch(page)
+            if err != nil || len(rows) == 0 {
+                return
+            }
+            for _, r := range rows {
+                if !yield(r.ID) {
+                    return
+                }
+            }
+        }
+    }
+}
+```
+
+```rust
+// Rust — Iterator adapters; lazy until consumed
+fn page_ids(fetch: impl Fn(u32) -> Vec<Row>) -> impl Iterator<Item = String> {
+    (0..).flat_map(move |page| {
+        let rows = fetch(page);
+        if rows.is_empty() {
+            None
+        } else {
+            Some(rows.into_iter().map(|r| r.id))
+        }
+    })
+    .flatten()
+}
+```
+
+```php
+<?php
+// PHP — yield in user function (Laravel job chunking)
+function pageIds(callable $fetchPage, int $pageSize = 100): Generator {
+    for ($page = 0; ; $page++) {
+        $rows = $fetchPage($page, $pageSize);
+        if ($rows === []) {
+            break;
+        }
+        foreach ($rows as $row) {
+            yield $row['id'];
+        }
+    }
+}
+```
+
+**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python RAG chunk ingestion) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) (JS pagination) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go fan-out) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (Rust hot-path iterators).
+
+---
+
+### Ownership, borrowing, and memory models
+
+Senior engineers know **who owns memory** and **when it is freed**—this differs more across languages than syntax does.
+
+| Lang | Model | Who frees? | Typical gotcha |
+|------|-------|------------|----------------|
+| **JavaScript** | GC + reference counting (some engines) | Runtime | Closures holding large objects; event listener leaks |
+| **TypeScript** | Same as JS (types erased) | Runtime | Same as JS |
+| **PHP** | Reference-counted GC | Runtime per request (FPM) | Long-running workers accumulate if references linger |
+| **Go** | Concurrent GC | Runtime | Escape analysis hides allocations; slice backing arrays shared |
+| **Python** | Refcount + cyclic GC | Runtime | Large lists in hot loops; `__slots__` for many small objects |
+| **Rust** | **Ownership + borrow checker** | Compile-time rules; drop at scope | Fighting the borrow checker with `.clone()` everywhere |
+
+| Lang | Gotcha |
+|------|--------|
+| **JavaScript** | **Closure captures** keep objects alive; remove listeners on teardown |
+| **Go** | **Slice aliasing**—sub-slices share backing array; `append` may reallocate |
+| **Python** | **Mutable default args** and shared list references across calls |
+| **Rust** | **`&mut` exclusivity**—only one mutable borrow at a time; use interior mutability sparingly |
+| **PHP** | Request-scoped memory is fine in FPM; **queue workers** need explicit unset/cycle breaks |
+
+**Same scenario:** pass a buffer into a function without copying when possible.
+
+```rust
+// Rust — borrow (&) vs owned (String); compiler enforces lifetimes
+fn parse_header(line: &str) -> Option<&str> {
+    line.strip_prefix("X-Request-Id: ")
+}
+
+fn process(mut buf: Vec<u8>) {
+    // buf owned here; freed when process returns
+    buf.clear();
+}
+```
+
+```go
+// Go — slices are views; copying slice header, not always data
+func trimSpace(b []byte) []byte {
+    return bytes.TrimSpace(b) // may share backing array with b
+}
+```
+
+```python
+# Python — references everywhere; no borrow checker
+def parse_header(line: str) -> str | None:
+    prefix = "X-Request-Id: "
+    return line[len(prefix):] if line.startswith(prefix) else None
+```
+
+```javascript
+// JavaScript — objects passed by reference; primitives copied
+function parseHeader(line) {
+  const prefix = "X-Request-Id: ";
+  return line.startsWith(prefix) ? line.slice(prefix.length) : null;
+}
+```
+
+```php
+<?php
+// PHP — arrays/objects by reference unless copied explicitly
+function parseHeader(string $line): ?string {
+    $prefix = 'X-Request-Id: ';
+    return str_starts_with($line, $prefix) ? substr($line, strlen($prefix)) : null;
+}
+```
+
+**Apply in:** [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go slice/alloc awareness) · [Projects 17–19](../../career-project-specs/17-proxy-load-balancer-lab.md) (Rust ownership) · [Memory and performance](../concepts/memory-and-performance.md) (measure before tuning).
+
+---
+
+### Type systems beyond annotations
+
+Annotations are the surface; **structural vs nominal typing**, **nullability**, and **variance** are what senior reviews focus on.
+
+| Lang | Typing style | Null / optional | Notable edge |
+|------|--------------|-----------------|--------------|
+| **JavaScript** | Dynamic | `null` / `undefined` | No compile-time checks without TS |
+| **TypeScript** | Structural + erased | `T \| null`, `?.`, `strictNullChecks` | Excess property checks; `unknown` vs `any` |
+| **PHP** | Gradual (8+) | `?Type`, nullable params | Union types; no generics until 8+ |
+| **Go** | Structural interfaces | Pointers for optional (`*T`) | No sum types; use interfaces + type switches |
+| **Python** | Gradual (hints) | `Optional[T]`, `\| None` (3.10+) | Runtime ignores most hints—enforce with mypy/pyright |
+| **Rust** | Nominal + inferred | `Option<T>`—no null refs | Variance on lifetimes; trait bounds |
+
+| Lang | Gotcha |
+|------|--------|
+| **TypeScript** | **`any` escape hatch** disables checking; prefer `unknown` + narrowing |
+| **Go** | **`nil` interface** holds type+value—`if x == nil` fails when interface holds typed nil |
+| **Python** | **`list` vs `List[str]`** at runtime identical; CI must run type checker |
+| **Rust** | **`Option` vs `Result`**—don't use `unwrap()` at service boundaries |
+| **PHP** | **`mixed`** and weak comparisons—prefer `===` and typed properties |
+
+**Same scenario:** function accepts optional config; caller must handle absence.
+
+```typescript
+// TypeScript — strict null checks + narrowing
+type Config = { timeoutMs: number };
+
+function loadConfig(raw: Config | null): Config {
+  if (raw === null) {
+    return { timeoutMs: 3000 };
+  }
+  return raw;
+}
+```
+
+```rust
+// Rust — Option<T> forces explicit branch
+fn load_config(raw: Option<Config>) -> Config {
+    raw.unwrap_or(Config { timeout_ms: 3000 })
+}
+```
+
+```go
+// Go — pointer for optional; nil means absent
+func loadConfig(raw *Config) Config {
+    if raw == nil {
+        return Config{TimeoutMs: 3000}
+    }
+    return *raw
+}
+```
+
+```python
+# Python — Optional with runtime None check
+def load_config(raw: Config | None) -> Config:
+    return raw if raw is not None else Config(timeout_ms=3000)
+```
+
+```php
+<?php
+// PHP — nullable type hint
+function loadConfig(?Config $raw): Config {
+    return $raw ?? new Config(timeoutMs: 3000);
+}
+```
+
+**Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) (TS strict mode) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) (typed DTOs) · [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python typing at scale) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (`Option`/`Result`).
+
+---
+
+### Error philosophy and control flow
+
+Fundamentals live in [Error handling](#error-handling). This section is **how senior engineers choose** between styles at service boundaries.
+
+| Lang | Default idiom | Boundary pattern | Review red flag |
+|------|---------------|------------------|-----------------|
+| **Go** | `(T, error)` | Wrap with `%w`; return up; log at HTTP handler | Ignored `err`; `panic` in libraries |
+| **Rust** | `Result<T, E>` + `?` | Map to HTTP status at axum/actix layer | `unwrap()` / `expect()` in worker hot path |
+| **TypeScript** | `try/catch` + typed `unknown` | Catch at route middleware; never swallow | Empty `catch {}` |
+| **Python** | Exceptions | Custom hierarchy; catch at FastAPI handlers | Bare `except:` |
+| **PHP** | Exceptions (`Throwable`) | Laravel exception handler maps to JSON | `@` suppression |
+| **JavaScript** | Promises reject / `try/catch` | Unhandled rejection handlers in Node | Floating promises |
+
+| Lang | Gotcha |
+|------|--------|
+| **Go** | **`errors.Is` / `errors.As`** for wrapped errors—not `==` on sentinel |
+| **Rust** | **`?` only in functions returning `Result`**—use `match` or `map_err` at boundaries |
+| **TypeScript** | **`catch (e: unknown)`**—narrow before accessing `.message` |
+| **Python** | **Exception hierarchy**—catch specific types, not `Exception` at inner layers |
+| **PHP** | **`Error` vs `Exception`**—catch `Throwable` in modern code |
+
+**Same scenario:** propagate a not-found error to HTTP 404 at the boundary.
+
+```go
+// Go — sentinel error + wrap
+var ErrNotFound = errors.New("not found")
+
+func findUser(id string) (*User, error) {
+    u, ok := store[id]
+    if !ok {
+        return nil, fmt.Errorf("find user %s: %w", id, ErrNotFound)
+    }
+    return u, nil
+}
+
+// Handler: if errors.Is(err, ErrNotFound) { w.WriteHeader(404) }
+```
+
+```rust
+// Rust — enum or thiserror; ? propagates
+#[derive(Debug)]
+enum AppError {
+    NotFound(String),
+    Upstream(reqwest::Error),
+}
+
+fn find_user(id: &str) -> Result<User, AppError> {
+    store.get(id).cloned().ok_or_else(|| AppError::NotFound(id.into()))
+}
+```
+
+```typescript
+// TypeScript — Result-like pattern or throw at boundary
+class NotFoundError extends Error {
+  constructor(public readonly id: string) {
+    super(`user not found: ${id}`);
+  }
+}
+
+function findUser(id: string): User {
+  const u = store.get(id);
+  if (!u) throw new NotFoundError(id);
+  return u;
+}
+```
+
+```python
+# Python — exception per domain error
+class NotFoundError(Exception):
+    def __init__(self, id: str):
+        self.id = id
+
+def find_user(id: str) -> User:
+    if id not in store:
+        raise NotFoundError(id)
+    return store[id]
+```
+
+```php
+<?php
+// PHP — domain exception; map in handler
+final class NotFoundException extends RuntimeException {}
+
+function findUser(string $id): User {
+    if (!isset($store[$id])) {
+        throw new NotFoundException("user not found: {$id}");
+    }
+    return $store[$id];
+}
+```
+
+**Apply in:** every project—especially [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (`Result` propagation, no `unwrap` in hot path).
+
+---
+
+### Metaprogramming: decorators, macros, traits
+
+Senior spelling differs wildly: **runtime decoration** (Python/PHP), **compile-time macros** (Rust), **structural traits** (Rust/Go interfaces).
+
+| Lang | Mechanism | Typical use |
+|------|-----------|-------------|
+| **Python** | `@decorator` | FastAPI routes, retries, timing, auth |
+| **JavaScript** | Higher-order functions; limited decorators (stage 3) | Middleware patterns; manual wrapping |
+| **TypeScript** | Decorators (experimental) + HOF | NestJS-style; prefer explicit middleware in playbook labs |
+| **PHP** | Attributes (`#[...]`) PHP 8+ | Laravel route/model metadata |
+| **Go** | Code generation (`go:generate`) | sqlc, mockgen—no runtime decorators |
+| **Rust** | Traits + `derive` macros + `macro_rules!` | Serde JSON, axum extractors, custom DSLs |
+
+| Lang | Gotcha |
+|------|--------|
+| **Python** | Decorators **hide call signature**—use `functools.wraps` |
+| **Rust** | **`derive` macro failures** show cryptic errors—check trait bounds |
+| **Go** | **Generated code** must be committed or CI must run `go generate` |
+| **PHP** | Attributes are **reflection-readable**—framework discovers them at boot |
+| **TypeScript** | Experimental decorators change semantics—pin TS version in CI |
+
+**Same scenario:** wrap a handler to log duration.
+
+```python
+# Python — decorator
+import functools
+import time
+
+def timed(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        try:
+            return fn(*args, **kwargs)
+        finally:
+            elapsed = time.perf_counter() - start
+            log.info("%s took %.3fs", fn.__name__, elapsed)
+    return wrapper
+```
+
+```rust
+// Rust — trait extension or wrapper fn (no runtime decorator)
+trait Timed {
+    fn timed(self) -> impl FnOnce() -> Self::Output;
+}
+// Or: middleware layer in axum—preferred for HTTP
+```
+
+```go
+// Go — explicit middleware wrapper (idiomatic)
+func timed(next http.HandlerFunc) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        next(w, r)
+        log.Printf("%s %s took %v", r.Method, r.URL.Path, time.Since(start))
+    }
+}
+```
+
+```php
+<?php
+// PHP 8 — attribute (framework reads via reflection)
+#[Route('/webhook', methods: ['POST'])]
+class WebhookController {
+    public function __invoke(Request $request): JsonResponse { /* ... */ }
+}
+```
+
+```typescript
+// TypeScript — higher-order function (explicit, no magic)
+function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
+  return ((...args: unknown[]) => {
+    const start = performance.now();
+    try {
+      return fn(...args);
+    } finally {
+      console.log(`${fn.name} took ${performance.now() - start}ms`);
+    }
+  }) as T;
+}
+```
+
+**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (FastAPI decorators) · [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (Laravel attributes) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (traits + derive).
+
+---
+
+### Concurrency beyond syntax
+
+[Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) covers **spelling**. Senior work adds **models, backpressure, and failure modes**—detailed in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
+
+| Lang | Concurrency unit | Coordination | Playbook default |
+|------|------------------|--------------|------------------|
+| **JavaScript** | Event loop + microtasks | `Promise`, `AbortSignal` | Bounded parallel `fetch` with timeout |
+| **TypeScript** | Same as JS | Typed promises | Same |
+| **PHP** | Sync per FPM request | Queues (Horizon) for async | Offload long I/O to queue jobs |
+| **Go** | Goroutines (cheap) | `context`, channels, `sync.WaitGroup` | Bounded worker pool + `context` cancel |
+| **Python** | `asyncio` tasks OR threads for I/O | `asyncio.Semaphore`, `TaskGroup` | Async HTTP; CPU work in process pool |
+| **Rust** | `tokio` tasks | `JoinHandle`, channels, `select!` | Same patterns as Go; ownership adds constraints |
+
+| Lang | Gotcha |
+|------|--------|
+| **JavaScript** | **Blocking the event loop** with sync CPU work stalls all I/O |
+| **Go** | **Unbounded `go` spam**—always cap with worker pool or semaphore |
+| **Python** | **`asyncio` + blocking calls**—use thread pool or truly async library |
+| **Rust** | **`Send + Sync` bounds** on spawned tasks—closure must own data correctly |
+| **PHP** | **No threads in typical FPM**—scale workers horizontally, not in-request parallel |
+
+**Bridge, don't duplicate:** thread pools, queue at-least-once semantics, idempotent workers, and backpressure patterns are in [Software engineering](../concepts/software-engineering.md#concurrency-basics) and [Memory and performance](../concepts/memory-and-performance.md).
+
+**Apply in:** [Project 6](../../career-project-specs/06-async-worker-stretch.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) · [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) (realtime) · [Project 16](../../career-project-specs/16-k8s-controller-lab.md).
+
+---
+
 ## Language-specific extras
 
 Short list of **non-obvious** items worth knowing when you move between core-stack languages—not full courses.
@@ -1171,6 +1636,12 @@ Stack map: [Python stack](python.md). Database queries: [SQL stack](sql.md).
 | `(T, error)` vs `try/catch` | [Error handling](#error-handling) |
 | `===` vs `==`, `None`, `?.` | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) |
 | `async`/`await`, goroutines | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) |
+| Generators / lazy iterators | [Lazy evaluation](#lazy-evaluation-generators-and-iterators) |
+| Ownership / borrow / GC | [Ownership and memory models](#ownership-borrowing-and-memory-models) |
+| Structural vs nominal types | [Type systems beyond annotations](#type-systems-beyond-annotations) |
+| `Result` / `?` vs exceptions at boundary | [Error philosophy](#error-philosophy-and-control-flow) · [Error handling](#error-handling) |
+| Decorators / traits / macros | [Metaprogramming](#metaprogramming-decorators-macros-traits) |
+| Backpressure / worker pools | [Concurrency beyond syntax](#concurrency-beyond-syntax) · [Software engineering](../concepts/software-engineering.md#concurrency-basics) |
 | ESM, traits, comprehensions | [Language-specific extras](#language-specific-extras) |
 | `Option<T>` / `Result<T,E>` | [Error handling](#error-handling) · [Null, optionals](#null-optionals-equality-and-truthiness) |
 | `match` / `if let` | [Conditionals](#conditionals-and-branching) · [Enums](#enums-unions-and-pattern-matching) |

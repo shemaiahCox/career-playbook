@@ -18,6 +18,7 @@
 ## Before you start
 
 - **New to Python?** → [Python services map](../docs/languages/python.md) · [Stacks glossary](../docs/languages/glossary.md) · [Language fundamentals](../docs/languages/language-fundamentals-comparison.md)
+- **Cross-stack depth:** [Generators and typing at scale](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators) · [Type systems beyond annotations](../docs/languages/language-fundamentals-comparison.md#type-systems-beyond-annotations)
 - **Handbook:** [Observability](../docs/concepts/software-engineering.md#observability-logs-metrics-traces) · [Testing](../docs/concepts/software-engineering.md#testing) · [Algorithms study path](../docs/concepts/algorithms-study-path.md) · [Memory and performance](../docs/concepts/memory-and-performance.md)
 
 ## Problem
