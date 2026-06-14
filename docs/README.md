@@ -8,7 +8,7 @@ Entry point: [README.md](../README.md)
 
 ## Languages (new to a stack?)
 
-Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bottom** (setup → layout → commands); **syntax side-by-side** lives in [language-fundamentals-comparison.md](languages/language-fundamentals-comparison.md) (JS/TS, PHP, Go, Python, Rust)—including an [intermediate/advanced cross-stack section](languages/language-fundamentals-comparison.md#intermediate-and-advanced-concepts-cross-stack) for generators, ownership, and type-system edges during active labs.
+Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bottom** (setup → layout → commands); **syntax side-by-side** lives in [language-fundamentals-comparison.md](languages/language-fundamentals-comparison.md) (JS/TS, PHP, Go, Python, Rust)—including a [20-concept cross-stack study map](languages/language-fundamentals-comparison.md#cross-stack-study-map) with examples here and depth linked out.
 
 | Doc | Stack |
 |-----|-------|

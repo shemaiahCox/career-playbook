@@ -22,4 +22,4 @@ Jump to **Plain language** sections at the bottom of each ecosystem map. Each ma
 - [Algorithms study path](../concepts/algorithms-study-path.md)
 - [Database design — N+1](../concepts/database-design.md#orms-and-the-n1-query-pattern)
 
-Syntax across core languages (including **Rust**): [Language fundamentals comparison](language-fundamentals-comparison.md). Senior-depth features (generators, ownership, type edges): [Intermediate and advanced concepts](language-fundamentals-comparison.md#intermediate-and-advanced-concepts-cross-stack).
+Syntax across core languages (including **Rust**): [Language fundamentals comparison](language-fundamentals-comparison.md). **20-concept study map** (examples + links to depth): [Cross-stack study map](language-fundamentals-comparison.md#cross-stack-study-map).
