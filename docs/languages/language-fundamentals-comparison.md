@@ -8,30 +8,30 @@
 
 ## Cross-stack study map
 
-**One entry point:** cross-language **examples** live in this file; **depth** links out to concept docs and project specs. Use during active labs—not a substitute for building.
+**One entry point:** cross-language **examples** live in this file; **depth** links out to concept docs and project specs. Each row links **Examples here**, **Go deeper**, and **Related** concepts. Use during active labs—not a substitute for building.
 
-| # | Concept | Examples here | Go deeper |
-|---|---------|---------------|-----------|
-| 1 | Immutability & value vs reference | [Immutability and value vs reference](#immutability-and-value-vs-reference) · [Variables and mutability](#variables-and-mutability) | [Memory and performance](../concepts/memory-and-performance.md) |
-| 2 | Closures & variable capture | [Closures and capture gotchas](#closures-and-capture-gotchas) · [Closures (fundamentals)](#closures-functions-that-capture-surroundings) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) |
-| 3 | Concurrency models | [Async fundamentals](#async-and-concurrency-fundamentals) · [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency basics](../concepts/software-engineering.md#concurrency-basics) |
-| 4 | Iterators, generators & lazy evaluation | [Lazy evaluation](#lazy-evaluation-generators-and-iterators) | [Algorithms study path](../concepts/algorithms-study-path.md) |
-| 5 | Memory models & lifetimes | [Ownership and memory models](#ownership-borrowing-and-memory-models) | [Memory and performance](../concepts/memory-and-performance.md) |
-| 6 | Error handling models | [Error handling](#error-handling) · [Error philosophy](#error-philosophy-and-control-flow) | [Cross-language concepts and gotchas](../concepts/software-engineering.md#cross-language-concepts-and-gotchas) |
-| 7 | Asynchronous programming | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) | [Integration — sync vs async](../concepts/software-engineering.md#integration-sync-async-and-messaging) |
-| 8 | Type systems | [Generics](#generics-and-type-parameters) · [Type systems beyond annotations](#type-systems-beyond-annotations) | [Classes, structs, and interfaces](#classes-structs-and-interfaces) |
-| 9 | Data structures & their costs | [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Project 4](../../career-project-specs/04-sql-performance-lab.md) |
-| 10 | Gotchas interviewers love | [Cross-language gotchas](#cross-language-gotchas-interview-favorites) · [Equality gotchas](#equality-gotchas) | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) |
-| 11 | Functional programming concepts | [Functional idioms](#functional-idioms-map-filter-reduce) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) |
-| 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) |
-| 13 | Design patterns | — (patterns in labs) | [Design patterns](../concepts/software-engineering.md#design-patterns-gof-style-survey) |
-| 14 | API & interface design | — (contract patterns in labs) | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) · [Project 5](../../career-project-specs/05-contract-first-api.md) · [Production readiness](../../checklists/production-readiness.md) |
-| 15 | Testing & quality | — (per-project test plans) | [Per-project testing](../concepts/per-project-testing.md) · [Software engineering — Testing](../concepts/software-engineering.md#testing) |
-| 16 | Performance concepts | [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) |
-| 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) |
-| 18 | Build systems & tooling | [Modules, imports, and packages](#modules-imports-and-packages) | [Command-line tooling](../concepts/command-line-tooling.md) · per-language maps in [glossary](glossary.md) |
-| 19 | Networking & IO | — (HTTP/streaming in labs) | [Servers and networking](../concepts/servers-and-networking.md) · [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md) |
-| 20 | Architecture concepts | — (architecture in labs) | [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) |
+| # | Concept | Examples here | Go deeper | Related |
+|---|---------|---------------|-----------|---------|
+| 1 | Immutability & value vs reference | [Immutability and value vs reference](#immutability-and-value-vs-reference) · [Variables and mutability](#variables-and-mutability) | [Memory and performance](../concepts/memory-and-performance.md) | → 5, 9 |
+| 2 | Closures & variable capture | [Closures and capture gotchas](#closures-and-capture-gotchas) · [Closures (fundamentals)](#closures-functions-that-capture-surroundings) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) | → 10 |
+| 3 | Concurrency models | [Async fundamentals](#async-and-concurrency-fundamentals) · [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency basics](../concepts/software-engineering.md#concurrency-basics) | → 7, 12 |
+| 4 | Iterators, generators & lazy evaluation | [Lazy evaluation](#lazy-evaluation-generators-and-iterators) | [Algorithms study path](../concepts/algorithms-study-path.md) | → 9, 11 |
+| 5 | Memory models & lifetimes | [Ownership and memory models](#ownership-borrowing-and-memory-models) | [Memory and performance](../concepts/memory-and-performance.md) | → 1, 10 |
+| 6 | Error handling models | [Error handling](#error-handling) · [Error philosophy](#error-philosophy-and-control-flow) | [Cross-language concepts and gotchas](../concepts/software-engineering.md#cross-language-concepts-and-gotchas) | → 10 |
+| 7 | Asynchronous programming | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) | [Integration — sync vs async](../concepts/software-engineering.md#integration-sync-async-and-messaging) | → 3, 12 |
+| 8 | Type systems | [Generics](#generics-and-type-parameters) · [Type systems beyond annotations](#type-systems-beyond-annotations) | [Classes, structs, and interfaces](#classes-structs-and-interfaces) | → 10 |
+| 9 | Data structures & their costs | [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Project 4](../../career-project-specs/04-sql-performance-lab.md) | → 1, 4 |
+| 10 | Gotchas interviewers love | [Cross-language gotchas](#cross-language-gotchas-interview-favorites) · [Equality gotchas](#equality-gotchas) | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) | → 2, 6, 8 |
+| 11 | Functional programming concepts | [Functional idioms](#functional-idioms-map-filter-reduce) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) | → 4 |
+| 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | → 3, 7 |
+| 13 | Design patterns | — (patterns in labs) | [Design patterns](../concepts/software-engineering.md#design-patterns-gof-style-survey) | — |
+| 14 | API & interface design | — (contract patterns in labs) | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) · [Project 5](../../career-project-specs/05-contract-first-api.md) · [Production readiness](../../checklists/production-readiness.md) | — |
+| 15 | Testing & quality | — (per-project test plans) | [Per-project testing](../concepts/per-project-testing.md) · [Software engineering — Testing](../concepts/software-engineering.md#testing) | — |
+| 16 | Performance concepts | [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | → 1, 5, 9 |
+| 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) | — |
+| 18 | Build systems & tooling | [Modules, imports, and packages](#modules-imports-and-packages) | [Command-line tooling](../concepts/command-line-tooling.md) · per-language maps in [glossary](glossary.md) | — |
+| 19 | Networking & IO | — (HTTP/streaming in labs) | [Servers and networking](../concepts/servers-and-networking.md) · [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md) | — |
+| 20 | Architecture concepts | — (architecture in labs) | [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) | — |
 
 ---
 
@@ -295,6 +295,33 @@ impl Greeter {
 
 ### Overview: literals and types
 
+**Interview lens:** *“I pick the right structure for access pattern—list for order, map for lookup, set for uniqueness—and know PHP arrays are ordered hash maps.”*
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+let mut v = vec![1, 2, 3];
+```
+
+```python
+a = [1, 2, 3]  # dynamic array
+```
+
+```javascript
+let a = [1, 2, 3]; // array object, not a fixed C array
+```
+
+```go
+s := []int{1, 2, 3}
+```
+
+```php
+<?php
+$a = [1, 2, 3]; // ordered hash map (not a pure vector)
+```
+
+**Costs and Big-O:** [Algorithms and data structures — Data structures](../concepts/algorithms-and-data-structures.md#data-structures).
+
 | Structure | JavaScript | PHP | Go | Python | Rust |
 |-----------|------------|-----|-----|--------|------|
 | Ordered list | `[1, 2, 3]` | `[0, 1]` indexed array | `[]int{1,2}` **slice** | `[1, 2, 3]` | `vec![1,2,3]` **Vec** |
@@ -305,6 +332,8 @@ impl Greeter {
 | Iterate | `for...of`, `.forEach` | `foreach` | `for range` | `for x in items:` | `for x in &items` |
 
 Loop spellings: [Loops and iteration](#loops-and-iteration). String interpolation: [Strings, formatting, and destructuring](#strings-formatting-and-destructuring).
+
+**Related:** [Immutability and value vs reference](#immutability-and-value-vs-reference) · [Lazy evaluation](#lazy-evaluation-generators-and-iterators)
 
 ### Arrays and ordered lists
 
@@ -810,6 +839,36 @@ class Status(str, Enum):
 
 **Generics** let one implementation work for many types while staying type-safe. PHP has **no reified generics** in the application language; Go added generics in **1.18+**; Python generics are primarily for static checkers.
 
+**Interview lens:** *“Static stacks catch type errors before deploy; dynamic stacks rely on tests and optional checkers (mypy, TypeScript strict).”*
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+fn add(a: i32, b: i32) -> i32 { a + b }
+```
+
+```python
+def add(a, b):
+    return a + b
+```
+
+```javascript
+function add(a, b) {
+  return a + b;
+}
+```
+
+```go
+func add(a int, b int) int { return a + b }
+```
+
+```php
+<?php
+function add(int $a, int $b): int { return $a + $b; }
+```
+
+**TypeScript:** `function add(a: number, b: number): number { return a + b; }` — see [Type systems beyond annotations](#type-systems-beyond-annotations) for `strictNullChecks` and generics.
+
 | Idea | TypeScript | PHP | Go | Python | Rust |
 |------|------------|-----|-----|--------|------|
 | Parameter | `<T>` on fn/type | — | `[T any]` | `def first[T](items: list[T])` (3.12+) | `<T>` on fn/struct |
@@ -841,6 +900,8 @@ T = TypeVar("T")
 def first(items: list[T]) -> T | None:
     return items[0] if items else None
 ```
+
+**Related:** [Type systems beyond annotations](#type-systems-beyond-annotations)
 
 ---
 
@@ -923,6 +984,54 @@ if isinstance(value, str):
 
 Same lesson everywhere: distinguish **expected failures** (network down, bad user input) from **programmer bugs** (null deref). Spelling falls into **returned errors** or **exceptions**.
 
+**Interview lens:** *“Expected failures are explicit at the boundary—Result or checked error in Go/Rust, caught exceptions in JS/Python/PHP—with no swallowed errors.”*
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+fn div(a: i32, b: i32) -> Result<i32, String> {
+    if b == 0 {
+        Err("divide by zero".into())
+    } else {
+        Ok(a / b)
+    }
+}
+```
+
+```python
+try:
+    1 / 0
+except ZeroDivisionError:
+    print("nope")
+```
+
+```javascript
+try {
+  throw new Error("nope");
+} catch (e) {
+  console.log(e);
+}
+```
+
+```go
+if err != nil {
+    return err
+}
+```
+
+```php
+<?php
+try {
+    throw new Exception("nope");
+} catch (Exception $e) {
+    // handle
+}
+```
+
+**TypeScript:** use `catch (e: unknown)` and narrow before reading `.message`.
+
+**PHP → Go hint:** Laravel exception handler maps to JSON; Go worker returns `(T, error)` up to the HTTP handler—same idempotency story, different spelling ([Project 6](../../career-project-specs/06-async-worker-stretch.md)).
+
 ### Comparison
 
 | Style | Languages | Mental model |
@@ -987,6 +1096,8 @@ let body = resp.text().await?;
 ```
 
 **Transferable takeaway:** Pick the boundary (HTTP handler, CLI `main`, worker job) where failures become **user-visible messages** or **logged errors**—regardless of language spelling.
+
+**Related:** [Error philosophy and control flow](#error-philosophy-and-control-flow) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
 ---
 
@@ -1065,7 +1176,70 @@ Know each language’s **falsy** set before writing `if (value)`:
 
 ## Async and concurrency (fundamentals)
 
-This section is **syntax and models** only. Operational concurrency (thread pools, backpressure, queue workers) lives in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
+This section is **syntax and models** only. Operational concurrency (thread pools, backpressure, queue workers) lives in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics) and [Concurrency beyond syntax](#concurrency-beyond-syntax).
+
+**Interview lens:** *“I match the concurrency model to the work—async for IO, bounded workers for CPU, queues when the request must return fast.”*
+
+**At a glance — concurrency models (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+use std::sync::mpsc;
+use std::thread;
+
+let (tx, rx) = mpsc::channel();
+thread::spawn(move || tx.send(42).unwrap());
+println!("{}", rx.recv().unwrap());
+```
+
+```python
+import asyncio
+
+async def main():
+    await asyncio.sleep(1)
+    print("done")
+
+asyncio.run(main())
+```
+
+```javascript
+setTimeout(() => console.log("done"), 1000);
+```
+
+```go
+ch := make(chan int)
+go func() { ch <- 42 }()
+fmt.Println(<-ch)
+```
+
+```php
+<?php
+// Playbook default: queue long work (Laravel Horizon)—not in-request async
+dispatch(new ProcessWebhookJob($payload));
+// Stretch: PHP 8 Fibers / Swoole—optional, not FPM default
+```
+
+**At a glance — async spelling (items 3 & 7):**
+
+```rust
+async fn fetch() { /* .await in tokio */ }
+```
+
+```python
+async def fetch(): ...
+```
+
+```javascript
+async function fetch() {}
+```
+
+```go
+go doWork() // no async/await — goroutines + channels
+```
+
+```php
+<?php
+dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM request
+```
 
 | Lang | Model | Typical spelling |
 |------|--------|------------------|
@@ -1076,41 +1250,9 @@ This section is **syntax and models** only. Operational concurrency (thread pool
 | **Python** | `asyncio` coroutines | `async def` · `await` · `asyncio.run()` |
 | **Rust** | `async`/`await` + **tokio** (after sync path) | `async fn` · `.await` · `#[tokio::main]` |
 
-```javascript
-// JavaScript — Promise + await (Node probe)
-const res = await fetch(url, { signal: AbortSignal.timeout(3000) });
-```
+**Integration note:** bounded HTTP with timeout—`await fetch(url, { signal: AbortSignal.timeout(3000) })` in Node/TS; `context.WithTimeout` in Go handlers.
 
-```php
-<?php
-// PHP — typical Laravel request: synchronous unless you opt into queues/Octane
-// Long I/O belongs in a queue job, not blocking the worker indefinitely.
-dispatch(new ProcessWebhookJob($payload));
-```
-
-```go
-// Go — goroutine + context cancel (conceptual)
-ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-defer cancel()
-```
-
-```python
-import asyncio
-
-async def fetch(url: str) -> bytes:
-    # use httpx/aiohttp in real code
-    ...
-
-asyncio.run(fetch("https://example.com"))
-```
-
-```rust
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let _body = reqwest::get("https://example.com").await?.text().await?;
-    Ok(())
-}
-```
+**Related:** [Concurrency beyond syntax](#concurrency-beyond-syntax) · [Lazy evaluation](#lazy-evaluation-generators-and-iterators)
 
 ---
 
@@ -1122,13 +1264,55 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ### Immutability and value vs reference
 
-Senior engineers know whether a value is **copied**, **moved**, or **aliased**—bugs and performance surprises live here.
+**Interview lens:** *“I know whether this assignment copies, moves, or aliases—and I avoid mutating shared state by accident.”*
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+let x = 5;
+// x = 6; // error: cannot assign to immutable variable
+let mut y = 5;
+y = 6; // ok
+```
+
+```python
+a = [1, 2]
+b = a
+b.append(3)
+print(a)  # [1, 2, 3] — same object
+```
+
+```javascript
+let a = { x: 1 };
+let b = a;
+b.x = 2;
+console.log(a.x); // 2 — object by reference
+```
+
+```go
+s := []int{1, 2}
+t := s
+t[0] = 99
+fmt.Println(s[0]) // 99 — slice shares backing array
+```
+
+```php
+<?php
+$a = [1, 2];
+$b = $a;
+$b[0] = 99;
+print_r($a); // [1, 2] — copy-on-write until mutate
+```
+
+**TypeScript:** same reference semantics as JavaScript; `readonly` and `Readonly<T>` help at compile time.
+
+**PHP → Go hint:** Laravel passes arrays by copy-on-write; Go slices always share backing storage until you copy—plan for aliasing in [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md).
 
 | Lang | Default for objects/collections | Copy vs move | Shared state gotcha |
 |------|--------------------------------|--------------|---------------------|
 | **JavaScript** | Objects/arrays by **reference** | Shallow copy: `{...obj}`, `[...arr]` | Mutating nested fields affects all aliases |
 | **TypeScript** | Same as JS | Same | Same |
-| **PHP** | Arrays/objects by **reference** (assign shares) | `array_merge`, spread `[...$a]` copies top level | `$a = $b` shares unless you copy explicitly |
+| **PHP** | **Copy-on-write** on arrays (assign shares until one side mutates) | `array_merge`, spread `[...$a]` copies top level | `$a + $b` reindexes numeric keys—use `array_merge` |
 | **Go** | Slices/maps are **reference headers** to backing store | Assignment copies header, not data | Sub-slices share backing array |
 | **Python** | Names bind to objects; assignment **rebinds** | `copy.copy` / `copy.deepcopy` | Mutable default args share one list |
 | **Rust** | **Move** by default; `Copy` types duplicate bits | `.clone()` explicit; borrow with `&` | No shared mutable state without `Arc<Mutex<_>>` etc. |
@@ -1141,44 +1325,7 @@ Senior engineers know whether a value is **copied**, **moved**, or **aliased**�
 | **Rust** | Fighting borrow checker with `.clone()` everywhere—often wrong fix |
 | **PHP** | `$a + $b` on arrays **reindexes** numeric keys; use `array_merge` for concat |
 
-**Same scenario:** update a config without mutating the caller's copy.
-
-```javascript
-// JavaScript — shallow copy before mutate
-function withTimeout(config, ms) {
-  return { ...config, timeoutMs: ms };
-}
-```
-
-```go
-// Go — copy struct value; slices inside still alias unless copied
-func withTimeout(c Config, ms int) Config {
-    out := c
-    out.TimeoutMs = ms
-    return out
-}
-```
-
-```rust
-// Rust — move or borrow; clone only when needed
-fn with_timeout(c: Config, ms: u32) -> Config {
-    Config { timeout_ms: ms, ..c }
-}
-```
-
-```python
-# Python — copy before mutate if caller might reuse dict
-def with_timeout(config: dict, ms: int) -> dict:
-    return {**config, "timeout_ms": ms}
-```
-
-```php
-<?php
-// PHP — spread copies top-level keys
-function withTimeout(array $config, int $ms): array {
-    return [...$config, 'timeoutMs' => $ms];
-}
-```
+**Related:** [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures)
 
 **Apply in:** [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (clone vs borrow) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (slice aliasing).
 
@@ -1186,7 +1333,46 @@ function withTimeout(array $config, int $ms): array {
 
 ### Closures and capture gotchas
 
+**Interview lens:** *“Closures capture their environment—but loop variables and late binding bite you unless you bind per iteration.”*
+
 Beyond [Closures (fundamentals)](#closures-functions-that-capture-surroundings)—how capture behaves in **loops** and **late binding**.
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+let mut x = 10;
+let add = |n| x + n;
+println!("{}", add(5));
+```
+
+```python
+funcs = []
+for i in range(3):
+    funcs.append(lambda: i)
+print([f() for f in funcs])  # [2, 2, 2] — late binding
+```
+
+```javascript
+// Fix — use let (block-scoped per iteration)
+for (let i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 0); // 0, 1, 2
+}
+```
+
+```go
+// Wrong (pre-Go 1.22) — prints 3,3,3
+for i := 0; i < 3; i++ {
+    go func() { fmt.Println(i) }()
+}
+// Fix: i := i inside loop, or Go 1.22+ per-iteration scope
+```
+
+```php
+<?php
+$i = 10;
+$fn = function () use ($i) { echo $i; };
+$fn();
+```
 
 | Lang | Capture model | Loop gotcha |
 |------|---------------|-------------|
@@ -1194,54 +1380,17 @@ Beyond [Closures (fundamentals)](#closures-functions-that-capture-surroundings)�
 | **TypeScript** | Same as JS | Same |
 | **PHP** | Copy-by-value in `foreach` (objects by handle) | `use ($i)` in closure—bind explicit vars |
 | **Go** | Loop variable reused until Go 1.22 (`:=` in loop body fixes) | `go func() { fmt.Println(i) }()` sees last `i` pre-1.22 |
-| **Python** | Late binding in lambdas in loops | `[lambda: i for i in range(3)]` — all return `2` |
-| **Rust** | `move` closure takes ownership; borrow rules apply | Capture `i` by move in loop: clone or bind per iter |
+| **Python** | Late binding in lambdas in loops | `[lambda: i for i in range(3)]` — all return `2`; fix: `lambda i=i: i` |
+| **Rust** | `move` closure takes ownership; borrow rules apply | Capture `i` by move in loop: `let i = i` per iter |
 
 | Lang | Gotcha |
 |------|--------|
-| **JavaScript** | Classic: `for (var i=0; …)` + `setTimeout(() => i)` |
-| **Go** | Pass `i := i` or use Go 1.22+ `for i := range` scope |
+| **JavaScript** | Classic **Wrong:** `for (var i=0; …)` + `setTimeout(() => i)` |
+| **Go** | **Fix:** Pass `i := i` or use Go 1.22+ `for i := range` scope |
 | **Python** | Default arg trick: `lambda i=i: i` to bind early |
 | **Rust** | `move \|\|` may force `.clone()` on captured data |
 
-**Same scenario:** schedule/log each index from a loop.
-
-```javascript
-// JavaScript — use let (block-scoped per iteration)
-for (let i = 0; i < 3; i++) {
-  setTimeout(() => console.log(i), 10); // 0, 1, 2
-}
-```
-
-```go
-// Go — capture loop var explicitly (pre-1.22 pattern)
-for i := 0; i < 3; i++ {
-    i := i
-    go func() { log.Println(i) }()
-}
-```
-
-```python
-# Python — default arg binds at definition time
-funcs = [lambda i=i: i for i in range(3)]
-# [f() for f in funcs] → [0, 1, 2]
-```
-
-```rust
-// Rust — move captures owned copy per iteration
-for i in 0..3 {
-    let i = i;
-    tokio::spawn(async move { println!("{i}"); });
-}
-```
-
-```php
-<?php
-// PHP — bind $i into closure with use
-foreach (range(0, 2) as $i) {
-    $f = function () use ($i) { echo "$i\n"; };
-}
-```
+**Related:** [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
 **Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (goroutines in loops).
 
@@ -1249,7 +1398,49 @@ foreach (range(0, 2) as $i) {
 
 ### Lazy evaluation: generators and iterators
 
-Senior engineers use **lazy sequences** for streaming I/O, pagination, and memory-bounded pipelines—without loading entire datasets into RAM.
+**Interview lens:** *“I stream or paginate instead of loading everything into memory—generators and iterators are single-pass unless I materialize on purpose.”*
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+(1..=5).map(|x| x * 2).for_each(|x| println!("{x}"));
+```
+
+```python
+def gen():
+    for i in range(5):
+        yield i
+```
+
+```javascript
+function* gen() {
+  for (let i = 0; i < 5; i++) yield i;
+}
+```
+
+```go
+func Gen() <-chan int {
+    ch := make(chan int)
+    go func() {
+        for i := 0; i < 5; i++ {
+            ch <- i
+        }
+        close(ch)
+    }()
+    return ch
+}
+```
+
+```php
+<?php
+function gen() {
+    for ($i = 0; $i < 5; $i++) {
+        yield $i;
+    }
+}
+```
+
+**Integration pattern:** paginated fetch without loading all pages.
 
 | Lang | Mechanism | Typical use |
 |------|-----------|-------------|
@@ -1268,10 +1459,10 @@ Senior engineers use **lazy sequences** for streaming I/O, pagination, and memor
 | **Rust** | Iterators are **consume-once**; `.collect()` allocates; prefer `.take(n)` for bounds |
 | **PHP** | Generators are single-pass like Python; cannot rewind without re-calling the function |
 
-**Same scenario:** yield IDs from a paginated source without loading all pages.
+**Related:** [Functional idioms](#functional-idioms-map-filter-reduce) · [Built-in data structures](#built-in-data-structures)
 
 ```python
-# Python — generator for paginated fetch
+# Python — paginated IDs (integration pattern)
 def page_ids(url: str, page_size: int = 100):
     page = 0
     while True:
@@ -1352,7 +1543,40 @@ function pageIds(callable $fetchPage, int $pageSize = 100): Generator {
 
 ### Ownership, borrowing, and memory models
 
-Senior engineers know **who owns memory** and **when it is freed**—this differs more across languages than syntax does.
+**Interview lens:** *“I know who frees memory and when—Rust enforces it at compile time; GC languages still leak via references and closures.”*
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+let s = String::from("hi");
+let t = s; // move
+// println!("{s}"); // error: value moved
+```
+
+```python
+import sys
+a = []
+print(sys.getrefcount(a))  # refcount hint (not exact in CPython)
+```
+
+```javascript
+let a = { x: 1 };
+a = null; // eligible for GC when unreachable
+```
+
+```go
+func f() *int {
+    x := 10
+    return &x // escapes to heap (escape analysis)
+}
+```
+
+```php
+<?php
+// FPM: memory resets each request; queue workers need explicit cleanup
+```
+
+**Decode:** Rust `E0502` (“cannot borrow as mutable because it is also borrowed as immutable”) means two live references conflict—restructure scopes or use interior mutability sparingly.
 
 | Lang | Model | Who frees? | Typical gotcha |
 |------|-------|------------|----------------|
@@ -1371,56 +1595,15 @@ Senior engineers know **who owns memory** and **when it is freed**—this differ
 | **Rust** | **`&mut` exclusivity**—only one mutable borrow at a time; use interior mutability sparingly |
 | **PHP** | Request-scoped memory is fine in FPM; **queue workers** need explicit unset/cycle breaks |
 
-**Same scenario:** pass a buffer into a function without copying when possible.
-
-```rust
-// Rust — borrow (&) vs owned (String); compiler enforces lifetimes
-fn parse_header(line: &str) -> Option<&str> {
-    line.strip_prefix("X-Request-Id: ")
-}
-
-fn process(mut buf: Vec<u8>) {
-    // buf owned here; freed when process returns
-    buf.clear();
-}
-```
-
-```go
-// Go — slices are views; copying slice header, not always data
-func trimSpace(b []byte) []byte {
-    return bytes.TrimSpace(b) // may share backing array with b
-}
-```
-
-```python
-# Python — references everywhere; no borrow checker
-def parse_header(line: str) -> str | None:
-    prefix = "X-Request-Id: "
-    return line[len(prefix):] if line.startswith(prefix) else None
-```
-
-```javascript
-// JavaScript — objects passed by reference; primitives copied
-function parseHeader(line) {
-  const prefix = "X-Request-Id: ";
-  return line.startsWith(prefix) ? line.slice(prefix.length) : null;
-}
-```
-
-```php
-<?php
-// PHP — arrays/objects by reference unless copied explicitly
-function parseHeader(string $line): ?string {
-    $prefix = 'X-Request-Id: ';
-    return str_starts_with($line, $prefix) ? substr($line, strlen($prefix)) : null;
-}
-```
+**Related:** [Immutability and value vs reference](#immutability-and-value-vs-reference) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
 **Apply in:** [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go slice/alloc awareness) · [Projects 17–19](../../career-project-specs/17-proxy-load-balancer-lab.md) (Rust ownership) · [Memory and performance](../concepts/memory-and-performance.md) (measure before tuning).
 
 ---
 
 ### Type systems beyond annotations
+
+**Interview lens:** *“I use the type system to make invalid states unrepresentable—Option not null, strict equality, CI type checkers on Python/TS.”*
 
 Annotations are the surface; **structural vs nominal typing**, **nullability**, and **variance** are what senior reviews focus on.
 
@@ -1488,9 +1671,13 @@ function loadConfig(?Config $raw): Config {
 
 **Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) (TS strict mode) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) (typed DTOs) · [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python typing at scale) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (`Option`/`Result`).
 
+**Related:** [Generics and type parameters](#generics-and-type-parameters) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
+
 ---
 
 ### Error philosophy and control flow
+
+**Interview lens:** *“Errors are values or exceptions—but always handled at a boundary with logging, HTTP status, or DLQ—not swallowed in the middle.”*
 
 Fundamentals live in [Error handling](#error-handling). This section is **how senior engineers choose** between styles at service boundaries.
 
@@ -1583,11 +1770,44 @@ function findUser(string $id): User {
 
 **Apply in:** every project—especially [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (`Result` propagation, no `unwrap` in hot path).
 
+**Related:** [Error handling](#error-handling) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
+
 ---
 
 ### Cross-language gotchas (interview favorites)
 
-Consolidated **tripwires** senior reviews and interviews probe—see also [Equality gotchas](#equality-gotchas) and [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness).
+**Interview lens:** *“I use strict equality, explicit nil/None checks, and I can explain the Go nil interface trap and Rust borrow conflicts without guessing.”*
+
+Consolidated **tripwires**—see also [Equality gotchas](#equality-gotchas) and [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness).
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+let mut x = 5;
+let r = &x;
+// x = 6; // error E0502: cannot borrow as mutable
+```
+
+```python
+def f(x=[]):  # mutable default — shared across calls
+    pass
+```
+
+```javascript
+console.log(0 == "0");   // true
+console.log(0 === "0");  // false
+```
+
+```go
+var err error = (*MyError)(nil)
+fmt.Println(err == nil) // false — typed nil in interface
+```
+
+```php
+<?php
+var_dump("0" == 0);  // true — type juggling
+var_dump("0" === 0); // false
+```
 
 | Lang | Gotcha | Safe habit |
 |------|--------|------------|
@@ -1598,30 +1818,7 @@ Consolidated **tripwires** senior reviews and interviews probe—see also [Equal
 | **Rust** | Borrow checker errors on shared mutation | One `&mut` at a time; `Arc<Mutex<_>>` when shared |
 | **All** | Loop closure capture | See [Closures and capture gotchas](#closures-and-capture-gotchas) |
 
-```javascript
-// JavaScript — loop + var (wrong)
-for (var i = 0; i < 3; i++) setTimeout(() => console.log(i), 0); // 3,3,3
-```
-
-```php
-<?php
-var_dump([0 => 'a'] + [0 => 'b']); // [0 => 'a'] — first key wins, numeric reindex
-var_dump(array_merge([0 => 'a'], [0 => 'b'])); // [0 => 'a', 1 => 'b']
-```
-
-```go
-// Go — nil interface gotcha (conceptual)
-var err *MyError = nil
-var e error = err
-fmt.Println(e == nil) // false — interface holds (type, value=nil)
-```
-
-```python
-# Python — mutable default
-def append_item(x, items=[]):  # BUG: shared list
-    items.append(x)
-    return items
-```
+**Related:** [Closures and capture gotchas](#closures-and-capture-gotchas) · [Error handling](#error-handling) · [Type systems beyond annotations](#type-systems-beyond-annotations)
 
 **Apply in:** every project—especially [Project 7](../../career-project-specs/07-node-typescript-lab.md) and [Project 18](../../career-project-specs/18-rust-hot-path-lab.md).
 
@@ -1629,7 +1826,35 @@ def append_item(x, items=[]):  # BUG: shared list
 
 ### Functional idioms (map, filter, reduce)
 
-Cross-language spellings for **map / filter / reduce**—theory (pure functions, HOF) in [Programming paradigms](../concepts/software-engineering.md#programming-paradigms).
+**Interview lens:** *“I express transforms as map/filter/reduce or iterator chains—side effects stay at the edges.”*
+
+Cross-language spellings—theory (pure functions, HOF) in [Programming paradigms](../concepts/software-engineering.md#programming-paradigms).
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+let doubled: Vec<_> = (1..=5).map(|x| x * 2).collect();
+```
+
+```python
+doubled = [x * 2 for x in range(1, 6)]
+```
+
+```javascript
+const doubled = [1, 2, 3, 4, 5].map((x) => x * 2);
+```
+
+```go
+var doubled []int
+for _, x := range []int{1, 2, 3, 4, 5} {
+    doubled = append(doubled, x*2)
+}
+```
+
+```php
+<?php
+$doubled = array_map(fn($x) => $x * 2, [1, 2, 3, 4, 5]);
+```
 
 | Lang | Map | Filter | Reduce / fold |
 |------|-----|--------|---------------|
@@ -1640,7 +1865,9 @@ Cross-language spellings for **map / filter / reduce**—theory (pure functions,
 | **Python** | `map(f, xs)` · list comp | `filter(f, xs)` · comp | `functools.reduce(f, xs, init)` |
 | **Rust** | `.iter().map(f)` | `.filter(f)` | `.fold(init, f)` |
 
-**Same scenario:** active user IDs doubled.
+**Related:** [Lazy evaluation](#lazy-evaluation-generators-and-iterators)
+
+**Pipeline example:** active user IDs doubled.
 
 ```javascript
 const ids = users.filter((u) => u.active).map((u) => u.id * 2);
@@ -1764,9 +1991,39 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 
 ### Concurrency beyond syntax
 
+**Interview lens:** *“Concurrency overlaps work; parallelism uses multiple CPUs—I bound IO with async/pools and never spawn unbounded goroutines on CPU-heavy loops.”*
+
 [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) covers **spelling**. Senior work adds **models, backpressure, and failure modes**—detailed in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
 
-**Parallelism vs concurrency:** **Concurrency** = structuring work so progress can overlap (goroutines, async tasks, event loop). **Parallelism** = work literally runs at the same time on multiple CPUs. **IO-bound** work (HTTP, DB, disk) benefits from async or many blocked threads; **CPU-bound** work needs processes, thread pools, or parallel iterators (`rayon` in Rust)—not unbounded goroutines on one core.
+**At a glance (Rust · Python · JavaScript · Go · PHP):**
+
+```rust
+// IO-bound: tokio tasks with Semaphore cap
+// CPU-bound: rayon or dedicated worker pool — not unbounded tasks
+```
+
+```python
+# IO: asyncio + httpx
+# CPU: ProcessPoolExecutor for heavy work — not blocking asyncio loop
+```
+
+```javascript
+// IO: Promise.all with bounded concurrency + AbortSignal.timeout
+// CPU: worker_threads for heavy sync work — don't block event loop
+```
+
+```go
+// IO: goroutines + context cancel + worker pool
+// CPU: fixed worker pool — not go func() per item on hot loop
+```
+
+```php
+<?php
+// IO: dispatch queue job — scale Horizon workers horizontally
+// CPU: queue chunking — not parallel threads in FPM request
+```
+
+**Parallelism vs concurrency:** **Concurrency** = structuring work so progress can overlap (goroutines, async tasks, event loop). **Parallelism** = work literally runs at the same time on multiple CPUs.
 
 | Workload | Prefer | Avoid |
 |----------|--------|-------|
@@ -1794,6 +2051,8 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 **Work stealing / parallel iterators:** Go scheduler and Rust `rayon` use work-stealing internally—know they exist; playbook labs use **bounded pools** first. See [Memory and performance](../concepts/memory-and-performance.md).
 
 **Bridge, don't duplicate:** thread pools, queue at-least-once semantics, idempotent workers, and backpressure patterns are in [Software engineering](../concepts/software-engineering.md#concurrency-basics) and [Memory and performance](../concepts/memory-and-performance.md).
+
+**Related:** [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals)
 
 **Apply in:** [Project 6](../../career-project-specs/06-async-worker-stretch.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) · [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) (realtime) · [Project 16](../../career-project-specs/16-k8s-controller-lab.md).
 
