@@ -49,6 +49,9 @@ Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [c
 | Doc | Use when |
 |-----|----------|
 | [career/target-alignment.md](career/target-alignment.md) | Project ideas → playbook map, £80k milestones, employer ask matrix, GitHub pin order |
+| [career/big-tech-benchmark.md](career/big-tech-benchmark.md) | Google/Meta/top-tier hiring bar, dual-track roadmap (optional ceiling) |
+| [career/dsa-interview-track.md](career/dsa-interview-track.md) | Parallel LeetCode prep mapped to algorithms handbook |
+| [career/system-design-interview-map.md](career/system-design-interview-map.md) | Classic system design problems ↔ labs |
 
 ---
 

@@ -149,6 +149,15 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 
 - Reimplement **retrieval gateway** or **worker** per [Project 18](18-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
 
+## Big Tech benchmark tier
+
+Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchmark.md). Complete after UK £80k success criteria are green.
+
+- [ ] **Kafka consumer** — primary or alternate deployment path; idempotency + DLQ unchanged ([Messaging and RPC](../docs/concepts/messaging-and-rpc.md)).
+- [ ] **gRPC** `Retrieve` RPC as internal API (protobuf); document REST vs gRPC ADR; Python [Project 2](02-rag-llm-service.md) client uses gRPC or HTTP gateway — document choice.
+- [ ] **OpenTelemetry** traces propagate `trace_id` across Python ↔ Go (or Go worker ↔ gateway); sample trace in `docs/portfolio/`.
+- [ ] README documents consumer group, gRPC deadlines, and metric cardinality limits.
+
 
 ## Stretch: connect your labs
 

@@ -4,7 +4,7 @@
 
 **Profile this supports:** Backend & Systems Engineer — PHP/SQL/JS commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation.
 
-**Companion:** [Portfolio artifacts template](../templates/portfolio-artifacts.md) · [Messaging and RPC](../concepts/messaging-and-rpc.md) · [Rust map](../languages/rust.md#career-positioning)
+**Companion:** [Portfolio artifacts template](../templates/portfolio-artifacts.md) · [Messaging and RPC](../concepts/messaging-and-rpc.md) · [Rust map](../languages/rust.md#career-positioning) · [Big Tech benchmark](big-tech-benchmark.md) (optional ceiling — Google/Meta bar)
 
 ---
 
@@ -26,7 +26,7 @@ Seven portfolio projects UK market advice says get interviews. Each maps to an e
 | 2 | **Message queue worker** + DLQ | At-least-once, poison message handling | [Project 6](../../career-project-specs/06-async-worker-stretch.md) + [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Idempotent handlers, retry policy, DLQ replay | Not started |
 | 3 | **Rust microservice** (Axum/Actix) | Hot-path systems literacy | [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | Same contract as Go; `Result`; no `unwrap` in workers | After Project 8 Go green |
 | 4 | **Go service** talking to Rust/Python | Rust+Go combo — rare in UK | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) + [Project 2](../../career-project-specs/02-rag-llm-service.md) | Bounded concurrency, timeouts, Python↔Go ADR | RAG lab exists |
-| 5 | **Rust CLI** (fast, safe, clean) | Systems + ops credibility | [Project 14 stretch](../../career-project-specs/14-devops-cli-lab.md) + [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/) | Flags, exit codes, structured output | Sandbox exists |
+| 5 | **Rust CLI** (fast, safe, clean) | Systems + ops credibility | [Project 14 stretch](../../career-project-specs/14-devops-cli-lab.md) | Flags, exit codes, structured output | Via P14 stretch |
 | 6 | **IoT / edge ingest** | Edge niche (Bosch, Arm, Ocado Robotics) | [Project 20](../../career-project-specs/20-iot-edge-lab.md) | MQTT QoS, idempotent telemetry, offline buffer | Not started |
 | 7 | **Distributed system** (small is fine) | End-to-end systems thinking | [Project 21](../../career-project-specs/21-integrated-platform-capstone.md) | Compose orchestration, cross-service `request_id`, E2E demo | After spine |
 
@@ -95,6 +95,22 @@ Researched Monzo, fintech backend, infra Rust, and trading/HFT (London). Your £
 | Property-based testing | Security, trading QA | Stretch — `proptest` on Project 18 | Low |
 | Cassandra | Monzo-specific | Not in spine | Skip — Postgres covers data layer |
 | Chaos engineering | Large SRE | Not in spine | Low priority for £80k backend |
+
+### Big Tech benchmark tier (optional ceiling)
+
+Use when you want **Google/Meta/top-tier** as a learning benchmark — not a replacement for the £80k plan. Full scorecard: [big-tech-benchmark.md](big-tech-benchmark.md).
+
+| Employer ask | UK £80k default | Big Tech benchmark tier |
+|--------------|-----------------|-------------------------|
+| Kafka / PubSub hands-on | Stretch on P6/P8 | **Required** on one deployment path ([messaging doc](../concepts/messaging-and-rpc.md)) |
+| gRPC internal APIs | Stretch on P8 | **Required** + OpenTelemetry traces Python↔Go |
+| OAuth / OIDC | Stretch on P12 | **Required** (Google sign-in) |
+| Cloud deploy | Compose + one managed target | **GCP or AWS** with IAM least-privilege documented |
+| LeetCode / DSA screens | Design-review literacy | [DSA interview track](dsa-interview-track.md) — parallel 12-week |
+| System design interviews | Scattered checklists | [System design interview map](system-design-interview-map.md) |
+| Optional portfolio depth | Capstone P21 | [P22](../../career-project-specs/22-rate-limiter-gateway-lab.md), [P23](../../career-project-specs/23-notification-fanout-lab.md), [P24](../../career-project-specs/24-search-autocomplete-lab.md) after spine |
+
+**Do not chase for benchmark:** L5+ staff scope, HFT, blockchain core, full embedded firmware — same as UK non-goals in [big-tech-benchmark.md](big-tech-benchmark.md).
 
 ### Monzo-shaped profile (what onboarding looks like)
 
@@ -166,7 +182,7 @@ Each pinned repo: README demo, **CI badge**, `docs/portfolio/`, clean history.
 
 ```
 Now     → Project 3 (obs on RAG lab) → Project 5 or 6 → Project 8 (Go) → Project 18 (Rust)
-Parallel → Project 9 reading, rust-cli-http-probe sandbox
+Parallel → Project 9 reading; optional [DSA track](dsa-interview-track.md) for Big Tech benchmark
 Later   → 11, 15, 21 for AI + deploy flagship story
 ```
 
@@ -184,6 +200,9 @@ You do **not** need all 21 projects for £80k readiness — minimum credible mil
 
 ## See also
 
+- [Big Tech benchmark](big-tech-benchmark.md) — Google/Meta hiring bar, dual-track roadmap
+- [DSA interview track](dsa-interview-track.md) — parallel LeetCode prep
+- [System design interview map](system-design-interview-map.md) — classic SD problems ↔ labs
 - [Engineering pillars](../concepts/engineering-pillars.md) — optional topic index
 - [Portfolio artifacts](../templates/portfolio-artifacts.md)
 - [Production readiness](../../checklists/production-readiness.md)

@@ -76,6 +76,15 @@ Smoke test script post-deploy: hit health + one API path.
 - Terraform/Pulumi stub for queue + DB (single file, not full platform).
 - Blue/green or canary note in README (theory OK if not implemented).
 
+## Big Tech benchmark tier
+
+Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchmark.md). Complete after UK £80k success criteria are green.
+
+- [ ] Deploy to **GCP (Cloud Run/GKE) or AWS (ECS/EKS)** — not local Compose only.
+- [ ] Document **IAM least-privilege** — which service account/role can access queue, DB, secrets.
+- [ ] Secrets in platform secret manager; no credentials in git or plain env on host.
+- [ ] Post-deploy smoke test script checked into repo; rollback steps verified once.
+
 ## Portfolio artifacts
 
 Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.

@@ -76,6 +76,15 @@ Two tenant fixtures; assert isolation on list and detail endpoints.
 - Link to [Project 11](11-llm-web-app-lab.md) for tenant-scoped RAG queries.
 - **OAuth/OIDC** — "Sign in with Google" (or similar) → issue your existing JWT/session; document token exchange and tenant mapping on first login.
 
+## Big Tech benchmark tier
+
+Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchmark.md). Complete after UK £80k success criteria are green.
+
+- [ ] **OAuth/OIDC required** — Google (or similar) sign-in issues your JWT/session; not optional stretch.
+- [ ] Document authorization code flow, token refresh, and tenant mapping on first login.
+- [ ] Integration test: OAuth callback → session → tenant-scoped API access.
+- [ ] Threat notes: CSRF on OAuth state param; redirect URI allowlist ([Project 9](09-application-security-lab.md)).
+
 ## Portfolio artifacts
 
 Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.

@@ -226,6 +226,14 @@ Run against [`02-rag-llm-lab`](../career-projects/02-rag-llm-lab) ([GitHub](http
 
 **MCP (Model Context Protocol):** Optional **literacy** only—many products expose tools over standard protocols; you do **not** need a separate playbook project. If you skim MCP docs, tie it to the same rules: **explicit allowlist**, no arbitrary shell/file access in prod, secrets never in tool payloads logged verbatim.
 
+## Big Tech benchmark tier
+
+Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchmark.md). Complete after UK £80k success criteria are green.
+
+- [ ] **Remove `_stub_answer`** — wire real retrieval (Postgres/pgvector, Project 8 `/retrieve`, or in-process store).
+- [ ] Eval JSONL regression green on real retrieval path; document baseline pass rate in `docs/portfolio/performance.md`.
+- [ ] README contrasts keyword retrieval vs semantic/RAG path for interview SD tie-in ([system design map](../docs/career/system-design-interview-map.md#rag--llm-serving)).
+
 ## Orchestration alignment
 
 When you add retrieval / orchestration code:

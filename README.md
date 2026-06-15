@@ -39,6 +39,16 @@ Finish each project's success criteria → log in PROGRESS → open **Next** in 
 
 Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = step number** (e.g. step 2 → `02-rag-llm-lab`, step 4 → `04-sql-perf-lab`). GitHub repo names may differ — each spec's **Code repo** section is authoritative.
 
+### Optional projects (Big Tech benchmark — not in linear order)
+
+After [Project 8](career-project-specs/08-go-retrieval-worker-lab.md) or [Project 21](career-project-specs/21-integrated-platform-capstone.md). See [big-tech-benchmark.md](docs/career/big-tech-benchmark.md).
+
+| ID | Project | Spec |
+|----|---------|------|
+| P22 | Distributed rate limiter + API gateway | [22-rate-limiter-gateway-lab.md](career-project-specs/22-rate-limiter-gateway-lab.md) |
+| P23 | Notification fan-out service | [23-notification-fanout-lab.md](career-project-specs/23-notification-fanout-lab.md) |
+| P24 | Search / autocomplete microservice | [24-search-autocomplete-lab.md](career-project-specs/24-search-autocomplete-lab.md) |
+
 ## Browse by topic (optional)
 
 Not the learning order — use when you want every project that practices a concept.
@@ -94,6 +104,7 @@ Every project spec includes: **Progress** (step, prev/next) · **What you will l
 |-----|----------|
 | [docs/languages/glossary.md](docs/languages/glossary.md) | New to a language — start here |
 | [docs/career/target-alignment.md](docs/career/target-alignment.md) | UK Backend & Systems targeting — project ideas, £80k milestones, job matrix |
+| [docs/career/big-tech-benchmark.md](docs/career/big-tech-benchmark.md) | Google/Meta/top-tier bar — optional ceiling, dual-track roadmap |
 | [docs/concepts/messaging-and-rpc.md](docs/concepts/messaging-and-rpc.md) | Kafka vs Redis, REST vs gRPC (career + lab context) |
 | [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md) | Theory depth (testing, integration, security) |
 | [docs/concepts/per-project-testing.md](docs/concepts/per-project-testing.md) | How to test each lab |

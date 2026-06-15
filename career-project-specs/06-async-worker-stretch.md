@@ -176,6 +176,14 @@ These assume **producer + broker + worker + DLQ** (Redis/Laravel/BullMQ/SQS-styl
 - **Event bus (after DLQ is solid)** — Publish job lifecycle events (NATS / Redis Streams); subscribers must tolerate duplicates—see [Project 8 stretch](08-go-retrieval-worker-lab.md#stretch) and [integration-automation map](../docs/concepts/integration-automation.md).
 - **Cloud** — Document Redis local vs managed queue (SQS-compatible); optional `docker compose` for broker + worker.
 
+## Big Tech benchmark tier
+
+Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchmark.md). Complete after UK £80k success criteria are green.
+
+- [ ] **Kafka** (or GCP Pub/Sub) as primary broker for at least one deployment path — same idempotency keys, DLQ, and replay semantics as Redis.
+- [ ] README documents consumer group, partition strategy, and offset commit timing.
+- [ ] Interview line ready: *"Same idempotency whether Redis or Kafka; I can ramp on your broker."*
+
 **Capstone:** Pair with [Project 1](01-integration-webhook-receiver.md) ingress and [Project 8](08-go-retrieval-worker-lab.md) retrieval. See [Stretch: connect your labs](08-go-retrieval-worker-lab.md#stretch-connect-your-labs) when Project 8 is green.
 
 ## Portfolio artifacts

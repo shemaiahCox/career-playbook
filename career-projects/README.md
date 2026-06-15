@@ -9,6 +9,14 @@ Numbered lab workspaces. **The two-digit prefix is the progression step** — sa
 | 4 | `04-sql-perf-lab` | [04-sql-performance-lab.md](../career-project-specs/04-sql-performance-lab.md) |
 | 21 | `21-platform-capstone-lab` | [21-integrated-platform-capstone.md](../career-project-specs/21-integrated-platform-capstone.md) |
 
+**Optional (Big Tech benchmark — after P8 or P21):**
+
+| ID | Clone into | Spec |
+|----|------------|------|
+| P22 | `22-rate-limiter-gateway-lab` | [22-rate-limiter-gateway-lab.md](../career-project-specs/22-rate-limiter-gateway-lab.md) |
+| P23 | `23-notification-fanout-lab` | [23-notification-fanout-lab.md](../career-project-specs/23-notification-fanout-lab.md) |
+| P24 | `24-search-autocomplete-lab` | [24-search-autocomplete-lab.md](../career-project-specs/24-search-autocomplete-lab.md) |
+
 Each folder is normally a **nested git clone** — not duplicated in this parent repo unless you consciously vendor.
 
 - **Path:** [README.md](../README.md#progression-step-1--21) (Step 1 → 21)
