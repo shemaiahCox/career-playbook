@@ -2,7 +2,7 @@
 
 Use before calling **any** lab milestone **done**. This is the universal gate senior engineers expect—rate limits through security notes—not a replacement for domain deep dives.
 
-**How to use:** Walk sections **top to bottom** for your active step. Skip rows marked **N/A** in the [applicability matrix](#applicability-by-step-1-21) for that step; if you defer a required row, note one line in [PROGRESS.md](../PROGRESS.md) (“Deferred: … because …”).
+**How to use:** Walk sections **top to bottom** for your active step. Skip rows marked **N/A** in the [applicability matrix](#applicability-by-step-1-22) for that step; if you defer a required row, note one line in [PROGRESS.md](../PROGRESS.md) (“Deferred: … because …”).
 
 **Also run when applicable:**
 
@@ -51,7 +51,7 @@ Use before calling **any** lab milestone **done**. This is the universal gate se
 ## Tracing
 
 - [ ] **request_id** propagated across service boundaries you own (header or log field).
-- [ ] Optional: OpenTelemetry or vendor trace—required for multi-service steps (8, 11, 13, 15, 21).
+- [ ] Optional: OpenTelemetry or vendor trace—required for multi-service steps (8, 11, 13, 16, 22).
 - [ ] One documented “follow this id across services” example in lab README.
 
 ## Health checks
@@ -74,7 +74,7 @@ Use before calling **any** lab milestone **done**. This is the universal gate se
 
 ---
 
-## Applicability by step (1–21)
+## Applicability by step (1–22)
 
 **Legend:** **Req** = required for milestone done · **Opt** = apply if the lab exposes that surface · **N/A** = skip unless you added that surface as stretch · **Logs** = request_id + structured logs sufficient (full tracing optional)
 
@@ -93,11 +93,12 @@ Use before calling **any** lab milestone **done**. This is the universal gate se
 | 11 LLM web app | Req | Req | Opt | Opt | Req | Req | Req | Req | Opt | Req |
 | 12 Multi-tenant auth | Req | Opt | Req | Opt | Opt | Req | Req | Req | Req | Req |
 | 13 Real-time dashboard | Opt | Opt | Opt | N/A | Req | Req | Req | Req | Opt | Opt |
-| 14 DevOps CLI | N/A | Opt | Opt | Req | Opt | Req | Logs | N/A | Opt | Opt |
-| 15 Cloud deploy | Req | Req | Req | Req | Req | Req | Req | Req | Req | Req |
-| 16 K8s controller-lite | Opt | Req | Req | Opt | Req | Req | Req | Req | Opt | Req |
-| 17 Proxy / load balancer | Req | Req | Opt | N/A | Req | Req | Req | Req | Opt | Req |
-| 18 Rust hot-path | Opt | Req | Req | Opt | Req | Req | Req | Req | Opt | Opt |
-| 19 WASM component | Opt | Opt | Opt | N/A | Opt | Req | Logs | Opt | Opt | Req |
-| 20 IoT / edge ingest | Opt | Req | Req | Opt | Req | Req | Req | Opt | Opt | Req |
-| 21 Integrated capstone | Req | Req | Req | Req | Req | Req | Req | Req | Req | Req |
+| 14 Shell automation | N/A | Opt | Opt | Opt | Opt | Req | Logs | Opt | Opt | Req |
+| 15 DevOps CLI | N/A | Opt | Opt | Req | Opt | Req | Logs | N/A | Opt | Opt |
+| 16 Cloud deploy | Req | Req | Req | Req | Req | Req | Req | Req | Req | Req |
+| 17 K8s controller-lite | Opt | Req | Req | Opt | Req | Req | Req | Req | Opt | Req |
+| 18 Proxy / load balancer | Req | Req | Opt | N/A | Req | Req | Req | Req | Opt | Req |
+| 19 Rust hot-path | Opt | Req | Req | Opt | Req | Req | Req | Req | Opt | Opt |
+| 20 WASM component | Opt | Opt | Opt | N/A | Opt | Req | Logs | Opt | Opt | Req |
+| 21 IoT / edge ingest | Opt | Req | Req | Opt | Req | Req | Req | Opt | Opt | Req |
+| 22 Integrated capstone | Req | Req | Req | Req | Req | Req | Req | Req | Req | Req |

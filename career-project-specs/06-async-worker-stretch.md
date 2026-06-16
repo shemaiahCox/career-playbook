@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 6 of 21 |
+| **Step** | 6 of 22 |
 | **Previous** | [Project 5 — Contract-first API](05-contract-first-api.md) |
 | **Next** | [Project 7 — Node / TypeScript service lab](07-node-typescript-lab.md) |
 
@@ -185,6 +185,10 @@ Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchma
 - [ ] Interview line ready: *"Same idempotency whether Redis or Kafka; I can ramp on your broker."*
 
 **Capstone:** Pair with [Project 1](01-integration-webhook-receiver.md) ingress and [Project 8](08-go-retrieval-worker-lab.md) retrieval. See [Stretch: connect your labs](08-go-retrieval-worker-lab.md#stretch-connect-your-labs) when Project 8 is green.
+
+## Bash scripting milestone
+
+Ship `scripts/enqueue-fixture.sh` — idempotent load of test jobs/messages into queue; document `--dry-run`.
 
 ## Portfolio artifacts
 

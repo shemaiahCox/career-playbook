@@ -1,11 +1,11 @@
-# Project 24 — Search / autocomplete microservice (optional)
+# Project 25 — Search / autocomplete microservice (optional)
 
 ## Progress
 
 | | |
 |---|---|
 | **Step** | Optional — after [Project 8](08-go-retrieval-worker-lab.md) and [Project 4](04-sql-performance-lab.md) |
-| **Previous** | [Project 23 — Notification fan-out](23-notification-fanout-lab.md) (optional) or [Project 21](21-integrated-platform-capstone.md) |
+| **Previous** | [Project 24 — Notification fan-out](24-notification-fanout-lab.md) (optional) or [Project 22](22-integrated-platform-capstone.md) |
 | **Next** | — (optional branch) |
 
 **Not in the linear spine.** One active project rule still applies.
@@ -50,11 +50,11 @@ Complements your RAG story ([Project 2](02-rag-llm-service.md)) with **classic s
 
 _TBD — create sibling repo (e.g. `search-autocomplete-lab`)._
 
-Suggested local folder: [`../career-projects/24-search-autocomplete-lab`](../career-projects/24-search-autocomplete-lab).
+Suggested local folder: [`../career-projects/25-search-autocomplete-lab`](../career-projects/25-search-autocomplete-lab).
 
 ## Stack
 
-- **Go 1.22+** or **Rust** (after [Project 18](18-rust-hot-path-lab.md))
+- **Go 1.22+** or **Rust** (after [Project 19](19-rust-hot-path-lab.md))
 - **Postgres** — documents table + `tsvector` GIN index (or sqlite for minimal local)
 - **Redis** (optional) — hot prefix cache
 - Seed corpus: 10k+ titles/descriptions (generate or public dataset)

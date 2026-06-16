@@ -1,12 +1,12 @@
-# Project 17 — Proxy / load-balancer lab (advanced)
+# Project 18 — Proxy / load-balancer lab (advanced)
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | 17 of 21 |
-| **Previous** | [Project 16 — Kubernetes controller-lite lab](16-k8s-controller-lab.md) |
-| **Next** | [Project 18 — Rust hot-path reimplementation lab](18-rust-hot-path-lab.md) |
+| **Step** | 18 of 22 |
+| **Previous** | [Project 17 — Kubernetes controller-lite lab](17-k8s-controller-lab.md) |
+| **Next** | [Project 19 — Rust hot-path reimplementation lab](19-rust-hot-path-lab.md) |
 
 ## What you will learn
 
@@ -28,7 +28,7 @@ Implement a **small reverse proxy or load balancer** in Go (Rust stretch): forwa
 
 ### In depth
 
-**Advanced.** Complements [Project 8](08-go-retrieval-worker-lab.md) gateway work and [Project 18](18-rust-hot-path-lab.md) performance comparisons.
+**Advanced.** Complements [Project 8](08-go-retrieval-worker-lab.md) gateway work and [Project 19](19-rust-hot-path-lab.md) performance comparisons.
 
 ## Important concepts
 
@@ -45,7 +45,7 @@ Implement a **small reverse proxy or load balancer** in Go (Rust stretch): forwa
 
 ## Code repo
 
-_TBD — e.g. `proxy-lab`._ Suggested folder: [`../career-projects/17-proxy-load-balancer-lab`](../career-projects/17-proxy-load-balancer-lab).
+_TBD — e.g. `proxy-lab`._ Suggested folder: [`../career-projects/18-proxy-load-balancer-lab`](../career-projects/18-proxy-load-balancer-lab).
 
 ## Stack
 
@@ -74,7 +74,7 @@ Integration: kill upstream; assert failover or error behavior.
 ## Stretch
 
 - TLS termination stub (local certs).
-- Rust reimplementation benchmark vs Go ([Project 18](18-rust-hot-path-lab.md)).
+- Rust reimplementation benchmark vs Go ([Project 19](19-rust-hot-path-lab.md)).
 
 ## Portfolio artifacts
 
@@ -90,6 +90,6 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Production readiness](../checklists/production-readiness.md) (step 17)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 18)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 18 — Rust hot-path reimplementation lab](18-rust-hot-path-lab.md)
+- **Next:** [Project 19 — Rust hot-path reimplementation lab](19-rust-hot-path-lab.md)

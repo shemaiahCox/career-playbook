@@ -35,6 +35,16 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ---
 
+## 2026-06-16 — Bash scripting spine + 22-step renumber
+
+- **Added** [Project 14 — Shell automation lab](career-project-specs/14-shell-automation-lab.md): strict-mode toolkit, shellcheck, bats, bash-vs-Go CLI ADR.
+- **Added** [docs/languages/bash.md](docs/languages/bash.md) ecosystem map; wired from [glossary](docs/languages/glossary.md) and [command-line-tooling](docs/concepts/command-line-tooling.md).
+- **Renumbered** spine Projects 14–21 → 15–22; optional P22–P24 → P23–P25 (spec files git-mv).
+- **Added** **Bash scripting milestone** sections across Projects 1–13 and 15–22 (phased `scripts/` deliverables).
+- **Updated** [README.md](README.md) (22 steps), [engineering-pillars.md](docs/concepts/engineering-pillars.md), [target-alignment.md](docs/career/target-alignment.md), [per-project-testing.md](docs/concepts/per-project-testing.md), career docs, and cross-links repo-wide.
+
+---
+
 ## 2026-06-13 — UK career targeting + job-market alignment
 
 - **Added** [docs/career/target-alignment.md](docs/career/target-alignment.md) — project ideas → playbook map, UK employer ask matrix, £80k milestones, GitHub pin order, interview themes.
@@ -55,7 +65,7 @@ For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** 
 
 ## 2026-06-03 — Capstone, portfolio artifacts, production checklist
 
-- **Added** [Project 21 — Integrated platform capstone](career-project-specs/21-integrated-platform-capstone.md) (Step 21): compose Projects 1–20 into one flagship demo/deploy stack.
+- **Added** [Project 21 — Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) (Step 21): compose Projects 1–20 into one flagship demo/deploy stack.
 - **Added** [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) and **Portfolio artifacts** section in all 21 specs.
 - **Added** [checklists/production-readiness.md](checklists/production-readiness.md) with Step 1–21 applicability matrix; wired into **When you're done** and [PROGRESS.md](PROGRESS.md) checklist intro.
 - **Updated** [README.md](README.md) progression (Step 1 → 21), [career-projects/README.md](career-projects/README.md), [engineering-pillars.md](docs/concepts/engineering-pillars.md), [systems-integration-architect.md](docs/concepts/systems-integration-architect.md).

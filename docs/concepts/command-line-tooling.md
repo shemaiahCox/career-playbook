@@ -1705,6 +1705,8 @@ Set `EDITOR`/`VISUAL` to a non-interactive flow in automation where appropriate,
 
 ## Bash scripting: patterns and safety
 
+**Practice path:** [Project 14 shell automation lab](../../career-project-specs/14-shell-automation-lab.md) plus per-project [Bash scripting milestone](../../career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections in earlier specs. Stack map: [Bash / shell automation](../languages/bash.md).
+
 Shell scripts glue together CLI tools. Weak scripts become fragile automation—apply structure early.
 
 ---

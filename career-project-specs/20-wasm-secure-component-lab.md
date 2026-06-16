@@ -1,12 +1,12 @@
-# Project 19 — WASM / secure network component lab (advanced)
+# Project 20 — WASM / secure network component lab (advanced)
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | 19 of 21 |
-| **Previous** | [Project 18 — Rust hot-path reimplementation lab](18-rust-hot-path-lab.md) |
-| **Next** | [Project 20 — IoT / edge ingest + local inference lab](20-iot-edge-lab.md) |
+| **Step** | 20 of 22 |
+| **Previous** | [Project 19 — Rust hot-path reimplementation lab](19-rust-hot-path-lab.md) |
+| **Next** | [Project 21 — IoT / edge ingest + local inference lab](21-iot-edge-lab.md) |
 
 ## What you will learn
 
@@ -16,7 +16,7 @@
 
 ## Before you start
 
-- **Requires:** [Project 18](18-rust-hot-path-lab.md) or strong Rust comfort · [Rust map](../docs/languages/rust.md)
+- **Requires:** [Project 19](19-rust-hot-path-lab.md) or strong Rust comfort · [Rust map](../docs/languages/rust.md)
 - **Handbook:** [Memory and performance — WASM linear memory](../docs/concepts/memory-and-performance.md#memory-patterns)
 
 ## Problem
@@ -29,7 +29,7 @@ Ship a **small Rust component** compiled to **WASM** (or a hardened network micr
 
 ### In depth
 
-**Wave 3 — advanced.** Optional after [Project 18](18-rust-hot-path-lab.md). Scope small: one function (e.g. payload normalizer, HMAC verify helper) not a full service.
+**Wave 3 — advanced.** Optional after [Project 19](19-rust-hot-path-lab.md). Scope small: one function (e.g. payload normalizer, HMAC verify helper) not a full service.
 
 ## Important concepts
 
@@ -47,7 +47,7 @@ Ship a **small Rust component** compiled to **WASM** (or a hardened network micr
 
 ## Code repo
 
-_TBD — e.g. `wasm-component-lab`._ Suggested folder: [`../career-projects/19-wasm-secure-component-lab`](../career-projects/19-wasm-secure-component-lab).
+_TBD — e.g. `wasm-component-lab`._ Suggested folder: [`../career-projects/20-wasm-secure-component-lab`](../career-projects/20-wasm-secure-component-lab).
 
 ## Stack
 
@@ -91,6 +91,6 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Production readiness](../checklists/production-readiness.md) (step 19)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 20)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 20 — IoT / edge ingest + local inference lab](20-iot-edge-lab.md)
+- **Next:** [Project 21 — IoT / edge ingest + local inference lab](21-iot-edge-lab.md)

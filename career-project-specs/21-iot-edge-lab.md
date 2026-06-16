@@ -1,12 +1,12 @@
-# Project 20 — IoT / edge ingest + local inference lab (advanced)
+# Project 21 — IoT / edge ingest + local inference lab (advanced)
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | 20 of 21 |
-| **Previous** | [Project 19 — WASM / secure network component lab](19-wasm-secure-component-lab.md) |
-| **Next** | — |
+| **Step** | 21 of 22 |
+| **Previous** | [Project 20 — WASM / secure network component lab](20-wasm-secure-component-lab.md) |
+| **Next** | [Project 22 — Integrated platform capstone](22-integrated-platform-capstone.md) |
 
 ## What you will learn
 
@@ -46,7 +46,7 @@ Build an **edge ingest path**: MQTT (or HTTP) telemetry from sensor simulator or
 
 ## Code repo
 
-_TBD — e.g. `iot-edge-lab`._ Suggested folder: [`../career-projects/20-iot-edge-lab`](../career-projects/20-iot-edge-lab).
+_TBD — e.g. `iot-edge-lab`._ Suggested folder: [`../career-projects/21-iot-edge-lab`](../career-projects/21-iot-edge-lab).
 
 ## Stack
 
@@ -62,6 +62,10 @@ _TBD — e.g. `iot-edge-lab`._ Suggested folder: [`../career-projects/20-iot-edg
 - [ ] Dashboard or log stream shows live reading ([Project 13](13-realtime-dashboard-lab.md) integration or mock).
 - [ ] README diagram: device → edge → DB → dashboard/AI.
 
+## Bash scripting milestone
+
+Ship `scripts/mqtt-publish-fixture.sh` — publish test telemetry with documented env vars; strict mode; exit non-zero on broker unreachable.
+
 ## Testing approach (lab)
 
 Publish duplicate MQTT messages; assert single row. Simulate disconnect/reconnect.
@@ -75,7 +79,7 @@ Publish duplicate MQTT messages; assert single row. Simulate disconnect/reconnec
 ## Stretch
 
 - TLS to MQTT broker.
-- [Project 18](18-rust-hot-path-lab.md) ingest consumer in Rust ADR.
+- [Project 19](19-rust-hot-path-lab.md) ingest consumer in Rust ADR.
 
 ## Portfolio artifacts
 
@@ -91,6 +95,6 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Production readiness](../checklists/production-readiness.md) (step 20) · [Integration hardening](../checklists/integration-hardening.md) when HTTP/MQTT ingress applies
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 21) · [Integration hardening](../checklists/integration-hardening.md) when HTTP/MQTT ingress applies
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 21 — Integrated platform capstone](21-integrated-platform-capstone.md)
+- **Next:** [Project 22 — Integrated platform capstone](22-integrated-platform-capstone.md)

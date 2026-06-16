@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 9 of 21 |
+| **Step** | 9 of 22 |
 | **Previous** | [Project 8 — Go retrieval gateway and worker lab](08-go-retrieval-worker-lab.md) |
 | **Next** | [Project 10 — Automation bot / workflow connector lab](10-automation-bot-lab.md) |
 
@@ -199,6 +199,10 @@ Use these to drive **failure modes** after the happy path works. Capture **curl*
 - **CSP** tightened beyond `unsafe-inline` with a **nonce** or **hash** strategy for any inline scripts you still need.
 - **Automated security tests** (e.g. CSRF test in CI, dependency audit gate on PR).
 - Short **STRIDE** or “assets / adversaries / data flows” diagram in README **≤1 page**.
+
+## Bash scripting milestone
+
+Ship `scripts/repro-csrf.sh` — documented wrapper to reproduce a CSRF or auth failure case; exit codes for CI.
 
 ## Portfolio artifacts
 

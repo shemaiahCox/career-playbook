@@ -1,6 +1,6 @@
 # Big Tech benchmark — Google / Meta / top-tier hiring bar
 
-**Use this:** Benchmark your [21-step path](../../README.md#progression-step-1--21) against **Google, Meta, and similar** backend hiring loops — even if you are not applying there. This doc raises your ceiling; [target-alignment.md](target-alignment.md) remains the primary **UK £80k** execution plan.
+**Use this:** Benchmark your [22-step path](../../README.md#progression-step-1--22) against **Google, Meta, and similar** backend hiring loops — even if you are not applying there. This doc raises your ceiling; [target-alignment.md](target-alignment.md) remains the primary **UK £80k** execution plan.
 
 **Profile this supports:** Backend & Systems Engineer — PHP/SQL/JS commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation.
 
@@ -12,7 +12,7 @@
 
 Your playbook **over-indexes on production systems skills** (idempotency, queues, observability, SQL tuning, polyglot boundaries) that senior engineers at Google/Meta use daily. It **under-indexes on interview-specific prep**: timed LeetCode-style coding and formal system design drills.
 
-**Execution gap matters more than curriculum gap:** only **3 of 21 labs** are on GitHub; Project 2 still has stub retrieval; no shipped `docs/portfolio/` milestones logged in [PROGRESS.md](../../PROGRESS.md). For any top-tier bar, **shipping Projects 8, 18, 15, and 21** with full portfolio packets is prerequisite.
+**Execution gap matters more than curriculum gap:** only **3 of 22 labs** are on GitHub; Project 2 still has stub retrieval; no shipped `docs/portfolio/` milestones logged in [PROGRESS.md](../../PROGRESS.md). For any top-tier bar, **shipping Projects 8, 19, 16, and 22** with full portfolio packets is prerequisite.
 
 **Rule:** Do **not** pause the spine for LeetCode. Candidates who only grind DSA without shipped systems fail behavioral and depth rounds.
 
@@ -49,8 +49,8 @@ Your commercial PHP/SQL/JS background + playbook spine targets **L4 narrative fo
 | **Observability** | Good — P3, Prometheus on P8 | SLI/SLO, tracing, on-call | **Low** | Add SLO snippet to portfolio artifacts |
 | **SQL / data modeling** | Strong — P4, [database-design.md](../concepts/database-design.md) | Sharding, replication lag, CAP nuance | **Low–medium** | Study sharding; [system design map](system-design-interview-map.md) |
 | **Messaging at scale** | Redis-first; Kafka/gRPC = stretch | Kafka/PubSub hands-on common | **Medium** | [Big Tech benchmark tier](#big-tech-benchmark-tier) on P6/P8 |
-| **K8s / cloud** | P15, P16 | GKE/EKS, IAM, multi-region | **Medium** | Deploy P15 on GCP or AWS |
-| **Security** | P9, P19 | OAuth/OIDC, threat modeling | **Medium** | OAuth required on P12 benchmark tier |
+| **K8s / cloud** | P16, P17 | GKE/EKS, IAM, multi-region | **Medium** | Deploy P16 on GCP or AWS |
+| **Security** | P9, P20 | OAuth/OIDC, threat modeling | **Medium** | OAuth required on P12 benchmark tier |
 | **Algorithms (LeetCode)** | [algorithms-and-data-structures.md](../concepts/algorithms-and-data-structures.md) = design literacy | 150–300 timed problems | **High** | [DSA interview track](dsa-interview-track.md) |
 | **System design interview** | Scattered checklists | 15–20 classic problems with diagrams | **Medium–high** | [System design interview map](system-design-interview-map.md) |
 | **Behavioral** | Interview lines per spec | 8–12 STAR stories | **Medium** | Section below |
@@ -61,10 +61,10 @@ Your commercial PHP/SQL/JS background + playbook spine targets **L4 narrative fo
 ## What you already have that Big Tech respects
 
 1. **Webhook → queue → worker pipeline** — payment webhooks, event buses, async fan-out at Meta/Google.
-2. **Go vs Rust ADR with p95/RSS** ([P18](../../career-project-specs/18-rust-hot-path-lab.md)) — engineering judgment, not language religion.
+2. **Go vs Rust ADR with p95/RSS** ([P19](../../career-project-specs/19-rust-hot-path-lab.md)) — engineering judgment, not language religion.
 3. **RAG with eval JSONL** ([P2](../../career-project-specs/02-rag-llm-service.md)) — AI-adjacent backend roles.
 4. **SQL plan-backed tuning** ([P4](../../career-project-specs/04-sql-performance-lab.md)) — stronger than ORM-only candidates.
-5. **Capstone orchestration** ([P21](../../career-project-specs/21-integrated-platform-capstone.md)) — "design a platform" in one demo.
+5. **Capstone orchestration** ([P22](../../career-project-specs/22-integrated-platform-capstone.md)) — "design a platform" in one demo.
 
 **Interview narrative (Big Tech version):**
 
@@ -84,17 +84,17 @@ Optional upgrades to existing specs — **not** new linear steps. Complete after
 | [P6 Async worker](../../career-project-specs/06-async-worker-stretch.md) | Redis or Laravel queue | **Kafka** (or GCP Pub/Sub) deployment path with same idempotency/DLQ semantics |
 | [P8 Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md) | Redis + REST JSON | **Kafka consumer** + **gRPC** internal API + **OpenTelemetry** traces Python↔Go |
 | [P12 Auth](../../career-project-specs/12-multi-tenant-auth-lab.md) | JWT/session + tenant isolation | **OAuth/OIDC** (Google sign-in) + tenant mapping on first login |
-| [P15 Cloud deploy](../../career-project-specs/15-cloud-deploy-lab.md) | Compose + one managed target | Deploy to **GCP or AWS** (not local-only); document **IAM least-privilege** |
+| [P16 Cloud deploy](../../career-project-specs/16-cloud-deploy-lab.md) | Compose + one managed target | Deploy to **GCP or AWS** (not local-only); document **IAM least-privilege** |
 
-### Optional projects (after P8 or P21)
+### Optional projects (after P8 or P22)
 
 | ID | Project | Why Big Tech cares |
 |----|---------|-------------------|
-| [P22](../../career-project-specs/22-rate-limiter-gateway-lab.md) | Distributed rate limiter + API gateway slice | Top-5 system design question |
-| [P23](../../career-project-specs/23-notification-fanout-lab.md) | Notification fan-out service | Classic Meta/Google SD problem |
-| [P24](../../career-project-specs/24-search-autocomplete-lab.md) | Search/autocomplete microservice | Trie + inverted index; complements RAG |
+| [P23](../../career-project-specs/23-rate-limiter-gateway-lab.md) | Distributed rate limiter + API gateway slice | Top-5 system design question |
+| [P24](../../career-project-specs/24-notification-fanout-lab.md) | Notification fan-out service | Classic Meta/Google SD problem |
+| [P25](../../career-project-specs/25-search-autocomplete-lab.md) | Search/autocomplete microservice | Trie + inverted index; complements RAG |
 
-**P23 is highest ROI** — reuses idempotency/DLQ spine; maps to "design a notification system."
+**P24 is highest ROI** — reuses idempotency/DLQ spine; maps to "design a notification system."
 
 ---
 
@@ -106,10 +106,10 @@ flowchart TB
     P3[P3 Observability]
     P5or6[P5 or P6]
     P8[P8 Go worker]
-    P18[P18 Rust ADR]
-    P15[P15 Cloud deploy]
-    P21[P21 Capstone]
-    P3 --> P5or6 --> P8 --> P18 --> P15 --> P21
+    P19[P19 Rust ADR]
+    P16[P16 Cloud deploy]
+    P22[P22 Capstone]
+    P3 --> P5or6 --> P8 --> P19 --> P16 --> P22
   end
   subgraph parallel [Big Tech parallel]
     DSA[DSA track 5x week]
@@ -118,7 +118,7 @@ flowchart TB
     P23opt[Optional P23]
   end
   P8 --> Kafka
-  P21 --> P23opt
+  P22 --> P23opt
   spine -.->|evenings| DSA
   spine -.->|weekends| SDRead
 ```
@@ -126,8 +126,8 @@ flowchart TB
 | Phase | Spine | Parallel |
 |-------|-------|----------|
 | **1 (0–3 mo)** | P3 → P6 → P8 + portfolio artifacts | DSA: easy/medium (arrays, hash maps, two pointers) — [DSA track](dsa-interview-track.md) |
-| **2 (3–6 mo)** | P18 + P15 | DSA: trees, graphs, heaps; Kafka stretch on P8; SD: rate limiter, URL shortener on paper |
-| **3 (6–12 mo)** | P21 capstone; optional P23 | DSA: medium/hard maintenance; mocks (Pramp, interviewing.io); P12 OAuth benchmark tier |
+| **2 (3–6 mo)** | P19 + P16 | DSA: trees, graphs, heaps; Kafka stretch on P8; SD: rate limiter, URL shortener on paper |
+| **3 (6–12 mo)** | P22 capstone; optional P24 | DSA: medium/hard maintenance; mocks (Pramp, interviewing.io); P12 OAuth benchmark tier |
 
 ---
 
@@ -146,10 +146,10 @@ Mine **8–12 STAR stories** from commercial PHP work + future lab incidents. Te
 
 | Theme | Source ideas |
 |-------|--------------|
-| **Ownership** | On-call incident you drove to resolution; DLQ replay you designed (P6/P14) |
+| **Ownership** | On-call incident you drove to resolution; DLQ replay you designed (P6/P15) |
 | **Ambiguity** | Chose queue vs sync path under unclear SLA (P1/P6 ADR) |
 | **Collaboration** | Cross-team API contract negotiation (P5 OpenAPI) |
-| **Growth mindset** | Go vs Rust ADR — measured, changed mind with data (P18) |
+| **Growth mindset** | Go vs Rust ADR — measured, changed mind with data (P19) |
 | **Conflict / tradeoff** | Performance vs complexity; shipped simpler path first |
 | **Impact** | Reduced p95, prevented duplicate charges, eval regression caught prod drift (P2/P4) |
 

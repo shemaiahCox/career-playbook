@@ -1,6 +1,6 @@
 # Documentation
 
-**Your path:** [README.md](../README.md#progression-step-1--21) (Project 1 → 21). Each project spec links what you need under **languages/** or **concepts/**.
+**Your path:** [README.md](../README.md#progression-step-1--22) (Project 1 → 22). Each project spec links what you need under **languages/** or **concepts/**.
 
 Entry point: [README.md](../README.md)
 
@@ -13,6 +13,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | Doc | Stack |
 |-----|-------|
 | [languages/glossary.md](languages/glossary.md) | **Start here** — index to all maps |
+| [languages/bash.md](languages/bash.md) | Bash / shell automation (CI glue, smoke, deploy hooks) |
 | [languages/language-fundamentals-comparison.md](languages/language-fundamentals-comparison.md) | Side-by-side syntax (PHP, Python, Go, TS, Rust, SQL) |
 | [languages/php-laravel.md](languages/php-laravel.md) | PHP + Laravel |
 | [languages/python.md](languages/python.md) | Python / FastAPI |

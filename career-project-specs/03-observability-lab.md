@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 3 of 21 |
+| **Step** | 3 of 22 |
 | **Previous** | [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md) |
 | **Next** | [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md) |
 
@@ -173,6 +173,10 @@ Implement these against **your** observability lab host ([`02-rag-llm-lab`](../c
 ## Companion reading
 
 - [Debugging (workflow)](../docs/concepts/software-engineering.md#debugging-workflow) — structured loop for narrowing failures once you have correlation IDs and logs.
+
+## Bash scripting milestone
+
+Ship `scripts/grep-request-id.sh` — filter structured logs by `request_id`; optional `jq` for JSON lines; pipeline-friendly stdout.
 
 ## Portfolio artifacts
 

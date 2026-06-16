@@ -1,12 +1,12 @@
-# Project 18 — Rust hot-path reimplementation lab (advanced)
+# Project 19 — Rust hot-path reimplementation lab (advanced)
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | 18 of 21 |
-| **Previous** | [Project 17 — Proxy / load-balancer lab](17-proxy-load-balancer-lab.md) |
-| **Next** | [Project 19 — WASM / secure network component lab](19-wasm-secure-component-lab.md) |
+| **Step** | 19 of 22 |
+| **Previous** | [Project 18 — Proxy / load-balancer lab](18-proxy-load-balancer-lab.md) |
+| **Next** | [Project 20 — WASM / secure network component lab](20-wasm-secure-component-lab.md) |
 
 ## What you will learn
 
@@ -78,7 +78,7 @@ Port Project 8 table-driven cases; docker-compose integration optional.
 ## Stretch
 
 - Share queue with Go producer during migration window.
-- [Project 19](19-wasm-secure-component-lab.md) extract hot filter to WASM.
+- [Project 20](20-wasm-secure-component-lab.md) extract hot filter to WASM.
 - **`proptest`** on idempotency helper — property: duplicate `job_id` never double-applies side effect.
 
 ## Portfolio artifacts
@@ -95,6 +95,6 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Production readiness](../checklists/production-readiness.md) (step 18)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 19)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 19 — WASM / secure network component lab](19-wasm-secure-component-lab.md)
+- **Next:** [Project 20 — WASM / secure network component lab](20-wasm-secure-component-lab.md)

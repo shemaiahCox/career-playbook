@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 12 of 21 |
+| **Step** | 12 of 22 |
 | **Previous** | [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md) |
 | **Next** | [Project 13 — Real-time dashboard lab](13-realtime-dashboard-lab.md) |
 
@@ -84,6 +84,10 @@ Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchma
 - [ ] Document authorization code flow, token refresh, and tenant mapping on first login.
 - [ ] Integration test: OAuth callback → session → tenant-scoped API access.
 - [ ] Threat notes: CSRF on OAuth state param; redirect URI allowlist ([Project 9](09-application-security-lab.md)).
+
+## Bash scripting milestone
+
+Ship `scripts/smoke.sh` — authenticated or public health path; exit 0/1 for CI.
 
 ## Portfolio artifacts
 

@@ -1,4 +1,4 @@
-# Project 22 — Distributed rate limiter + API gateway slice (optional)
+# Project 23 — Distributed rate limiter + API gateway slice (optional)
 
 ## Progress
 
@@ -6,7 +6,7 @@
 |---|---|
 | **Step** | Optional — after [Project 8](08-go-retrieval-worker-lab.md) |
 | **Previous** | [Project 8 — Go retrieval gateway and worker](08-go-retrieval-worker-lab.md) |
-| **Next** | [Project 23 — Notification fan-out](23-notification-fanout-lab.md) (optional) |
+| **Next** | [Project 24 — Notification fan-out](24-notification-fanout-lab.md) (optional) |
 
 **Not in the linear spine.** One active project rule still applies.
 
@@ -20,7 +20,7 @@
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) HTTP gateway patterns; Redis familiarity from [Project 6](06-async-worker-stretch.md)
 - **Career context:** [System design interview map](../docs/career/system-design-interview-map.md#rate-limiter) · [Big Tech benchmark](../docs/career/big-tech-benchmark.md)
-- **Related:** [Project 17](17-proxy-load-balancer-lab.md) proxy timeouts and graceful shutdown
+- **Related:** [Project 18](18-proxy-load-balancer-lab.md) proxy timeouts and graceful shutdown
 
 ## Problem
 
@@ -45,11 +45,11 @@ Add a **rate limiting gateway** in front of an existing API (your Project 8 `/re
 
 _TBD — create sibling repo (e.g. `rate-limiter-gateway-lab`) or extend Project 8 repo._
 
-Suggested local folder: [`../career-projects/22-rate-limiter-gateway-lab`](../career-projects/22-rate-limiter-gateway-lab).
+Suggested local folder: [`../career-projects/23-rate-limiter-gateway-lab`](../career-projects/23-rate-limiter-gateway-lab).
 
 ## Stack
 
-- **Go 1.22+** or **Rust** (if after [Project 18](18-rust-hot-path-lab.md))
+- **Go 1.22+** or **Rust** (if after [Project 19](19-rust-hot-path-lab.md))
 - **Redis** — distributed counter store
 - **chi/echo** or Axum — middleware chain
 - Upstream: Project 8 retrieval or static mock handler
@@ -74,7 +74,7 @@ Suggested local folder: [`../career-projects/22-rate-limiter-gateway-lab`](../ca
 1. Burst at bucket capacity → allowed; sustained over refill → 429.
 2. Clock skew simulation — document window boundary behavior.
 3. Missing API key → 401 or global IP limit (document policy).
-4. Upstream slow — gateway timeout independent of rate limit ([Project 17](17-proxy-load-balancer-lab.md) tie-in).
+4. Upstream slow — gateway timeout independent of rate limit ([Project 18](18-proxy-load-balancer-lab.md) tie-in).
 
 ## Stretch
 

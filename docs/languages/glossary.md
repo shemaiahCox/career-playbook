@@ -1,9 +1,10 @@
 # Stacks glossary — plain language index
 
-Jump to **Plain language** sections at the bottom of each ecosystem map. Each map follows a shared **top-to-bottom** flow—best for → how it runs → setup → layout → daily commands → playbook concepts ([template](../templates/language-ecosystem-map.md)). Core stack: **JS/TS, PHP, SQL, Go, Python, Rust**, plus **integration/automation** patterns.
+Jump to **Plain language** sections at the bottom of each ecosystem map. Each map follows a shared **top-to-bottom** flow—best for → how it runs → setup → layout → daily commands → playbook concepts ([template](../templates/language-ecosystem-map.md)). Core stack: **JS/TS, PHP, SQL, Go, Python, Rust, Bash**, plus **integration/automation** patterns.
 
 | Map | Jump to definitions |
 |-----|---------------------|
+| [Bash / shell automation](bash.md#plain-language-terms-used-on-this-page) | bash.md |
 | [PHP + Laravel](php-laravel.md#plain-language-terms-used-on-this-page) | php-laravel.md |
 | [Node.js + TypeScript (HTTP / API)](node-typescript-backend.md#plain-language-terms-used-on-this-page) | node-typescript-backend.md |
 | [Go](go.md#plain-language-terms-used-on-this-page) | go.md |

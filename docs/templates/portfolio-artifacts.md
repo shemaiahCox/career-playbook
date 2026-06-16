@@ -116,5 +116,6 @@ Project 3 success criteria often satisfy this artifact for the host service; sti
 - [ ] Performance numbers or N/A with reason
 - [ ] Failure modes documented
 - [ ] Observability evidence attached
+- [ ] Optional: `scripts/` with strict mode; `shellcheck` clean ([Bash map](../languages/bash.md))
 
-**Capstone (Project 21):** Flagship README links to each service’s `docs/portfolio/` plus one **system-level** diagram and demo walkthrough.
+**Capstone (Project 22):** Flagship README links to each service’s `docs/portfolio/` plus one **system-level** diagram and demo walkthrough.

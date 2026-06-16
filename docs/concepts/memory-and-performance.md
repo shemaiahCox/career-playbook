@@ -29,7 +29,7 @@ Runtime tuning literacy for this playbook: **measure → find bottleneck → fix
 | SQL list endpoints | p95 cliffs, N+1 | Projects 4, 5, 12 |
 | Real-time UI | reconnect storms, janky DOM | Project 13 |
 | Service split decision | Python CPU vs I/O bound | Projects 2 → 8 |
-| Hot-path ADR | p95 + RSS vs Go baseline | Project 18 |
+| Hot-path ADR | p95 + RSS vs Go baseline | Project 19 |
 | Edge / WASM | bounded linear memory | Projects 19, 20 |
 
 ---
@@ -42,7 +42,7 @@ Runtime tuning literacy for this playbook: **measure → find bottleneck → fix
 
 - Report **p50 / p95 / p99**, not only averages—tail latency is what users and SLOs feel.
 - Note **warm vs cold** (JIT, connection pool fill, cache empty).
-- Align with **timeout budgets**: client, upstream, job deadline must nest (see [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md)).
+- Align with **timeout budgets**: client, upstream, job deadline must nest (see [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md)).
 
 ### Throughput
 
@@ -92,7 +92,7 @@ Structured logs from [Project 3](../../career-project-specs/03-observability-lab
 ## Performance patterns
 
 - **Bound concurrency** — worker pools, semaphores; never unbounded `go handler()` or `tokio::spawn` per message.
-- **Timeouts everywhere** — client, upstream, job `context`; proxies enforce budgets ([Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md)).
+- **Timeouts everywhere** — client, upstream, job `context`; proxies enforce budgets ([Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md)).
 - **Batch and paginate** — keyset pagination at scale; embed/index in batches ([Projects 4](../../career-project-specs/04-sql-performance-lab.md), [2](../../career-project-specs/02-rag-llm-service.md)).
 - **Cache deliberately** — TTL, max size, invalidation; avoid unbounded in-process maps.
 - **Connection pooling** — reuse DB and HTTP connections; pool exhaustion looks like latency, not “slow SQL.”
@@ -111,10 +111,10 @@ Memory work is half of performance work in integration + AI systems.
 - **Stream / paginate / batch** — do not load full corpus, full HTTP body, or full result set; cap response body bytes (e.g. Go `io.LimitReader`).
 - **Preallocate when size is known** — Go `make([]T, 0, n)`; Python list comp vs repeated append ([algorithms study path](algorithms-study-path.md)).
 - **Avoid accidental retention** — closures holding large structs, global singleton caches (PHP Octane), undropped event listeners.
-- **Copy vs reference** — Go slice aliasing; unnecessary `.clone()` in Rust hot paths ([Project 18](../../career-project-specs/18-rust-hot-path-lab.md)).
+- **Copy vs reference** — Go slice aliasing; unnecessary `.clone()` in Rust hot paths ([Project 19](../../career-project-specs/19-rust-hot-path-lab.md)).
 - **GC languages** (Go, Python, Node, PHP long-lived) — allocation rate drives GC pause and RSS growth.
 - **Rust** — ownership prevents many bugs; still measure **peak RSS** and clone cost in benchmarks.
-- **Containers** — set memory limits; **OOMKilled** means “worked on laptop” failed in prod ([Projects 15–16](../../career-project-specs/15-cloud-deploy-lab.md)).
+- **Containers** — set memory limits; **OOMKilled** means “worked on laptop” failed in prod ([Projects 15–16](../../career-project-specs/16-cloud-deploy-lab.md)).
 
 ---
 
@@ -160,8 +160,8 @@ Record: concurrency, duration, **p95**, error rate, and optionally RSS before/af
 
 | Concept | Projects |
 |---------|----------|
-| **Measure and tune (latency / throughput)** | [3](../../career-project-specs/03-observability-lab.md), [4](../../career-project-specs/04-sql-performance-lab.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [17](../../career-project-specs/17-proxy-load-balancer-lab.md), [18](../../career-project-specs/18-rust-hot-path-lab.md) |
-| **Memory / resource limits** | [2](../../career-project-specs/02-rag-llm-service.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [13](../../career-project-specs/13-realtime-dashboard-lab.md), [18](../../career-project-specs/18-rust-hot-path-lab.md), [19](../../career-project-specs/19-wasm-secure-component-lab.md), [20](../../career-project-specs/20-iot-edge-lab.md) |
+| **Measure and tune (latency / throughput)** | [3](../../career-project-specs/03-observability-lab.md), [4](../../career-project-specs/04-sql-performance-lab.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [17](../../career-project-specs/17-proxy-load-balancer-lab.md), [18](../../career-project-specs/19-rust-hot-path-lab.md) |
+| **Memory / resource limits** | [2](../../career-project-specs/02-rag-llm-service.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [13](../../career-project-specs/13-realtime-dashboard-lab.md), [18](../../career-project-specs/19-rust-hot-path-lab.md), [19](../../career-project-specs/20-wasm-secure-component-lab.md), [20](../../career-project-specs/21-iot-edge-lab.md) |
 | **Queue throughput vs ack latency** | [6](../../career-project-specs/06-async-worker-stretch.md) |
 
 **Read next:** [Algorithms study path](algorithms-study-path.md) · [Go map](../languages/go.md) · [Python map](../languages/python.md) · [per-project testing](per-project-testing.md)

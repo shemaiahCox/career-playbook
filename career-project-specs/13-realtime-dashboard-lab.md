@@ -4,9 +4,9 @@
 
 | | |
 |---|---|
-| **Step** | 13 of 21 |
+| **Step** | 13 of 22 |
 | **Previous** | [Project 12 — Multi-tenant auth + SaaS slice lab](12-multi-tenant-auth-lab.md) |
-| **Next** | [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md) |
+| **Next** | [Project 14 — Shell automation lab](14-shell-automation-lab.md) |
 
 ## What you will learn
 
@@ -29,7 +29,7 @@ Build a **TypeScript dashboard** that consumes live events from [Project 6](06-a
 
 ### In depth
 
-Real-time UIs fail on **reconnect storms**, **duplicate events**, and **unbounded client buffers**. This lab pairs with event-bus stretches in Project 8 and [Project 20](20-iot-edge-lab.md) telemetry feeds.
+Real-time UIs fail on **reconnect storms**, **duplicate events**, and **unbounded client buffers**. This lab pairs with event-bus stretches in Project 8 and [Project 21](21-iot-edge-lab.md) telemetry feeds.
 
 ## Important concepts
 
@@ -61,6 +61,10 @@ _TBD — e.g. `realtime-dashboard-lab`._ Suggested folder: [`../career-projects/
 - [ ] README diagram: event producer → bus/stream → dashboard.
 - [ ] No API secrets in frontend bundle.
 
+## Bash scripting milestone
+
+Ship `scripts/smoke.sh` — minimal happy path (start stack or hit SSE endpoint); strict mode; exit 0/1 for CI.
+
 ## Testing approach (lab)
 
 Simulate event burst; assert UI stability or batching policy.
@@ -74,7 +78,7 @@ Simulate event burst; assert UI stability or batching policy.
 ## Stretch
 
 - Share components with [Project 11](11-llm-web-app-lab.md) for query progress.
-- Consume [Project 20](20-iot-edge-lab.md) MQTT-forwarded telemetry.
+- Consume [Project 21](21-iot-edge-lab.md) MQTT-forwarded telemetry.
 
 ## Portfolio artifacts
 
@@ -92,4 +96,4 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
 - Checklist: [Production readiness](../checklists/production-readiness.md) (step 13)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md)
+- **Next:** [Project 14 — Shell automation lab](14-shell-automation-lab.md)

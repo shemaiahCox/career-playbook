@@ -27,7 +27,7 @@
 | 13 | Design patterns | — (patterns in labs) | [Design patterns](../concepts/software-engineering.md#design-patterns-gof-style-survey) | — |
 | 14 | API & interface design | — (contract patterns in labs) | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) · [Project 5](../../career-project-specs/05-contract-first-api.md) · [Production readiness](../../checklists/production-readiness.md) | — |
 | 15 | Testing & quality | — (per-project test plans) | [Per-project testing](../concepts/per-project-testing.md) · [Software engineering — Testing](../concepts/software-engineering.md#testing) | — |
-| 16 | Performance concepts | [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | → 1, 5, 9 |
+| 16 | Performance concepts | [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) | → 1, 5, 9 |
 | 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) | — |
 | 18 | Build systems & tooling | [Modules, imports, and packages](#modules-imports-and-packages) | [Command-line tooling](../concepts/command-line-tooling.md) · per-language maps in [glossary](glossary.md) | — |
 | 19 | Networking & IO | — (HTTP/streaming in labs) | [Servers and networking](../concepts/servers-and-networking.md) · [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md) | — |
@@ -82,7 +82,7 @@
 0. **Browse the full list** — [Cross-stack study map](#cross-stack-study-map) links every high-value concept to examples here and depth elsewhere.
 1. **Read** the section for the concept you are translating (e.g. “how do maps work in Go?”).
 2. **Skim** the comparison table, then read the **multi-language snippet**.
-3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--21) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
+3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--22) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
 4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
 6. **Senior-depth language features** (generators, ownership, type-system edges) live in [Intermediate and advanced concepts](#intermediate-and-advanced-concepts-cross-stack)—read when translating between stacks during an active lab. Operational concurrency (thread pools, backpressure, queue workers) stays in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
@@ -1260,7 +1260,7 @@ dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM reques
 
 **Purpose:** Curated **translation reference** for senior-level language features—generators, ownership, type-system edges, error philosophy, metaprogramming—when you move between stacks during an active lab. Not a parallel language course or interview cram sheet; each topic ties to a playbook project.
 
-**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-step-1--21). DS&A theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
+**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-step-1--22). DS&A theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
 
 ### Immutability and value vs reference
 
@@ -1327,7 +1327,7 @@ print_r($a); // [1, 2] — copy-on-write until mutate
 
 **Related:** [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures)
 
-**Apply in:** [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (clone vs borrow) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (slice aliasing).
+**Apply in:** [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (clone vs borrow) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (slice aliasing).
 
 ---
 
@@ -1537,7 +1537,7 @@ function pageIds(callable $fetchPage, int $pageSize = 100): Generator {
 }
 ```
 
-**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python RAG chunk ingestion) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) (JS pagination) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go fan-out) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (Rust hot-path iterators).
+**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python RAG chunk ingestion) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) (JS pagination) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go fan-out) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (Rust hot-path iterators).
 
 ---
 
@@ -1669,7 +1669,7 @@ function loadConfig(?Config $raw): Config {
 }
 ```
 
-**Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) (TS strict mode) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) (typed DTOs) · [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python typing at scale) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (`Option`/`Result`).
+**Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) (TS strict mode) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) (typed DTOs) · [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python typing at scale) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (`Option`/`Result`).
 
 **Related:** [Generics and type parameters](#generics-and-type-parameters) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
@@ -1768,7 +1768,7 @@ function findUser(string $id): User {
 }
 ```
 
-**Apply in:** every project—especially [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (`Result` propagation, no `unwrap` in hot path).
+**Apply in:** every project—especially [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (`Result` propagation, no `unwrap` in hot path).
 
 **Related:** [Error handling](#error-handling) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
@@ -1820,7 +1820,7 @@ var_dump("0" === 0); // false
 
 **Related:** [Closures and capture gotchas](#closures-and-capture-gotchas) · [Error handling](#error-handling) · [Type systems beyond annotations](#type-systems-beyond-annotations)
 
-**Apply in:** every project—especially [Project 7](../../career-project-specs/07-node-typescript-lab.md) and [Project 18](../../career-project-specs/18-rust-hot-path-lab.md).
+**Apply in:** every project—especially [Project 7](../../career-project-specs/07-node-typescript-lab.md) and [Project 18](../../career-project-specs/19-rust-hot-path-lab.md).
 
 ---
 
@@ -1899,7 +1899,7 @@ $ids = array_map(
 );
 ```
 
-**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python pipelines) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (iterator chains).
+**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python pipelines) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (iterator chains).
 
 ---
 
@@ -1985,7 +1985,7 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 }
 ```
 
-**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (FastAPI decorators) · [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (Laravel attributes) · [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) (traits + derive).
+**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (FastAPI decorators) · [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (Laravel attributes) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (traits + derive).
 
 ---
 
@@ -2178,4 +2178,4 @@ Stack map: [Python stack](python.md). Database queries: [SQL stack](sql.md).
 
 ---
 
-**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-step-1--21).
+**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-step-1--22).

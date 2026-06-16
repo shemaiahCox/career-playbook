@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 10 of 21 |
+| **Step** | 10 of 22 |
 | **Previous** | [Project 9 — OWASP / cybersecurity foundations](09-application-security-lab.md) |
 | **Next** | [Project 11 — LLM-integrated web app lab](11-llm-web-app-lab.md) |
 
@@ -84,6 +84,10 @@ Integration test: run step twice with same input → one side effect.
 
 - Publish as private n8n community package with version tag.
 - Enqueue to [Project 6](06-async-worker-stretch.md) instead of sync call.
+
+## Bash scripting milestone
+
+Ship `scripts/trigger-workflow.sh` — cron-safe workflow trigger; secrets from env only; idempotent side effects documented.
 
 ## Portfolio artifacts
 

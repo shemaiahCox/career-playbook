@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 5 of 21 |
+| **Step** | 5 of 22 |
 | **Previous** | [Project 4 — SQL performance and correctness lab](04-sql-performance-lab.md) |
 | **Next** | [Project 6 — Async worker](06-async-worker-stretch.md) |
 
@@ -181,6 +181,10 @@ Use these once the lab repo exists; wire **copy-paste HTTP examples** into that 
 
 - **Action:** Hit list endpoint with valid and invalid query params.
 - **Expected outcome:** Documented defaults; stable sort keys for consumers building UI—pairs well with [Project 4](04-sql-performance-lab.md) for performance stories later.
+
+## Bash scripting milestone
+
+Ship `scripts/openapi-diff-check.sh` (stretch) — fail CI when OpenAPI spec drifts from committed artifact; strict mode.
 
 ## Portfolio artifacts
 

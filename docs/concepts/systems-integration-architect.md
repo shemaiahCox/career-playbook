@@ -22,7 +22,7 @@ Partner / Boomi / n8n trigger
     → Postgres (SQL correctness, indexes, vectors)
 ```
 
-Practice mapping: [Project 1 webhook](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6 worker](../../career-project-specs/06-async-worker-stretch.md) → [Project 8 Go lab](../../career-project-specs/08-go-retrieval-worker-lab.md) → [Project 2 RAG](../../career-project-specs/02-rag-llm-service.md) → [Project 4 SQL](../../career-project-specs/04-sql-performance-lab.md) → … → [Project 21 integrated capstone](../../career-project-specs/21-integrated-platform-capstone.md).
+Practice mapping: [Project 1 webhook](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6 worker](../../career-project-specs/06-async-worker-stretch.md) → [Project 8 Go lab](../../career-project-specs/08-go-retrieval-worker-lab.md) → [Project 2 RAG](../../career-project-specs/02-rag-llm-service.md) → [Project 4 SQL](../../career-project-specs/04-sql-performance-lab.md) → … → [Project 21 integrated capstone](../../career-project-specs/22-integrated-platform-capstone.md).
 
 ## Depth order (what to deepen first)
 
@@ -41,6 +41,6 @@ Practice mapping: [Project 1 webhook](../../career-project-specs/01-integration-
 
 ## Where this repo practices it
 
-Phased specs: [career projects catalog](../../README.md#progression-step-1--21) · [engineering pillars](engineering-pillars.md) (optional). Pair with [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) when AI accelerates a new corner of **your** stack.
+Phased specs: [career projects catalog](../../README.md#progression-step-1--22) · [engineering pillars](engineering-pillars.md) (optional). Pair with [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) when AI accelerates a new corner of **your** stack.
 
 Handbook depth: [Software engineering](software-engineering.md) · [Database design](database-design.md).

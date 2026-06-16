@@ -1,12 +1,12 @@
-# Project 15 — Cloud deploy + infra automation lab
+# Project 16 — Cloud deploy + infra automation lab
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | 15 of 21 |
-| **Previous** | [Project 14 — DevOps CLI / ops tool lab](14-devops-cli-lab.md) |
-| **Next** | [Project 16 — Kubernetes controller-lite lab](16-k8s-controller-lab.md) |
+| **Step** | 16 of 22 |
+| **Previous** | [Project 15 — DevOps CLI / ops tool lab](15-devops-cli-lab.md) |
+| **Next** | [Project 17 — Kubernetes controller-lite lab](17-k8s-controller-lab.md) |
 
 ## What you will learn
 
@@ -28,7 +28,7 @@ Take [Project 8](08-go-retrieval-worker-lab.md) (or Project 6+Project 4 stack) t
 
 ### In depth
 
-Employers hiring for Go/Python/TS backends expect **Docker literacy** and basic deploy hygiene. This lab is prerequisite for [Project 16](16-k8s-controller-lab.md) (K8s assumes you already ship containers).
+Employers hiring for Go/Python/TS backends expect **Docker literacy** and basic deploy hygiene. This lab is prerequisite for [Project 17](17-k8s-controller-lab.md) (K8s assumes you already ship containers).
 
 ## Important concepts
 
@@ -60,6 +60,10 @@ _Document deploy in Project 8/Project 6 lab repo or `_TBD` `cloud-deploy-lab` wr
 - [ ] Secrets never in git; `.env.example` lists keys only.
 - [ ] Health URL returns 200; README lists rollback steps.
 - [ ] **GitHub Actions** workflow runs lint + test on PR (badge in README).
+
+## Bash scripting milestone
+
+Ship `scripts/deploy.sh` and `scripts/post-deploy-smoke.sh` using [Project 14](14-shell-automation-lab.md) strict-mode patterns: preflight env, invoke compose/deploy, hit health URL, exit non-zero on failure.
 
 ## Testing approach (lab)
 
@@ -99,6 +103,6 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Production readiness](../checklists/production-readiness.md) (step 15)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 16)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 16 — Kubernetes controller-lite lab](16-k8s-controller-lab.md)
+- **Next:** [Project 17 — Kubernetes controller-lite lab](17-k8s-controller-lab.md)

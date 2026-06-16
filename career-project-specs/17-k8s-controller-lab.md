@@ -1,12 +1,12 @@
-# Project 16 — Kubernetes controller-lite lab (advanced)
+# Project 17 — Kubernetes controller-lite lab (advanced)
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | 16 of 21 |
-| **Previous** | [Project 15 — Cloud deploy + infra automation lab](15-cloud-deploy-lab.md) |
-| **Next** | [Project 17 — Proxy / load-balancer lab](17-proxy-load-balancer-lab.md) |
+| **Step** | 17 of 22 |
+| **Previous** | [Project 16 — Cloud deploy + infra automation lab](16-cloud-deploy-lab.md) |
+| **Next** | [Project 18 — Proxy / load-balancer lab](18-proxy-load-balancer-lab.md) |
 
 ## What you will learn
 
@@ -16,7 +16,7 @@
 
 ## Before you start
 
-- **Requires:** [Project 15](15-cloud-deploy-lab.md)
+- **Requires:** [Project 16](16-cloud-deploy-lab.md)
 
 ## Problem
 
@@ -28,7 +28,7 @@ Build a **minimal Kubernetes controller or operator pattern** in Go: watch a res
 
 ### In depth
 
-**Wave 3 — advanced.** Complete [Project 15](15-cloud-deploy-lab.md) first. Start with **controller-lite** (informers + sync loop) before a full CRD operator if time-boxed.
+**Wave 3 — advanced.** Complete [Project 16](16-cloud-deploy-lab.md) first. Start with **controller-lite** (informers + sync loop) before a full CRD operator if time-boxed.
 
 ## Important concepts
 
@@ -45,13 +45,13 @@ Build a **minimal Kubernetes controller or operator pattern** in Go: watch a res
 
 ## Code repo
 
-_TBD — e.g. `k8s-controller-lab`._ Suggested folder: [`../career-projects/16-k8s-controller-lab`](../career-projects/16-k8s-controller-lab).
+_TBD — e.g. `k8s-controller-lab`._ Suggested folder: [`../career-projects/17-k8s-controller-lab`](../career-projects/17-k8s-controller-lab).
 
 ## Stack
 
 - **Go** — `controller-runtime` or client-go informers (document choice)
 - **kind** or **minikube** for local cluster
-- Deploy target from [Project 15](15-cloud-deploy-lab.md)
+- Deploy target from [Project 16](16-cloud-deploy-lab.md)
 
 ## Success criteria
 
@@ -59,6 +59,10 @@ _TBD — e.g. `k8s-controller-lab`._ Suggested folder: [`../career-projects/16-k
 - [ ] Idempotent: repeated reconcile without drift does not spam side effects.
 - [ ] README: architecture diagram + failure modes (RBAC denied, API unavailable).
 - [ ] `go test` for pure reconcile logic where possible.
+
+## Bash scripting milestone
+
+Ship `scripts/kubectl-wait-ready.sh` — poll readiness with timeout and clear exit codes for deploy hooks.
 
 ## Testing approach (lab)
 
@@ -89,6 +93,6 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)
-- Checklist: [Production readiness](../checklists/production-readiness.md) (step 16)
+- Checklist: [Production readiness](../checklists/production-readiness.md) (step 17)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Project 17 — Proxy / load-balancer lab](17-proxy-load-balancer-lab.md)
+- **Next:** [Project 18 — Proxy / load-balancer lab](18-proxy-load-balancer-lab.md)

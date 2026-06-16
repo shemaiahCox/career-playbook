@@ -1,11 +1,11 @@
-# Project 23 — Notification fan-out service (optional)
+# Project 24 — Notification fan-out service (optional)
 
 ## Progress
 
 | | |
 |---|---|
-| **Step** | Optional — after [Project 8](08-go-retrieval-worker-lab.md) or [Project 21](21-integrated-platform-capstone.md) |
-| **Previous** | [Project 21 — Integrated platform capstone](21-integrated-platform-capstone.md) (recommended) |
+| **Step** | Optional — after [Project 8](08-go-retrieval-worker-lab.md) or [Project 22](22-integrated-platform-capstone.md) |
+| **Previous** | [Project 22 — Integrated platform capstone](22-integrated-platform-capstone.md) (recommended) |
 | **Next** | — (optional branch) |
 
 **Not in the linear spine.** One active project rule still applies — pick this only when the spine milestone you need is green.
@@ -49,7 +49,7 @@ Notification systems combine **high fan-out** (one post → millions of devices)
 
 _TBD — create sibling repo (e.g. `notification-fanout-lab`) when you start._
 
-Suggested local folder: [`../career-projects/23-notification-fanout-lab`](../career-projects/23-notification-fanout-lab).
+Suggested local folder: [`../career-projects/24-notification-fanout-lab`](../career-projects/24-notification-fanout-lab).
 
 ## Stack
 

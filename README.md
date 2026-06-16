@@ -1,6 +1,6 @@
 # career-playbook
 
-Practice projects for **AI Systems · Cloud · Automation · IoT** — one linear path, **21 steps** (Projects 1–20 + integrated capstone).
+Practice projects for **AI Systems · Cloud · Automation · IoT** — one linear path, **22 steps** (Projects 1–21 + integrated capstone).
 
 **Rule:** one active project at a time.
 
@@ -9,9 +9,9 @@ Practice projects for **AI Systems · Cloud · Automation · IoT** — one linea
 1. **[Project 1](career-project-specs/01-integration-webhook-receiver.md)** — begin the path below
 2. **[PROGRESS.md](PROGRESS.md)** — log what you're working on
 
-Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 21** composes Projects 1–20 into your flagship portfolio system.
+Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 22** composes Projects 1–21 into your flagship portfolio system.
 
-## Progression (Step 1 → 21)
+## Progression (Step 1 → 22)
 
 | Step | Project | Stack | You will learn | Lab |
 |------|---------|-------|----------------|-----|
@@ -28,26 +28,27 @@ Finish each project's success criteria → log in PROGRESS → open **Next** in 
 | 11 | [LLM web app](career-project-specs/11-llm-web-app-lab.md) | TS + Python | BFF, streaming UX, eval-aware errors | _TBD_ |
 | 12 | [Multi-tenant + auth](career-project-specs/12-multi-tenant-auth-lab.md) | TS + SQL | Tenant isolation, JWT/session | _TBD_ |
 | 13 | [Real-time dashboard](career-project-specs/13-realtime-dashboard-lab.md) | TypeScript | SSE/WebSocket, reconnect, backpressure | _TBD_ |
-| 14 | [DevOps CLI](career-project-specs/14-devops-cli-lab.md) | Go | DLQ replay, ops flags, exit codes | _TBD_ |
-| 15 | [Cloud deploy](career-project-specs/15-cloud-deploy-lab.md) | Compose + cloud | Deploy, secrets, health checks | _TBD_ |
-| 16 | [K8s controller-lite](career-project-specs/16-k8s-controller-lab.md) | Go | Reconcile loop, idempotent apply | _TBD_ |
-| 17 | [Proxy / load balancer](career-project-specs/17-proxy-load-balancer-lab.md) | Go / Rust | Timeouts, pooling, graceful shutdown | _TBD_ |
-| 18 | [Rust hot-path](career-project-specs/18-rust-hot-path-lab.md) | Rust | Same Project 8 contract; Go vs Rust ADR | _TBD_ |
-| 19 | [WASM secure component](career-project-specs/19-wasm-secure-component-lab.md) | Rust | Sandboxed logic, FFI boundaries | _TBD_ |
-| 20 | [IoT / edge ingest](career-project-specs/20-iot-edge-lab.md) | Rust/Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
-| 21 | [Integrated platform capstone](career-project-specs/21-integrated-platform-capstone.md) | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
+| 14 | [Shell automation lab](career-project-specs/14-shell-automation-lab.md) | Bash | Strict mode, smoke scripts, shellcheck, bats | _TBD_ |
+| 15 | [DevOps CLI](career-project-specs/15-devops-cli-lab.md) | Go | DLQ replay, ops flags, exit codes | _TBD_ |
+| 16 | [Cloud deploy](career-project-specs/16-cloud-deploy-lab.md) | Compose + cloud | Deploy, secrets, health checks | _TBD_ |
+| 17 | [K8s controller-lite](career-project-specs/17-k8s-controller-lab.md) | Go | Reconcile loop, idempotent apply | _TBD_ |
+| 18 | [Proxy / load balancer](career-project-specs/18-proxy-load-balancer-lab.md) | Go / Rust | Timeouts, pooling, graceful shutdown | _TBD_ |
+| 19 | [Rust hot-path](career-project-specs/19-rust-hot-path-lab.md) | Rust | Same Project 8 contract; Go vs Rust ADR | _TBD_ |
+| 20 | [WASM secure component](career-project-specs/20-wasm-secure-component-lab.md) | Rust | Sandboxed logic, FFI boundaries | _TBD_ |
+| 21 | [IoT / edge ingest](career-project-specs/21-iot-edge-lab.md) | Rust/Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
+| 22 | [Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
 
 Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = step number** (e.g. step 2 → `02-rag-llm-lab`, step 4 → `04-sql-perf-lab`). GitHub repo names may differ — each spec's **Code repo** section is authoritative.
 
 ### Optional projects (Big Tech benchmark — not in linear order)
 
-After [Project 8](career-project-specs/08-go-retrieval-worker-lab.md) or [Project 21](career-project-specs/21-integrated-platform-capstone.md). See [big-tech-benchmark.md](docs/career/big-tech-benchmark.md).
+After [Project 8](career-project-specs/08-go-retrieval-worker-lab.md) or [Project 22](career-project-specs/22-integrated-platform-capstone.md). See [big-tech-benchmark.md](docs/career/big-tech-benchmark.md).
 
 | ID | Project | Spec |
 |----|---------|------|
-| P22 | Distributed rate limiter + API gateway | [22-rate-limiter-gateway-lab.md](career-project-specs/22-rate-limiter-gateway-lab.md) |
-| P23 | Notification fan-out service | [23-notification-fanout-lab.md](career-project-specs/23-notification-fanout-lab.md) |
-| P24 | Search / autocomplete microservice | [24-search-autocomplete-lab.md](career-project-specs/24-search-autocomplete-lab.md) |
+| P23 | Distributed rate limiter + API gateway | [23-rate-limiter-gateway-lab.md](career-project-specs/23-rate-limiter-gateway-lab.md) |
+| P24 | Notification fan-out service | [24-notification-fanout-lab.md](career-project-specs/24-notification-fanout-lab.md) |
+| P25 | Search / autocomplete microservice | [25-search-autocomplete-lab.md](career-project-specs/25-search-autocomplete-lab.md) |
 
 ## Browse by topic (optional)
 
@@ -55,18 +56,19 @@ Not the learning order — use when you want every project that practices a conc
 
 | Concept | Projects |
 |---------|----------|
-| **Idempotency** | 1, 6, 7, 8, 10, 12, 16, 20 |
+| **Idempotency** | 1, 6, 7, 8, 10, 12, 17, 21 |
 | HMAC / webhook trust | 1, 10, 9 |
-| Dead letter / replay | 1, 6, 14 |
-| RAG + eval regression | 2, 11, 20 |
+| Dead letter / replay | 1, 6, 15 |
+| RAG + eval regression | 2, 11, 21 |
 | OpenAPI / contracts | 5, 2↔8, 7, 11 |
 | SQL plans / vectors | 4, 2, 8, 12 |
 | Auth + tenant isolation | 12, 11, 9 |
-| Real-time push | 13, 8, 20 |
-| **Performance (measure and tune)** | 3, 4, 8, 17, 18 |
-| **Memory / resource limits** | 2, 8, 13, 18, 19, 20 |
-| Rust / systems ADR | 18, 17, 19 |
-| **Integrated capstone** | 21 |
+| Real-time push | 13, 8, 21 |
+| **Bash / shell automation** | 1, 4, 10, 14, 16, 22 |
+| **Performance (measure and tune)** | 3, 4, 8, 18, 19 |
+| **Memory / resource limits** | 2, 8, 13, 19, 20, 21 |
+| Rust / systems ADR | 19, 18, 20 |
+| **Integrated capstone** | 22 |
 
 Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional topic index).
 
@@ -74,9 +76,9 @@ Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional
 
 Build platforms that integrate systems, automate workflows, and layer AI — with contracts, idempotency, observability, and explicit failure modes.
 
-**PHP stays ship-today.** This repo is for Python / Go / TypeScript / SQL / Rust depth through numbered projects.
+**PHP stays ship-today.** This repo is for Python / Go / TypeScript / SQL / Rust depth through numbered projects, plus **Bash for ops glue** (CI smoke, deploy hooks, `scripts/demo.sh`).
 
-**Reference docs:** [languages/glossary.md](docs/languages/glossary.md) (stack maps) · [concepts/](docs/README.md#concepts-theory-and-patterns) (theory and patterns)
+**Reference docs:** [languages/glossary.md](docs/languages/glossary.md) (stack maps) · [languages/bash.md](docs/languages/bash.md) (shell automation) · [concepts/](docs/README.md#concepts-theory-and-patterns) (theory and patterns)
 
 ## Non-goals
 
@@ -96,7 +98,7 @@ Build platforms that integrate systems, automate workflows, and layer AI — wit
 
 ## Spec shape
 
-Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · Testing · **Portfolio artifacts** · **When you're done**.
+Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · **Bash scripting milestone** (where applicable) · Testing · **Portfolio artifacts** · **When you're done**.
 
 ## Reference (not the path)
 

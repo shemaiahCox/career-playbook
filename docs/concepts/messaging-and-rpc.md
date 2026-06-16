@@ -22,7 +22,7 @@
 
 **When Kafka appears in JDs:** durable event log, many consumers replaying history, high throughput fan-out, company-wide event bus. You don't need a dedicated Kafka lab — optional consumer on Project 8 is enough hands-on signal.
 
-**When Redis is enough in portfolio:** proving idempotency, DLQ, worker pools, and ops replay ([Project 14](../../career-project-specs/14-devops-cli-lab.md)).
+**When Redis is enough in portfolio:** proving idempotency, DLQ, worker pools, and ops replay ([Project 14](../../career-project-specs/15-devops-cli-lab.md)).
 
 ---
 
@@ -71,7 +71,7 @@ flowchart TD
 | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) | Sync ingress; forward-ref to queue consumers |
 | [Project 6](../../career-project-specs/06-async-worker-stretch.md) | Queue + worker + DLQ fundamentals |
 | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Go consumer; Prometheus; Kafka/gRPC stretches |
-| [Project 15](../../career-project-specs/15-cloud-deploy-lab.md) | Managed queue in cloud deploy |
+| [Project 15](../../career-project-specs/16-cloud-deploy-lab.md) | Managed queue in cloud deploy |
 
 ---
 

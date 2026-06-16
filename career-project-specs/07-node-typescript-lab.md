@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 7 of 21 |
+| **Step** | 7 of 22 |
 | **Previous** | [Project 6 — Async worker](06-async-worker-stretch.md) |
 | **Next** | [Project 8 — Go retrieval gateway and worker lab](08-go-retrieval-worker-lab.md) |
 
@@ -157,7 +157,11 @@ Pick scenarios for **your declared track** (A, B, or C). **Track A** mirrors [Pr
 ## Stretch
 
 - Dockerfile + `docker compose` for app + Redis (if using queue).
-- **GitHub Actions** — `typecheck` + `lint` + test on PR (same pattern as [Project 15](15-cloud-deploy-lab.md); CI badge in README).
+- **GitHub Actions** — `typecheck` + `lint` + test on PR (same pattern as [Project 16](16-cloud-deploy-lab.md); CI badge in README).
+
+## Bash scripting milestone
+
+Ship `scripts/smoke.sh` — minimal HTTP happy path against your API; strict mode; suitable for CI.
 
 ## Portfolio artifacts
 

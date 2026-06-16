@@ -12,13 +12,13 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| Hot-path ADR reimplementation after Go baseline; WASM/edge stretch reading | Go for day-to-day queue workers and retrieval gateway; Python for LLM/evals | [Project 18 — Rust hot-path](../../career-project-specs/18-rust-hot-path-lab.md); optional stretch in Projects 20–21 |
+| Hot-path ADR reimplementation after Go baseline; WASM/edge stretch reading | Go for day-to-day queue workers and retrieval gateway; Python for LLM/evals | [Project 19 — Rust hot-path](../../career-project-specs/19-rust-hot-path-lab.md); optional stretch in Projects 20–21 |
 
 **In scope vs defer:**
 
 | Rust is used for (in scope) | Practice in | Defer (not playbook spine) |
 |-----------------------------|-------------|----------------------------|
-| HTTP/CLI probe, ownership + `Result` | [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) | Greenfield Rust API replacing Project 5/7 |
+| HTTP/CLI probe, ownership + `Result` | [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) | Greenfield Rust API replacing Project 5/7 |
 | Project 8 gateway or worker **reimplementation** | Project 18 | Second concurrent worker engine while Project 8 Go unfinished |
 | IoT / edge ingest (optional) | Future stretch + [PROGRESS.md](../../PROGRESS.md) notes | Full embedded/robotics curriculum |
 | WASM / CLI tools | Side demos tied to one load-bearing property | Blockchain, game engines |
@@ -93,7 +93,7 @@ myworker/
 - **Unbounded `tokio::spawn`** — same as unbounded goroutines; use semaphores/worker pools.
 - **`.unwrap()` in workers** — panics poison async tasks; propagate `Result` and map to DLQ/retry policy.
 - **Duplicate logic** — Rust reimplementation must share **same HTTP/queue contract** as Go Project 8, not a divergent API.
-- **Unnecessary `.clone()` in hot paths** — measure peak RSS and alloc/op in [Project 18](../../career-project-specs/18-rust-hot-path-lab.md) ADR vs Go baseline.
+- **Unnecessary `.clone()` in hot paths** — measure peak RSS and alloc/op in [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) ADR vs Go baseline.
 
 ---
 
@@ -122,10 +122,10 @@ myworker/
 | Playbook milestone | Interview signal |
 |--------------------|-------------------|
 | [Project 8 Go](../../career-project-specs/08-go-retrieval-worker-lab.md) green | Throughput, idempotency, Python↔Go boundary |
-| [Project 18 Rust](../../career-project-specs/18-rust-hot-path-lab.md) + ADR | Hot-path evidence with p95 + peak RSS; Tokio async |
-| [Project 21 capstone](../../career-project-specs/21-integrated-platform-capstone.md) | Distributed system narrative |
+| [Project 18 Rust](../../career-project-specs/19-rust-hot-path-lab.md) + ADR | Hot-path evidence with p95 + peak RSS; Tokio async |
+| [Project 21 capstone](../../career-project-specs/22-integrated-platform-capstone.md) | Distributed system narrative |
 
-**Pre-Project 18 CLI practice:** [rust-cli-http-probe](../../exploration-projects/rust-cli-http-probe/) · formal ops CLI in [Project 14](../../career-project-specs/14-devops-cli-lab.md) (Rust stretch).
+**Pre-Project 19 CLI practice:** [Project 14 shell automation](../../career-project-specs/14-shell-automation-lab.md) (bash glue) · formal ops CLI in [Project 15](../../career-project-specs/15-devops-cli-lab.md) (Go; Rust stretch after P19).
 
 Full mapping: [Career targeting — UK market](../career/target-alignment.md)
 

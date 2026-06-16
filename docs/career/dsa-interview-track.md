@@ -1,6 +1,6 @@
 # DSA interview track — parallel LeetCode prep
 
-**Use this:** Prepare for **Google/Meta coding screens** alongside your [21-step spine](../../README.md#progression-step-1--21). This is a **parallel track** — not a replacement for shipping labs.
+**Use this:** Prepare for **Google/Meta coding screens** alongside your [22-step spine](../../README.md#progression-step-1--22). This is a **parallel track** — not a replacement for shipping labs.
 
 **Companion handbook:** [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Algorithms study path](../concepts/algorithms-study-path.md) (lab-applied literacy) · [Big Tech benchmark](big-tech-benchmark.md)
 
@@ -142,7 +142,7 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 **NeetCode tags:** 2-D DP (first 5), Trie (2), Greedy (2–3).
 
-**Lab link:** Trie section complements [Project 24](../../career-project-specs/24-search-autocomplete-lab.md) if you build it.
+**Lab link:** Trie section complements [Project 25](../../career-project-specs/25-search-autocomplete-lab.md) if you build it.
 
 ---
 

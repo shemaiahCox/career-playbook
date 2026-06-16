@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 2 of 21 |
+| **Step** | 2 of 22 |
 | **Previous** | [Project 1 — Integration webhook receiver](01-integration-webhook-receiver.md) |
 | **Next** | [Project 3 — Observability lab](03-observability-lab.md) |
 
@@ -241,6 +241,10 @@ When you add retrieval / orchestration code:
 - Keep retrieval and tool wiring **behind** your FastAPI service boundaries (easier to test).
 - Add regression runs to CI or pre-release checklist using `evals/*.jsonl`.
 - Document environment variables (`OPENAI_API_KEY`, etc.) in `.env.example` only—never commit secrets.
+
+## Bash scripting milestone
+
+Ship `scripts/bootstrap-env.sh` — verify `python3`, venv, and required env vars with `command -v`; strict mode; exit 2 on missing config.
 
 ## Portfolio artifacts
 

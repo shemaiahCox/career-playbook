@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 8 of 21 |
+| **Step** | 8 of 22 |
 | **Previous** | [Project 7 — Node / TypeScript service lab](07-node-typescript-lab.md) |
 | **Next** | [Project 9 — OWASP / cybersecurity foundations](09-application-security-lab.md) |
 
@@ -143,11 +143,11 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 **Cloud / ops:**
 
 - `docker compose` for Go service + Postgres + Redis/NATS; document local → managed queue (e.g. SQS) in README.
-- Small ops CLI: replay DLQ, drain queue (CLI flags, exit codes, bounded HTTP—see [Project 14](14-devops-cli-lab.md)).
+- Small ops CLI: replay DLQ, drain queue (CLI flags, exit codes, bounded HTTP—see [Project 15](15-devops-cli-lab.md)).
 
 **Rust Tier‑2 (after Go core green — not a parallel spine):**
 
-- Reimplement **retrieval gateway** or **worker** per [Project 18](18-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
+- Reimplement **retrieval gateway** or **worker** per [Project 19](19-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).
 
 ## Big Tech benchmark tier
 
@@ -169,6 +169,10 @@ When Projects 2, 4, 6, and 8 are green, wire one integrated story:
 4. **AI path** — Project 2 calls Project 8 `POST /retrieve` → LLM + citations
 
 Log one ADR in [PROGRESS.md](../PROGRESS.md). Optional deep dive: [Systems integration architect](../docs/concepts/systems-integration-architect.md).
+
+## Bash scripting milestone
+
+Ship `scripts/enqueue-fixture.sh` — idempotent fixture enqueue for integration tests; same pattern as [Project 6](06-async-worker-stretch.md).
 
 ## Portfolio artifacts
 

@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 4 of 21 |
+| **Step** | 4 of 22 |
 | **Previous** | [Project 3 — Observability lab](03-observability-lab.md) |
 | **Next** | [Project 5 — Contract-first API](05-contract-first-api.md) |
 
@@ -209,6 +209,10 @@ The repo already ships scripted exercises—use these scenarios as **learning go
 
 - **Action:** Describe how ORM **eager load** would map to scenario 3’s join shape for your day-job stack.
 - **Expected outcome:** Single paragraph linking this SQL lab to how your application stack loads data (ORM, batching, pagination)—something you could explain in a design review or postmortem.
+
+## Bash scripting milestone
+
+Ship `scripts/assert-index-scan.sh` — run a known query via `psql` or documented runner; grep `EXPLAIN` output for expected plan shape; CI-friendly exit codes.
 
 ## Portfolio artifacts
 

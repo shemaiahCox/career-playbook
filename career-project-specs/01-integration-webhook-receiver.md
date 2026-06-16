@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 1 of 21 |
+| **Step** | 1 of 22 |
 | **Previous** | — |
 | **Next** | [Project 2 — RAG / tool-using LLM service](02-rag-llm-service.md) |
 
@@ -256,7 +256,15 @@ Hands-on cases to **drive the code paths** and deepen **engineering vocabulary**
 ## Stretch
 
 - Docker Compose with `php` service and mounted volume for SQLite.
-- Replay tool: CLI script to re-drive a dead-letter id.
+
+## Bash scripting milestone
+
+Ship in your lab repo `scripts/` folder:
+
+- `scripts/health-check.sh` — curl health or root endpoint; strict mode (`set -euo pipefail`); exit 0/1.
+- `scripts/dlq-replay.sh` — re-drive a dead-letter id (stretch promoted); document env vars and idempotency expectations.
+
+See [Bash map](../docs/languages/bash.md) and [Project 14](14-shell-automation-lab.md) for patterns you will formalize later.
 
 ## Portfolio artifacts
 

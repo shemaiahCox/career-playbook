@@ -2,7 +2,7 @@
 
 **Use this:** Prepare for **Google/Meta system design rounds** by mapping classic problems to labs you ship and gaps you study. Companion to [Big Tech benchmark](big-tech-benchmark.md).
 
-**Not the learning path** — follow [Project 1 → 21](../../README.md#progression-step-1--21) for hands-on depth. Use this doc for **weekend reading** and **mock SD practice** (2×/week per [big-tech-benchmark](big-tech-benchmark.md)).
+**Not the learning path** — follow [Project 1 → 22](../../README.md#progression-step-1--22) for hands-on depth. Use this doc for **weekend reading** and **mock SD practice** (2×/week per [big-tech-benchmark](big-tech-benchmark.md)).
 
 ---
 
@@ -29,19 +29,19 @@
 | **URL shortener** | [P1](../../career-project-specs/01-integration-webhook-receiver.md) idempotency; [P4](../../career-project-specs/04-sql-performance-lab.md) indexes | Base62 encoding, read-heavy cache, sharding by hash | — |
 | **News feed / timeline** | [P6](../../career-project-specs/06-async-worker-stretch.md) queue; [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) worker | Fan-out on write vs read, ranking, celebrity problem | — |
 | **Chat / messaging** | [P13](../../career-project-specs/13-realtime-dashboard-lab.md) SSE/WS | WebSocket scale, presence, message ordering | — |
-| **Notifications** | P1/P6 idempotency + DLQ | Multi-channel fan-out, priority, delivery guarantees | **[P23](../../career-project-specs/23-notification-fanout-lab.md)** |
-| **Rate limiter** | P8 bounded concurrency | Token bucket, sliding window, Redis cluster, global vs per-user | **[P22](../../career-project-specs/22-rate-limiter-gateway-lab.md)** |
-| **Search / autocomplete** | P4 vectors; trie in [algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Inverted index, ranking, prefix cache | **[P24](../../career-project-specs/24-search-autocomplete-lab.md)** |
+| **Notifications** | P1/P6 idempotency + DLQ | Multi-channel fan-out, priority, delivery guarantees | **[P24](../../career-project-specs/24-notification-fanout-lab.md)** |
+| **Rate limiter** | P8 bounded concurrency | Token bucket, sliding window, Redis cluster, global vs per-user | **[P23](../../career-project-specs/23-rate-limiter-gateway-lab.md)** |
+| **Search / autocomplete** | P4 vectors; trie in [algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Inverted index, ranking, prefix cache | **[P25](../../career-project-specs/25-search-autocomplete-lab.md)** |
 | **Pastebin / file store** | [P5](../../career-project-specs/05-contract-first-api.md) contracts | Blob storage (S3/GCS), CDN, multipart upload | — |
-| **Distributed cache** | Redis in P6/P8 | Eviction (LRU), consistency, thundering herd | P22 overlap |
+| **Distributed cache** | Redis in P6/P8 | Eviction (LRU), consistency, thundering herd | P23 overlap |
 | **Video / image upload** | P6 async worker | Chunked upload, transcoding queue, progress API | — |
 | **Payment / webhook system** | **P1** (core story) | Ledger idempotency, reconciliation, exactly-once illusion | Shipped lab |
 | **RAG / LLM serving** | [P2](../../career-project-specs/02-rag-llm-service.md), [P11](../../career-project-specs/11-llm-web-app-lab.md) | Embedding cache, guardrails, cost/latency SLO | Shipped lab |
-| **Distributed job scheduler** | P6/P8 workers | Cron at scale, lease/visibility, priority queues | P23 overlap |
-| **API gateway / BFF** | [P7](../../career-project-specs/07-node-typescript-lab.md), [P11](../../career-project-specs/11-llm-web-app-lab.md) | Auth termination, routing, aggregation | P22 overlap |
+| **Distributed job scheduler** | P6/P8 workers | Cron at scale, lease/visibility, priority queues | P24 overlap |
+| **API gateway / BFF** | [P7](../../career-project-specs/07-node-typescript-lab.md), [P11](../../career-project-specs/11-llm-web-app-lab.md) | Auth termination, routing, aggregation | P23 overlap |
 | **Multi-tenant SaaS** | [P12](../../career-project-specs/12-multi-tenant-auth-lab.md) | Row-level security, noisy neighbor, per-tenant rate limits | — |
 | **Metrics / observability platform** | [P3](../../career-project-specs/03-observability-lab.md), P8 `/metrics` | Time-series DB, cardinality, sampling | — |
-| **IoT telemetry ingest** | [P20](../../career-project-specs/20-iot-edge-lab.md) | MQTT QoS, edge buffer, time-series write path | — |
+| **IoT telemetry ingest** | [P21](../../career-project-specs/21-iot-edge-lab.md) | MQTT QoS, edge buffer, time-series write path | — |
 
 ---
 
@@ -94,7 +94,7 @@
 - **Distributed** consistency — race on counter; Lua scripts
 - Return `429` + `Retry-After`
 
-**Build:** [Project 22](../../career-project-specs/22-rate-limiter-gateway-lab.md)
+**Build:** [Project 23 — optional](../../career-project-specs/23-rate-limiter-gateway-lab.md)
 
 ---
 
@@ -102,7 +102,7 @@
 
 **Functional:** Send email/push/SMS on events; preferences; retries.
 
-**Your proof:** At-least-once + idempotent delivery ([P1](../../career-project-specs/01-integration-webhook-receiver.md), [P6](../../career-project-specs/06-async-worker-stretch.md)); DLQ ([P14](../../career-project-specs/14-devops-cli-lab.md) replay).
+**Your proof:** At-least-once + idempotent delivery ([P1](../../career-project-specs/01-integration-webhook-receiver.md), [P6](../../career-project-specs/06-async-worker-stretch.md)); DLQ ([P15](../../career-project-specs/15-devops-cli-lab.md) replay).
 
 **Study gaps:**
 
@@ -111,7 +111,7 @@
 - Provider webhooks (delivery status) — tie to P1
 - Template service + idempotent `notification_id`
 
-**Build:** [Project 23](../../career-project-specs/23-notification-fanout-lab.md) — **highest ROI optional lab**
+**Build:** [Project 24 — optional](../../career-project-specs/24-notification-fanout-lab.md) — **highest ROI optional lab**
 
 ---
 
@@ -127,7 +127,7 @@
 - Ranking (TF-IDF, BM25 — vocabulary level)
 - Cache top prefixes; debounce client
 
-**Build:** [Project 24](../../career-project-specs/24-search-autocomplete-lab.md)
+**Build:** [Project 25 — optional](../../career-project-specs/25-search-autocomplete-lab.md)
 
 ---
 
@@ -172,9 +172,10 @@
 | [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Backpressure, timeouts, metrics, Python↔Go boundary |
 | [P4](../../career-project-specs/04-sql-performance-lab.md) | Index tradeoffs, plan evidence, pagination |
 | [P12](../../career-project-specs/12-multi-tenant-auth-lab.md) | Tenant isolation, authZ on every path |
-| [P15](../../career-project-specs/15-cloud-deploy-lab.md) | Health checks, secrets, rollback |
-| [P18](../../career-project-specs/18-rust-hot-path-lab.md) | Measured performance ADR |
-| [P21](../../career-project-specs/21-integrated-platform-capstone.md) | End-to-end platform, cross-service tracing |
+| [P14](../../career-project-specs/14-shell-automation-lab.md) | Smoke scripts, deploy preflight, ops glue |
+| [P16](../../career-project-specs/16-cloud-deploy-lab.md) | Health checks, secrets, rollback |
+| [P19](../../career-project-specs/19-rust-hot-path-lab.md) | Measured performance ADR |
+| [P22](../../career-project-specs/22-integrated-platform-capstone.md) | End-to-end platform, cross-service tracing |
 
 ---
 
@@ -183,13 +184,13 @@
 | Week | Focus problems | Playbook tie-in |
 |------|----------------|-----------------|
 | 1 | URL shortener, paste | P1, P4 |
-| 2 | Rate limiter, API gateway | P8, P17, P22 |
-| 3 | News feed, notification | P6, P8, P23 |
+| 2 | Rate limiter, API gateway | P8, P18, P23 |
+| 3 | News feed, notification | P6, P8, P24 |
 | 4 | Chat, real-time | P13 |
-| 5 | Search, autocomplete | P4, P24 |
+| 5 | Search, autocomplete | P4, P25 |
 | 6 | Distributed cache, CDN | P6/P8 Redis |
 | 7 | RAG / LLM serving | P2, P11 |
-| 8 | Capstone review — design your P21 platform cold | P21 |
+| 8 | Capstone review — design your P22 platform cold | P22 |
 
 Each week: 1 problem on paper + 1 aloud mock (peer or record yourself).
 
@@ -205,7 +206,7 @@ Order-of-magnitude is enough in interviews:
 | 1 KB per record, 1B records | **~1 TB** storage |
 | 100 ms per request budget | p99 drives architecture more than average |
 
-Document one estimate in your [P21](../../career-project-specs/21-integrated-platform-capstone.md) portfolio `architecture.md`.
+Document one estimate in your [P22](../../career-project-specs/22-integrated-platform-capstone.md) portfolio `architecture.md`.
 
 ---
 

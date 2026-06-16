@@ -4,7 +4,7 @@
 
 | | |
 |---|---|
-| **Step** | 11 of 21 |
+| **Step** | 11 of 22 |
 | **Previous** | [Project 10 — Automation bot / workflow connector lab](10-automation-bot-lab.md) |
 | **Next** | [Project 12 — Multi-tenant auth + SaaS slice lab](12-multi-tenant-auth-lab.md) |
 
@@ -74,6 +74,10 @@ E2E or integration: mock Project 2 failure modes; assert UI messages.
 
 - Wire [Project 13](13-realtime-dashboard-lab.md) job-status events for long queries.
 - Auth gate before query ([Project 12](12-multi-tenant-auth-lab.md)).
+
+## Bash scripting milestone
+
+Ship `scripts/smoke.sh` — minimal happy path (health + one API call); strict mode for reviewers.
 
 ## Portfolio artifacts
 

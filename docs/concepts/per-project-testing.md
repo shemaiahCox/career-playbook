@@ -53,14 +53,15 @@ Skim the **Testing approach (lab)** section in each spec for stack-specific emph
 | 11 — LLM web app | [11-llm-web-app-lab.md](../../career-project-specs/11-llm-web-app-lab.md#testing-approach-lab) | Component + eval-aware error paths |
 | 12 — Multi-tenant auth | [12-multi-tenant-auth-lab.md](../../career-project-specs/12-multi-tenant-auth-lab.md#testing-approach-lab) | Integration on tenant isolation |
 | 13 — Real-time dashboard | [13-realtime-dashboard-lab.md](../../career-project-specs/13-realtime-dashboard-lab.md#testing-approach-lab) | Component tests on reconnect/backpressure |
-| 14 — DevOps CLI | [14-devops-cli-lab.md](../../career-project-specs/14-devops-cli-lab.md#testing-approach-lab) | Table-driven CLI + exit codes |
-| 15 — Cloud deploy | [15-cloud-deploy-lab.md](../../career-project-specs/15-cloud-deploy-lab.md#testing-approach-lab) | Smoke / health-check integration |
-| 16 — K8s controller | [16-k8s-controller-lab.md](../../career-project-specs/16-k8s-controller-lab.md#testing-approach-lab) | Reconcile loop unit + envtest-style integration |
-| 17 — Proxy / LB | [17-proxy-load-balancer-lab.md](../../career-project-specs/17-proxy-load-balancer-lab.md#testing-approach-lab) | Integration under timeout/load scenarios |
-| 18 — Rust hot-path | [18-rust-hot-path-lab.md](../../career-project-specs/18-rust-hot-path-lab.md#testing-approach-lab) | Contract parity vs Project 8 + benchmarks |
-| 19 — WASM component | [19-wasm-secure-component-lab.md](../../career-project-specs/19-wasm-secure-component-lab.md#testing-approach-lab) | Sandbox boundary + FFI tests |
-| 20 — IoT / edge | [20-iot-edge-lab.md](../../career-project-specs/20-iot-edge-lab.md#testing-approach-lab) | Integration on MQTT idempotency + offline buffer |
-| 21 — Integrated capstone | [21-integrated-platform-capstone.md](../../career-project-specs/21-integrated-platform-capstone.md#testing-approach-lab) | E2E smoke + tenant isolation + cross-service trace |
+| 14 — Shell automation | [14-shell-automation-lab.md](../../career-project-specs/14-shell-automation-lab.md#testing-approach-lab) | bats + shellcheck; integration smoke against compose |
+| 15 — DevOps CLI | [15-devops-cli-lab.md](../../career-project-specs/15-devops-cli-lab.md#testing-approach-lab) | Table-driven CLI + exit codes |
+| 16 — Cloud deploy | [16-cloud-deploy-lab.md](../../career-project-specs/16-cloud-deploy-lab.md#testing-approach-lab) | Smoke / health-check integration; `post-deploy-smoke.sh` |
+| 17 — K8s controller | [17-k8s-controller-lab.md](../../career-project-specs/17-k8s-controller-lab.md#testing-approach-lab) | Reconcile loop unit + envtest-style integration |
+| 18 — Proxy / LB | [18-proxy-load-balancer-lab.md](../../career-project-specs/18-proxy-load-balancer-lab.md#testing-approach-lab) | Integration under timeout/load scenarios |
+| 19 — Rust hot-path | [19-rust-hot-path-lab.md](../../career-project-specs/19-rust-hot-path-lab.md#testing-approach-lab) | Contract parity vs Project 8 + benchmarks |
+| 20 — WASM component | [20-wasm-secure-component-lab.md](../../career-project-specs/20-wasm-secure-component-lab.md#testing-approach-lab) | Sandbox boundary + FFI tests |
+| 21 — IoT / edge | [21-iot-edge-lab.md](../../career-project-specs/21-iot-edge-lab.md#testing-approach-lab) | Integration on MQTT idempotency + offline buffer |
+| 22 — Integrated capstone | [22-integrated-platform-capstone.md](../../career-project-specs/22-integrated-platform-capstone.md#testing-approach-lab) | E2E smoke (`demo.sh`) + tenant isolation + cross-service trace |
 
 ## Review checklist (before merge)
 
