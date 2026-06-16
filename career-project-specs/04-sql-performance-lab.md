@@ -220,7 +220,7 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 
 - [ ] **Architecture diagram** — schema + query paths (list, join, pagination exercise flows).
 - [ ] **ADR** — index choice for one hot query (partial vs covering vs none).
-- [ ] **Performance numbers** — `EXPLAIN ANALYZE` before/after for at least one exercise.
+- [ ] **Performance numbers** — commit [`docs/portfolio/performance.md`](../docs/templates/performance-p4-sql.md) with `EXPLAIN ANALYZE` before/after for at least one exercise (seq scan → index scan).
 - [ ] **Failure modes** — N+1, offset pagination at scale, lost update without transaction.
 - [ ] **Observability evidence** — query timing log or plan excerpt (N/A for psql-only if noted).
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.

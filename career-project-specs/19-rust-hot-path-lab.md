@@ -5,6 +5,7 @@
 | | |
 |---|---|
 | **Step** | 19 of 22 |
+| **Track** | **Optional — future Rust track.** Skip when Rust is paused; continue from [Project 18](18-proxy-load-balancer-lab.md) to [Project 21](21-iot-edge-lab.md) or [Project 22](22-integrated-platform-capstone.md). Log deferral in [PROGRESS.md](../PROGRESS.md). |
 | **Previous** | [Project 18 — Proxy / load-balancer lab](18-proxy-load-balancer-lab.md) |
 | **Next** | [Project 20 — WASM / secure network component lab](20-wasm-secure-component-lab.md) |
 
@@ -17,6 +18,7 @@
 ## Before you start
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) green first
+- **Go-first alternative:** If Rust is paused, **skip this step**. [Project 8 Go-first performance track](../../career-project-specs/08-go-retrieval-worker-lab.md#go-first-performance-track-replaces-project-19) plus [Project 4](../../career-project-specs/04-sql-performance-lab.md) and [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md) satisfy backend/systems performance evidence. Optional: [P23](../../career-project-specs/23-rate-limiter-gateway-lab.md) or [P25](../../career-project-specs/25-search-autocomplete-lab.md).
 - **New to Rust?** → [Rust map](../docs/languages/rust.md)
 - **Cross-stack depth:** [Ownership and iterators](../docs/languages/language-fundamentals-comparison.md#ownership-borrowing-and-memory-models) · [Error philosophy](../docs/languages/language-fundamentals-comparison.md#error-philosophy-and-control-flow) · [Lazy evaluation](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators)
 - **Handbook:** [Memory and performance](../docs/concepts/memory-and-performance.md)

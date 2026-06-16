@@ -17,7 +17,7 @@
 
 ## Before you start
 
-- **Requires:** Green success criteria on Projects **1–21**, or explicit deferrals logged in [PROGRESS.md](../PROGRESS.md)
+- **Requires:** Green success criteria on core spine projects, or explicit deferrals logged in [PROGRESS.md](../PROGRESS.md). **Steps 19–20 (Rust) are optional** — capstone can compose Go-first labs only; note any deferrals in the README.
 - **Deep dive:** [Systems integration architect](../docs/concepts/systems-integration-architect.md) · [Portfolio artifacts template](../docs/templates/portfolio-artifacts.md)
 
 ## Problem
@@ -26,7 +26,7 @@ Ship **one integrated system** that composes your existing labs—**not a rewrit
 
 ## Career relevance
 
-**Summary:** This is your **flagship portfolio piece**—the story that ties ingestion, AI, workers, dashboards, auth, observability, cloud deploy, Rust hot path, and IoT edge into one coherent platform interviewers can follow in five minutes.
+**Summary:** This is your **flagship portfolio piece**—the story that ties ingestion, AI, workers, dashboards, auth, observability, and cloud deploy into one coherent platform interviewers can follow in five minutes. Rust/WASM/IoT edge labs are optional enrichments when completed.
 
 ### In depth
 

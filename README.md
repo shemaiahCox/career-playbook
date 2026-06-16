@@ -9,34 +9,40 @@ Practice projects for **AI Systems · Cloud · Automation · IoT** — one linea
 1. **[Project 1](career-project-specs/01-integration-webhook-receiver.md)** — begin the path below
 2. **[PROGRESS.md](PROGRESS.md)** — log what you're working on
 
-Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 22** composes Projects 1–21 into your flagship portfolio system.
+Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 22** composes your labs into one flagship portfolio system.
+
+**Core stack (Go-first track):** PHP · Python · SQL · Go · Bash — ship production patterns without Rust. Steps **19–20** stay in the path as **optional future track**; defer them in [PROGRESS.md](PROGRESS.md) when Rust is paused.
 
 ## Progression (Step 1 → 22)
 
-| Step | Project | Stack | You will learn | Lab |
-|------|---------|-------|----------------|-----|
-| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | PHP | Idempotency, HMAC, fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/webhook-receiver-lab) |
-| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Python | RAG, evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-lab) |
-| 3 | [Observability lab](career-project-specs/03-observability-lab.md) | Any (on Project 2 lab) | Correlation IDs, structured logs, latency | On Project 2 lab |
-| 4 | [SQL performance lab](career-project-specs/04-sql-performance-lab.md) | Postgres | Plans, indexes, vectors, transactions | [Lab exists](https://github.com/shemaiahCox/sql-perf-lab) |
-| 5 | [Contract-first API](career-project-specs/05-contract-first-api.md) | Laravel / FastAPI / TS | OpenAPI, versioning, breaking changes | _TBD_ |
-| 6 | [Async worker stretch](career-project-specs/06-async-worker-stretch.md) | PHP / Go / TS | Queues, at-least-once, idempotency, DLQ | _TBD_ |
-| 7 | [Node / TypeScript lab](career-project-specs/07-node-typescript-lab.md) | TypeScript | Typed HTTP API, webhooks, queue track | _TBD_ |
-| 8 | [Go retrieval + worker](career-project-specs/08-go-retrieval-worker-lab.md) | Go | Concurrency, retrieval gateway, workers | _TBD_ |
-| 9 | [Application security lab](career-project-specs/09-application-security-lab.md) | Any | OWASP, integration-edge security | _TBD_ |
-| 10 | [Automation bot / workflow](career-project-specs/10-automation-bot-lab.md) | TS + Python | Workflow steps, secrets, idempotent side effects | _TBD_ |
-| 11 | [LLM web app](career-project-specs/11-llm-web-app-lab.md) | TS + Python | BFF, streaming UX, eval-aware errors | _TBD_ |
-| 12 | [Multi-tenant + auth](career-project-specs/12-multi-tenant-auth-lab.md) | TS + SQL | Tenant isolation, JWT/session | _TBD_ |
-| 13 | [Real-time dashboard](career-project-specs/13-realtime-dashboard-lab.md) | TypeScript | SSE/WebSocket, reconnect, backpressure | _TBD_ |
-| 14 | [Shell automation lab](career-project-specs/14-shell-automation-lab.md) | Bash | Strict mode, smoke scripts, shellcheck, bats | _TBD_ |
-| 15 | [DevOps CLI](career-project-specs/15-devops-cli-lab.md) | Go | DLQ replay, ops flags, exit codes | _TBD_ |
-| 16 | [Cloud deploy](career-project-specs/16-cloud-deploy-lab.md) | Compose + cloud | Deploy, secrets, health checks | _TBD_ |
-| 17 | [K8s controller-lite](career-project-specs/17-k8s-controller-lab.md) | Go | Reconcile loop, idempotent apply | _TBD_ |
-| 18 | [Proxy / load balancer](career-project-specs/18-proxy-load-balancer-lab.md) | Go / Rust | Timeouts, pooling, graceful shutdown | _TBD_ |
-| 19 | [Rust hot-path](career-project-specs/19-rust-hot-path-lab.md) | Rust | Same Project 8 contract; Go vs Rust ADR | _TBD_ |
-| 20 | [WASM secure component](career-project-specs/20-wasm-secure-component-lab.md) | Rust | Sandboxed logic, FFI boundaries | _TBD_ |
-| 21 | [IoT / edge ingest](career-project-specs/21-iot-edge-lab.md) | Rust/Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
-| 22 | [Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
+| Step | Project | Primary category | Stack | You will learn | Lab |
+|------|---------|------------------|-------|----------------|-----|
+| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | Reliability | PHP | Idempotency, HMAC, fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/webhook-receiver-lab) |
+| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Reliability | Python | RAG, evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-lab) |
+| 3 | [Observability lab](career-project-specs/03-observability-lab.md) | Reliability | Any (on Project 2 lab) | Correlation IDs, structured logs, latency | On Project 2 lab |
+| 4 | [SQL performance lab](career-project-specs/04-sql-performance-lab.md) | Performance | Postgres | Plans, indexes, vectors, transactions | [Lab exists](https://github.com/shemaiahCox/sql-perf-lab) |
+| 5 | [Contract-first API](career-project-specs/05-contract-first-api.md) | Reliability | Laravel / FastAPI / TS | OpenAPI, versioning, breaking changes | _TBD_ |
+| 6 | [Async worker stretch](career-project-specs/06-async-worker-stretch.md) | Concurrency | PHP / Go / TS | Queues, at-least-once, idempotency, DLQ | _TBD_ |
+| 7 | [Node / TypeScript lab](career-project-specs/07-node-typescript-lab.md) | Concurrency | TypeScript | Typed HTTP API, webhooks, queue track | _TBD_ |
+| 8 | [Go retrieval + worker](career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency | Go | Concurrency, retrieval gateway, workers | _TBD_ |
+| 9 | [Application security lab](career-project-specs/09-application-security-lab.md) | Reliability | Any | OWASP, integration-edge security | _TBD_ |
+| 10 | [Automation bot / workflow](career-project-specs/10-automation-bot-lab.md) | Concurrency | TS + Python | Workflow steps, secrets, idempotent side effects | _TBD_ |
+| 11 | [LLM web app](career-project-specs/11-llm-web-app-lab.md) | Reliability | TS + Python | BFF, streaming UX, eval-aware errors | _TBD_ |
+| 12 | [Multi-tenant + auth](career-project-specs/12-multi-tenant-auth-lab.md) | Reliability | TS + SQL | Tenant isolation, JWT/session | _TBD_ |
+| 13 | [Real-time dashboard](career-project-specs/13-realtime-dashboard-lab.md) | Networking | TypeScript | SSE/WebSocket, reconnect, backpressure | _TBD_ |
+| 14 | [Shell automation lab](career-project-specs/14-shell-automation-lab.md) | Deploy | Bash | Strict mode, smoke scripts, shellcheck, bats | _TBD_ |
+| 15 | [DevOps CLI](career-project-specs/15-devops-cli-lab.md) | Deploy | Go | DLQ replay, ops flags, exit codes | _TBD_ |
+| 16 | [Cloud deploy](career-project-specs/16-cloud-deploy-lab.md) | Deploy | Compose + cloud | Deploy, secrets, health checks | _TBD_ |
+| 17 | [K8s controller-lite](career-project-specs/17-k8s-controller-lab.md) | Concurrency | Go | Reconcile loop, idempotent apply | _TBD_ |
+| 18 | [Proxy / load balancer](career-project-specs/18-proxy-load-balancer-lab.md) | Networking | Go | Timeouts, pooling, graceful shutdown | _TBD_ |
+| 19 | [Rust hot-path](career-project-specs/19-rust-hot-path-lab.md) | Performance | Rust | Same Project 8 contract; Go vs Rust ADR | _Optional_ |
+| 20 | [WASM secure component](career-project-specs/20-wasm-secure-component-lab.md) | Performance | Rust | Sandboxed logic, FFI boundaries | _Optional_ |
+| 21 | [IoT / edge ingest](career-project-specs/21-iot-edge-lab.md) | Concurrency | Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
+| 22 | [Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) | Capstone | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
+
+**Primary category** = the main systems skill each step proves. Many projects also touch other categories — see [Browse by systems skill](#browse-by-systems-skill).
+
+**Go-first skip path:** After step **18**, open [Project 21](career-project-specs/21-iot-edge-lab.md) (Go ingest) or [Project 22](career-project-specs/22-integrated-platform-capstone.md). Log deferrals for steps 19–20 in [PROGRESS.md](PROGRESS.md).
 
 Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = step number** (e.g. step 2 → `02-rag-llm-lab`, step 4 → `04-sql-perf-lab`). GitHub repo names may differ — each spec's **Code repo** section is authoritative.
 
@@ -49,6 +55,22 @@ After [Project 8](career-project-specs/08-go-retrieval-worker-lab.md) or [Projec
 | P23 | Distributed rate limiter + API gateway | [23-rate-limiter-gateway-lab.md](career-project-specs/23-rate-limiter-gateway-lab.md) |
 | P24 | Notification fan-out service | [24-notification-fanout-lab.md](career-project-specs/24-notification-fanout-lab.md) |
 | P25 | Search / autocomplete microservice | [25-search-autocomplete-lab.md](career-project-specs/25-search-autocomplete-lab.md) |
+
+## Browse by systems skill
+
+Not the learning order — use when you want **evidence by capability** (how backend/systems roles evaluate you). Aim for **enough projects to solve real problems**, not a fixed count per bucket: usually one foundational lab, one production-shaped lab, and one integrated proof (capstone **22** covers the cross-category story).
+
+| Systems skill | Primary projects | Also practiced in |
+|---------------|------------------|-------------------|
+| **Reliability / monitoring / logging** | 1, 2, 3, 5, 9, 11, 12 | 6, 8, 15, 16, 22 |
+| **Concurrency / background jobs** | 6, 7, 8, 10, 17, 21 | 1, 13, 22 |
+| **Performance tuning / profiling** | 4, 8, 18 | 3, 19 (optional Rust), 22 |
+| **Linux / processes / networking** | 13, 18 | 16, 17, 21, 22 |
+| **Deployment / automation (CI/CD, Docker, scripting)** | 14, 15, 16 | 1, 4, 10, 22 |
+
+**Optional performance depth (Go-first, after P8):** pick **one** — [P23 rate limiter](career-project-specs/23-rate-limiter-gateway-lab.md) (Go + Redis; edge middleware p99) **or** [P25 search/autocomplete](career-project-specs/25-search-autocomplete-lab.md) (Go + Postgres + Redis; trie/index p95). Both replace Rust P19/P20 interview depth without a second language rewrite.
+
+**Minimum credible evidence (Go-first):** reliability **1 + 3 + 6** · concurrency **6 + 8** · performance **4 + 8 + 18** (before/after numbers in `docs/portfolio/performance.md`) · deploy **14 + 16** · capstone **22**. Steps **19–20** add Rust depth later — not required for backend/systems positioning today.
 
 ## Browse by topic (optional)
 
@@ -65,9 +87,9 @@ Not the learning order — use when you want every project that practices a conc
 | Auth + tenant isolation | 12, 11, 9 |
 | Real-time push | 13, 8, 21 |
 | **Bash / shell automation** | 1, 4, 10, 14, 16, 22 |
-| **Performance (measure and tune)** | 3, 4, 8, 18, 19 |
-| **Memory / resource limits** | 2, 8, 13, 19, 20, 21 |
-| Rust / systems ADR | 19, 18, 20 |
+| **Performance (measure and tune)** | 3, 4, 8, 18, 23 (optional), 25 (optional), 19 (optional Rust) |
+| **Memory / resource limits** | 2, 8, 13, 19 (optional), 20 (optional), 21 |
+| Rust / systems ADR (optional future track) | 19, 20 |
 | **Integrated capstone** | 22 |
 
 Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional topic index).
@@ -76,7 +98,7 @@ Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional
 
 Build platforms that integrate systems, automate workflows, and layer AI — with contracts, idempotency, observability, and explicit failure modes.
 
-**PHP stays ship-today.** This repo is for Python / Go / TypeScript / SQL / Rust depth through numbered projects, plus **Bash for ops glue** (CI smoke, deploy hooks, `scripts/demo.sh`).
+**PHP stays ship-today.** Core depth here is **Python / Go / SQL / Bash** through numbered projects, with **TypeScript** where the spec calls for it. **Rust (steps 19–20)** is an optional future track — defer when paused; your Go-first performance story lives in Projects **4, 8, and 18**.
 
 **Reference docs:** [languages/glossary.md](docs/languages/glossary.md) (stack maps) · [languages/bash.md](docs/languages/bash.md) (shell automation) · [concepts/](docs/README.md#concepts-theory-and-patterns) (theory and patterns)
 

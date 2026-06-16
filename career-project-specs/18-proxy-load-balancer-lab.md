@@ -5,8 +5,9 @@
 | | |
 |---|---|
 | **Step** | 18 of 22 |
+| **Track** | **Go-first** — implement in Go only; Rust is not required. |
 | **Previous** | [Project 17 — Kubernetes controller-lite lab](17-k8s-controller-lab.md) |
-| **Next** | [Project 19 — Rust hot-path reimplementation lab](19-rust-hot-path-lab.md) |
+| **Next** | [Project 19 — Rust hot-path reimplementation lab](19-rust-hot-path-lab.md) — or [Project 21](21-iot-edge-lab.md) / [Project 22](22-integrated-platform-capstone.md) when Rust is paused |
 
 ## What you will learn
 
@@ -20,7 +21,7 @@
 
 ## Problem
 
-Implement a **small reverse proxy or load balancer** in Go (Rust stretch): forward HTTP to upstream pool, enforce timeouts, connection limits, graceful shutdown, and structured access logs.
+Implement a **small reverse proxy or load balancer** in **Go**: forward HTTP to upstream pool, enforce timeouts, connection limits, graceful shutdown, and structured access logs.
 
 ## Career relevance
 
@@ -58,6 +59,7 @@ _TBD — e.g. `proxy-lab`._ Suggested folder: [`../career-projects/18-proxy-load
 - [ ] Round-robin or least-conn to ≥2 upstreams.
 - [ ] Upstream timeout returns 502/504 with log line.
 - [ ] Graceful shutdown test documented (in-flight completes or times out).
+- [ ] **`hey` or `k6` smoke load** — p95 and error rate recorded in [`performance.md`](../docs/templates/performance-p18-proxy.md).
 - [ ] README compares to putting proxy in nginx/cloud LB (when to use which).
 
 ## Testing approach (lab)
@@ -69,12 +71,12 @@ Integration: kill upstream; assert failover or error behavior.
 1. One upstream slow → timeout fires; other upstream healthy.
 2. SIGTERM during load → drain behavior observed.
 3. Malformed client request → 400 without upstream call.
-4. *(Optional)* `hey` or `k6` smoke load—record p95 and error rate under slow upstream ([Memory and performance](../docs/concepts/memory-and-performance.md#light-load-testing)).
+4. **`hey` or `k6` smoke load** — record p95 and error rate under slow upstream in [`performance.md`](../docs/templates/performance-p18-proxy.md) ([Memory and performance](../docs/concepts/memory-and-performance.md#light-load-testing)).
 
 ## Stretch
 
 - TLS termination stub (local certs).
-- Rust reimplementation benchmark vs Go ([Project 19](19-rust-hot-path-lab.md)).
+- Compose stack with [Project 8](08-go-retrieval-worker-lab.md) upstream behind proxy.
 
 ## Portfolio artifacts
 
@@ -82,7 +84,7 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 
 - [ ] **Architecture diagram** — client → proxy → upstream pool with timeout budgets.
 - [ ] **ADR** — connection pool sizing and graceful shutdown approach.
-- [ ] **Performance numbers** — p95 with vs without proxy; upstream timeout behavior.
+- [ ] **Performance numbers** — commit [`docs/portfolio/performance.md`](../docs/templates/performance-p18-proxy.md): p95 with vs without proxy; upstream timeout behavior under load.
 - [ ] **Failure modes** — retry storm; pool exhaustion; slow upstream blocking all clients.
 - [ ] **Observability evidence** — access log with status, duration, upstream timing.
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.

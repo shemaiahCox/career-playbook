@@ -160,7 +160,7 @@ Record: concurrency, duration, **p95**, error rate, and optionally RSS before/af
 
 | Concept | Projects |
 |---------|----------|
-| **Measure and tune (latency / throughput)** | [3](../../career-project-specs/03-observability-lab.md), [4](../../career-project-specs/04-sql-performance-lab.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [17](../../career-project-specs/17-proxy-load-balancer-lab.md), [18](../../career-project-specs/19-rust-hot-path-lab.md) |
+| **Measure and tune (latency / throughput)** | [3](../../career-project-specs/03-observability-lab.md), [4](../../career-project-specs/04-sql-performance-lab.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [18](../../career-project-specs/18-proxy-load-balancer-lab.md), [19](../../career-project-specs/19-rust-hot-path-lab.md) (optional Rust), [23](../../career-project-specs/23-rate-limiter-gateway-lab.md), [25](../../career-project-specs/25-search-autocomplete-lab.md) (optional Go-first depth) |
 | **Memory / resource limits** | [2](../../career-project-specs/02-rag-llm-service.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [13](../../career-project-specs/13-realtime-dashboard-lab.md), [18](../../career-project-specs/19-rust-hot-path-lab.md), [19](../../career-project-specs/20-wasm-secure-component-lab.md), [20](../../career-project-specs/21-iot-edge-lab.md) |
 | **Queue throughput vs ack latency** | [6](../../career-project-specs/06-async-worker-stretch.md) |
 

@@ -19,6 +19,7 @@
 ## Before you start
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) HTTP gateway patterns; Redis familiarity from [Project 6](06-async-worker-stretch.md)
+- **Go-first track:** Optional performance depth after P8 — pick **this** or [Project 25](25-search-autocomplete-lab.md), not both required. Replaces Rust P19 gateway benchmark angle.
 - **Career context:** [System design interview map](../docs/career/system-design-interview-map.md#rate-limiter) · [Big Tech benchmark](../docs/career/big-tech-benchmark.md)
 - **Related:** [Project 18](18-proxy-load-balancer-lab.md) proxy timeouts and graceful shutdown
 
@@ -49,10 +50,11 @@ Suggested local folder: [`../career-projects/23-rate-limiter-gateway-lab`](../ca
 
 ## Stack
 
-- **Go 1.22+** or **Rust** (if after [Project 19](19-rust-hot-path-lab.md))
+- **Go 1.22+** — default on Go-first track (chi or echo middleware chain)
 - **Redis** — distributed counter store
-- **chi/echo** or Axum — middleware chain
-- Upstream: Project 8 retrieval or static mock handler
+- Upstream: [Project 8](08-go-retrieval-worker-lab.md) retrieval or static mock handler
+
+**Go-first track:** This lab is optional performance depth after P8 — replaces Rust hot-path evidence with measurable gateway middleware behavior. Rust is not required.
 
 ## Success criteria
 
@@ -89,7 +91,7 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md).
 
 - [ ] **Architecture diagram** — client → gateway → Redis → upstream.
 - [ ] **ADR** — token bucket vs sliding window; Redis vs in-memory.
-- [ ] **Performance numbers** — middleware overhead p95; 429 accuracy under parallel clients.
+- [ ] **Performance numbers** — commit `docs/portfolio/performance.md`: middleware overhead p95; 429 accuracy under parallel clients.
 - [ ] **Failure modes** — Redis down (fail open vs closed); clock skew; hot key.
 - [ ] **Observability evidence** — log or metric for limit exceeded rate.
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.

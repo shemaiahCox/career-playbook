@@ -5,6 +5,7 @@
 | | |
 |---|---|
 | **Step** | 20 of 22 |
+| **Track** | **Optional — future Rust track.** Requires [Project 19](19-rust-hot-path-lab.md) or strong Rust comfort. Skip entirely when Rust is paused; not needed for Go-first backend/systems positioning. |
 | **Previous** | [Project 19 — Rust hot-path reimplementation lab](19-rust-hot-path-lab.md) |
 | **Next** | [Project 21 — IoT / edge ingest + local inference lab](21-iot-edge-lab.md) |
 
@@ -17,6 +18,7 @@
 ## Before you start
 
 - **Requires:** [Project 19](19-rust-hot-path-lab.md) or strong Rust comfort · [Rust map](../docs/languages/rust.md)
+- **Go-first alternative:** Skip when Rust is paused. Sandboxing and trust-boundary thinking can be documented as an ADR in [Project 9](09-application-security-lab.md) or the capstone without a WASM build.
 - **Handbook:** [Memory and performance — WASM linear memory](../docs/concepts/memory-and-performance.md#memory-patterns)
 
 ## Problem

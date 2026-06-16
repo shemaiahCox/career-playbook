@@ -61,4 +61,5 @@ Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [c
 | Doc | Use when |
 |-----|----------|
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Resume-ready diagram, ADR, perf, failure modes per lab |
+| [templates/performance-p4-sql.md](templates/performance-p4-sql.md) · [performance-p8-go.md](templates/performance-p8-go.md) · [performance-p18-proxy.md](templates/performance-p18-proxy.md) | Copy into lab `docs/portfolio/performance.md` (Go-first track) |
 | [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate (rate limits → security) per step |

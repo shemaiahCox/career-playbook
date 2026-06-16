@@ -68,6 +68,16 @@ At least **one measured** baseline or before/after:
 | Peak RSS / memory | … | … | profiler / `docker stats` |
 | Query plan | seq scan | index scan | `EXPLAIN ANALYZE` |
 
+**Per-project starters (copy into your lab repo):**
+
+| Project | Template |
+|---------|----------|
+| 4 — SQL | [performance-p4-sql.md](performance-p4-sql.md) |
+| 8 — Go retrieval | [performance-p8-go.md](performance-p8-go.md) (Go-first; replaces P19 Rust ADR) |
+| 18 — Proxy | [performance-p18-proxy.md](performance-p18-proxy.md) |
+| 23 — Rate limiter (optional) | Same table format; middleware p95 + 429 accuracy |
+| 25 — Search (optional) | Same table format; suggest p95 + index build time |
+
 **Early labs:** “N/A — no hot path yet; will baseline at Project 8” is acceptable **with one sentence why**.
 
 See [Memory and performance](../concepts/memory-and-performance.md) for measure → profile → fix → verify workflow.

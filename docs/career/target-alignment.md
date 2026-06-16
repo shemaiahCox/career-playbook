@@ -133,7 +133,7 @@ Monzo hires backend engineers agnostic to stack — they teach **Go, Kafka, Cass
 
 £80k readiness = **evidence of systems thinking under production constraints**, not a language checklist.
 
-### Minimum credible (interview-ready Rust+Go backend)
+### Minimum credible (interview-ready Go-first backend & systems)
 
 Ship with full portfolio artifacts:
 
@@ -141,28 +141,45 @@ Ship with full portfolio artifacts:
 2. [Project 6](../../career-project-specs/06-async-worker-stretch.md) — async worker + DLQ
 3. [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) — Go gateway + worker (**spine milestone**)
 4. [Project 3](../../career-project-specs/03-observability-lab.md) — observability on a real service
-5. [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) — Rust reimplementation + Go vs Rust ADR (p95 + peak RSS)
+5. [Project 4](../../career-project-specs/04-sql-performance-lab.md) — plan-backed SQL tuning (before/after evidence)
 6. [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) — deploy + CI + health checks
 7. [Project 14](../../career-project-specs/14-shell-automation-lab.md) — shell toolkit + shellcheck CI
 
-**Interview narrative:** *"Webhook ingress → queue → Go worker → Python RAG boundary → Rust hot-path ADR with measured tradeoffs → deployed with observability and CI."*
+**Interview narrative:** *"Webhook ingress → queue → Go worker → Python RAG boundary → measured SQL and Go performance → deployed with observability, CI, and ops scripts."*
+
+**Optional Rust enrichment:** [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) adds Go vs Rust ADR when Rust is active — defer when paused; not required for Go-first positioning.
 
 ### Full differentiation (capstone + AI)
 
-Add Projects **2, 11, 22** for **backend + AI automation systems** — matches LinkedIn About; separates you from Rust-only candidates.
+Add Projects **2, 11, 18, 22** for **backend + AI automation systems** — matches LinkedIn About; capstone **22** is the integrated proof across systems-skill categories.
+
+### Optional performance depth (Go-first — pick one after P8)
+
+When Rust is paused, add **one** optional lab for a fourth performance pin — do not require both:
+
+| Pick | Stack | Best for | Spec |
+|------|-------|----------|------|
+| **P23** (recommended with P18) | Go + Redis | Rate limiting SD question; middleware p99 | [23-rate-limiter-gateway-lab.md](../../career-project-specs/23-rate-limiter-gateway-lab.md) |
+| **P25** | Go + Postgres + Redis | Search/autocomplete SD question; trie/index p95 | [25-search-autocomplete-lab.md](../../career-project-specs/25-search-autocomplete-lab.md) |
+
+Log your choice in [PROGRESS.md](../../PROGRESS.md). Commit `docs/portfolio/performance.md` in the optional lab repo.
 
 ---
 
 ## GitHub pin order
 
-Pin repos that tell the **Go + Rust systems** story first (PHP stays in headline for commercial credibility):
+Pin repos that tell the **Go-first systems** story first (PHP stays in headline for commercial credibility):
 
 1. **Go retrieval worker** (Project 8) — throughput + idempotency + Prometheus
-2. **Rust hot-path** (Project 19) — ADR with benchmarks
-3. **Platform capstone** (Project 22) — distributed system demo
-4. **Shell automation** (Project 14) — ops glue story
-5. **Webhook receiver** (Project 1) — integration foundation
-6. **RAG service** (Project 2) — AI automation angle
+2. **Platform capstone** (Project 22) — distributed system demo
+3. **Shell automation** (Project 14) — ops glue story
+4. **Webhook receiver** (Project 1) — integration foundation
+5. **RAG service** (Project 2) — AI automation angle
+6. **SQL performance** (Project 4) — data-layer evidence
+
+**When Rust is active:** swap in **Rust hot-path** (Project 19) as pin #2 or #3.
+
+**Optional Go-first performance pin:** after P8, add **P23** or **P25** (one only) as pin #2 or #3 if you want extra measured depth before capstone.
 
 Each pinned repo: README demo, **CI badge**, `docs/portfolio/`, clean history.
 
@@ -174,22 +191,22 @@ Each pinned repo: README demo, **CI badge**, `docs/portfolio/`, clean history.
 |-------|-------------------|
 | **Idempotency** | Projects 1, 6, 8 — "transport may duplicate; business effect runs once" |
 | **Concurrency + backpressure** | Project 8 — bounded goroutines, context cancel |
-| **Memory safety** | Project 19 — ownership, `Result`, no panic in hot path |
-| **Async runtimes** | Project 19 — Tokio after sync path solid |
+| **Performance ADR** | Projects 4, 8, 18 — p95 + evidence; Project 19 optional (Rust) |
+| **Memory safety** | Project 19 (optional Rust) — ownership, `Result`, no panic in hot path |
+| **Async runtimes** | Project 19 (optional Rust) — Tokio after sync path solid |
 | **Distributed systems** | Project 22 — trace `request_id` across 3+ services |
 | **Observability** | Project 3 — structured logs, metrics, correlation |
 | **Reliability patterns** | DLQ, retry backoff, health checks, rollback (1, 6, 15, 16) |
 | **Bash / ops glue** | Project 14 — strict mode scripts, smoke tests, deploy hooks |
-| **Performance ADR** | Project 19 — p95 + peak RSS, not "Rust is faster" |
 
 ---
 
 ## Suggested priority (Steps 1, 2, 4 started)
 
 ```
-Now     → Project 3 (obs on RAG lab) → Project 5 or 6 → Project 8 (Go) → Project 19 (Rust)
+Now     → Project 3 (obs on RAG lab) → Project 5 or 6 → Project 8 (Go) → Project 14/16 (deploy + bash)
 Parallel → Project 9 reading; optional [DSA track](dsa-interview-track.md) for Big Tech benchmark
-Later   → 11, 14, 16, 22 for AI + bash + deploy flagship story
+Later   → 11, 18, 22 for AI + networking + capstone; optional P23 or P25 for performance depth; Projects 19–20 when Rust is active
 ```
 
 You do **not** need all 22 projects for £80k readiness — minimum credible milestone above is the bar; capstone is the stretch differentiator.
@@ -198,8 +215,8 @@ You do **not** need all 22 projects for £80k readiness — minimum credible mil
 
 ## LinkedIn ↔ playbook
 
-- **Headline** — Backend & Systems Engineer with PHP/SQL/JS + Python/Go/Rust/TS is correct
-- **Featured repos** — lead with Go + Rust evidence (Projects 8, 19, 22), not PHP
+- **Headline** — Backend & Systems Engineer with PHP/SQL/JS + Python/Go/Bash (Rust optional/future)
+- **Featured repos** — lead with Go evidence (Projects 8, 22, 14, 1, 2); add Rust (Project 19) when shipped
 - **About** — tie AI/RAG claims to Project 2/11 portfolio artifacts when shipped
 
 ---

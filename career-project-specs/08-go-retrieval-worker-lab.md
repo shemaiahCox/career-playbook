@@ -53,7 +53,7 @@ Production RAG and automation stacks often split **slow, rich** Python services 
 | **Concurrency + backpressure** | Bounded goroutine pool for chunk fan-out; `context` timeouts on handlers and jobs |
 | **Idempotency (worker)** | Dedupe on `job_id` before writes; safe under at-least-once queue delivery |
 | **Performance boundary** | Go `/retrieve` serves Python [Project 2](02-rag-llm-service.md); document JSON contract |
-| **Profile before split** | Optional `pprof` CPU+heap during fan-out; capture p95/RSS with vs without worker pool ([Memory and performance](../docs/concepts/memory-and-performance.md)) |
+| **Profile before split** | **Go-first (replaces P19):** `pprof` CPU+heap during fan-out; capture p95/RSS with vs without worker pool in [`performance.md`](../docs/templates/performance-p8-go.md) ([Memory and performance](../docs/concepts/memory-and-performance.md)) |
 
 **Interview line:** *“Python owns LLM and evals; Go owns concurrent retrieval with strict timeouts—we split on profiling and failure isolation, not hype.”*
 
@@ -113,6 +113,7 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 - [ ] README diagram: sync retrieval path vs async worker path; three failure modes named.
 - [ ] `go test` covers at least idempotency helper and one handler/table-driven case.
 - [ ] **Prometheus `/metrics`** endpoint (request count, latency histogram, or queue depth)—document scrape path in README.
+- [ ] **Go-first performance track:** `net/http/pprof` registered; [`docs/portfolio/performance.md`](../docs/templates/performance-p8-go.md) with `/retrieve` p95 vs Python baseline **and** peak RSS (bounded vs unbounded pool comparison).
 
 ## Testing approach (lab)
 
@@ -123,7 +124,20 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 1. Fire same job twice—assert single side effect.
 2. Slow dependency—context cancel; worker ack/retry behavior documented.
 3. Gateway timeout—Python caller receives **504** or partial result policy you documented.
-4. *(Optional)* Fan-out with vs without worker pool—note goroutine count, p95, and heap/RSS in README ([Memory and performance](../docs/concepts/memory-and-performance.md)).
+4. Fan-out with vs without worker pool—note goroutine count, p95, and heap/RSS in [`performance.md`](../docs/templates/performance-p8-go.md) ([Memory and performance](../docs/concepts/memory-and-performance.md)).
+
+## Go-first performance track (replaces Project 19)
+
+When Rust is paused, this project is your **hot-path performance proof** — no second-language rewrite required.
+
+1. Baseline Python `/retrieve` or equivalent fan-out path (from [Project 2](02-rag-llm-service.md)).
+2. Go gateway with bounded worker pool + `context` timeouts.
+3. Capture CPU + heap via `pprof`; record p95 and peak RSS before/after pool sizing.
+4. ADR: why Go owns the boundary (profile evidence, not “Go is faster”).
+
+Template: [`performance-p8-go.md`](../docs/templates/performance-p8-go.md).
+
+No separate profiling lab spec is needed — the Go-first performance track above is the P19 replacement.
 
 ## Stretch
 
@@ -180,7 +194,7 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 
 - [ ] **Architecture diagram** — Python `/query` vs Go `/retrieve` + queue consumer paths.
 - [ ] **ADR** — why Go owns retrieval/worker boundary (latency, concurrency, isolation).
-- [ ] **Performance numbers** — `/retrieve` p95 vs Python-only baseline if measured.
+- [ ] **Performance numbers** — commit [`docs/portfolio/performance.md`](../docs/templates/performance-p8-go.md): `/retrieve` p95 vs Python baseline, peak RSS, pprof summary.
 - [ ] **Failure modes** — retrieval timeout cascading; unbounded goroutines; DLQ without replay story.
 - [ ] **Observability evidence** — cross-service log with shared trace/request id.
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.

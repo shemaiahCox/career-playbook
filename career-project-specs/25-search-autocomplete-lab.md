@@ -54,10 +54,12 @@ Suggested local folder: [`../career-projects/25-search-autocomplete-lab`](../car
 
 ## Stack
 
-- **Go 1.22+** or **Rust** (after [Project 19](19-rust-hot-path-lab.md))
+- **Go 1.22+** — default on Go-first track
 - **Postgres** — documents table + `tsvector` GIN index (or sqlite for minimal local)
 - **Redis** (optional) — hot prefix cache
 - Seed corpus: 10k+ titles/descriptions (generate or public dataset)
+
+**Go-first track:** Optional performance depth after [Project 4](04-sql-performance-lab.md) + [Project 8](08-go-retrieval-worker-lab.md). Pick **this** or [Project 23](23-rate-limiter-gateway-lab.md) — not both required. Replaces Rust P19 search/index interview angle.
 
 ## Success criteria
 
@@ -93,7 +95,7 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md).
 
 - [ ] **Architecture diagram** — ingest → index → suggest/search paths.
 - [ ] **ADR** — trie in-memory vs DB; Postgres FTS vs external engine.
-- [ ] **Performance numbers** — suggest p95; index build duration for N docs.
+- [ ] **Performance numbers** — commit `docs/portfolio/performance.md`: suggest p95; index build duration for N docs.
 - [ ] **Failure modes** — stale index; cache stampede on viral prefix.
 - [ ] **Observability evidence** — sample request log.
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.

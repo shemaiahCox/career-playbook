@@ -5,7 +5,8 @@
 | | |
 |---|---|
 | **Step** | 21 of 22 |
-| **Previous** | [Project 20 — WASM / secure network component lab](20-wasm-secure-component-lab.md) |
+| **Track** | **Go-first default** — use Go for MQTT ingest unless you completed [Project 19](19-rust-hot-path-lab.md). |
+| **Previous** | [Project 20 — WASM / secure network component lab](20-wasm-secure-component-lab.md) (or [Project 18](18-proxy-load-balancer-lab.md) if steps 19–20 deferred) |
 | **Next** | [Project 22 — Integrated platform capstone](22-integrated-platform-capstone.md) |
 
 ## What you will learn
@@ -17,6 +18,7 @@
 ## Before you start
 
 - **Requires:** [Project 6](06-async-worker-stretch.md) + [Project 4](04-sql-performance-lab.md)
+- **Go-first path:** After [Project 18](18-proxy-load-balancer-lab.md), open this spec directly if steps 19–20 are deferred. Log the skip in [PROGRESS.md](../PROGRESS.md).
 - **Deep dive (optional):** [Systems integration architect](../docs/concepts/systems-integration-architect.md)
 
 ## Problem
@@ -50,7 +52,7 @@ _TBD — e.g. `iot-edge-lab`._ Suggested folder: [`../career-projects/21-iot-edg
 
 ## Stack
 
-- **Ingest:** Go or Rust MQTT consumer (document choice)
+- **Ingest:** **Go** MQTT consumer (default on Go-first track); Rust optional after [Project 19](19-rust-hot-path-lab.md)
 - **Simulator:** Python or Mosquitto pub script; Pi optional
 - **Store:** Postgres from Project 4 schema extension
 - **UI hook:** [Project 13](13-realtime-dashboard-lab.md) SSE events
