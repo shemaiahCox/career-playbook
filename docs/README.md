@@ -15,6 +15,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | [languages/glossary.md](languages/glossary.md) | **Start here** — index to all maps |
 | [languages/bash.md](languages/bash.md) | Bash / shell automation (CI glue, smoke, deploy hooks) |
 | [languages/language-fundamentals-comparison.md](languages/language-fundamentals-comparison.md) | Side-by-side syntax (PHP, Python, Go, TS, Rust, SQL) |
+| [languages/language-gotchas-deep-dive.md](languages/language-gotchas-deep-dive.md) | **20 gotchas** — mentor depth (Python · TS/JS · PHP) + interview prep |
 | [languages/php-laravel.md](languages/php-laravel.md) | PHP + Laravel |
 | [languages/python.md](languages/python.md) | Python / FastAPI |
 | [languages/node-typescript-backend.md](languages/node-typescript-backend.md) | Node + TypeScript |

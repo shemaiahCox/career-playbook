@@ -134,6 +134,7 @@ Laravel hides ceremony—come here when tutorials assume buzzwords sunk in overn
 
 ### Read next (handbook)
 
+- **[Language gotchas deep dive](language-gotchas-deep-dive.md)** — PHP sections: `==`/`===`, arrays, `empty()`, `foreach`, numeric keys (#4, #7, #10, #13, #16, #19).
 - **[Example: idempotent webhook or job](../concepts/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — webhooks + queue retries (fits **ShouldQueue** mental model).
 - **[Integration: sync, async, and messaging](../concepts/software-engineering.md#integration-sync-async-and-messaging)** — delivery semantics in prose.
 - **[ORMs and the N+1 pattern](../concepts/database-design.md#orms-and-the-n1-query-pattern)** — Eloquent preload story.

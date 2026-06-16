@@ -406,7 +406,7 @@ For the **measure → profile → fix → verify** workflow (latency, throughput
 
 Syntax fundamentals (variables, functions, classes, collections, errors, nulls, async) live in one place: **[Language fundamentals comparison](../languages/language-fundamentals-comparison.md)**. Use that doc for side-by-side snippets across JavaScript, TypeScript, PHP, Go, Rust, C#, Java, Kotlin, and Swift.
 
-This handbook file keeps **delivery-shaped** topics (integration, observability, concurrency under load). For equality/`===` vs PHP `==`, truthiness, and async spelling, see the comparison doc—especially [Null, optionals, equality, and truthiness](../languages/language-fundamentals-comparison.md#null-optionals-equality-and-truthiness) and [Async and concurrency (fundamentals)](../languages/language-fundamentals-comparison.md#async-and-concurrency-fundamentals).
+This handbook file keeps **delivery-shaped** topics (integration, observability, concurrency under load). For equality/`===` vs PHP `==`, truthiness, and async spelling, see the comparison doc—especially [Null, optionals, equality, and truthiness](../languages/language-fundamentals-comparison.md#null-optionals-equality-and-truthiness) and [Async and concurrency (fundamentals)](../languages/language-fundamentals-comparison.md#async-and-concurrency-fundamentals). For **mentor-depth** explanations of the 20 core-stack tripwires (why, production bugs, senior habits), see [Language gotchas deep dive](../languages/language-gotchas-deep-dive.md).
 
 ---
 

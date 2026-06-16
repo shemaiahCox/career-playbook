@@ -119,6 +119,7 @@ Read this **after** the tables if the jargon felt dense.
 
 ### Read next (handbook)
 
+- **[Language gotchas deep dive](language-gotchas-deep-dive.md)** — JS/TS sections: truthiness, loop capture, floats, hoisting, `this`, ASI, NaN (#1, #3, #5, #8, #11, #14, #17, #20).
 - **[Concurrency basics](../concepts/software-engineering.md#concurrency-basics)** — event loop vs workers on your stack.
 - **[Example: idempotent webhook or job](../concepts/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — HTTP + retries at integration edges.
 - **[ORMs and the N+1 pattern](../concepts/database-design.md#orms-and-the-n1-query-pattern)** — ORM-shaped data access.

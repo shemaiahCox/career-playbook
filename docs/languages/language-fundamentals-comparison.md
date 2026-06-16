@@ -21,7 +21,7 @@
 | 7 | Asynchronous programming | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) | [Integration — sync vs async](../concepts/software-engineering.md#integration-sync-async-and-messaging) | → 3, 12 |
 | 8 | Type systems | [Generics](#generics-and-type-parameters) · [Type systems beyond annotations](#type-systems-beyond-annotations) | [Classes, structs, and interfaces](#classes-structs-and-interfaces) | → 10 |
 | 9 | Data structures & their costs | [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Project 4](../../career-project-specs/04-sql-performance-lab.md) | → 1, 4 |
-| 10 | Gotchas interviewers love | [Cross-language gotchas](#cross-language-gotchas-interview-favorites) · [Equality gotchas](#equality-gotchas) | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) | → 2, 6, 8 |
+| 10 | Gotchas interviewers love | [Cross-language gotchas](#cross-language-gotchas-interview-favorites) · [Equality gotchas](#equality-gotchas) · [Language gotchas deep dive](language-gotchas-deep-dive.md) (mentor depth, PHP · Python · TS/JS) | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) | → 2, 6, 8 |
 | 11 | Functional programming concepts | [Functional idioms](#functional-idioms-map-filter-reduce) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) | → 4 |
 | 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | → 3, 7 |
 | 13 | Design patterns | — (patterns in labs) | [Design patterns](../concepts/software-engineering.md#design-patterns-gof-style-survey) | — |
@@ -1778,7 +1778,7 @@ function findUser(string $id): User {
 
 **Interview lens:** *“I use strict equality, explicit nil/None checks, and I can explain the Go nil interface trap and Rust borrow conflicts without guessing.”*
 
-Consolidated **tripwires**—see also [Equality gotchas](#equality-gotchas) and [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness).
+Consolidated **tripwires**—see also [Equality gotchas](#equality-gotchas), [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness), and [Language gotchas deep dive](language-gotchas-deep-dive.md) (20 mentor-depth sections for Python · TS/JS · PHP + interview prep).
 
 **At a glance (Rust · Python · JavaScript · Go · PHP):**
 

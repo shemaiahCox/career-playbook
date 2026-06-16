@@ -89,7 +89,7 @@ my-service/
 
 ## Footguns
 
-- [ ] **Mutable default arguments** (`def f(x=[]):`) and **shared mutable state** across requests—classic bug class.
+- [ ] **Mutable default arguments** (`def f(x=[]):`) and **shared mutable state** across requests—classic bug class. Deep dive: [Gotchas #2, #6, #9, #18](language-gotchas-deep-dive.md).
 - [ ] **`except Exception:`** swallowing without log context—production blindness.
 - [ ] **Blocking I/O** inside **async** handlers (DB drivers, `requests`) without **executor** offload—throughput collapse under load.
 - [ ] **Loading full corpus into RAM** for embed/index—batch with documented max size; profile with `tracemalloc` before moving retrieval to Go ([Memory and performance](../concepts/memory-and-performance.md)).
