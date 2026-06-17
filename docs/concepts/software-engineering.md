@@ -17,7 +17,11 @@ Concepts for building maintainable systems, shipping safely, and communicating i
 - [Programming paradigms](#programming-paradigms)
 - [Scripting versus programming](#scripting-versus-programming)
 - [Design patterns (GoF-style survey)](#design-patterns-gof-style-survey)
+- [Patterns across languages (Go vs PHP vs TS vs Python)](#patterns-across-languages-go-vs-php-vs-ts-vs-python)
 - [Architectural patterns](#architectural-patterns)
+- [Domain-Driven Design (DDD)](#domain-driven-design-ddd)
+- [CQRS and Event Sourcing](#cqrs-and-event-sourcing)
+- [Anti-patterns (what NOT to do)](#anti-patterns-what-not-to-do)
 - [Integration: sync, async, and messaging](#integration-sync-async-and-messaging)
 - [Example: idempotent webhook or job (Integration)](#example-idempotent-webhook-or-job-consumer)
 - [REST](#rest)
@@ -140,6 +144,29 @@ class OrderService(Clock clock) { ... }  // test injects FixedClock
 
 ---
 
+## Patterns across languages (Go vs PHP vs TS vs Python)
+
+**Basic:** Most GoF patterns were written for class-heavy OO languages. In dynamic or interface-light languages, the same intent is often expressed with a **function**, a **closure**, or **duck typing**—forcing the textbook class hierarchy is itself an anti-pattern.
+
+| Pattern intent | Go | PHP (Laravel) | TypeScript / Node | Python |
+|----------------|----|---------------|-------------------|--------|
+| **Dependency injection** | Accept an **interface**, inject a struct; no container needed | **Service container** + constructor injection | Constructor injection, often a DI container (NestJS) | Pass callables/objects; **duck typing**, optional `Protocol` |
+| **Strategy** | Func type or small interface | Class implementing an interface | First-class function passed in | Plain callable / `lambda` |
+| **Singleton** | Package-level `var` + `sync.Once` | Container-bound singleton; **per-request reset** under FPM | **Module cache** makes a module a de-facto singleton | Module-level object; import caches it |
+| **Iterator** | `for range` / channels | `Iterator` interface / generators | Iterables + generators (`function*`) | Generators (`yield`), iterator protocol |
+| **Decorator** | Wrap a func/interface | Class wrapping + interface | Higher-order function or TS decorator syntax | Function decorators (`@wraps`) |
+
+**Intermediate:** Key idiom differences that bite in interviews:
+
+- **Go** has no inheritance—favor **composition** and **small interfaces** satisfied implicitly; "where's the abstract base class?" is the wrong question.
+- **PHP-FPM** resets memory **per request**, so a "singleton" lives only for one request—not a cross-request cache (that needs Redis/APCu).
+- **Node/TS** modules are **cached on first import**, so top-level state is effectively a singleton for the process—handy and a footgun (shared mutable state across requests).
+- **Python** leans on **duck typing**; you rarely need an explicit interface—`Protocol` adds static checking when you want it.
+
+**Cross-stack syntax:** [Language fundamentals comparison](../languages/language-fundamentals-comparison.md) · concurrency idioms in [Concurrency basics](#concurrency-basics).
+
+---
+
 ## Architectural patterns
 
 ```mermaid
@@ -154,6 +181,7 @@ flowchart TB
 |-------|--------|
 | **Layered / N-tier** | UI → app → data; simple but can hide domain model |
 | **Hexagonal / ports-adapters** | Domain core; adapters for DB and HTTP |
+| **Clean / Onion** | Concentric layers; **Dependency Rule**—source dependencies point **inward** |
 | **Event-driven** | Loose coupling; **eventual consistency** and idempotency matter |
 | **CQRS** | Different read/write models; pairs with event sourcing in some systems |
 | **Microservices** | Independent deploy; **distributed complexity** (network, observability) |
@@ -162,11 +190,78 @@ flowchart TB
 
 - **Layered / N-tier** — Clear separation (presentation / business / data) but can become **anemic domain** if “real” rules leak into stored procedures or the UI.
 - **Hexagonal / ports-adapters** — **Domain** stays free of HTTP/ORM details; adapters translate. Strong fit for testability and swapping infrastructure.
+- **Clean / Onion** — Same instinct as hexagonal, drawn as **concentric rings**: **entities** (enterprise rules) → **use cases** (application rules) → **interface adapters** (controllers, presenters, gateways) → **frameworks/drivers** (web, DB). The **Dependency Rule**: source-code dependencies point **only inward**, so inner layers never import outer ones—I/O is injected via interfaces the inner layers own. Easy to over-engineer for small apps; the payoff is a domain you can test without a web server or database.
 - **Event-driven** — **Loose coupling** via messages; you trade simplicity for **ordering**, **duplicates**, and **eventual consistency**—design idempotent consumers.
-- **CQRS** — Splits **commands** (writes) from **queries** (reads); read models can be optimized separately. Often paired with events; avoid overkill for simple CRUD.
+- **CQRS** — Splits **commands** (writes) from **queries** (reads); read models can be optimized separately. Often paired with events; avoid overkill for simple CRUD. Deeper: [CQRS and Event Sourcing](#cqrs-and-event-sourcing).
 - **Microservices** — **Independent deploy** and scaling; cost is **network latency**, **distributed transactions**, and **operational** load—need observability and clear boundaries.
 
 **Intermediate:** **Modular monolith** first is a valid default—extract services when boundaries are clear.
+
+---
+
+## Domain-Driven Design (DDD)
+
+**Basic:** **DDD** is a way to keep complex business rules at the center of the design instead of scattering them across controllers, SQL, and UI. The core moves are about **language** and **boundaries**.
+
+- **Ubiquitous language** — One shared vocabulary between engineers and domain experts; the same words appear in conversations, code, and tests (an `Invoice` is `Invoice`, not `BillingRow`).
+- **Bounded context** — An explicit boundary where a model and its language are consistent. `Customer` in *Billing* and `Customer` in *Support* can be different models—don't force one global schema.
+- **Entity vs value object** — An **entity** has identity that persists through change (`Order #123`); a **value object** is defined only by its attributes and is immutable (`Money{amount, currency}`, `Address`).
+- **Aggregate and aggregate root** — A cluster of entities/value objects treated as **one consistency unit**; outside code touches it only through the **root**, which enforces invariants. You load and save the whole aggregate, not its innards.
+- **Repository** — A collection-like abstraction for loading/saving aggregates; hides persistence so the domain doesn't depend on the ORM.
+- **Domain event** — A fact the domain emits (`OrderPlaced`)—the bridge from DDD to [event-driven integration](#event-driven-integration).
+
+**Tiny example (aggregate enforces an invariant):**
+
+```text
+class Order {            // aggregate root
+  private lines: OrderLine[]
+  addLine(item, qty):
+    if this.status != DRAFT: throw "cannot modify a submitted order"
+    this.lines.push(OrderLine(item, qty))   // invariant lives in the root, not the caller
+}
+```
+
+**Intermediate:** DDD shines when the **domain is genuinely complex** (rich rules, many edge cases, domain experts to talk to). It is **overkill for CRUD**—a thin layered app is cheaper. **Bounded contexts** also guide service boundaries: a context is a strong candidate seam if you later split a monolith. Watch for the **anemic domain model** anti-pattern (data-only classes with all logic in services)—see [Anti-patterns](#anti-patterns-what-not-to-do).
+
+---
+
+## CQRS and Event Sourcing
+
+**Basic — CQRS (Command Query Responsibility Segregation):** Split the **write** model (commands that change state and enforce invariants) from the **read** model (queries shaped for display). They can use different schemas, even different stores—reads can be denormalized for speed while writes stay normalized and validated.
+
+**Basic — Event Sourcing:** Instead of storing only the **current** state, store the **append-only log of events** that produced it (`AccountOpened`, `MoneyDeposited`, `MoneyWithdrawn`). Current state is derived by **replaying** events; **snapshots** cache state periodically so replay stays cheap.
+
+```text
+Traditional:  UPDATE account SET balance = 90 WHERE id = 1
+Event-sourced: append MoneyWithdrawn{account:1, amount:10}   -- balance = fold(events)
+```
+
+**Intermediate (tradeoffs):**
+
+- **CQRS** buys independent scaling and tuned read models, at the cost of **two models to keep in sync**—the read side is usually updated asynchronously, so it is **eventually consistent**. Avoid it for simple CRUD; reach for it when read and write shapes genuinely diverge.
+- **Event sourcing** gives a perfect **audit trail** and **temporal queries** ("what did this look like last Tuesday?"), but adds real complexity: **schema/versioning of events**, replay performance, and the fact that you can never just "edit a row." It often pairs with CQRS (events feed read projections).
+
+**Playbook stance:** This is **interview vocabulary** here, not a spine skill. Event sourcing at trading-firm scale is explicitly **out of scope**—see [target-alignment.md](../career/target-alignment.md). Know the definitions and tradeoffs; reach for CQRS only when read/write divergence justifies it.
+
+---
+
+## Anti-patterns (what NOT to do)
+
+**Basic:** An **anti-pattern** is a common "solution" that looks reasonable but reliably causes pain. Recognizing them by name is half the fix.
+
+| Anti-pattern | Smell | Fix |
+|--------------|-------|-----|
+| **God object / god class** | One class knows and does everything; every change touches it | Split by responsibility ([SOLID](#solid)); extract cohesive units |
+| **Deep inheritance tree** | Behavior scattered across 5 superclasses; fragile base class | Prefer **composition** and small interfaces |
+| **Anemic domain model** | Data-only classes; all rules live in "service" procedures | Put invariants on the [aggregate/entity](#domain-driven-design-ddd) |
+| **Singleton / global mutable state** | Hidden shared state, hard to test, race-prone | Inject dependencies ([dependency inversion](#solid)); pass collaborators |
+| **Premature / wrong abstraction** | One interface forced over two things that diverge | Tolerate duplication until the pattern stabilizes ([DRY](#dry-and-when-duplication-wins)) |
+| **N+1 queries** | One query per row in a loop; latency balloons | Batch/join or eager-load—see [Database design — N+1](database-design.md#orms-and-the-n1-query-pattern) |
+| **Unbounded concurrency** | `go handler()` per message; memory/connection spike | Bound with worker pool/semaphore—see [Concurrency basics](#concurrency-basics) |
+| **Premature microservices** | Distributed monolith before boundaries are clear | [Modular monolith](#architectural-patterns) first; split on proven seams |
+| **Blocking the main path** | Sync CPU/IO on event loop or UI thread → freezes/starvation | Move heavy work off the hot path—see [Concurrency basics](#ui-threads-and-dont-block-the-main-path) |
+
+**Intermediate:** Most anti-patterns are **context-dependent**—a singleton config loader is fine; a singleton mutable cache shared across requests is a trap. Name the tradeoff, don't cargo-cult the rule.
 
 ---
 
@@ -456,6 +551,9 @@ Store text as **UTF-8**. Separate **locale** from **language**; never assume sin
 ## Interview checklist
 
 - Name and motivate **SOLID** (one sentence each).
+- **DDD** vocabulary: bounded context, aggregate, value object vs entity; **Clean/Onion** Dependency Rule.
+- **CQRS** vs **event sourcing**; when each is overkill.
+- One **anti-pattern** you have removed and how ([Anti-patterns](#anti-patterns-what-not-to-do)).
 - **REST vs SOAP** at a high level.
 - **Idempotency** and HTTP methods.
 - **Testing pyramid**; difference **mock** vs **fake**.

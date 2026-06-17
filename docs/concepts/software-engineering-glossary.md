@@ -40,6 +40,12 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **See also:** [Design patterns](software-engineering.md#design-patterns-gof-style-survey)
 
+### Anti-pattern
+
+**Beginner:** A common "solution" that looks reasonable but reliably causes pain (god object, anemic domain, premature microservices, N+1 queries). Recognizing them by name is half the fix—but most are context-dependent, so name the tradeoff rather than cargo-culting the rule.
+
+**See also:** [Anti-patterns (what NOT to do)](software-engineering.md#anti-patterns-what-not-to-do)
+
 ### At-least-once delivery
 
 **Beginner:** A messaging guarantee: a message might arrive **more than once** (retries are common), so your handler must not break if it sees a duplicate—usually by **idempotency** or **deduplication**.
@@ -156,11 +162,17 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
+### Clean / Onion architecture
+
+**Beginner:** Concentric layers (entities → use cases → interface adapters → frameworks) governed by the **Dependency Rule**: source-code dependencies point **only inward**, so the domain never imports the web framework or database. Same instinct as hexagonal/ports-adapters; easy to over-engineer for small apps.
+
+**See also:** [Architectural patterns](software-engineering.md#architectural-patterns); [Hexagonal architecture](#hexagonal-architecture-ports-and-adapters)
+
 ### CQRS (Command Query Responsibility Segregation)
 
-**Beginner:** Splitting **writes** (commands) from **reads** (queries), sometimes with different models or databases for each. Useful at scale; overkill for tiny CRUD apps.
+**Beginner:** Splitting **writes** (commands) from **reads** (queries), sometimes with different models or databases for each. Useful at scale; overkill for tiny CRUD apps. The read side is often updated asynchronously, so it is eventually consistent.
 
-**See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
+**See also:** [CQRS and Event Sourcing](software-engineering.md#cqrs-and-event-sourcing)
 
 ### CRD (Custom Resource Definition)
 
@@ -208,6 +220,12 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **See also:** [SOLID — dependency inversion](software-engineering.md#solid)
 
+### DDD (Domain-Driven Design)
+
+**Beginner:** Designing software around the **business domain** and a **ubiquitous language** shared with domain experts. Key terms: **bounded context** (a boundary where one model is consistent), **entity** (identity over time), **value object** (defined by attributes, immutable), **aggregate** (a consistency unit accessed through its **root**), and **domain event**. Powerful for complex domains; overkill for CRUD.
+
+**See also:** [Domain-Driven Design (DDD)](software-engineering.md#domain-driven-design-ddd)
+
 ### DRY (Don’t Repeat Yourself)
 
 **Beginner:** Each piece of knowledge should have **one clear home**; avoid copy-paste logic that will diverge. **Exception:** sometimes a little duplication is better than the wrong shared abstraction.
@@ -235,6 +253,12 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 **Beginner:** Components react to **events** (messages) instead of calling each other directly. Enables loose coupling but you must think about ordering, duplicates, and consistency.
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
+
+### Event sourcing
+
+**Beginner:** Store the **append-only log of events** that produced state (`MoneyDeposited`, `MoneyWithdrawn`) rather than only the current row; rebuild state by **replaying** events, with **snapshots** to keep replay fast. Gives a perfect audit trail and temporal queries, at the cost of event versioning and replay complexity. Often paired with CQRS.
+
+**See also:** [CQRS and Event Sourcing](software-engineering.md#cqrs-and-event-sourcing)
 
 ### Eventual consistency
 
