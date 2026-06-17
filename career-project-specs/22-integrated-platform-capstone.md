@@ -15,10 +15,24 @@
 - Present a flagship portfolio piece (diagram, demo, linked artifacts)
 - Orchestrate the full stack with [Project 14](14-shell-automation-lab.md) `scripts/demo.sh` patterns
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | End-to-end compose: ingest → AI → workers → dashboard → deploy |
+| 2. Integration & messaging | Cross-service queues, webhooks, shared delivery semantics |
+| 3. Data architecture | Postgres as system of record across services |
+| 4. Performance & language boundaries | Python/Go/Rust placement across the stack |
+| 5. Reliability, security, operations | Cross-service `request_id`, E2E demo, system-level failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. compose vs monorepo — **Pillar 1**; capstone-level system ADR — **all pillars**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** Green success criteria on core spine projects, or explicit deferrals logged in [PROGRESS.md](../PROGRESS.md). **Steps 19–20 (Rust) are optional** — capstone can compose Go-first labs only; note any deferrals in the README.
-- **Deep dive:** [Systems integration architect](../docs/concepts/systems-integration-architect.md) · [Portfolio artifacts template](../docs/templates/portfolio-artifacts.md)
+- **Deep dive:** [Architecture framework](../docs/concepts/architecture-framework.md) · [Systems integration architect — Pillar 1](../docs/concepts/systems-integration-architect.md) · [Portfolio artifacts template](../docs/templates/portfolio-artifacts.md)
 
 ## Problem
 

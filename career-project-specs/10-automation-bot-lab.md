@@ -14,6 +14,18 @@
 - Handle secrets and structured errors in n8n-style automation
 - Call Project 1 or 2 boundaries reliably
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Workflow steps vs sync HTTP for long-running automation |
+| 2. Integration & messaging | Idempotent side effects, secrets, durable step semantics |
+| 5. Reliability, security, operations | Structured errors, replay-safe automation |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. sync HTTP vs enqueue — **Pillar 1**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Patterns:** [Integration-automation map](../docs/concepts/integration-automation.md)

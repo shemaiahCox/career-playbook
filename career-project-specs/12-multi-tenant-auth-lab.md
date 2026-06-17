@@ -14,6 +14,18 @@
 - JWT/session patterns with scoped queries
 - AuthZ on every data path
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Auth gate → tenant context on every request path |
+| 3. Data architecture | Row-level `tenant_id` vs Postgres RLS; scoped queries |
+| 5. Reliability, security, operations | JWT/session, tenant isolation, cross-tenant failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. RLS vs app-layer scoping — **Pillar 3**; JWT vs session — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 5](05-contract-first-api.md) and [Project 4](04-sql-performance-lab.md)

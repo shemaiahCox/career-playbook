@@ -14,6 +14,19 @@
 - Handle at-least-once delivery with idempotent workers
 - Operate DLQ, retries, and replay safely
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | HTTP returns fast; durable work moves to queue/worker |
+| 2. Integration & messaging | At-least-once delivery, broker choice, ack timing, DLQ |
+| 4. Performance & language boundaries | Worker throughput vs sync request (secondary) |
+| 5. Reliability, security, operations | Idempotent handlers, retry policy, failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. Redis vs DB outbox — **Pillar 2**; ack before commit — **Pillar 2**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Patterns:** [Integration-automation map](../docs/concepts/integration-automation.md)

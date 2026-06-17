@@ -15,6 +15,20 @@
 - Keep a stable `POST /query` contract and structured observability
 - Split LLM logic (Python) from retrieval throughput (Go, later)
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Python owns LLM/RAG service boundary; optional sync path to retrieval |
+| 2. Integration & messaging | HTTP `/query` contract; optional Go retrieval boundary (secondary) |
+| 3. Data architecture | Chunk/embedding storage, vector retrieval, citation IDs |
+| 4. Performance & language boundaries | Retrieval latency budget; when to split to Go (secondary) |
+| 5. Reliability, security, operations | Evals, guardrails, explicit failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. LangChain vs thin SDK — **Pillar 1**; embedding store — **Pillar 3**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **New to Python?** → [Python services map](../docs/languages/python.md) · [Stacks glossary](../docs/languages/glossary.md) · [Language fundamentals](../docs/languages/language-fundamentals-comparison.md)

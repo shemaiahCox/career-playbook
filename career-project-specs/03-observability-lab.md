@@ -14,6 +14,16 @@
 - Log structured JSON with latency breakdowns—not prose-only strings
 - Make production incidents grep-able in minutes
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 5. Reliability, security, operations | Correlation IDs, structured JSON logs, latency breakdowns, metrics hooks |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. JSON log schema — **Pillar 5**; correlation id header — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Apply on Project 2 lab:** [02-rag-llm-service.md](02-rag-llm-service.md) (default path)

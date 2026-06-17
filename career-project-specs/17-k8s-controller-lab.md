@@ -14,6 +14,18 @@
 - Idempotent cluster operations
 - Controller patterns without full operator complexity
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Desired vs actual state; reconcile loop as system shape |
+| 2. Integration & messaging | Idempotent cluster apply; at-least-once reconcile semantics |
+| 5. Reliability, security, operations | RBAC failure modes, API unavailable paths |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. controller-lite vs full CRD — **Pillar 1**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 16](16-cloud-deploy-lab.md)

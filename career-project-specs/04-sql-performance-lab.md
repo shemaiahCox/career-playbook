@@ -14,6 +14,18 @@
 - Choose joins vs loop-shaped access deliberately
 - Use transactions, keyset pagination, and vector-adjacent retrieval patterns
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 3. Data architecture | Indexes, transactions, hot query paths, `EXPLAIN ANALYZE` |
+| 4. Performance & language boundaries | Measure → tune → verify with before/after plans |
+| 5. Reliability, security, operations | Query failure modes under load (secondary) |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. partial vs covering index — **Pillar 3**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **New to SQL/Postgres?** → [SQL map](../docs/languages/sql.md) · [Stacks glossary](../docs/languages/glossary.md) · [Database design](../docs/concepts/database-design.md)

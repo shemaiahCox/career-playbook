@@ -10,7 +10,9 @@
 
 ## Verdict
 
-Your playbook **over-indexes on production systems skills** (idempotency, queues, observability, SQL tuning, polyglot boundaries) that senior engineers at Google/Meta use daily. It **under-indexes on interview-specific prep**: timed LeetCode-style coding and formal system design drills.
+Your playbook **over-indexes on production systems skills** (the [five architecture pillars](../concepts/architecture-framework.md): idempotency, queues, observability, SQL tuning, polyglot boundaries) that senior engineers at Google/Meta use daily. It **under-indexes on interview-specific prep**: timed LeetCode-style coding and formal system design drills.
+
+**System design interviews** = narrating **pillar tradeoffs at scale** (fan-out, caching, consistency, sharding vocabulary) on a whiteboard — see [system design interview map](system-design-interview-map.md) as a layer on top of production pillars, not a separate curriculum.
 
 **Execution gap matters more than curriculum gap:** only **3 of 22 labs** are on GitHub; Project 2 still has stub retrieval; no shipped `docs/portfolio/` milestones logged in [PROGRESS.md](../../PROGRESS.md). For any top-tier bar, **shipping Projects 8, 19, 16, and 22** with full portfolio packets is prerequisite.
 

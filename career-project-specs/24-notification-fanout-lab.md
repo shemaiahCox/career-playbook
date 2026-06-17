@@ -16,6 +16,19 @@
 - Priority queues and idempotent `notification_id` delivery
 - At-least-once semantics with DLQ and provider-style retries
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | One domain event → many delivery channels |
+| 2. Integration & messaging | Kafka vs Redis; fan-out on write vs lazy digest |
+| 4. Performance & language boundaries | Fan-out throughput, priority queues |
+| 5. Reliability, security, operations | Idempotent `notification_id`, delivery guarantees |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. fan-out on write vs read — **Pillar 4**; broker choice — **Pillar 2**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 6](06-async-worker-stretch.md) and [Project 8](08-go-retrieval-worker-lab.md) queue + worker patterns green

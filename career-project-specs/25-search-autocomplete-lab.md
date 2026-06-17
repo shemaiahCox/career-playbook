@@ -16,6 +16,19 @@
 - Inverted index basics for full-text search (Postgres `tsvector` or in-memory)
 - Ranking, caching hot prefixes, and debounced client contract
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 2. Integration & messaging | Search API contract, cache invalidation (secondary) |
+| 3. Data architecture | Trie vs DB prefix index; Postgres FTS vs external engine |
+| 4. Performance & language boundaries | Autocomplete p95, index build time |
+| 5. Reliability, security, operations | Cache stampede, stale index failure modes (secondary) |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. trie in-memory vs DB — **Pillar 3 + 4**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 4](04-sql-performance-lab.md) indexing; [Project 8](08-go-retrieval-worker-lab.md) HTTP service patterns

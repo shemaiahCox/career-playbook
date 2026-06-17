@@ -14,6 +14,17 @@
 - Managed queue or cloud-shaped ops
 - Rollback and env parity habits
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Deploy topology, service composition (secondary) |
+| 5. Reliability, security, operations | Health checks, secrets, CI/CD, rollback strategy |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. cloud target — **Pillar 5**; rollback — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) or [Project 6](06-async-worker-stretch.md) runnable stack

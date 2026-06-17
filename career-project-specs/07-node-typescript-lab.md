@@ -14,6 +14,18 @@
 - Optional tracks: webhook ingress, contract API, or webhook + worker
 - Structured logging and queue vocabulary in TypeScript
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Typed HTTP service boundaries; track A/B/C shape choices |
+| 2. Integration & messaging | Webhook ingress, OpenAPI, or webhook + worker patterns |
+| 5. Reliability, security, operations | Same integration habits as Project 1 (secondary) |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. Express vs Fastify — **Pillar 1**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **New to TypeScript/Node?** → [Node + TS map](../docs/languages/node-typescript-backend.md) · [Stacks glossary](../docs/languages/glossary.md)

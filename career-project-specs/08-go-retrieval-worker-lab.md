@@ -14,12 +14,26 @@
 - Consume durable queue jobs with idempotent handlers
 - Document the Python ↔ Go performance boundary
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Python owns LLM; Go owns retrieval gateway and queue workers |
+| 2. Integration & messaging | Queue consumers, at-least-once, optional Kafka/gRPC stretches |
+| 3. Data architecture | Chunk fetch paths, SQL/vector retrieval boundaries |
+| 4. Performance & language boundaries | Bounded concurrency, pprof, p95/RSS evidence for Python↔Go split |
+| 5. Reliability, security, operations | Idempotent jobs, `/metrics`, timeouts, failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. why Go owns retrieval — **Pillar 1 + 4**; REST vs gRPC — **Pillar 2**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **New to Go?** → [Go map](../docs/languages/go.md) · [Stacks glossary](../docs/languages/glossary.md)
 - **Cross-stack depth:** [Generators and iterators](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators) · [Concurrency beyond syntax](../docs/languages/language-fundamentals-comparison.md#concurrency-beyond-syntax)
 - **Brokers (career context):** [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
-- **Deep dive (optional):** [Systems integration architect](../docs/concepts/systems-integration-architect.md)
+- **Deep dive (optional):** [Architecture framework](../docs/concepts/architecture-framework.md) · [Systems integration architect — Pillar 1](../docs/concepts/systems-integration-architect.md)
 - **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency](../docs/concepts/software-engineering.md#concurrency-basics) · [Memory and performance](../docs/concepts/memory-and-performance.md)
 
 ## Problem
@@ -182,7 +196,7 @@ When Projects 2, 4, 6, and 8 are green, wire one integrated story:
 3. **Data** — Project 4 Postgres stores chunks/embeddings
 4. **AI path** — Project 2 calls Project 8 `POST /retrieve` → LLM + citations
 
-Log one ADR in [PROGRESS.md](../PROGRESS.md). Optional deep dive: [Systems integration architect](../docs/concepts/systems-integration-architect.md).
+Log one ADR in [PROGRESS.md](../PROGRESS.md). Optional deep dive: [Architecture framework](../docs/concepts/architecture-framework.md) · [Pillar 1 — Systems integration architect](../docs/concepts/systems-integration-architect.md).
 
 ## Bash scripting milestone
 

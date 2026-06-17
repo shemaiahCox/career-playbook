@@ -15,6 +15,18 @@
 - FFI and trust boundaries
 - Secure composition of network tools
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | WASM sandbox vs native host; trust boundary placement |
+| 4. Performance & language boundaries | What runs in WASM vs native; FFI costs |
+| 5. Reliability, security, operations | Sandboxed logic, capability limits |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. WASM vs native for hot logic — **Pillar 1 + 4**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 19](19-rust-hot-path-lab.md) or strong Rust comfort · [Rust map](../docs/languages/rust.md)

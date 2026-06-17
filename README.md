@@ -6,12 +6,27 @@ Practice projects for **AI Systems · Cloud · Automation · IoT** — one linea
 
 ## Start here
 
-1. **[Project 1](career-project-specs/01-integration-webhook-receiver.md)** — begin the path below
-2. **[PROGRESS.md](PROGRESS.md)** — log what you're working on
+1. **[Architecture framework](docs/concepts/architecture-framework.md)** — read first (~15 min): five pillars, reference shape, decision checklists
+2. **[Project 1](career-project-specs/01-integration-webhook-receiver.md)** — begin the hands-on path below
+3. **[PROGRESS.md](PROGRESS.md)** — log what you're working on (include **Pillar(s)**, **Tradeoff**, **Failure mode**)
 
 Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 22** composes your labs into one flagship portfolio system.
 
 **Core stack (Go-first track):** PHP · Python · SQL · Go · Bash — ship production patterns without Rust. Steps **19–20** stay in the path as **optional future track**; defer them in [PROGRESS.md](PROGRESS.md) when Rust is paused.
+
+## Architecture framework (read first)
+
+Modern backend work is architectural work. Every project practices decisions under **five pillars** — the spine of this playbook; languages and labs are evidence under them.
+
+| Pillar | One-line focus |
+|--------|----------------|
+| 1. System shape | Boundaries, sync vs async, who owns what |
+| 2. Integration & messaging | Delivery semantics, brokers, idempotency, DLQ |
+| 3. Data architecture | Schema, indexes, tenancy, consistency |
+| 4. Performance & language boundaries | Measure first; Python/Go/Rust splits |
+| 5. Reliability, security, operations | Observability, failure modes, deploy |
+
+**Start:** [Architecture framework](docs/concepts/architecture-framework.md) → [sample portfolio](docs/examples/sample-portfolio/) (quality bar) → [Project 1](career-project-specs/01-integration-webhook-receiver.md).
 
 ## Progression (Step 1 → 22)
 
@@ -72,6 +87,20 @@ Not the learning order — use when you want **evidence by capability** (how bac
 
 **Minimum credible evidence (Go-first):** reliability **1 + 3 + 6** · concurrency **6 + 8** · performance **4 + 8 + 18** (before/after numbers in `docs/portfolio/performance.md`) · deploy **14 + 16** · capstone **22**. Steps **19–20** add Rust depth later — not required for backend/systems positioning today.
 
+## Browse by architecture pillar
+
+Not the learning order — use when you want **evidence by architectural decision type**. See the full matrix in [architecture framework](docs/concepts/architecture-framework.md#project--pillar-matrix).
+
+| Pillar | Primary projects | Also practiced in |
+|--------|------------------|-------------------|
+| **1. System shape** | 1, 5, 7, 8, 11, 22 | 2, 6, 10, 12, 13, 17, 18, 21 |
+| **2. Integration & messaging** | 1, 6, 8, 10, 23, 24 | 5, 7, 15, 17, 21, 25 |
+| **3. Data architecture** | 4, 2, 8, 12, 25 | 1, 6, 22 |
+| **4. Performance & language boundaries** | 4, 8, 18, 23, 25 | 2, 13, 19 (optional), 24 |
+| **5. Reliability, security, operations** | 3, 9, 12, 14, 15, 16 | every lab (failure modes) |
+
+**Minimum credible (Go-first, all five pillars):** shape **1** · integration **6** · data **4** · performance **8** (+ **4** or **18** for numbers) · reliability/ops **3 + 14 + 16** · capstone **22**.
+
 ## Browse by topic (optional)
 
 Not the learning order — use when you want every project that practices a concept.
@@ -92,11 +121,11 @@ Not the learning order — use when you want every project that practices a conc
 | Rust / systems ADR (optional future track) | 19, 20 |
 | **Integrated capstone** | 22 |
 
-Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional topic index).
+Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional topic browse — learning order is [architecture framework](docs/concepts/architecture-framework.md)).
 
 ## Role direction
 
-Build platforms that integrate systems, automate workflows, and layer AI — with contracts, idempotency, observability, and explicit failure modes.
+Build platforms that integrate systems, automate workflows, and layer AI — with contracts, idempotency, observability, and explicit failure modes. **The five pillars above are how we organize every lab.**
 
 **PHP stays ship-today.** Core depth here is **Python / Go / SQL / Bash** through numbered projects, with **TypeScript** where the spec calls for it. **Rust (steps 19–20)** is an optional future track — defer when paused; your Go-first performance story lives in Projects **4, 8, and 18**.
 
@@ -111,8 +140,8 @@ Build platforms that integrate systems, automate workflows, and layer AI — wit
 
 ## How to work through a project
 
-1. Open the spec (e.g. [Project 1](career-project-specs/01-integration-webhook-receiver.md))
-2. Read **What you will learn**, **Before you start**, and **Important concepts**
+1. Read [Architecture framework](docs/concepts/architecture-framework.md) once, then open the spec (e.g. [Project 1](career-project-specs/01-integration-webhook-receiver.md))
+2. Read **Architecture pillars**, **What you will learn**, **Before you start**, and **Important concepts**
 3. Build in [`career-projects/`](career-projects/) (nested git clone when a lab exists)
 4. Meet success criteria; test per [per-project testing](docs/concepts/per-project-testing.md)
 5. Commit [portfolio artifacts](docs/templates/portfolio-artifacts.md) in the lab repo; gate with [production readiness](checklists/production-readiness.md)
@@ -120,12 +149,14 @@ Build platforms that integrate systems, automate workflows, and layer AI — wit
 
 ## Spec shape
 
-Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · **Bash scripting milestone** (where applicable) · Testing · **Portfolio artifacts** · **When you're done**.
+Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Architecture pillars** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · **Bash scripting milestone** (where applicable) · Testing · **Portfolio artifacts** · **When you're done**.
 
 ## Reference (not the path)
 
 | Doc | Use when |
 |-----|----------|
+| [docs/concepts/architecture-framework.md](docs/concepts/architecture-framework.md) | **Read first** — five pillars, reference shape, project matrix |
+| [docs/examples/sample-portfolio/](docs/examples/sample-portfolio/) | What good `docs/portfolio/` looks like |
 | [docs/languages/glossary.md](docs/languages/glossary.md) | New to a language — start here |
 | [docs/career/target-alignment.md](docs/career/target-alignment.md) | UK Backend & Systems targeting — project ideas, £80k milestones, job matrix |
 | [docs/career/big-tech-benchmark.md](docs/career/big-tech-benchmark.md) | Google/Meta/top-tier bar — optional ceiling, dual-track roadmap |

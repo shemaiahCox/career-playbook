@@ -14,6 +14,19 @@
 - Backpressure and stale UI handling
 - Live updates from worker events
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | SSE/WebSocket push path vs polling; client reconnect shape |
+| 2. Integration & messaging | Event stream delivery, duplicate events (secondary) |
+| 4. Performance & language boundaries | Backpressure, stale UI under load |
+| 5. Reliability, security, operations | Reconnect semantics, failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. SSE vs WebSocket — **Pillar 1**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 6](06-async-worker-stretch.md) or [Project 8](08-go-retrieval-worker-lab.md) event vocabulary

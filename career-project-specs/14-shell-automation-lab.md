@@ -17,6 +17,16 @@
 - `shellcheck` in CI and `bats-core` for testable shell logic
 - When bash glue stops and a Go CLI ([Project 15](15-devops-cli-lab.md)) should take over
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 5. Reliability, security, operations | CI smoke scripts, exit codes, deploy hooks, ops automation |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. Bash vs Go CLI — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** At least one runnable lab from Projects 1, 3, 6, or 8 (webhook, logs, or queue)

@@ -15,6 +15,17 @@
 - Ops tooling in Go
 - When a Go CLI replaces bash glue from [Project 14](14-shell-automation-lab.md)
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 2. Integration & messaging | DLQ replay, queue inspection as operator workflows |
+| 5. Reliability, security, operations | CLI exit codes, ops flags, structured output for incidents |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. flag/exit conventions — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 14](14-shell-automation-lab.md) shell toolkit patterns (strict mode, exit codes, `scripts/preflight.sh`)

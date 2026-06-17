@@ -15,6 +15,18 @@
 - Write a Go vs Rust ADR with tradeoffs
 - Compare ownership, errors, and latency
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Same contract as Project 8 Go; swap or parallel service boundary |
+| 4. Performance & language boundaries | Go vs Rust ADR with p95 + peak RSS evidence |
+| 5. Reliability, security, operations | No panic in hot path; `Result` error handling |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. Go vs Rust — **Pillar 4** — required).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) green first

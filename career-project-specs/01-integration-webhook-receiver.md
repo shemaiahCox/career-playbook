@@ -15,6 +15,19 @@
 - Return fast ack after recording intent; park poison messages in a DLQ
 - Leave an audit trail with request IDs and structured logs
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Fast 2xx after durable idempotency record — HTTP ingress vs in-process side effects |
+| 2. Integration & messaging | HMAC webhooks, idempotency keys, DLQ for poison payloads |
+| 3. Data architecture | Idempotency store schema and replay-safe lookups (secondary) |
+| 5. Reliability, security, operations | HMAC verification, structured logs, request IDs, failure modes |
+
+**Required ADR(s):** tag each ADR with pillar in `docs/portfolio/adr-*.md` (e.g. SQLite vs Postgres — **Pillar 3**; raw-body HMAC — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **New to PHP?** → [PHP + Laravel map](../docs/languages/php-laravel.md) · [Stacks glossary](../docs/languages/glossary.md) · [Language fundamentals](../docs/languages/language-fundamentals-comparison.md)

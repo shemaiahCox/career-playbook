@@ -15,11 +15,25 @@
 - Offline buffers and edge inference hooks
 - Dashboard integration via Project 13 patterns
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Edge ingest → queue/worker → cloud; offline buffer shape |
+| 2. Integration & messaging | MQTT QoS, idempotent telemetry, at-least-once ingest |
+| 3. Data architecture | Time-series write path (secondary) |
+| 4. Performance & language boundaries | Edge vs cloud inference placement (secondary) |
+| 5. Reliability, security, operations | Offline buffer, duplicate telemetry, failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. QoS level — **Pillar 2**; edge vs cloud inference — **Pillar 4**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 6](06-async-worker-stretch.md) + [Project 4](04-sql-performance-lab.md)
 - **Go-first path:** After [Project 18](18-proxy-load-balancer-lab.md), open this spec directly if steps 19–20 are deferred. Log the skip in [PROGRESS.md](../PROGRESS.md).
-- **Deep dive (optional):** [Systems integration architect](../docs/concepts/systems-integration-architect.md)
+- **Deep dive (optional):** [Architecture framework](../docs/concepts/architecture-framework.md) · [Pillar 1 — Systems integration architect](../docs/concepts/systems-integration-architect.md)
 
 ## Problem
 

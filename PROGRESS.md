@@ -22,6 +22,7 @@ Walk the sections **top to bottom** once with the repo and env in front of you. 
 Suggested shape for a **lab milestone** (keep it short):
 
 - **What shipped** — fact-level outcome.
+- **Pillar(s)** — which architecture pillar(s) this milestone primarily proves (1–5).
 - **Tradeoff** *(optional, high signal for explaining decisions later)* — what you rejected and why.
 - **Failure mode** *(optional)* — what breaks in prod without what you built.
 - **Portfolio** *(optional)* — link to lab `docs/portfolio/` or note deferred artifacts ([template](docs/templates/portfolio-artifacts.md)).
@@ -29,7 +30,9 @@ Suggested shape for a **lab milestone** (keep it short):
 
 You do not need daily entries. Aim for **one section per slice** you would summarize in a weekly update, retrospective, or coaching conversation.
 
-For **architecture-style narration**, lean on **Tradeoff** and **Failure mode** when you can. See [Systems integration architect](docs/concepts/systems-integration-architect.md).
+For **architecture-style narration**, lean on **Pillar(s)**, **Tradeoff**, and **Failure mode** when you can. See [Architecture framework](docs/concepts/architecture-framework.md).
+
+**Note:** Historical entries may reference removed `FOCUS.md`; the spine is now [Architecture framework](docs/concepts/architecture-framework.md).
 
 ---
 

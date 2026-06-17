@@ -16,6 +16,18 @@
 - Distributed counters with Redis (or in-memory for local demo)
 - Gateway middleware: `429`, `Retry-After`, per-API-key limits
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 2. Integration & messaging | Gateway middleware, 429/Retry-After, per-client limits (secondary) |
+| 4. Performance & language boundaries | Token bucket vs sliding window; Redis atomic counters |
+| 5. Reliability, security, operations | Hot-key sharding, edge failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. token bucket vs sliding window — **Pillar 4**; Redis vs in-memory — **Pillar 2**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 8](08-go-retrieval-worker-lab.md) HTTP gateway patterns; Redis familiarity from [Project 6](06-async-worker-stretch.md)

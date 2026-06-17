@@ -1,8 +1,8 @@
 # Engineering pillars — topic index (optional)
 
-> **Not the learning path.** Follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
+> **Not the learning path.** Read [Architecture framework](architecture-framework.md) first, then follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
 
-Browse by **engineering pillar** when you want every project that touches a domain (AI/Automation, Full-Stack, DevOps/Cloud, Security/Systems, IoT/Edge).
+Browse by **engineering pillar** (AI, Full-Stack, DevOps, etc.) when you want every project that touches a **domain topic**. For **architectural decision types** (shape, integration, data, performance, ops), use the [five-pillar framework](architecture-framework.md) instead.
 
 **Companion:** [Project catalog](../../README.md#progression-step-1--22) · [Concept matrix](#concept--project-matrix)
 
@@ -130,5 +130,6 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 
 - [Project catalog](../../README.md#progression-step-1--22)
 - [Bash ecosystem map](../languages/bash.md)
-- [Systems integration architect](systems-integration-architect.md)
+- [Architecture framework](architecture-framework.md) — spine (read first)
+- [Systems integration architect](systems-integration-architect.md) — Pillar 1 deep dive
 - [README.md](../../README.md)

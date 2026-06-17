@@ -31,7 +31,7 @@
 | 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) | — |
 | 18 | Build systems & tooling | [Modules, imports, and packages](#modules-imports-and-packages) | [Command-line tooling](../concepts/command-line-tooling.md) · per-language maps in [glossary](glossary.md) | — |
 | 19 | Networking & IO | — (HTTP/streaming in labs) | [Servers and networking](../concepts/servers-and-networking.md) · [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md) | — |
-| 20 | Architecture concepts | — (architecture in labs) | [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) | — |
+| 20 | Architecture concepts | — (architecture in labs) | [Architecture framework](../concepts/architecture-framework.md) · [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) | — |
 
 ---
 

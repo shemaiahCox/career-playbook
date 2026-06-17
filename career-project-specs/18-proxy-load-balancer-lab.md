@@ -15,6 +15,18 @@
 - Reverse-proxy behavior under load
 - Network-layer failure modes
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | Client → proxy → upstream pool; timeout budgets across hops |
+| 4. Performance & language boundaries | Connection pooling, graceful shutdown, load behavior |
+| 5. Reliability, security, operations | Network-layer failure modes, access logs |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. pool sizing — **Pillar 4**; graceful shutdown — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Handbook:** [Servers and networking](../docs/concepts/servers-and-networking.md) · [Memory and performance — timeouts and load testing](../docs/concepts/memory-and-performance.md)

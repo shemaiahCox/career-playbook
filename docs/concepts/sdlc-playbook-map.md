@@ -68,15 +68,19 @@ Define scope, constraints, and acceptance criteria before code.
 
 ## Phase 2 — Design
 
-Architecture, data model, API contracts, failure modes.
+Architecture under the [five pillars](architecture-framework.md#the-five-pillars): system shape, integration, data, performance boundaries, reliability/ops.
 
 | Playbook source | Role |
 |-----------------|------|
+| [architecture-framework.md](architecture-framework.md) | **Spine** — pillars, reference shape, project matrix |
+| [systems-integration-architect.md](systems-integration-architect.md) | Pillar 1 deep dive |
 | [software-engineering.md](software-engineering.md) | Architectural and integration patterns |
-| [database-design.md](database-design.md) | Schema, transactions, indexes |
-| [messaging-and-rpc.md](messaging-and-rpc.md) | Broker and RPC choices |
-| [portfolio-artifacts.md](../templates/portfolio-artifacts.md) | ADR + architecture diagram per lab |
-| [system-design-interview-map.md](../career/system-design-interview-map.md) | Design problems ↔ labs |
+| [database-design.md](database-design.md) | Pillar 3 — schema, transactions, indexes |
+| [messaging-and-rpc.md](messaging-and-rpc.md) | Pillar 2 — broker and RPC choices |
+| [memory-and-performance.md](memory-and-performance.md) | Pillar 4 — measure before rewrite |
+| [portfolio-artifacts.md](../templates/portfolio-artifacts.md) | ADR (with **Pillar** tag) + architecture diagram per lab |
+| [examples/sample-portfolio/](../examples/sample-portfolio/) | Reference quality bar |
+| [system-design-interview-map.md](../career/system-design-interview-map.md) | Whiteboard SD layer on pillars |
 | [Project 5](../../career-project-specs/05-contract-first-api.md), [12](../../career-project-specs/12-multi-tenant-auth-lab.md), [19](../../career-project-specs/19-rust-hot-path-lab.md) | Contracts, tenant isolation, Go vs Rust ADR |
 
 **Coverage:** Moderate–strong (engineering design) · **Gap:** formal UML, enterprise governance at scale

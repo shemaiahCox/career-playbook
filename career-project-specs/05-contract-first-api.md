@@ -14,6 +14,19 @@
 - Gate breaking vs non-breaking changes in CI
 - Version and deprecate APIs without orphaning consumers
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | API boundaries and service contracts before implementation splits |
+| 2. Integration & messaging | OpenAPI as source of truth; REST versioning and breaking-change policy |
+| 3. Data architecture | Schema implied by contract (secondary) |
+| 5. Reliability, security, operations | CI drift gates, consumer compatibility (secondary) |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. URL vs header versioning — **Pillar 2**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Stack choice:** Laravel, FastAPI, or TypeScript — see [PHP map](../docs/languages/php-laravel.md) or [Node/TS map](../docs/languages/node-typescript-backend.md)

@@ -14,6 +14,17 @@
 - Harden integration edges alongside user-facing forms
 - Document secure SDLC habits for interviews
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 2. Integration & messaging | Secure integration edges alongside user-facing HTTP (secondary) |
+| 5. Reliability, security, operations | OWASP risks, CSRF, session/token hardening, edge security |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. session vs token — **Pillar 5**; CSRF strategy — **Pillar 5**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Handbook:** [Security for applications](../docs/concepts/software-engineering.md#security-for-applications)

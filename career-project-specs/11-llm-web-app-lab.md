@@ -14,6 +14,18 @@
 - Streaming UX and eval-aware error handling
 - Product boundary for AI features
 
+## Architecture pillars
+
+| Pillar | How this project practices it |
+|--------|-------------------------------|
+| 1. System shape | BFF in TypeScript; Python RAG behind server boundary |
+| 2. Integration & messaging | Server-side `/query` proxy; no keys in browser (secondary) |
+| 5. Reliability, security, operations | Streaming UX, eval-aware errors, failure modes |
+
+**Required ADR(s):** tag each ADR with pillar (e.g. streaming vs polling — **Pillar 1**).
+
+**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md)
+
 ## Before you start
 
 - **Requires:** [Project 2](02-rag-llm-service.md) and [Project 7](07-node-typescript-lab.md) habits

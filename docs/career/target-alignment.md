@@ -2,6 +2,8 @@
 
 **Use this:** Map your [22-step path](../../README.md#progression-step-1--22) to UK **Rust + Go backend** and **AI automation systems** roles. Not a job board — a living reference for which labs to ship, pin, and talk about in interviews.
 
+**Architecture spine:** [Architecture framework](../concepts/architecture-framework.md) — minimum credible bar = shipped labs with ● coverage in **all five pillars** before capstone 22.
+
 **Profile this supports:** Backend & Systems Engineer — PHP/SQL/JS commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation + Bash ops glue.
 
 **Companion:** [Portfolio artifacts template](../templates/portfolio-artifacts.md) · [Messaging and RPC](../concepts/messaging-and-rpc.md) · [Rust map](../languages/rust.md#career-positioning) · [Big Tech benchmark](big-tech-benchmark.md) (optional ceiling — Google/Meta bar)
@@ -135,7 +137,17 @@ Monzo hires backend engineers agnostic to stack — they teach **Go, Kafka, Cass
 
 ### Minimum credible (interview-ready Go-first backend & systems)
 
-Ship with full portfolio artifacts:
+Ship with full portfolio artifacts — **at least one ● lab per [architecture pillar](../concepts/architecture-framework.md#project--pillar-matrix)**:
+
+| Pillar | Minimum lab |
+|--------|-------------|
+| 1 System shape | Project 1 |
+| 2 Integration & messaging | Project 6 |
+| 3 Data architecture | Project 4 |
+| 4 Performance & language | Project 8 (+ 4 or 18 for numbers) |
+| 5 Reliability, security, ops | Project 3 + 14 + 16 |
+
+Full list:
 
 1. [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) — webhook + HMAC + idempotency
 2. [Project 6](../../career-project-specs/06-async-worker-stretch.md) — async worker + DLQ

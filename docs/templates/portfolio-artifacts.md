@@ -2,6 +2,8 @@
 
 Each lab repo should accumulate an **interview packet** under `docs/portfolio/` (or equivalent README sections). Commit artifacts when you call the milestone **done**—they are what senior engineers show in reviews and interviews.
 
+**Framework:** tag every ADR and diagram to a [pillar](../concepts/architecture-framework.md#the-five-pillars). **Quality bar:** [sample portfolio](../examples/sample-portfolio/).
+
 **Template location:** this file lives in the playbook; copy structure into your lab repo.
 
 ---
@@ -12,9 +14,9 @@ Each lab repo should accumulate an **interview packet** under `docs/portfolio/` 
 
 One box-and-arrow diagram showing:
 
-- Service boundaries (who calls whom)
-- Sync vs async paths (HTTP vs queue)
-- Data stores and external dependencies
+- Service boundaries (who calls whom) — **Pillar 1**
+- Sync vs async paths (HTTP vs queue) — **Pillar 1 + 2**
+- Data stores and external dependencies — **Pillar 3**
 
 **Mermaid starter** (replace labels for your lab):
 
@@ -40,6 +42,10 @@ One page per significant fork. Glossary: [ADR](../concepts/software-engineering-
 
 ## Status
 Accepted | Superseded by ADR-00N
+
+## Pillar
+N — [System shape | Integration & messaging | Data architecture | Performance & language boundaries | Reliability, security, operations]
+(primary; add secondary pillar if the decision spans two)
 
 ## Context
 What problem or constraint forced a decision?
