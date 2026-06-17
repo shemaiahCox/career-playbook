@@ -100,7 +100,7 @@ Build platforms that integrate systems, automate workflows, and layer AI — wit
 
 **PHP stays ship-today.** Core depth here is **Python / Go / SQL / Bash** through numbered projects, with **TypeScript** where the spec calls for it. **Rust (steps 19–20)** is an optional future track — defer when paused; your Go-first performance story lives in Projects **4, 8, and 18**.
 
-**Reference docs:** [languages/glossary.md](docs/languages/glossary.md) (stack maps) · [languages/bash.md](docs/languages/bash.md) (shell automation) · [concepts/](docs/README.md#concepts-theory-and-patterns) (theory and patterns)
+**Reference docs:** [languages/glossary.md](docs/languages/glossary.md) (stack maps) · [languages/bash.md](docs/languages/bash.md) (shell automation) · [concepts/](docs/README.md#concepts-theory-and-patterns) (theory and patterns) · [SDLC ↔ playbook map](docs/concepts/sdlc-playbook-map.md) (lifecycle ↔ projects)
 
 ## Non-goals
 

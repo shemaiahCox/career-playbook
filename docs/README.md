@@ -40,9 +40,10 @@ Integration, testing, security, algorithms, architecture — stack-agnostic.
 | [concepts/algorithms-study-path.md](concepts/algorithms-study-path.md) | Projects 4, 8, and RAG retrieval work |
 | [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Optional architecture deep-dive |
 | [concepts/engineering-pillars.md](concepts/engineering-pillars.md) | Optional topic index (not the path) |
+| [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) | SDLC phases ↔ projects (reference, not the path) |
 | [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) | Learning a new stack with AI helpers |
 
-Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md)
+Also: [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) (A–Z jargon — backpressure, hot path, p95, BFF, …)
 
 ---
 
