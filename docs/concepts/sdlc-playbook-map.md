@@ -63,6 +63,7 @@ Define scope, constraints, and acceptance criteria before code.
 | [Project 5 — Contract-first API](../../career-project-specs/05-contract-first-api.md) | OpenAPI as shared truth; CI drift gates |
 | [Project 22 — Capstone](../../career-project-specs/22-integrated-platform-capstone.md) | Integration boundaries across labs |
 | [PROGRESS.md](../../PROGRESS.md) | Personal planning log |
+| [architecture-checklist.md](architecture-checklist.md) | **Real-world questionnaire** — feasibility, requirements, stack tradeoffs |
 
 **Coverage:** Light–moderate · **Gap:** requirements elicitation, backlogs, Agile ceremonies
 

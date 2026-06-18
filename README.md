@@ -160,6 +160,7 @@ Every project spec includes: **Progress** (step, prev/next) · **What you will l
 | Doc | Use when |
 |-----|----------|
 | [docs/concepts/architecture-framework.md](docs/concepts/architecture-framework.md) | **Read first** — five pillars, reference shape, project matrix |
+| [docs/concepts/architecture-checklist.md](docs/concepts/architecture-checklist.md) | **Real-world checklist** — feasibility through scale, tech stack tradeoffs |
 | [docs/examples/sample-portfolio/](docs/examples/sample-portfolio/) | What good `docs/portfolio/` looks like |
 | [docs/languages/glossary.md](docs/languages/glossary.md) | New to a language — start here |
 | [docs/career/target-alignment.md](docs/career/target-alignment.md) | UK Backend & Systems targeting — project ideas, £80k milestones, job matrix |
