@@ -29,6 +29,7 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 |-----|----------|
 | [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Boundaries, sync vs async, reference architecture |
 | [concepts/software-engineering.md § Architectural patterns](concepts/software-engineering.md#architectural-patterns) | Monolith, hexagonal, clean/onion, event-driven, microservices |
+| [concepts/clean-architecture-layouts.md](concepts/clean-architecture-layouts.md) | **Mental model + folder layouts** — layers, payment walkthrough, universal + TS/Go/Python/PHP trees; illustrative only |
 | [concepts/software-engineering.md § Domain-Driven Design](concepts/software-engineering.md#domain-driven-design-ddd) | Bounded contexts, aggregates, Command Query Responsibility Segregation (CQRS) + event sourcing |
 
 ### Pillar 2 — Integration and messaging

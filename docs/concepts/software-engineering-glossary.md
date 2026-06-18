@@ -166,7 +166,7 @@ CORS (Cross-Origin Resource Sharing) is a browser mechanism that controls whethe
 
 Clean architecture and Onion architecture organize code in concentric layers: entities, use cases, interface adapters, and frameworks. The Dependency Rule says source-code dependencies point only inward, so the domain never imports the web framework or database. The same instinct as hexagonal (ports and adapters) architecture; easy to over-engineer for small apps.
 
-**See also:** [Architectural patterns](software-engineering.md#architectural-patterns); [Hexagonal architecture](#hexagonal-architecture-ports-and-adapters)
+**See also:** [Architectural patterns](software-engineering.md#architectural-patterns); [Hexagonal architecture](#hexagonal-architecture-ports-and-adapters); [Clean Architecture folder layouts (reference)](clean-architecture-layouts.md)
 
 ### CQRS (Command Query Responsibility Segregation)
 

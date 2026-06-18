@@ -367,6 +367,7 @@ See [Memory and performance](memory-and-performance.md).
 - Bounded contexts and ubiquitous language per module?
 - Domain-Driven Design (DDD) aggregates where domain is complex; avoid anemic domain model
 - Dependency rule: inner layers never import HTTP/ORM details
+- Folder layout reference (illustrative, not required for labs): [Clean Architecture folder layouts](clean-architecture-layouts.md)
 
 **SOLID and pragmatism**
 - Single responsibility per module — but avoid god-class fragmentation
