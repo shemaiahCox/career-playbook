@@ -70,6 +70,42 @@ _TBD — extend [Project 7](07-node-typescript-lab.md) or [Project 5](05-contrac
 - **Postgres** — shared schema, row-level tenant column (RLS optional stretch)
 - Migrations checked in
 
+### Key concepts (with definitions and code)
+
+### Tenant-scoped query
+
+**What:** Every SQL statement includes `tenant_id` from auth context, never from request body.
+
+**Problem it solves:** Cross-customer data leaks—the highest-severity SaaS bug class.
+
+```sql
+-- Illustrative — composite index leads with tenant_id
+CREATE INDEX idx_orders_tenant_created ON orders (tenant_id, created_at DESC);
+SELECT id, status FROM orders WHERE tenant_id = $1 AND id = $2;
+```
+
+See [Illustrative snippets — JWT tenant middleware](../docs/concepts/illustrative-snippets.md#jwt-tenant-middleware).
+
+### JWT vs session
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **JWT (stateless)** | Easy horizontal scale | Revocation lists or short TTL | API-first, mobile clients |
+| **Server session** | Instant logout/revoke | Sticky store or shared Redis | HTML forms + CSRF from Project 9 |
+| **Postgres RLS** | DB-enforced isolation | Policy complexity | Defense in depth (stretch) |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Client[Client] --> Auth[Auth middleware]
+  Auth --> Ctx[tenant_id in context]
+  Ctx --> API[Handlers]
+  API --> PG[(Postgres scoped queries)]
+```
+
+**Failure modes:** trusting `tenant_id` from JSON body; missing tenant filter on one list endpoint; expired JWT returns opaque 500 instead of 401.
+
 ## Success criteria
 
 - [ ] Register/login/logout flows; password hashing (bcrypt/argon2).
@@ -86,6 +122,12 @@ Two tenant fixtures; assert isolation on list and detail endpoints.
 1. Forged `tenant_id` in JSON body → ignored or 403.
 2. Expired JWT → 401 with stable error shape.
 3. Duplicate invite webhook → idempotent tenant membership.
+
+### 4 — Cross-tenant integration test
+
+- **Setup:** Two tenants with fixtures; tokens for user A and user B.
+- **Action:** Call tenant B resource with tenant A token.
+- **Expected outcome:** `403` or empty result—never B's data in A's response.
 
 ## Stretch
 

@@ -65,7 +65,7 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 
 ### Cross-cutting reference
 
-[concepts/architecture-checklist.md](concepts/architecture-checklist.md) · [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
+[concepts/architecture-checklist.md](concepts/architecture-checklist.md) · [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
 
 ---
 
@@ -107,3 +107,40 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Resume-ready diagram, ADR (with **Pillar** tag), perf, failure modes |
 | [templates/performance-p4-sql.md](templates/performance-p4-sql.md) · [performance-p8-go.md](templates/performance-p8-go.md) · [performance-p18-proxy.md](templates/performance-p18-proxy.md) | Pillar 4 evidence in lab repos |
 | [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate per step |
+| [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) | Copy-paste patterns (idempotency, HMAC, SSE, JWT, queues) |
+
+---
+
+## Content quality {#content-quality}
+
+Every playbook page is scored against the **Content Quality Rubric (CQR)**: definitions (**What / Problem it solves**), examples, implementation detail, diagrams, alternative comparisons, and pros/cons. **Gold standard:** [Project 1](../career-project-specs/01-integration-webhook-receiver.md) · [Illustrative snippets](concepts/illustrative-snippets.md).
+
+| Tier | Action |
+|------|--------|
+| **Green** | Link fixes only — already meets CQR |
+| **Amber** | Targeted blocks (comparison table, one diagram, footgun example) |
+| **Red** | Major enrichment — Key concepts + code, alternatives, expanded scenarios |
+
+### Audit matrix (74 files)
+
+| File | CQR | Action |
+|------|-----|--------|
+| [README.md](../README.md) | Amber | Nav + CQR pointer |
+| [PROGRESS.md](../PROGRESS.md) | Green | — |
+| [career-projects/README.md](../career-projects/README.md) | Green | — |
+| [career-project-specs/01–04](../career-project-specs/01-integration-webhook-receiver.md) | Green | Reference implementations |
+| [career-project-specs/05–09](../career-project-specs/05-contract-first-api.md) | Amber | Diagrams, alternatives, more code |
+| [career-project-specs/10–25](../career-project-specs/10-automation-bot-lab.md) | Red | Full Key concepts + diagrams |
+| [checklists/*](../checklists/) (6) | Amber | Why + pass/fail examples |
+| [concepts/architecture-*](concepts/architecture-framework.md), software-engineering, command-line-tooling, database-design, servers-and-networking, memory-and-performance, algorithms-*, glossary | Green | — |
+| [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Red | Sync/async diagram, monolith vs split |
+| [concepts/integration-automation.md](concepts/integration-automation.md) | Red | n8n skeleton, Boomi vs code table |
+| [concepts/messaging-and-rpc.md](concepts/messaging-and-rpc.md), [llms.md](concepts/llms.md) | Amber | Pros/cons tables, streaming notes |
+| [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) | Red | Worked prompts, anti-patterns |
+| [concepts/algorithms-study-path.md](concepts/algorithms-study-path.md), engineering-pillars, per-project-testing, sdlc-playbook-map | Amber | Cross-links + examples |
+| [languages/*](languages/glossary.md) (10) | Amber | Footgun examples; glossary one-liners |
+| [career/target-alignment.md](career/target-alignment.md), big-tech-benchmark | Green | — |
+| [career/dsa-interview-track.md](career/dsa-interview-track.md), system-design-interview-map | Amber | Lab links |
+| [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md), language-ecosystem-map | Green | — |
+| [templates/performance-p4/p8/p18](templates/performance-p4-sql.md) | Amber | Filled example rows |
+| [examples/sample-portfolio/*](examples/sample-portfolio/) (3) | Amber | Detection signals |

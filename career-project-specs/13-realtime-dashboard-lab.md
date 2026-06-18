@@ -72,6 +72,35 @@ _TBD — e.g. `realtime-dashboard-lab`._ Suggested folder: [`../career-projects/
 - Event source: Project 8 HTTP SSE endpoint, Redis stream, or NATS (document choice)
 - [Handbook — WebSockets](../docs/concepts/servers-and-networking.md#websockets-and-long-polling)
 
+### Key concepts (with definitions and code)
+
+### SSE handler
+
+**What:** HTTP long-lived response streaming `text/event-stream` events with `id` for reconnect.
+
+**Problem it solves:** Live ops UI without polling; simpler than WebSocket for one-way job status.
+
+See [Illustrative snippets — SSE](../docs/concepts/illustrative-snippets.md#server-sent-events-sse-endpoint).
+
+### SSE vs WebSocket
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **SSE** | Auto-reconnect; HTTP infra | One-way only | This lab default (queue/job feed) |
+| **WebSocket** | Bidirectional | Stateful connections | Control + push combined |
+| **Long polling** | Works through old proxies | Wasteful | Legacy fallback only |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Worker[Project 6/8 worker] --> Bus[Redis stream or SSE endpoint]
+  Bus --> Dash[TS dashboard EventSource]
+  Dash --> UI[Throttled DOM updates]
+```
+
+**Failure modes:** unbounded client buffer; duplicate event ids after reconnect; stale UI when events arrive out of order.
+
 ## Success criteria
 
 - [ ] Live updates when worker completes/fails jobs (wired to real or mocked Project 6/Project 8).
@@ -92,6 +121,12 @@ Simulate event burst; assert UI stability or batching policy.
 1. Server restart → client reconnects within N seconds.
 2. Duplicate event id → UI does not double-count.
 3. 1000 events/min → UI remains usable (batch/throttle).
+
+### 4 — Reconnect with Last-Event-ID
+
+- **Setup:** Dashboard open; note last seen event id.
+- **Action:** Restart event source server; client reconnects with `Last-Event-ID` header.
+- **Expected outcome:** No duplicate completed jobs in UI; README documents resume policy.
 
 ## Stretch
 

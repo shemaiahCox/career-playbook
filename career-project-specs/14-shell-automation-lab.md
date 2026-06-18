@@ -102,6 +102,37 @@ _TBD — e.g. `shell-automation-lab`._ Suggested folder: [`../career-projects/14
 - **jq**, **curl** — API probes and JSON stdout
 - Optional: **shfmt** for consistent formatting
 
+### Key concepts (with definitions and code)
+
+### Strict mode header
+
+**What:** `set -euo pipefail` at top of every script (or via `lib/common.sh`).
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname "$0")/../lib/common.sh"
+: "${WEBHOOK_URL:?Set WEBHOOK_URL}"
+curl -sfS -X POST "$WEBHOOK_URL" -H "Content-Type: application/json" -d @fixture.json
+```
+
+### Bash vs Go CLI boundary
+
+| Tool | Pros | Cons | Use when |
+|------|------|------|----------|
+| **Bash** | Fast glue; CI/cron friendly | Hard to maintain complex logic | Smoke, preflight, curl+jq |
+| **Go CLI** ([Project 15](15-devops-cli-lab.md)) | Subcommands, typed config | Heavier for one-liners | DLQ replay, long-lived ops tools |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  CI[CI or cron] --> Scripts[scripts/]
+  Scripts --> P1[Project 1 webhook]
+  Scripts --> P3[Project 3 logs]
+  Scripts --> P6[Project 6 queue depth]
+```
+
 ## Success criteria
 
 - [ ] At least four scripts under `scripts/` plus shared `lib/common.sh`.

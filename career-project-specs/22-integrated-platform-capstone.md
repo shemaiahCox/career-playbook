@@ -80,6 +80,29 @@ Propagate the same `request_id` from BFF → RAG → Go gateway in structured lo
 
 Include a system diagram, demo script output (video or screenshots), and links to each service’s `docs/portfolio/`—the capstone README is the table of contents for your entire playbook.
 
+### Key concepts (with definitions and code)
+
+### Compose orchestration (Illustrative)
+
+**What:** Pin lab images; wire env; do not reimplement lab code in capstone repo.
+
+```yaml
+# Illustrative — service references external image
+services:
+  rag:
+    image: ghcr.io/you/rag-llm-lab:v1.2.0
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      RETRIEVE_URL: http://go-gateway:8080
+```
+
+### Compose vs monorepo
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Compose orchestration** | Reuses shipped labs; clear boundaries | Version pinning discipline | **This capstone (required)** |
+| **Monorepo rewrite** | Single CI | Loses per-lab portfolio artifacts | Avoid for playbook path |
+
 ## System map
 
 ```mermaid

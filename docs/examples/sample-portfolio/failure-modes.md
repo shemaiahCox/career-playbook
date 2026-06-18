@@ -14,9 +14,9 @@
 
 ## Mitigations shipped in this lab
 
-| Failure mode | Mitigation | Pillar |
-|--------------|------------|--------|
-| Duplicate delivery | Idempotency key + stored response | 2 |
-| Forged POST | HMAC verify, 401 on mismatch | 5 |
-| Poison loop | DLQ + documented abandon/replay | 2, 5 |
-| Slow handler | Fast ack after durable record | 1 |
+| Failure mode | Mitigation | Pillar | Detection signal |
+|--------------|------------|--------|------------------|
+| Duplicate delivery | Idempotency key + stored response | 2 | Same key → two DB rows or double charge |
+| Forged POST | HMAC verify, 401 on mismatch | 5 | 200 on unsigned POST in access log |
+| Poison loop | DLQ + documented abandon/replay | 2, 5 | Main queue depth stuck; no DLQ entries |
+| Slow handler | Fast ack after durable record | 1 | Partner timeout retries; p95 HTTP > SLA |

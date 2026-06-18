@@ -72,13 +72,49 @@ _TBD — e.g. `automation-bot-lab` or n8n community node package._ Suggested fol
 - Calls existing [Project 2](02-rag-llm-service.md) or [Project 1](01-integration-webhook-receiver.md) endpoints
 - Structured logging aligned with [Project 3](03-observability-lab.md)
 
-### Key concepts
+### Key concepts (with definitions and code)
 
 ### Workflow step vs HTTP service
 
 **What:** A step runs **inside** a orchestrator’s retry/DLQ semantics—not a standalone public API.
 
 **Problem it solves:** You design for **at-least-once step execution**, same as queue consumers.
+
+### n8n custom node skeleton (Illustrative)
+
+```typescript
+// Illustrative — n8n INodeType execute()
+async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+  const idempotencyKey = this.getNodeParameter("idempotencyKey", 0) as string;
+  const response = await this.helpers.requestWithAuthentication.call(this, "project2Api", {
+    method: "POST",
+    url: "/query",
+    headers: { "Idempotency-Key": idempotencyKey },
+    body: { question: this.getNodeParameter("question", 0) },
+    json: true,
+  });
+  return [this.helpers.returnJsonArray(response)];
+}
+```
+
+### Sync HTTP vs enqueue for long steps
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Sync HTTP to Project 2** | Simple workflow graph | Timeouts on long LLM calls | Short queries, bounded latency |
+| **Enqueue to Project 6** | Survives partner/workflow retries | More infra | Long-running side effects |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Trigger[n8n or cron] --> Step[Your TS/Python step]
+  Step --> P1[Project 1 webhook]
+  Step --> P2[Project 2 RAG API]
+  Step --> Store[(Idempotency store)]
+```
+
+**Failure modes:** secrets in exported workflow JSON; duplicate workflow run without idempotency key; unbounded wait on LLM timeout.
 
 ## Success criteria
 

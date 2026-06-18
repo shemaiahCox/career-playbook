@@ -101,6 +101,38 @@ Suggested local folder: [`../career-projects/25-search-autocomplete-lab`](../car
 
 **Go-first track:** Optional performance depth after [Project 4](04-sql-performance-lab.md) + [Project 8](08-go-retrieval-worker-lab.md). Pick **this** or [Project 23](23-rate-limiter-gateway-lab.md) — not both required. Replaces Rust P19 search/index interview angle.
 
+### Key concepts (with definitions and code)
+
+### Trie prefix lookup (Illustrative)
+
+**What:** O(L) suggest where L is query length—in-memory for moderate corpora.
+
+```go
+// Illustrative — trie node
+type Node struct {
+    children map[rune]*Node
+    terminal bool
+}
+func (t *Trie) Suggest(prefix string, k int) []string { /* ... */ }
+```
+
+### Keyword search vs RAG
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Trie + inverted index** | Exact/prefix match; fast suggest | No semantic similarity | Typeahead, keyword search |
+| **Vector RAG** ([Project 2](02-rag-llm-service.md)) | Semantic match | Higher cost/latency | Natural language Q&A |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Ingest[Index build worker] --> PG[(Postgres + tsvector)]
+  Client[Client] --> API[Search API]
+  API --> Trie[Trie or cache]
+  API --> PG
+```
+
 ## Success criteria
 
 - [ ] `GET /suggest?q=…` returns ≤K suggestions in <50ms p95 locally (document corpus size).

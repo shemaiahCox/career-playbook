@@ -109,6 +109,30 @@ flowchart LR
   Prov --> DLQ[DLQ on poison]
 ```
 
+### Key concepts (with definitions and code)
+
+### Fan-out enqueue (Illustrative)
+
+**What:** One `POST /notify` expands to N jobs—one per `(user_id, channel)` with stable idempotency key.
+
+```go
+// Illustrative
+for _, ch := range prefs.Channels {
+    job := Job{
+        ID: fmt.Sprintf("%s:%s:%s", batchID, userID, ch),
+        Payload: payload,
+    }
+    queue.Enqueue(ctx, job)
+}
+```
+
+### Fan-out on write vs lazy digest
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Fan-out on write** | Low read latency | Spike on popular events | Real-time notifications |
+| **Lazy digest** | Cheaper write path | Delayed delivery | Email digests, low urgency |
+
 ## Success criteria
 
 - [ ] `POST /notify` accepts event; returns `202` with `notification_batch_id` after durable enqueue.

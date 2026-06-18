@@ -26,3 +26,5 @@ Rejected: long sync handler that holds partner connection through downstream API
 **Positive:** Partner retry budget respected; clear separation of transport vs business semantics.  
 **Negative:** Downstream lag not visible to partner; need queue/worker observability (Project 6).  
 **Follow-ups:** Add `request_id` to logs (Pillar 5); document replay from DLQ in runbook.
+
+**Rejected alternative consequences:** Long sync handler would simplify “success means done” semantics but violates partner timeout SLAs and increases duplicate delivery storms under load.

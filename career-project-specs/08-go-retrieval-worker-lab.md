@@ -106,7 +106,7 @@ Suggested local folder: [`../career-projects/08-go-retrieval-worker-lab`](../car
 
 Document the **HTTP or queue contract** in OpenAPI or README—stable for both services.
 
-### Key concepts
+### Key concepts (with definitions and code)
 
 ### Retrieval gateway
 
@@ -125,6 +125,40 @@ Document the **HTTP or queue contract** in OpenAPI or README—stable for both s
 **What:** `context.Context` on HTTP handlers and worker jobs; cancel when parent timeout fires.
 
 **Problem it solves:** Goroutine leaks and hung workers under slow dependencies.
+
+```go
+// Illustrative — bounded fan-out with context
+func (g *Gateway) Retrieve(ctx context.Context, ids []string) ([]Chunk, error) {
+    ctx, cancel := context.WithTimeout(ctx, 2*time.Second)
+    defer cancel()
+    sem := make(chan struct{}, g.maxConcurrent)
+    // ... fan-out goroutines select on ctx.Done()
+}
+```
+
+### REST vs gRPC (Python ↔ Go boundary)
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **REST + OpenAPI JSON** | Debuggable; Project 2 tooling | Higher serialization overhead | Default lab contract |
+| **gRPC + protobuf** | Strong typing; lower latency | Browser needs gateway | Internal hot path (stretch) |
+
+### Architecture
+
+```mermaid
+sequenceDiagram
+  participant Py as Python Project2
+  participant Go as Go gateway
+  participant PG as Postgres
+  participant Q as Queue
+  Py->>Go: POST /retrieve
+  Go->>PG: concurrent chunk fetch
+  Go-->>Py: ranked chunks
+  Q->>Go: worker job at-least-once
+  Go->>PG: idempotent write
+```
+
+See [Illustrative snippets — queue consumer](../docs/concepts/illustrative-snippets.md#queue-consumer-redis-list).
 
 ## Success criteria
 

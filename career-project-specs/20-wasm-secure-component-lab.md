@@ -89,6 +89,38 @@ _TBD — e.g. `wasm-component-lab`._ Suggested folder: [`../career-projects/20-w
 - **Host:** Go or Node smoke test invoking module
 - wasmtime/wasmer or browser test harness
 
+### Key concepts (with definitions and code)
+
+### Host ↔ WASM ABI (Illustrative)
+
+**What:** Versioned function exports; host validates input size before invoke.
+
+```rust
+// Illustrative — exported normalize function
+#[no_mangle]
+pub extern "C" fn normalize_v1(ptr: *const u8, len: usize) -> i32 {
+    // return 0 ok, negative error code — no panic across boundary
+}
+```
+
+### WASM vs native hot path
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **WASM sandbox** | Isolated untrusted logic | Invoke overhead | Third-party parsers, plugins |
+| **Native Rust** | Lowest latency | Larger blast radius | Trusted hot path ([Project 19](19-rust-hot-path-lab.md)) |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Host[Go or Node host] -->|versioned ABI| WASM[WASM module]
+  WASM --> Host
+  Host --> App[Rest of service]
+```
+
+**Optional future track** — not required for Go-first positioning.
+
 ## Success criteria
 
 - [ ] Module builds; host invokes with sample input/output.

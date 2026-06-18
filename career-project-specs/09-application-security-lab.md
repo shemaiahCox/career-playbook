@@ -144,6 +144,37 @@ _TBD — create a sibling repo (e.g. `owasp-web-lab` or extend an existing contr
 
 **Practice:** Show state-changing **POST** from a second origin **failing** after protection—document the exact mechanism you enabled.
 
+```python
+# Illustrative — safe parameterized query (FastAPI + SQLAlchemy)
+result = await session.execute(
+    text("SELECT id, title FROM posts WHERE author_id = :uid AND tenant_id = :tid"),
+    {"uid": user_id, "tid": tenant_id_from_auth},
+)
+```
+
+```python
+# Illustrative — UNSAFE (demo only — never in production path)
+# f"SELECT * FROM posts WHERE title = '{user_input}'"  # SQL injection
+```
+
+### Alternatives considered
+
+| Auth model | Pros | Cons | Use when |
+|------------|------|------|----------|
+| **Session cookie** | Simple for server-rendered forms | CSRF surface | HTML-first apps (this lab core) |
+| **JWT bearer** | Stateless API clients | Revocation harder | SPA + mobile APIs |
+| **OAuth only** | Delegated identity | More moving parts | Stretch / Big Tech tier |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Browser[Browser] --> App[App server]
+  App --> Session[(Session store)]
+  App --> DB[(Database parameterized)]
+  Attacker[Attacker origin] -.->|CSRF blocked| App
+```
+
 ### Dependency and secrets hygiene
 
 **What:** Known-vulnerable libraries (**supply chain**) and **secrets** in env vs repo.

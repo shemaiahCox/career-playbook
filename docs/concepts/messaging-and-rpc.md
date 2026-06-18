@@ -38,6 +38,27 @@ A **message broker** decouples producers from consumers: the producer publishes 
 
 **RabbitMQ** still appears in enterprise integrations and older stacks. The broker differs; the vocabulary—acknowledge, negative acknowledge, dead letter—does not.
 
+### Per-broker pros / cons / when not
+
+| Broker | Pros | Cons | When not |
+|--------|------|------|----------|
+| **Redis** | Fast setup; great for labs | Weaker durability vs Kafka | Need infinite event replay log |
+| **Kafka** | Durable log; fan-out | Heavy local ops | Single small worker queue |
+| **NATS** | Lightweight pub/sub | Different ops model | Need SQL transactional outbox |
+| **SQS** | Managed; visibility timeout | AWS coupling | Multi-cloud local-only dev |
+| **RabbitMQ** | Mature routing | Older ops patterns | Greenfield without team skill |
+
+### Redis queue usage (Illustrative)
+
+```bash
+# Producer
+redis-cli LPUSH jobs:webhook '{"job_id":"abc","payload":{...}}'
+# Consumer (blocking pop)
+redis-cli BRPOP jobs:webhook 30
+```
+
+See [Illustrative snippets — queue consumer](illustrative-snippets.md#queue-consumer-redis-list) · [Project 6](../../career-project-specs/06-async-worker-stretch.md).
+
 ### How to explain Kafka vs Redis in an interview
 
 You can describe building idempotent workers on Redis locally because it is fast to iterate, then explain that Kafka is the same reliability contract at scale—a partitioned log with consumer groups and at-least-once delivery—so ramping on an employer's broker means learning operational details, not relearning how to write safe consumers. Emphasize that duplicate delivery is expected and idempotency keys or deduplication tables are how handlers stay correct.

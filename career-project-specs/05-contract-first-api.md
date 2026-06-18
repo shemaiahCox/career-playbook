@@ -142,6 +142,30 @@ expect(response.body).toMatchSchema({
 
 **Practice:** Before merge, run `openapi-diff old.yaml new.yaml` (or equivalent) and document the policy in README.
 
+### Architecture (contract-first flow)
+
+```mermaid
+flowchart LR
+  Client[Client or partner] --> Gateway[Validation layer]
+  Gateway --> OpenAPI[openapi.yaml in git]
+  Gateway --> Handler[Handlers]
+  Handler --> DB[(Database)]
+  CI[CI openapi-diff] --> OpenAPI
+```
+
+**Pillar 1:** boundary between public contract and implementation. **Pillar 2:** versioning and breaking-change policy.
+
+### Alternatives considered
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **URL prefix** (`/v1/`) | Visible in logs and caches | Harder to deprecate slowly | Public APIs, browser clients |
+| **Header versioning** (`Accept-Version`) | Cleaner URLs | Easy to forget in clients | Internal services |
+| **Spec generated from code** | Stays in sync if disciplined | Drift if decorators lie | Small teams, one language |
+| **Code validated against spec** | Spec is source of truth | Requires CI gate | Partner APIs, multi-client |
+
+See [Illustrative snippets — contract patterns](../docs/concepts/illustrative-snippets.md).
+
 ## Testing approach (lab)
 
 **Primary:** **Contract or schema tests** (consumer stub, response shape assertions against OpenAPI, or framework-native “implements spec” checks) plus a **CI gate** so spec and implementation cannot drift silently—this is the main failure mode when AI renames DTO fields.

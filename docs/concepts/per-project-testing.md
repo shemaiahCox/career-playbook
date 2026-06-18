@@ -21,6 +21,17 @@ When a bug is understood, add a **regression** test so the failure mode stays vi
 
 **Rule of thumb:** Prefer **unit** tests where the code is deterministic and cheap to isolate. Prefer **integration** tests where the bug class is "connected the wrong thing." Prefer **contract/eval** tests where the risk is **silent shape or answer drift**.
 
+## Examples by product type
+
+| Product type | Primary test | Example assertion |
+|--------------|--------------|-------------------|
+| **Webhook ingress** | Integration | Replay same `Idempotency-Key` → one side effect |
+| **Contract API** | OpenAPI/schema | Rename response field → CI fails |
+| **Queue worker** | Integration | Duplicate delivery → dedupe store hit |
+| **LLM/RAG** | Eval JSONL | `must_not_contain` after prompt change |
+| **Multi-tenant API** | Integration | Tenant A token cannot read tenant B row |
+| **Shell toolkit** | bats | Missing env → exit code 2 |
+
 ## Generic prompts for AI (adapt per lab)
 
 Paste your real types, routes, and invariants. Ask for edits, not blind trust.

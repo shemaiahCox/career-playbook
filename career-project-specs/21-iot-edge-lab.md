@@ -88,6 +88,45 @@ _TBD — e.g. `iot-edge-lab`._ Suggested folder: [`../career-projects/21-iot-edg
 - **Store:** Postgres from Project 4 schema extension
 - **UI hook:** [Project 13](13-realtime-dashboard-lab.md) SSE events
 
+### Key concepts (with definitions and code)
+
+### Idempotent telemetry upsert
+
+**What:** Dedupe on `(device_id, sequence)` before insert—MQTT QoS 1 may deliver twice.
+
+```sql
+-- Illustrative
+INSERT INTO readings (device_id, sequence, value, recorded_at)
+VALUES ($1, $2, $3, now())
+ON CONFLICT (device_id, sequence) DO NOTHING;
+```
+
+```go
+// Illustrative — MQTT handler
+func (h *Ingest) OnMessage(_ mqtt.Client, msg mqtt.Message) {
+    reading := parse(msg.Payload())
+    _ = h.store.Upsert(reading.DeviceID, reading.Sequence, reading.Value)
+}
+```
+
+### Edge vs cloud inference
+
+| Placement | Pros | Cons | Use when |
+|-----------|------|------|----------|
+| **Edge stub** | Low latency; privacy | Limited model | Demo / offline |
+| **Cloud Project 2** | Full RAG + evals | Uplink dependency | Rich answers |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Device[Sensor simulator] --> MQTT[MQTT broker]
+  MQTT --> Ingest[Go ingest]
+  Ingest --> PG[(Postgres)]
+  Ingest --> SSE[Project 13 dashboard]
+  Ingest -.-> RAG[Project 2 optional]
+```
+
 ## Success criteria
 
 - [ ] Ingest ≥1 sensor type; idempotent upsert on `(device_id, sequence)` or equivalent.

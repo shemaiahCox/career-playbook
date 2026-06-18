@@ -173,3 +173,5 @@ Every project spec includes: **Progress** (step, prev/next) · **What you will l
 | [docs/concepts/engineering-pillars.md](docs/concepts/engineering-pillars.md) | Optional topic index |
 
 Full index: [docs/README.md](docs/README.md)
+
+**Content quality:** Every doc is scored against the [Content Quality Rubric](docs/README.md#content-quality). Copy-paste patterns: [Illustrative snippets](docs/concepts/illustrative-snippets.md).

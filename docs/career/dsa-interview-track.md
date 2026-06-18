@@ -18,6 +18,16 @@
 
 ---
 
+## Playbook lab reinforcement
+
+| Lab | Data structure / pattern | Spec enrichment |
+|-----|--------------------------|-----------------|
+| [Project 4](../../career-project-specs/04-sql-performance-lab.md) | B-tree indexes, query plans | Key concepts + EXPLAIN patterns |
+| [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, timeouts | Key concepts + pprof evidence |
+| [Project 25](../../career-project-specs/25-search-autocomplete-lab.md) | Trie, inverted index | Key concepts + keyword vs RAG ADR |
+
+---
+
 ## How this maps to the handbook
 
 | Handbook section | Interview pattern | When in track |

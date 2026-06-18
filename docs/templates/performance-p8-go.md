@@ -30,3 +30,10 @@ Link to `docs/portfolio/adr-001-python-go-boundary.md` (or equivalent) — decis
 ## How to explain this in an interview
 
 You profiled Python retrieval, moved fan-out to Go with bounded concurrency, and validated p95 latency and RSS (Resident Set Size) with pprof.
+
+## How to capture numbers
+
+1. Baseline Python `/retrieve` (or equivalent) with `hey -n 1000 -c 50`; record p95 and error rate.
+2. Enable `net/http/pprof`; capture CPU + heap during same load test.
+3. Add bounded worker pool + `context` timeouts; re-run identical load.
+4. Fill **Before/After** table; link ADR explaining profile evidence—not “Go is faster.”

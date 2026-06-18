@@ -51,6 +51,44 @@ If any answer is "I'm not sure," treat that as a **review gap**, not shame — f
 
 Use [unfamiliar-stack-ship.md](../../checklists/unfamiliar-stack-ship.md) as a rubric — not a daily todo.
 
+---
+
+## Worked prompt examples
+
+### HTTP API in unfamiliar stack
+
+```
+Product A: REST API with POST /orders (idempotent), GET /orders/{id}, OpenAPI checked in.
+Stack B: FastAPI + Postgres + pytest.
+Non-negotiables: no secrets in repo; Idempotency-Key header; structured JSON logs with request_id.
+
+First: list files and a text data-flow diagram (client → API → DB).
+Then: implement with parameterized SQL only; show error envelope for 400/409/500.
+```
+
+### Worker in unfamiliar stack
+
+```
+Product A: Redis queue consumer with DLQ after 3 failures; idempotent on job_id.
+Stack B: Go 1.22, table-driven tests for dedupe helper.
+Non-negotiables: at-least-once safe; context timeouts on outbound HTTP.
+
+First: describe ack timing ADR (before vs after commit).
+Then: implement consumer loop + one integration test with duplicate delivery.
+```
+
+## Anti-patterns (AI-generated code)
+
+| Anti-pattern | Why it fails | Fix |
+|--------------|--------------|-----|
+| Happy-path-only handlers | Production errors swallowed | Explicit error branches + tests |
+| Secrets in generated `.env` | Committed credentials | `.env.example` placeholders only |
+| HMAC after `JSON.parse` | Signature always fails | Raw body buffer first |
+| Unbounded goroutines / promises | OOM under load | Semaphore / worker pool |
+| Missing idempotency on POST | Retries double-charge | Key + durable store |
+
+---
+
 ## Related
 
 - [Career projects](../../README.md#progression-step-1--22) — linear path; each spec links handbook and stack maps.

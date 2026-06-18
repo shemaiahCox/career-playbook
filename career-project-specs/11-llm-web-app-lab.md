@@ -60,15 +60,59 @@ Use SSE (Server-Sent Events) or chunked responses; cancel in-flight requests on 
 
 Distinguish retrieval miss versus model error versus timeout in UI copy and logs. Support should grep `request_id` from Project 2 and know whether to fix the index, the prompt, or the provider—not treat every failure as “the AI broke.”
 
-## Code repo
+## Stack and why
 
-_TBD — e.g. `llm-web-app-lab`._ Suggested folder: [`../career-projects/11-llm-web-app-lab`](../career-projects/11-llm-web-app-lab).
-
-## Stack
+| UI approach | Pros | Cons | Use when |
+|-------------|------|------|----------|
+| **Vite + minimal SPA** | Fast dev; clear client/server split | More frontend surface | Streaming UX demos |
+| **Express BFF + static** | Thin UI; secrets server-side only | Less interactive polish | Smallest scope (recommended) |
 
 - **TypeScript** — Vite + minimal SSR, or Express/Fastify BFF + static UI
 - **Backend:** [Project 2](02-rag-llm-service.md) (required dependency)
 - Optional: session auth stub for [Project 12](12-multi-tenant-auth-lab.md) prep
+
+### Key concepts (with definitions and code)
+
+### BFF proxy route
+
+**What:** Browser calls your TS server; server holds keys and proxies to Python `POST /query`.
+
+**Problem it solves:** API keys and rate limits never ship in the frontend bundle.
+
+See [Illustrative snippets — BFF proxy](../docs/concepts/illustrative-snippets.md#bff-proxy-to-rag-service).
+
+### Streaming vs polling
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **SSE** | Native browser reconnect; simple one-way | Proxy buffering quirks | Token streaming to UI |
+| **Polling** | Easiest to test | Higher latency; load on API | Fallback or short queries |
+| **WebSocket** | Bidirectional | Overkill for query-only UI | Not default for this lab |
+
+### Eval-aware error mapping
+
+| Upstream signal | UI copy (example) | Ops action |
+|-----------------|-------------------|------------|
+| Empty retrieval (`422`) | “No matching docs—try rephrasing” | Fix index/chunks |
+| Model timeout (`504`) | “Answer timed out—retry” | Provider/model |
+| Upstream `503` | “Service unavailable” | Check Project 2 health |
+
+### Architecture
+
+```mermaid
+sequenceDiagram
+  participant Browser
+  participant BFF as TS BFF
+  participant RAG as Project 2 Python
+  Browser->>BFF: POST /api/query
+  BFF->>RAG: POST /query + X-Request-Id
+  RAG-->>BFF: answer + cited_chunk_ids
+  BFF-->>Browser: mapped JSON or SSE stream
+```
+
+**Failure modes:** API keys in frontend bundle; generic 500 hiding retrieval vs model errors; stream listeners leak on navigation.
+
+## Code repo
 
 ## Success criteria
 
@@ -86,6 +130,12 @@ E2E or integration: mock Project 2 failure modes; assert UI messages.
 1. Project 2 timeout → user sees retry-safe message.
 2. Empty retrieval → no hallucinated “success” UI.
 3. Stream interrupted → client cleanup documented.
+
+### 4 — Eval-aware error display
+
+- **Setup:** Mock Project 2 returning empty retrieval vs 504 timeout.
+- **Action:** Submit query from UI.
+- **Expected outcome:** Distinct user-facing copy per row in eval-aware error mapping table; `request_id` visible in dev panel.
 
 ## Stretch
 

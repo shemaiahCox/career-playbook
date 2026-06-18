@@ -28,6 +28,43 @@ This is the canonical shape for the playbook. An external partner or integration
 
 Practice mapping this shape through the project sequence: [Project 1 webhook](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6 worker](../../career-project-specs/06-async-worker-stretch.md) → [Project 8 Go lab](../../career-project-specs/08-go-retrieval-worker-lab.md) → [Project 2 RAG](../../career-project-specs/02-rag-llm-service.md) → [Project 4 SQL](../../career-project-specs/04-sql-performance-lab.md) → … → [Project 22 capstone](../../career-project-specs/22-integrated-platform-capstone.md).
 
+### Reference box → project map
+
+| Box in diagram | Primary project | What you prove |
+|----------------|-----------------|----------------|
+| Webhook ingress | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md), [Project 7](../../career-project-specs/07-node-typescript-lab.md) | HMAC, idempotency, fast 2xx |
+| Queue / outbox | [Project 6](../../career-project-specs/06-async-worker-stretch.md) | At-least-once, DLQ |
+| Go worker | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, retrieval gateway |
+| Python RAG | [Project 2](../../career-project-specs/02-rag-llm-service.md) | Evals, citations |
+| Postgres | [Project 4](../../career-project-specs/04-sql-performance-lab.md) | Indexes, vectors |
+| BFF / UI | [Project 11](../../career-project-specs/11-llm-web-app-lab.md), [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) | Product boundary, SSE |
+
+## Sync vs async boundary
+
+```mermaid
+sequenceDiagram
+  participant Partner
+  participant Sync as Sync HTTP edge
+  participant Async as Queue plus worker
+  Partner->>Sync: POST event
+  Sync->>Sync: verify plus idempotency record
+  Sync->>Async: enqueue
+  Sync-->>Partner: 2xx fast ack
+  Async->>Async: durable processing
+```
+
+**Rule of thumb:** return HTTP success when intent is **safely recorded** (idempotency row or enqueue)—not when all downstream side effects finish.
+
+## Monolith vs split (when to defer microservices)
+
+| Shape | Pros | Cons | Use when |
+|-------|------|------|----------|
+| **Modular monolith** | Simple deploy; easy refactors | Single scaling unit | Default until evidence says split |
+| **Split by language boundary** | Python LLM + Go retrieval ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)) | Two deployables | Measured latency/team boundary |
+| **Many microservices** | Independent scale | Ops + contract overhead | Proven load or org boundaries |
+
+See [Architecture framework — Pillar 1](architecture-framework.md#pillar-1--system-shape-highest-leverage).
+
 ## Depth order (what to deepen first)
 
 This order maps to the [five pillars](architecture-framework.md#the-five-pillars):

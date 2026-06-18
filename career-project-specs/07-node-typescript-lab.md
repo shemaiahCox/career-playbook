@@ -98,7 +98,7 @@ _TBD — create a sibling repo (e.g. `ts-webhook-lab` or `ts-api-lab`) when you 
 - **OpenAPI (track B):** Generated from Zod (`@asteasolutions/zod-to-openapi` or similar) **or** hand-maintained `openapi.yaml`—match the approach in [Project 5](05-contract-first-api.md).
 - **Queue (track C):** **BullMQ** + Redis, or **SQS**-style consumer—document **retry, DLQ, idempotency key** in README.
 
-## Key concepts (short)
+## Key concepts (with definitions and code)
 
 ### Types as a lightweight contract
 
@@ -117,6 +117,46 @@ _TBD — create a sibling repo (e.g. `ts-webhook-lab` or `ts-api-lab`) when you 
 **What:** Reuse the **same key semantics** as Project 1 (`Idempotency-Key` header + store).
 
 **Problem it solves:** Proves the **concept** is portable—SQLite, Redis, or Postgres is an implementation detail.
+
+```typescript
+// Illustrative — Track A: raw body + HMAC (Fastify)
+app.addContentTypeParser("application/json", { parseAs: "buffer" }, (_req, body, done) => {
+  done(null, body);
+});
+app.post("/webhook", async (req, reply) => {
+  const raw = req.body as Buffer;
+  if (!verifyHmac(raw, req.headers["x-signature"] as string, process.env.WEBHOOK_SECRET!)) {
+    return reply.status(401).send({ error: "invalid_signature" });
+  }
+  const payload = JSON.parse(raw.toString("utf8"));
+  // ... idempotency + handler
+});
+```
+
+See [Illustrative snippets — HMAC](../docs/concepts/illustrative-snippets.md#hmac-verification-raw-body).
+
+### Alternatives considered
+
+| Track | Pros | Cons | Use when |
+|-------|------|------|----------|
+| **A — Webhook parity** | Proves integration habits in TS | Overlaps Project 1 if both done | JS-first orgs, BFF + partner ingress |
+| **B — Contract-first API** | OpenAPI + Zod alignment | Less queue story | API-heavy roles |
+| **C — Webhook + worker** | Full async path | More moving parts | Same as A + Project 6 combined |
+
+| HTTP framework | Pros | Cons | Use when |
+|----------------|------|------|----------|
+| **Fastify** | Schema hooks, performance | Smaller ecosystem than Express | New services |
+| **Express** | Ubiquitous examples | Manual raw-body for HMAC | Team familiarity |
+
+### Architecture (track C example)
+
+```mermaid
+flowchart LR
+  Partner[Partner] --> TS[Node TS webhook]
+  TS --> Redis[(Redis queue)]
+  Redis --> Worker[TS or Go worker]
+  Worker --> SideEffect[(Idempotent store)]
+```
 
 ## Testing approach (lab)
 

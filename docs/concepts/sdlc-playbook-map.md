@@ -175,8 +175,8 @@ Monitor, respond, replay/repair, evolve under load.
 
 Every project repeats this loop ([README](../../README.md)):
 
-1. **Plan** — open spec; read learn / before / concepts  
-2. **Design** — spec + portfolio ADR/diagram  
+1. **Plan** — open spec; read learn / before / concepts (see **Key concepts (with definitions and code)** in each spec)  
+2. **Design** — spec + portfolio ADR/diagram · [Illustrative snippets](illustrative-snippets.md) for copy-paste patterns  
 3. **Build** — [`career-projects/`](../../career-projects/)  
 4. **Test** — [per-project-testing.md](per-project-testing.md)  
 5. **Release gate** — [production-readiness.md](../../checklists/production-readiness.md) + [portfolio-artifacts.md](../templates/portfolio-artifacts.md)  

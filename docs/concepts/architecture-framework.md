@@ -67,6 +67,12 @@ Integration and messaging covers how systems talk and what happens when messages
 
 Design for duplicate delivery first; narrow the window where duplicates hurt. Master idempotency and DLQ on **one** broker before adding a second.
 
+| Broker choice | Pros | Cons |
+|---------------|------|------|
+| **Redis** | Fast local iteration | Weaker durability vs Kafka |
+| **DB outbox** | Same txn as business write | Polling/CDC complexity |
+| **Kafka** | Durable event log | Heavier ops for solo labs |
+
 **Deep docs:** [messaging-and-rpc.md](messaging-and-rpc.md) · [software-engineering.md § Integration](software-engineering.md#integration-sync-async-and-messaging) · [integration-hardening.md](../../checklists/integration-hardening.md)
 
 **Example ADR prompts:** Redis versus database outbox for the queue; acknowledge before versus after handler commit; REST versus gRPC for Python↔Go.
@@ -80,6 +86,11 @@ Design for duplicate delivery first; narrow the window where duplicates hurt. Ma
 Data architecture is schema design, indexing, transactions, and tenancy. You model hot query paths, choose between row-level `tenant_id` filtering and Postgres Row-Level Security (RLS), and use Consistency, Availability, Partition tolerance (CAP) vocabulary when discussing replication lag — especially useful in system design interviews.
 
 Prove data-layer choices with `EXPLAIN ANALYZE` and explicit transaction boundaries.
+
+| Tenancy approach | Pros | Cons |
+|------------------|------|------|
+| **App-layer `tenant_id` filter** | Simple; works everywhere | One missed WHERE leaks data |
+| **Postgres RLS** | DB-enforced isolation | Policy + migration complexity |
 
 **Deep docs:** [database-design.md](database-design.md) · [Project 12 spec](../../career-project-specs/12-multi-tenant-auth-lab.md)
 

@@ -83,6 +83,37 @@ _TBD — e.g. `proxy-lab`._ Suggested folder: [`../career-projects/18-proxy-load
 - Two upstream mock servers in docker-compose
 - Access logs with request_id
 
+### Key concepts (with definitions and code)
+
+### ReverseProxy with timeouts
+
+**What:** Go `httputil.ReverseProxy` with explicit upstream timeout and connection limits.
+
+```go
+// Illustrative — upstream timeout
+proxy := httputil.NewSingleHostReverseProxy(upstreamURL)
+proxy.Transport = &http.Transport{
+    MaxConnsPerHost: 100,
+    ResponseHeaderTimeout: 5 * time.Second,
+}
+```
+
+### Proxy vs cloud load balancer
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **App proxy (this lab)** | Full control; learn failure modes | You operate it | Edge middleware, custom routing |
+| **nginx / cloud LB** | Battle-tested TLS and scale | Less custom logic | Production default at scale |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Client[Client] --> Proxy[Go reverse proxy]
+  Proxy --> U1[Upstream 1]
+  Proxy --> U2[Upstream 2]
+```
+
 ## Success criteria
 
 - [ ] Round-robin or least-conn to ≥2 upstreams.

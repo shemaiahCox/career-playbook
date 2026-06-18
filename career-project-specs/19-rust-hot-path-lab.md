@@ -91,6 +91,33 @@ _TBD — e.g. `rust-retrieval-lab` or sibling crate in Project 8 repo._
 - Same Postgres/Redis as Project 8
 - [Rust ecosystem map](../docs/languages/rust.md)
 
+### Key concepts (with definitions and code)
+
+### Contract-stable Rust handler (Illustrative)
+
+**What:** Same JSON contract as Go Project 8; `Result` through hot path.
+
+```rust
+// Illustrative — axum handler
+async fn retrieve(
+    State(state): State<AppState>,
+    Json(req): Json<RetrieveRequest>,
+) -> Result<Json<RetrieveResponse>, AppError> {
+    let chunks = state.fetcher.fetch(req.query).await?;
+    Ok(Json(RetrieveResponse { chunks }))
+}
+```
+
+### Go vs Rust (ADR dimensions)
+
+| Dimension | Go (Project 8) | Rust (this lab) |
+|-----------|----------------|-----------------|
+| **Latency / RSS** | Measure with pprof | Re-measure same benchmark |
+| **Ops** | Team familiarity | Build/toolchain cost |
+| **Safety** | GC pauses | Ownership + no data races |
+
+**Optional future track** — skip when Rust is paused per Go-first README.
+
 ## Success criteria
 
 - [ ] Passes same exploration scenarios as Project 8 (duplicate job, timeout, gateway SLA).

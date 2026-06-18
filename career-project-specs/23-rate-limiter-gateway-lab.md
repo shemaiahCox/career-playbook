@@ -95,6 +95,38 @@ Suggested local folder: [`../career-projects/23-rate-limiter-gateway-lab`](../ca
 
 **Go-first track:** This lab is optional performance depth after P8 — replaces Rust hot-path evidence with measurable gateway middleware behavior. Rust is not required.
 
+### Key concepts (with definitions and code)
+
+### Sliding window in Redis (Illustrative)
+
+**What:** Atomic increment with TTL window; return 429 when count exceeds limit.
+
+```go
+// Illustrative — middleware sketch
+func (rl *Limiter) Allow(ctx context.Context, key string) (bool, time.Duration, error) {
+    n, err := rl.redis.Incr(ctx, "rl:"+key).Result()
+    if n == 1 { rl.redis.Expire(ctx, "rl:"+key, rl.window) }
+    if n > rl.limit { return false, rl.window, err }
+    return true, 0, err
+}
+```
+
+### Token bucket vs sliding window
+
+| Algorithm | Pros | Cons | Use when |
+|-----------|------|------|----------|
+| **Token bucket** | Allows controlled bursts | Burst math harder to explain | APIs with spike tolerance |
+| **Sliding window** | Smooth rate over time | More Redis ops | Strict per-minute caps |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Client[Client] --> GW[Rate limit gateway]
+  GW --> Redis[(Redis counter)]
+  GW --> Upstream[Project 8 /retrieve]
+```
+
 ## Success criteria
 
 - [ ] Middleware enforces configurable limit (e.g. 100 req/min per API key).

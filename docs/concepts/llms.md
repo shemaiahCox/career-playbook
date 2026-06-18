@@ -57,6 +57,15 @@ flowchart LR
 
 The tradeoff among inference-only, RAG, fine-tuning, and tools is iteration speed versus control. Prompt plus retrieval changes ship in hours; fine-tuning takes days or weeks; tools add operational surface area but anchor facts in code you trust.
 
+### RAG vs fine-tune vs prompt-only
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Prompt-only** | Fastest iteration | Hallucination on domain facts | General assistant, low stakes |
+| **RAG** | Grounded answers; cite sources | Index freshness burden | Docs, support, internal knowledge ([Project 2](../../career-project-specs/02-rag-llm-service.md)) |
+| **Fine-tuning** | Consistent tone/format | Data + eval rigor; slow iteration | Style/format at scale |
+| **Tool use** | Deterministic facts/actions | Ops + abuse surface | Agents with allowlisted APIs |
+
 ---
 
 ## RAG: retrieval, chunking, and citations
@@ -90,6 +99,24 @@ Separate **offline** evaluation harnesses from **online** production probes. Wat
 Model calls stall, time out, and fail in ways HTTP clients do not always handle gracefully. Callers need **timeouts**, **fallbacks**, and degraded user experience copy—not hung requests.
 
 **Streaming** sends tokens as they are generated, which improves perceived latency compared to waiting for the full completion. Streaming still correlates cost to tokens generated and needs abort handling when clients disconnect mid-stream.
+
+### Streaming implementation notes
+
+| Transport | Pros | Cons | Use when |
+|-----------|------|------|----------|
+| **SSE** (`text/event-stream`) | Browser-native; reconnect | One-way | [Project 11](../../career-project-specs/11-llm-web-app-lab.md) BFF → UI |
+| **Chunked HTTP** | Simple proxy pass-through | Client must parse chunks | Minimal BFF |
+| **WebSocket** | Bidirectional | More state | Chat with cancel/edit |
+
+```typescript
+// Illustrative — SSE proxy from BFF (see illustrative-snippets.md)
+reply.raw.writeHead(200, { "Content-Type": "text/event-stream" });
+for await (const chunk of upstreamStream) {
+  reply.raw.write(`data: ${JSON.stringify(chunk)}\n\n`);
+}
+```
+
+**Failure modes:** client disconnect without aborting upstream (wasted tokens); missing `request_id` on stream errors.
 
 Log **`request_id`**, wall-clock **latency**, **model id**, and **token usage** when the provider exposes them. Avoid logging full prompts in production if **Personally Identifiable Information (PII)** policy forbids it—align with [Security for applications](software-engineering.md#security-for-applications).
 

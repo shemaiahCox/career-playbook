@@ -82,6 +82,31 @@ _TBD — e.g. `k8s-controller-lab`._ Suggested folder: [`../career-projects/17-k
 - **kind** or **minikube** for local cluster
 - Deploy target from [Project 16](16-cloud-deploy-lab.md)
 
+### Key concepts (with definitions and code)
+
+### Reconcile loop
+
+**What:** Observe desired state, diff against cluster, apply idempotently, requeue on error.
+
+See [Illustrative snippets — reconcile](../docs/concepts/illustrative-snippets.md#kubernetes-reconcile-loop-controller-lite).
+
+### Controller-lite vs full CRD operator
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Controller-lite** | Faster to ship; informers + sync | Limited custom API | Learning reconcile habits |
+| **Full CRD operator** | Kubernetes-native API | Boilerplate heavy | Production platform teams |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  API[K8s API server] --> Informer[Informer watch]
+  Informer --> Reconcile[Reconcile loop]
+  Reconcile --> Apply[Idempotent apply]
+  Reconcile --> Metrics[Structured logs]
+```
+
 ## Success criteria
 
 - [ ] Watches at least one resource type; logs reconcile with resource name/namespace.

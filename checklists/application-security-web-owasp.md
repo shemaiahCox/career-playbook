@@ -11,10 +11,16 @@ This section clarifies what this checklist covers and what belongs elsewhere.
 
 ## Injection (SQL and friends)
 
+**Why:** Injection bypasses application auth—one concatenated query can exfiltrate or destroy data.
+
+**Handbook:** [Project 9](../career-project-specs/09-application-security-lab.md) · [Database design](../docs/concepts/database-design.md)
+
 These items stop untrusted input from becoming executable code in your database or shell.
 
 - [ ] No **string concatenation** of untrusted input into SQL (or SQL identifiers) on paths you ship; **parameters** / safe ORM APIs only.
 - [ ] If you document a **vulnerable** pattern for learning, it lives in a **clearly marked** branch or appendix — not the default run configuration.
+
+**Pass:** all production paths use bound parameters. **Fail:** `"... WHERE id = " + req.query.id` in shipped route.
 
 ## XSS and browser context
 
@@ -33,6 +39,10 @@ These items protect passwords and session tokens from theft and misuse.
 - [ ] **Logout** invalidates server-side session (or equivalent) and is **documented**.
 
 ## CSRF (when cookies carry session)
+
+**Why:** Browsers send cookies automatically—without CSRF protection, another site can POST state-changing actions as the logged-in user.
+
+**Handbook:** [Project 9](../career-project-specs/09-application-security-lab.md)
 
 These items stop a malicious site from triggering state-changing actions while the user is logged in.
 

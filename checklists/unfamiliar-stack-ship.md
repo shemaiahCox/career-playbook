@@ -32,10 +32,18 @@ These sections apply only when your product has that shape. Skip what does not a
 - [ ] **Contract:** Errors, status codes, and versioning story are conscious; breaking changes are not accidental.
 - [ ] **Security:** Auth boundary, input validation, and secrets handling match the threat model at least at a **minimum** bar.
 
-**If there is async / queue / worker work**
+## If there is async / queue / worker work
+
+**Why:** At-least-once delivery is the default—handlers must be idempotent or duplicates corrupt state.
+
+**Handbook:** [Project 6](../career-project-specs/06-async-worker-stretch.md) · [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
+
+These items apply when your product processes background jobs or queue messages.
 
 - [ ] **Delivery semantics** (at-least-once, etc.) and **idempotency** are explicit where duplicates hurt.
 - [ ] **Backpressure / dead-letter queue (DLQ) / poison** path is considered for non-trivial throughput.
+
+**Pass:** duplicate job delivery → one side effect. **Fail:** worker assumes exactly-once with no dedupe store.
 
 **If there is persistence**
 

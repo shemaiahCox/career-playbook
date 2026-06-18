@@ -24,3 +24,10 @@ hey -n 1000 -c 50 -m GET http://localhost:8080/health
 ## How to explain this in an interview
 
 The proxy enforces upstream timeouts and graceful drain on deploy — slow backends do not wedge the whole edge.
+
+## How to capture numbers
+
+1. Run `hey` against proxy with two healthy upstreams; record p95 baseline.
+2. Configure one upstream with artificial delay; verify 502/504 within timeout budget.
+3. Send SIGTERM during load; measure drain time until process exits.
+4. Compare putting same logic in nginx vs app proxy in ADR (when to use which).

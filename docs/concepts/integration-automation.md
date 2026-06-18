@@ -43,6 +43,44 @@ Re-running a failed execution with the same business key must not **double-charg
 
 ---
 
+## n8n custom node skeleton (Illustrative)
+
+```typescript
+// Illustrative — INodeType.execute() calling your API with idempotency
+const idempotencyKey = this.getNodeParameter("idempotencyKey", 0) as string;
+await this.helpers.requestWithAuthentication.call(this, "myApi", {
+  method: "POST",
+  url: "/webhook",
+  headers: { "Idempotency-Key": idempotencyKey },
+  body: items[0].json,
+});
+```
+
+See [Project 10 — Automation bot](../../career-project-specs/10-automation-bot-lab.md) · [Illustrative snippets](illustrative-snippets.md).
+
+---
+
+## Boomi vs code-first integration
+
+| Approach | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **iPaaS (Boomi, n8n UI)** | Fast partner onboarding; visual ops | Export/secret hygiene risk | Enterprise glue, many connectors |
+| **Code-first (Project 1/6/7)** | Testable; versioned in git | Slower for non-engineers | Core product integrations |
+| **Hybrid** | UI for ops; custom nodes for hard paths | Two skill sets | Common in mid-size SaaS |
+
+### Workflow retry diagram
+
+```mermaid
+flowchart TD
+  Trigger[Trigger] --> Step[Workflow step]
+  Step -->|success| Next[Next step]
+  Step -->|transient fail| Retry[Platform retry]
+  Retry --> Step
+  Step -->|permanent fail| ErrorBranch[Error workflow]
+```
+
+---
+
 ## n8n (future lane)
 
 Custom nodes in n8n are often **TypeScript** — which aligns with [Project 7 Node/TS lab](../../career-project-specs/07-node-typescript-lab.md) as a stretch goal. The workflow JSON is the artifact; secrets live outside the graph; test **error workflows** explicitly.

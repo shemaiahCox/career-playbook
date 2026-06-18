@@ -91,7 +91,7 @@ Redis + PHP worker, Laravel queues, **Go worker** ([Project 8](08-go-retrieval-w
 
 **Deeper SQL:** Workers that UPDATE/INSERT in batches benefit from the same index and transaction thinking as the web tier—see [Project 4 — SQL performance lab](04-sql-performance-lab.md).
 
-### Key concepts (with definitions)
+### Key concepts (with definitions and code)
 
 ### Message queue (job queue)
 
@@ -126,6 +126,50 @@ Redis + PHP worker, Laravel queues, **Go worker** ([Project 8](08-go-retrieval-w
 $store->recordDeadLetter($idempotencyKey, $rawBody, $trace);
 $store->abandon($idempotencyKey);
 ```
+
+### Redis enqueue/dequeue (Illustrative)
+
+**What:** `LPUSH` to publish; worker `BRPOP` with timeout; ack by not requeueing on success.
+
+```php
+// Illustrative — producer after webhook validation
+$redis->lPush('jobs:webhook', json_encode(['job_id' => $idempotencyKey, 'payload' => $rawBody]));
+```
+
+```go
+// Illustrative — consumer loop (see Project 8)
+msg, _ := redis.BRPop(ctx, 30*time.Second, "jobs:webhook").Result()
+```
+
+### Alternatives considered
+
+| Broker / pattern | Pros | Cons | Use when |
+|------------------|------|------|----------|
+| **Redis list/stream** | Fast local dev; simple ops | Durability weaker than Kafka | Labs, startups ([default](../docs/concepts/messaging-and-rpc.md)) |
+| **DB outbox** | Same transaction as business write | Polling or CDC complexity | Strong consistency with SQL |
+| **Kafka** | Durable log; many consumers | Ops overhead locally | Event bus at scale (stretch) |
+| **SQS** | Managed; visibility timeout | AWS coupling | AWS-heavy deploy ([Project 16](16-cloud-deploy-lab.md)) |
+
+### Architecture (async path)
+
+```mermaid
+sequenceDiagram
+  participant Partner
+  participant HTTP as HTTP ingress
+  participant Q as Queue
+  participant W as Worker
+  participant DLQ as DLQ
+  Partner->>HTTP: POST webhook
+  HTTP->>Q: enqueue job_id
+  HTTP-->>Partner: 2xx fast ack
+  Q->>W: deliver at-least-once
+  W->>W: idempotent handler
+  alt poison after N tries
+    W->>DLQ: move with reason
+  end
+```
+
+**Failure modes:** duplicate delivery double-apply (missing idempotency); infinite retry on poison message (missing DLQ); ack before commit loses job on crash (document ack timing in ADR).
 
 ## Testing approach (lab)
 

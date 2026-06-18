@@ -81,6 +81,48 @@ _Document deploy in Project 8/Project 6 lab repo or `_TBD` `cloud-deploy-lab` wr
 - One cloud target (document choice in README — Fly, Railway, Amazon Elastic Container Service (ECS), or Amazon Elastic Kubernetes Service (EKS)-compatible image)
 - **GitHub Actions** — lint + test on PR (see success criteria)
 
+### Key concepts (with definitions and code)
+
+### Compose service graph
+
+**What:** `docker-compose.yml` wires app, database, queue, and health dependencies.
+
+```yaml
+# Illustrative — excerpt
+services:
+  api:
+    image: your-api:tag
+    env_file: .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+  postgres:
+    image: postgres:16
+  redis:
+    image: redis:7
+```
+
+### Cloud target comparison
+
+| Platform | Pros | Cons | Use when |
+|----------|------|------|----------|
+| **Fly / Railway** | Fast hobby deploy | Vendor lock-in light | First managed deploy |
+| **ECS/Fargate** | AWS-native | More IAM surface | AWS-heavy employers |
+| **Compose only** | Zero cloud cost | Not production-shaped alone | Local dev baseline |
+
+### Architecture
+
+```mermaid
+flowchart TB
+  Dev[Developer] --> Compose[docker compose]
+  Compose --> App[App container]
+  Compose --> PG[(Postgres)]
+  Compose --> Redis[(Redis)]
+  App --> Cloud[Managed deploy optional]
+```
+
+**Failure modes:** secrets in git; deploy without health check; no documented rollback tag.
+
 ## Success criteria
 
 - [ ] `docker compose up` brings full capstone slice locally.

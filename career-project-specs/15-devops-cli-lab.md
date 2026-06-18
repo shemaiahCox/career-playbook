@@ -88,6 +88,39 @@ _TBD — e.g. `devops-cli-lab`._ Suggested folder: [`../career-projects/15-devop
 - Reads same Redis/SQS/Postgres DLQ as [Project 6](06-async-worker-stretch.md)
 - Optional Rust port after [Project 19](19-rust-hot-path-lab.md)
 
+### Key concepts (with definitions and code)
+
+### DLQ replay subcommand
+
+**What:** Operator command to list and re-drive dead-letter messages with `--dry-run`.
+
+```go
+// Illustrative — cobra subcommand
+func runReplay(cmd *cobra.Command, args []string) error {
+    id := args[0]
+    if dryRun { fmt.Fprintf(os.Stderr, "would replay %s\n", id); return nil }
+    return client.ReplayDLQ(context.Background(), id)
+}
+```
+
+### Exit code contract
+
+| Code | Meaning | Example |
+|------|---------|---------|
+| **0** | Success | DLQ list empty |
+| **1** | Runtime error | Redis connection failed |
+| **2** | Config error | Missing `REDIS_URL` |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  Ops[Operator or CI] --> Wrap[scripts/ops-wrap.sh]
+  Wrap --> CLI[Go devops CLI]
+  CLI --> Redis[(Queue/DLQ)]
+  CLI --> API[HTTP health probe]
+```
+
 ## Success criteria
 
 - [ ] At least two subcommands (e.g. `dlq list`, `dlq replay --id`).
