@@ -14,6 +14,9 @@ Entry point: [README.md](../README.md)
 |-----|----------|
 | [concepts/architecture-framework.md](concepts/architecture-framework.md) | **Spine** — read before Project 1; every lab maps here |
 | [examples/sample-portfolio/](examples/sample-portfolio/) | Filled diagram, ADR, failure modes tagged by pillar |
+| [examples/project-outcomes/01-webhook/](examples/project-outcomes/01-webhook/) | **Read without running** — logs, HTTP, DB snapshots (Project 1) |
+| [examples/project-outcomes/02-rag-llm/](examples/project-outcomes/02-rag-llm/) | **Read without running** — `/query` contract, eval runner, logs (Project 2) |
+| [templates/project-spec-visuals.md](templates/project-spec-visuals.md) | Spec sections: System diagram + Reference outcomes |
 | [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Pillar 1 deep dive — system shape |
 
 ---
@@ -107,6 +110,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate per step |
 | [../checklists/integration-hardening.md](../checklists/integration-hardening.md) · [llm-feature-ship.md](../checklists/llm-feature-ship.md) · [application-security-web-owasp.md](../checklists/application-security-web-owasp.md) | Domain-specific ship gates |
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Resume-ready diagram, ADR (with **Pillar** tag), perf, failure modes |
+| [templates/project-spec-visuals.md](templates/project-spec-visuals.md) | Enrich project specs — diagrams + reference outcomes |
 | [templates/performance-p4-sql.md](templates/performance-p4-sql.md) · [performance-p8-go.md](templates/performance-p8-go.md) · [performance-p18-proxy.md](templates/performance-p18-proxy.md) | Pillar 4 evidence in lab repos |
 | [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) | Copy-paste patterns (idempotency, HMAC, SSE, JWT, queues) |
 
@@ -114,7 +118,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 
 ## Content quality {#content-quality}
 
-Every playbook page is scored against the **Content Quality Rubric (CQR)**: definitions (**What / Problem it solves**), examples, implementation detail, diagrams, alternative comparisons, and pros/cons. **Gold standard:** [Project 1](../career-project-specs/01-integration-webhook-receiver.md) · [Illustrative snippets](concepts/illustrative-snippets.md).
+Every playbook page is scored against the **Content Quality Rubric (CQR)**: definitions (**What / Problem it solves**), examples, implementation detail, diagrams, **reference outcome snapshots** (logs, HTTP, DB), alternative comparisons, and pros/cons. **Gold standard:** [Project 1](../career-project-specs/01-integration-webhook-receiver.md) (System diagram + Reference outcomes) · [Illustrative snippets](concepts/illustrative-snippets.md).
 
 | Tier | Action |
 |------|--------|
@@ -129,7 +133,7 @@ Every playbook page is scored against the **Content Quality Rubric (CQR)**: defi
 | [README.md](../README.md) | Amber | Nav + CQR pointer |
 | [PROGRESS.md](../PROGRESS.md) | Green | — |
 | [career-projects/README.md](../career-projects/README.md) | Green | — |
-| [career-project-specs/01–04](../career-project-specs/01-integration-webhook-receiver.md) | Green | Reference implementations |
+| [career-project-specs/01–04](../career-project-specs/01-integration-webhook-receiver.md) | Green | P1–P2 reference outcomes; P3–4 phased per [project-spec-visuals](templates/project-spec-visuals.md) |
 | [career-project-specs/05–09](../career-project-specs/05-contract-first-api.md) | Amber | Diagrams, alternatives, more code |
 | [career-project-specs/10–25](../career-project-specs/10-automation-bot-lab.md) | Red | Full Key concepts + diagrams |
 | [checklists/*](../checklists/) (6) | Amber | Why + pass/fail examples |
@@ -145,3 +149,5 @@ Every playbook page is scored against the **Content Quality Rubric (CQR)**: defi
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md), language-ecosystem-map | Green | — |
 | [templates/performance-p4/p8/p18](templates/performance-p4-sql.md) | Amber | Filled example rows |
 | [examples/sample-portfolio/*](examples/sample-portfolio/) (3) | Amber | Detection signals |
+| [examples/project-outcomes/01-webhook/*](examples/project-outcomes/01-webhook/) | Green | Project 1 captures |
+| [examples/project-outcomes/02-rag-llm/*](examples/project-outcomes/02-rag-llm/) | Green | Project 2 captures |

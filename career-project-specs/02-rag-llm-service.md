@@ -39,6 +39,30 @@
 
 Ship an **applied** LLM feature: retrieval (and optionally tools) with **evaluation**, **safety notes**, and **observability**—not a demo-only chat UI.
 
+## System diagram
+
+Clients and the eval runner hit a stable `POST /query` contract. Python owns the LLM/RAG boundary; retrieval and generation sit behind FastAPI (stub today, real store/LLM when wired).
+
+```mermaid
+flowchart LR
+  Client[Client or eval runner] -->|"POST /query"| API[FastAPI rag-llm-lab]
+  API --> Retrieve[Retrieval stub or store]
+  Retrieve --> LLM[LLM path stub or provider]
+  LLM --> API
+  API -->|"answer + cited_chunk_ids"| Client
+  EvalRunner[scripts/run_eval.py] -.->|"HTTP regression"| API
+```
+
+| Component | Pillar | Decision |
+|-----------|--------|----------|
+| Stable `POST /query` JSON contract | **1 — System shape** | Python owns LLM/RAG boundary |
+| `cited_chunk_ids` in response | **3 — Data** | Grounding accountability |
+| Eval JSONL + `run_eval.py` | **5 — Reliability** | Regression before prompt/model changes |
+| `request_id` + `latency_ms` logs | **5 — Operations** | Observability (Project 3 on same repo) |
+| Go `/retrieve` (later) | **4 — Performance** | Optional split per Project 8 |
+
+Request-level sequence: [flow.md](../docs/examples/project-outcomes/02-rag-llm/flow.md).
+
 ## Career relevance
 
 **Summary:** You practice shipping **LLM-backed features** with the same muscle memory as normal backend work: **grounding, regression tests, observability, and explicit risk notes**—so “AI” on your résumé reads as engineering, not vibes.
@@ -193,6 +217,43 @@ _log_event(
 
 **Shared patterns:** [Per-project testing (labs + AI)](../docs/concepts/per-project-testing.md).
 
+## Reference outcomes (read without running)
+
+Learn what "done" looks like before you clone the lab. Snapshots below are **captured from [rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab)** stub path (2026-06-18). Run [Exploration scenarios](#exploration-scenarios) yourself to verify.
+
+**Full captures:** [docs/examples/project-outcomes/02-rag-llm/](../docs/examples/project-outcomes/02-rag-llm/)
+
+### Structured log (`query_complete` — scenario 3)
+
+```json
+{"event": "query_complete", "request_id": "req-capture-rag-france-001", "latency_ms": 0, "model": "stub", "citations": 1}
+```
+
+Middleware also emits `http_request` with `method`, `path`, `status`. See [logs-success.jsonl](../docs/examples/project-outcomes/02-rag-llm/logs-success.jsonl).
+
+### `POST /query` 200 (France — scenario 3)
+
+```json
+{
+  "answer": "The capital of France is Paris.",
+  "cited_chunk_ids": ["doc:france:1"],
+  "session_id": "demo-session",
+  "request_id": "req-capture-rag-france-001"
+}
+```
+
+More responses (stub echo, `422` validation): [http-responses.md](../docs/examples/project-outcomes/02-rag-llm/http-responses.md).
+
+### Eval runner PASS (scenario 1)
+
+```text
+OK line 1
+OK line 2
+All cases passed.
+```
+
+Example FAIL shape when regression introduced: [eval-output.md](../docs/examples/project-outcomes/02-rag-llm/eval-output.md). Case file ↔ response mapping: [eval-cases.md](../docs/examples/project-outcomes/02-rag-llm/eval-cases.md).
+
 ## Success criteria
 
 - [ ] `POST /query` — accepts user question + optional session id; returns answer + cited chunk ids (when RAG wired).
@@ -203,7 +264,7 @@ _log_event(
 
 ## Exploration scenarios
 
-Run against [`02-rag-llm-lab`](../career-projects/02-rag-llm-lab) ([GitHub](https://github.com/shemaiahCox/rag-llm-lab)) locally; put API curls and env notes in that repo's README. Focus on **evals**, **response contract**, and **logs**—not chat UX polish.
+Run against [`02-rag-llm-lab`](../career-projects/02-rag-llm-lab) ([GitHub](https://github.com/shemaiahCox/rag-llm-lab)) locally; put API curls and env notes in that repo's README. Focus on **evals**, **response contract**, and **logs**—not chat UX polish. Captured examples: [project-outcomes/02-rag-llm/](../docs/examples/project-outcomes/02-rag-llm/).
 
 ### 1 — Eval suite green
 
@@ -270,7 +331,7 @@ Ship `scripts/bootstrap-env.sh` — verify `python3`, venv, and required env var
 
 ## Portfolio artifacts
 
-Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+After you build the lab, commit **your own** interview packet under `docs/portfolio/` in the lab repo. Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Read-only exemplars (HTTP, logs, eval output): [project-outcomes/02-rag-llm/](../docs/examples/project-outcomes/02-rag-llm/).
 
 - [ ] **Architecture diagram** — `POST /query` → retrieval → LLM → response with `cited_chunk_ids`.
 - [ ] **ADR** — orchestration library choice (LangChain vs thin SDK) or embedding store decision.

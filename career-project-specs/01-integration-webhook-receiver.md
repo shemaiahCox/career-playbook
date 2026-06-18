@@ -37,6 +37,29 @@
 
 Practice a **production-shaped** HTTP inbound integration: verify caller, dedupe replays, log usefully, and optionally park poison messages.
 
+## System diagram
+
+Partner systems POST signed webhooks. Your receiver verifies HMAC on the **raw body**, records idempotency before side effects, and parks poison payloads in a dead-letter store.
+
+```mermaid
+flowchart LR
+  Partner[Partner or iPaaS] -->|"POST /webhook"| Ingress[Webhook receiver]
+  Ingress -->|"verify HMAC raw body"| Ingress
+  Ingress -->|"upsert idempotency key"| Store[(SQLite)]
+  Ingress -->|"200 same body on replay"| Partner
+  Ingress -.->|"poison payload"| DLQ[(dead_letters table)]
+```
+
+| Component / path | Pillar | Decision |
+|------------------|--------|----------|
+| Fast 2xx after idempotency write | **1 — System shape** | HTTP ack before heavy downstream work |
+| HMAC on raw body before JSON parse | **5 — Reliability and security** | Forged POST rejected at edge |
+| Idempotency key store | **2 — Integration** | At-least-once transport; effectively-once business effect |
+| `idemp` schema | **3 — Data** | Unique constraint on idempotency key |
+| `dead_letters` branch | **2 + 5** | Poison messages parked without blocking partner retries |
+
+Request-level sequence: [flow.md](../docs/examples/project-outcomes/01-webhook/flow.md).
+
 ## Career relevance
 
 **Summary:** You learn to treat inbound webhooks like money-moving, security-sensitive **integrations**—not demos. That means proving who sent the event, making retries safe, and leaving an audit trail when something goes wrong.
@@ -204,6 +227,51 @@ header('X-Request-Id: ' . $requestId);
 
 **Shared patterns:** [Per-project testing (labs + AI)](../docs/concepts/per-project-testing.md).
 
+## Reference outcomes (read without running)
+
+Learn what "done" looks like before you clone the lab. Snapshots below are **captured from [webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)** (2026-06-18). Run [Exploration scenarios](#exploration-scenarios) yourself to verify.
+
+**Full captures:** [docs/examples/project-outcomes/01-webhook/](../docs/examples/project-outcomes/01-webhook/)
+
+### Structured log (success path — scenario 1)
+
+```json
+{"ts":"2026-06-18T21:22:19+00:00","level":"info","message":"webhook_ok","request_id":"req-capture-happy-001","idempotency_key":"capture-key-happy-1","duration_ms":2}
+```
+
+Replay logs `idempotent_replay` with a new `request_id` but does not re-run the handler. See [logs-success.jsonl](../docs/examples/project-outcomes/01-webhook/logs-success.jsonl).
+
+### Structured log (rejection — scenario 3)
+
+```json
+{"ts":"2026-06-18T21:22:19+00:00","level":"warning","message":"signature_rejected","request_id":"a05fa30c41b04fe12b9d5ddfc95ff8e5","error":"invalid signature","duration_ms":0}
+```
+
+More reject paths: [logs-reject.jsonl](../docs/examples/project-outcomes/01-webhook/logs-reject.jsonl).
+
+### HTTP `200` (first delivery — scenario 1)
+
+```http
+HTTP/1.1 200 OK
+X-Request-Id: req-capture-happy-001
+
+{"result":{"ok":true,"received":{"event":"test.ping","data":{"n":1}}},"request_id":"req-capture-happy-001"}
+```
+
+### HTTP `401` (invalid signature — scenario 3)
+
+```http
+HTTP/1.1 401 Unauthorized
+
+{"error":"invalid signature","request_id":"a05fa30c41b04fe12b9d5ddfc95ff8e5"}
+```
+
+All status shapes (400, 409, 500): [http-responses.md](../docs/examples/project-outcomes/01-webhook/http-responses.md).
+
+### Idempotency store row (after replay — scenario 2)
+
+After a successful delivery and replay, `idemp` holds one `completed` row — no duplicate processing. See [store-snapshots.md](../docs/examples/project-outcomes/01-webhook/store-snapshots.md).
+
 ## Success criteria
 
 - [ ] `POST /webhook` accepts JSON payloads.
@@ -215,7 +283,7 @@ header('X-Request-Id: ' . $requestId);
 
 ## Exploration scenarios
 
-Hands-on cases to **drive the code paths** and deepen **engineering vocabulary** (signatures, idempotency, dead letters, concurrency). Keep commands and exact headers next to runnable code in the **lab README** ([webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)); use this section as the **menu of outcomes** to verify.
+Hands-on cases to **drive the code paths** and deepen **engineering vocabulary** (signatures, idempotency, dead letters, concurrency). Keep commands and exact headers next to runnable code in the **lab README** ([webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)); use this section as the **menu of outcomes** to verify. Captured HTTP/log/DB examples: [project-outcomes/01-webhook/](../docs/examples/project-outcomes/01-webhook/).
 
 ### 1 — Happy path (first delivery)
 
@@ -289,7 +357,7 @@ See [Bash map](../docs/languages/bash.md) and [Project 14](14-shell-automation-l
 
 ## Portfolio artifacts
 
-Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.
+After you build the lab, commit **your own** interview packet under `docs/portfolio/` in the lab repo. Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Read-only exemplars (logs, HTTP, DB snapshots): [project-outcomes/01-webhook/](../docs/examples/project-outcomes/01-webhook/).
 
 - [ ] **Architecture diagram** — partner → HMAC verify → idempotency store → handler / DLQ paths.
 - [ ] **ADR** — e.g. SQLite file vs shared Postgres; raw-body HMAC before parse.

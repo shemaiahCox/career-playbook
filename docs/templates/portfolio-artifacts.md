@@ -2,7 +2,9 @@
 
 Each lab repo should accumulate an **interview packet** under `docs/portfolio/` (or equivalent README sections). Commit artifacts when you call the milestone **done** — they are what senior engineers show in reviews and interviews.
 
-**Framework:** tag every architecture decision record (ADR) and diagram to a [pillar](../concepts/architecture-framework.md#the-five-pillars). **Quality bar:** [sample portfolio](../examples/sample-portfolio/).
+**Framework:** tag every architecture decision record (ADR) and diagram to a [pillar](../concepts/architecture-framework.md#the-five-pillars). **Quality bar:** [sample portfolio](../examples/sample-portfolio/). **Read without running:** [project-outcomes/01-webhook](../examples/project-outcomes/01-webhook/) (playbook exemplars; your lab copies go under `docs/portfolio/`).
+
+**Spec vs lab:** Project specs include [Reference outcomes](../templates/project-spec-visuals.md) for learning. This template is what **you** commit after shipping the lab.
 
 **Template location:** this file lives in the playbook; copy structure into your lab repo.
 

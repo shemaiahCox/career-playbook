@@ -1,7 +1,8 @@
 # Sample architecture diagram — webhook ingress (Project 1)
 
 **Purpose:** Reference quality bar for `docs/portfolio/architecture.md` in lab repos.  
-**Framework:** [Architecture framework](../../concepts/architecture-framework.md)
+**Framework:** [Architecture framework](../../concepts/architecture-framework.md)  
+**Extended captures (logs, HTTP, DB):** [project-outcomes/01-webhook/](../project-outcomes/01-webhook/)
 
 ## System context
 

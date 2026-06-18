@@ -1,0 +1,4 @@
+{"event": "query_complete", "request_id": "req-capture-rag-france-001", "latency_ms": 0, "model": "stub", "citations": 1}
+{"event": "http_request", "request_id": "req-capture-rag-france-001", "latency_ms": 1, "method": "POST", "path": "/query", "status": 200}
+{"event": "query_complete", "request_id": "req-capture-rag-echo-002", "latency_ms": 0, "model": "stub", "citations": 0}
+{"event": "http_request", "request_id": "req-capture-rag-echo-002", "latency_ms": 0, "method": "POST", "path": "/query", "status": 200}
