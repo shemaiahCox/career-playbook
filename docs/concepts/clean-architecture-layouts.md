@@ -2,7 +2,7 @@
 
 This doc explains **what each Clean Architecture layer is**, **how layers interact**, and **where code would live in folders** if you chose to express those layers explicitly. It is **reference material only** — not a mandate for playbook labs.
 
-**Companion docs:** [Architectural patterns](software-engineering.md#architectural-patterns) · [Domain-Driven Design (DDD)](software-engineering.md#domain-driven-design-ddd) · [Software engineering glossary — Clean / Onion](software-engineering-glossary.md#clean--onion-architecture) · [Architecture checklist — Phase 5](architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent) · [Architecture framework](architecture-framework.md)
+**Companion docs:** [Architectural patterns](software-engineering.md#architectural-patterns) · [Domain-Driven Design (DDD)](software-engineering.md#domain-driven-design-ddd) · [Software engineering glossary — Clean / Onion](software-engineering-glossary.md#clean--onion-architecture) · [Architecture checklist — Phase 5](../../checklists/architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent) · [Architecture framework](architecture-framework.md)
 
 ---
 
@@ -663,6 +663,6 @@ This aligns with [Architectural patterns](software-engineering.md#architectural-
 | [software-engineering.md § Architectural patterns](software-engineering.md#architectural-patterns) | Layered, hexagonal, clean/onion, event-driven |
 | [software-engineering.md § DDD](software-engineering.md#domain-driven-design-ddd) | Entities, value objects, aggregates, repositories |
 | [software-engineering-glossary.md § Clean / Onion](software-engineering-glossary.md#clean--onion-architecture) | Short definition and dependency rule |
-| [architecture-checklist.md § Phase 5](architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent) | Where invariants live, dependency rule questions |
+| [architecture-checklist.md § Phase 5](../../checklists/architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent) | Where invariants live, dependency rule questions |
 | [architecture-framework.md](architecture-framework.md) | Five pillars — system/integration/data/performance/ops |
 | [Language ecosystem maps](../languages/) | **Prescribed lab layouts** — unchanged by this doc |

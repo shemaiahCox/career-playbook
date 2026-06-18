@@ -2,7 +2,7 @@
 
 A **complete questionnaire** for designing and shipping software in production — greenfield or brownfield, startup or enterprise. Work top-to-bottom for a new system; skip sections marked N/A and revisit as you scale.
 
-**Companion:** [Architecture framework](architecture-framework.md) (five pillars) · [SDLC playbook map](sdlc-playbook-map.md) · [Production readiness](../../checklists/production-readiness.md) · [Portfolio artifacts](../templates/portfolio-artifacts.md) · [Software engineering handbook](software-engineering.md)
+**Companion:** [Architecture framework](../docs/concepts/architecture-framework.md) (five pillars) · [SDLC playbook map](../docs/concepts/sdlc-playbook-map.md) · [Production readiness](production-readiness.md) · [Portfolio artifacts](../docs/templates/portfolio-artifacts.md) · [Software engineering handbook](../docs/concepts/software-engineering.md)
 
 **How to use:** Treat each bullet as a question. For irreversible forks, write a one-page **Architecture Decision Record (ADR)** (context → decision → consequences). For ship gates, require explicit answers — not "TBD."
 
@@ -195,7 +195,7 @@ Decisions here should be **evidence-based** (team skills, NFRs, ecosystem) — n
 - Read replicas, caching layer, Command Query Responsibility Segregation (CQRS) read models?
 - Backup, point-in-time recovery, restore tested?
 
-See [Database design](database-design.md) for depth.
+See [Database design](../docs/concepts/database-design.md) for depth.
 
 ### Messaging and async
 
@@ -214,7 +214,7 @@ See [Database design](database-design.md) for depth.
 - Dead Letter Queue (DLQ), replay, poison message handling?
 - Transactional outbox vs dual-write?
 
-See [Messaging and RPC](messaging-and-rpc.md) and [integration hardening](../../checklists/integration-hardening.md).
+See [Messaging and RPC](../docs/concepts/messaging-and-rpc.md) and [integration hardening](integration-hardening.md).
 
 ### API and integration styles
 
@@ -285,7 +285,7 @@ See [Messaging and RPC](messaging-and-rpc.md) and [integration hardening](../../
 - Cost per request; caching embeddings/responses?
 - Latency budget: sync in request path vs async job?
 
-See [LLM feature ship](../../checklists/llm-feature-ship.md) when shipping user-facing AI paths.
+See [LLM feature ship](llm-feature-ship.md) when shipping user-facing AI paths.
 
 **Tech stack gate:** Every major choice has a one-paragraph **why not the alternative** in an ADR.
 
@@ -293,7 +293,7 @@ See [LLM feature ship](../../checklists/llm-feature-ship.md) when shipping user-
 
 ## Phase 4 — Architectural design
 
-Draw **one diagram** before coding. Tag decisions to the [five pillars](architecture-framework.md#the-five-pillars):
+Draw **one diagram** before coding. Tag decisions to the [five pillars](../docs/concepts/architecture-framework.md#the-five-pillars):
 
 1. **System shape** — boundaries, sync vs async, ownership
 2. **Integration** — delivery semantics, contracts, retries
@@ -311,7 +311,7 @@ Draw **one diagram** before coding. Tag decisions to the [five pillars](architec
 - CQRS / event sourcing — justified or overkill?
 - For AI: ingress, retrieval, inference, post-processing — separate services?
 
-**Patterns to consider:** layered, hexagonal, clean/onion, event-driven ([architectural patterns](software-engineering.md#architectural-patterns)).
+**Patterns to consider:** layered, hexagonal, clean/onion, event-driven ([architectural patterns](../docs/concepts/software-engineering.md#architectural-patterns)).
 
 ### Integration architecture
 
@@ -345,7 +345,7 @@ Draw **one diagram** before coding. Tag decisions to the [five pillars](architec
 - Fan-out on read vs write (feeds, notifications)
 - CDN, edge caching, geographic latency
 
-See [Memory and performance](memory-and-performance.md).
+See [Memory and performance](../docs/concepts/memory-and-performance.md).
 
 ### Reliability, security, operations (design-time)
 
@@ -367,7 +367,7 @@ See [Memory and performance](memory-and-performance.md).
 - Bounded contexts and ubiquitous language per module?
 - Domain-Driven Design (DDD) aggregates where domain is complex; avoid anemic domain model
 - Dependency rule: inner layers never import HTTP/ORM details
-- Folder layout reference (illustrative, not required for labs): [Clean Architecture folder layouts](clean-architecture-layouts.md)
+- Folder layout reference (illustrative, not required for labs): [Clean Architecture folder layouts](../docs/concepts/clean-architecture-layouts.md)
 
 **SOLID and pragmatism**
 - Single responsibility per module — but avoid god-class fragmentation
@@ -418,7 +418,7 @@ See [Memory and performance](memory-and-performance.md).
 - PII-safe synthetic data
 - Testcontainers or dedicated test DB — not shared mutable state
 
-See [Per-project testing](per-project-testing.md) for lab-specific emphasis and [production readiness](../../checklists/production-readiness.md) for the ship gate.
+See [Per-project testing](../docs/concepts/per-project-testing.md) for lab-specific emphasis and [production readiness](production-readiness.md) for the ship gate.
 
 **Release gate checklist (production readiness)**
 - [ ] Retries safe with idempotency
@@ -464,7 +464,7 @@ See [Per-project testing](per-project-testing.md) for lab-specific emphasis and 
 - Deployment notifications and change log
 - Rollback criteria: error rate, latency, business metric
 
-See [CI/CD and delivery](software-engineering.md#cicd-and-delivery).
+See [CI/CD and delivery](../docs/concepts/software-engineering.md#cicd-and-delivery).
 
 ---
 
@@ -501,7 +501,7 @@ See [CI/CD and delivery](software-engineering.md#cicd-and-delivery).
 - Multi-Availability Zone (AZ) minimum; multi-region if required
 - Incident comms: status page, customer notification template
 
-See [Observability: logs, metrics, traces](software-engineering.md#observability-logs-metrics-traces).
+See [Observability: logs, metrics, traces](../docs/concepts/software-engineering.md#observability-logs-metrics-traces).
 
 ---
 
@@ -534,7 +534,7 @@ See [Observability: logs, metrics, traces](software-engineering.md#observability
 - Soak test for memory leaks and connection exhaustion
 - Load test after major releases
 
-See [System design interview map — capacity estimation](../career/system-design-interview-map.md#capacity-estimation-cheat-sheet) for order-of-magnitude math.
+See [System design interview map — capacity estimation](../docs/career/system-design-interview-map.md#capacity-estimation-cheat-sheet) for order-of-magnitude math.
 
 ---
 
@@ -639,7 +639,7 @@ This checklist is **domain-agnostic** — apply to APIs, data pipelines, SaaS, i
 
 ## See also
 
-- [Architecture framework](architecture-framework.md) — five pillars and reference shape
-- [SDLC playbook map](sdlc-playbook-map.md) — how playbook projects map to lifecycle phases
-- [Production readiness](../../checklists/production-readiness.md) — detailed ship gate per lab step
-- [Portfolio artifacts](../templates/portfolio-artifacts.md) — diagram, ADR, failure modes template
+- [Architecture framework](../docs/concepts/architecture-framework.md) — five pillars and reference shape
+- [SDLC playbook map](../docs/concepts/sdlc-playbook-map.md) — how playbook projects map to lifecycle phases
+- [Production readiness](production-readiness.md) — detailed ship gate per lab step
+- [Portfolio artifacts](../docs/templates/portfolio-artifacts.md) — diagram, ADR, failure modes template

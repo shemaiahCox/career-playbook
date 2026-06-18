@@ -6,7 +6,7 @@
 
 **Quality bar example:** [sample portfolio](../examples/sample-portfolio/) — filled diagram, Architecture Decision Record (ADR), and failure modes tagged by pillar.
 
-**Full lifecycle checklist:** [architecture-checklist.md](architecture-checklist.md) — real-world questions from feasibility through scale (usable outside the lab path).
+**Full lifecycle checklist:** [architecture-checklist.md](../../checklists/architecture-checklist.md) — real-world questions from feasibility through scale (usable outside the lab path).
 
 ---
 

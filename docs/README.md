@@ -13,7 +13,6 @@ Entry point: [README.md](../README.md)
 | Doc | Use when |
 |-----|----------|
 | [concepts/architecture-framework.md](concepts/architecture-framework.md) | **Spine** — read before Project 1; every lab maps here |
-| [concepts/architecture-checklist.md](concepts/architecture-checklist.md) | **Real-world checklist** — feasibility through scale; tech stack tradeoffs |
 | [examples/sample-portfolio/](examples/sample-portfolio/) | Filled diagram, ADR, failure modes tagged by pillar |
 | [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Pillar 1 deep dive — system shape |
 
@@ -66,7 +65,7 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 
 ### Cross-cutting reference
 
-[concepts/architecture-checklist.md](concepts/architecture-checklist.md) · [concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
+[concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
 
 ---
 
@@ -104,10 +103,11 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 
 | Doc | Use when |
 |-----|----------|
-| [concepts/architecture-checklist.md](concepts/architecture-checklist.md) | Full lifecycle questionnaire — feasibility, stack tradeoffs, ops, scale |
+| [../checklists/architecture-checklist.md](../checklists/architecture-checklist.md) | Full lifecycle questionnaire — feasibility, stack tradeoffs, ops, scale |
+| [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate per step |
+| [../checklists/integration-hardening.md](../checklists/integration-hardening.md) · [llm-feature-ship.md](../checklists/llm-feature-ship.md) · [application-security-web-owasp.md](../checklists/application-security-web-owasp.md) | Domain-specific ship gates |
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Resume-ready diagram, ADR (with **Pillar** tag), perf, failure modes |
 | [templates/performance-p4-sql.md](templates/performance-p4-sql.md) · [performance-p8-go.md](templates/performance-p8-go.md) · [performance-p18-proxy.md](templates/performance-p18-proxy.md) | Pillar 4 evidence in lab repos |
-| [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate per step |
 | [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) | Copy-paste patterns (idempotency, HMAC, SSE, JWT, queues) |
 
 ---
