@@ -1,8 +1,8 @@
 # Portfolio artifacts template (resume-ready)
 
-Each lab repo should accumulate an **interview packet** under `docs/portfolio/` (or equivalent README sections). Commit artifacts when you call the milestone **done**—they are what senior engineers show in reviews and interviews.
+Each lab repo should accumulate an **interview packet** under `docs/portfolio/` (or equivalent README sections). Commit artifacts when you call the milestone **done** — they are what senior engineers show in reviews and interviews.
 
-**Framework:** tag every ADR and diagram to a [pillar](../concepts/architecture-framework.md#the-five-pillars). **Quality bar:** [sample portfolio](../examples/sample-portfolio/).
+**Framework:** tag every architecture decision record (ADR) and diagram to a [pillar](../concepts/architecture-framework.md#the-five-pillars). **Quality bar:** [sample portfolio](../examples/sample-portfolio/).
 
 **Template location:** this file lives in the playbook; copy structure into your lab repo.
 
@@ -11,6 +11,8 @@ Each lab repo should accumulate an **interview packet** under `docs/portfolio/` 
 ## 1. Architecture diagram
 
 **File:** `docs/portfolio/architecture.md` (or `architecture.png` + short caption)
+
+This diagram shows how your service fits in the system — who calls whom and where data flows.
 
 One box-and-arrow diagram showing:
 
@@ -35,7 +37,7 @@ flowchart LR
 
 **File:** `docs/portfolio/adr-001-short-title.md`
 
-One page per significant fork. Glossary: [ADR](../concepts/software-engineering-glossary.md#adr-architecture-decision-record).
+Use one page per significant fork — what you chose, what you rejected, and why. Glossary: [ADR](../concepts/software-engineering-glossary.md#adr-architecture-decision-record).
 
 ```markdown
 # ADR-001: [Short title]
@@ -64,6 +66,8 @@ Cross-project ADRs (e.g. Go vs Rust) may also live in playbook [PROGRESS.md](../
 ## 3. Performance numbers
 
 **File:** `docs/portfolio/performance.md`
+
+Record at least one measured baseline or before/after — numbers beat claims in interviews.
 
 At least **one measured** baseline or before/after:
 
@@ -94,14 +98,16 @@ See [Memory and performance](../concepts/memory-and-performance.md) for measure 
 
 **File:** `docs/portfolio/failure-modes.md`
 
-Three bullets minimum—what breaks in production **without** this project’s mitigations:
+List what breaks in production **without** this project’s mitigations — this is interview gold.
+
+Three bullets minimum — what breaks in production **without** this project’s mitigations:
 
 ```markdown
 ## Failure modes without this work
 
 1. **Duplicate webhook delivery** → double billing unless idempotency key stored.
-2. **Forged POST** → unauthorized state change unless HMAC verified on raw body.
-3. **Poison payload loop** → partner retries forever unless DLQ + documented abandon.
+2. **Forged POST** → unauthorized state change unless hash-based message authentication code (HMAC) verified on raw body.
+3. **Poison payload loop** → partner retries forever unless dead-letter queue (DLQ) + documented abandon.
 ```
 
 Mirror optional **Failure mode** field in [PROGRESS.md](../../PROGRESS.md) milestone entries.
@@ -112,13 +118,15 @@ Mirror optional **Failure mode** field in [PROGRESS.md](../../PROGRESS.md) miles
 
 **File:** `docs/portfolio/observability.png` (or `.md` with fenced log excerpt)
 
+Attach proof that you can trace a real request — screenshot or redacted log snippet.
+
 Screenshot or redacted log snippet showing:
 
 - **request_id** (or trace id) on a real request
 - Latency or status in structured form
 - Optional: metric dashboard or grep count
 
-**Do not commit:** API keys, tokens, full prompts with PII, production customer data.
+**Do not commit:** API keys, tokens, full prompts with personally identifiable information (PII), production customer data.
 
 Project 3 success criteria often satisfy this artifact for the host service; still copy one excerpt into `docs/portfolio/` for the portfolio folder.
 

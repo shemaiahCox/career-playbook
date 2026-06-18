@@ -39,20 +39,37 @@ Take [Project 8](08-go-retrieval-worker-lab.md) (or Project 6+Project 4 stack) t
 
 ### In depth
 
-Employers hiring for Go/Python/TS backends expect **Docker literacy** and basic deploy hygiene. This lab is prerequisite for [Project 17](17-k8s-controller-lab.md) (K8s assumes you already ship containers).
+Employers hiring for Go/Python/TypeScript (TS) backends expect **Docker literacy** and basic deploy hygiene. This lab is prerequisite for [Project 17](17-k8s-controller-lab.md) (Kubernetes assumes you already ship containers).
+
+**Why learning this moves the needle**
+
+- **Deploy confidence:** A documented path from local Compose to one managed environment proves you can ship—not only develop.
+- **Secrets hygiene:** Credentials in git is an instant disqualifier in security-minded reviews; platform secret stores and `.env.example`-only repos show maturity.
+- **Rollback stories:** Interviewers ask what happens when a deploy goes bad; “redeploy previous image tag” with verified steps beats hand-waving.
+
+**Real-world situations this project mirrors**
+
+- **First production deploy:** Fly, Railway, Amazon Elastic Container Service (ECS), or similar—one platform chosen and documented step-by-step.
+- **CI on every PR:** GitHub Actions lint + test badge in README; deploy scripts from [Project 14](14-shell-automation-lab.md) run post-deploy smoke.
+- **Managed queue switch:** local Redis to cloud-shaped queue URL with env parity documented.
+
+### How to talk about this
+
+You deploy the worker and API as containers with health checks and secrets in the platform store—rollback is redeploy previous tag. When interviewers ask about immutability, describe one image or artifact per release with tagged deploys. When they ask about readiness, explain liveness vs readiness endpoints and Compose `healthcheck` blocks that gate dependent services.
 
 ## Important concepts
 
-### Concept spotlight
+### Immutable deploy
 
-| **Immutable deploy** | Image or artifact per release; tagged deploy; rollback story |
-| **Secrets management** | Env from platform secret store; `.env.example` only in git |
-| **Health checks** | Liveness/readiness endpoints; compose `healthcheck` blocks |
+Ship one image or artifact per release; tag each deploy; document rollback as redeploy of the previous known-good tag—not in-place edits on running hosts.
 
-**Interview line:** *“We deploy the worker and API as containers with health checks and secrets in the platform store—rollback is redeploy previous tag.”*
+### Secrets management
 
+Load secrets from the platform secret store at runtime. Git contains only `.env.example` listing key names—never values. Fail fast at startup when required secrets are missing.
 
-**Interview line:** *“We deploy the worker and API as containers with health checks and secrets in the platform store—rollback is redeploy previous tag.”*
+### Health checks
+
+Expose liveness and readiness HTTP endpoints. Compose `healthcheck` blocks (and cloud platform probes) should gate traffic and dependent service startup on real readiness—not merely “process is running.”
 
 ## Code repo
 
@@ -61,7 +78,7 @@ _Document deploy in Project 8/Project 6 lab repo or `_TBD` `cloud-deploy-lab` wr
 ## Stack
 
 - **Docker Compose** — app + Postgres + Redis/NATS
-- One cloud target (document choice in README — Fly, Railway, **ECS**, or **EKS**-compatible image)
+- One cloud target (document choice in README — Fly, Railway, Amazon Elastic Container Service (ECS), or Amazon Elastic Kubernetes Service (EKS)-compatible image)
 - **GitHub Actions** — lint + test on PR (see success criteria)
 
 ## Success criteria

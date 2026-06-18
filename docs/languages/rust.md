@@ -1,6 +1,6 @@
 # Ecosystem map: Rust
 
-**Use this:** **Rust** is a **Tier‑2 growth lane**—after you ship [Project 8 Go](../../career-project-specs/08-go-retrieval-worker-lab.md)—for comparing hot-path implementations, edge/IoT-adjacent stretches, and systems literacy. **Go remains the primary throughput lane** on the playbook spine; **Python** owns LLM logic.
+**Use this:** **Rust** is a **second growth lane**—after you ship [Project 8 Go](../../career-project-specs/08-go-retrieval-worker-lab.md)—for comparing hot-path implementations, edge/IoT-adjacent stretches, and systems literacy. **Go remains the primary throughput lane** on the playbook spine; **Python** owns LLM logic.
 
 **Companion:** [docs README](../README.md) · [Project 8 — optional Rust stretch](../../career-project-specs/08-go-retrieval-worker-lab.md#stretch) · [Language fundamentals — Rust](language-fundamentals-comparison.md)
 
@@ -31,7 +31,7 @@
 
 | Execution | Typing | Memory / concurrency |
 |-----------|--------|----------------------|
-| **AOT compiled** via `cargo build`; no runtime interpreter | Static typing; **ownership** + **borrow checker** enforce memory safety at compile time | No GC; **`Result`/`Option`** for errors/absence; **`async`/`await`** + **tokio** after sync path is solid |
+| **Ahead-of-time (AOT) compiled** via `cargo build`; no runtime interpreter | Static typing; **ownership** + **borrow checker** enforce memory safety at compile time | No garbage collection (GC); **`Result`/`Option`** for errors/absence; **`async`/`await`** + **tokio** after sync path is solid |
 
 ---
 
@@ -75,7 +75,7 @@ myworker/
 
 **Ownership / errors**
 
-- Each value has one owner; **borrow** (`&T`) for read-only access; **`Result<T,E>`** + **`?`** at integration boundaries—map to HTTP 500 / DLQ like Go workers.
+- Each value has one owner; **borrow** (`&T`) for read-only access; **`Result<T,E>`** + **`?`** at integration boundaries—map to HTTP 500 / dead-letter queue (DLQ) like Go workers.
 
 **HTTP / workers**
 
@@ -104,7 +104,7 @@ myworker/
 | **Ownership** | Rust tracks who may read/write memory; prevents use-after-free and data races at compile time. |
 | **Borrow** | Temporary access to data without taking ownership (`&foo`). |
 | **Crate** | Rust package (library or binary) built by Cargo. |
-| **Tier‑2 growth lane** | Practice **after** the Go spine milestone—not in parallel with it as a second active lab. |
+| **Second growth lane** | Practice **after** the Go spine milestone—not in parallel with it as a second active lab. |
 
 ### Read next (handbook)
 

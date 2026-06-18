@@ -14,10 +14,10 @@ Alternative considered: single sync request that completes all business logic be
 
 ## Decision
 
-- Verify HMAC on **raw body**, then parse JSON.
+- Verify hash-based message authentication code (HMAC) on **raw body**, then parse JSON.
 - **Upsert idempotency key** in a transaction; if already processed, return stored response immediately.
 - Return **2xx after durable idempotency record** — enqueue or apply business change in same transaction where possible.
-- Park unparseable or repeatedly failing payloads in **DLQ** with evidence.
+- Park unparseable or repeatedly failing payloads in **dead-letter queue (DLQ)** with evidence.
 
 Rejected: long sync handler that holds partner connection through downstream API calls.
 

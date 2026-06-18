@@ -2,7 +2,7 @@
 
 **Purpose:** Mentor-depth explanations of the **20 language tripwires** that bite backend engineers on this playbook's core stack. Each section covers **what happens**, **why**, **the production bug it causes**, and **the habit senior engineers use**.
 
-**How to use:** Read one gotcha before your active lab when you are translating between stacks—not as a substitute for building. Skim the [Senior interview prep](#senior-interview-prep) section when prepping for backend screens.
+**How to use:** Read one gotcha before your active lab when you are translating between stacks—not as a substitute for building. Skim [Interview prep](#interview-prep) when prepping for backend screens.
 
 **Companion docs:** [Language fundamentals comparison](language-fundamentals-comparison.md) (syntax tables + Go/Rust) · [Python stack](python.md) · [PHP + Laravel](php-laravel.md) · [Node + TypeScript](node-typescript-backend.md) · [Software engineering](../concepts/software-engineering.md)
 
@@ -30,13 +30,15 @@
 18. [Python list multiplication aliasing](#18-python-list-multiplication-aliasing)
 19. [PHP `foreach` copies values](#19-php-foreach-copies-values)
 20. [JavaScript `NaN` behavior](#20-javascript-nan-behavior)
-- [Senior interview prep](#senior-interview-prep)
+- [Interview prep](#interview-prep)
 
 ---
 
 ## 1. Truthiness and loose typing
 
 ### Example
+
+**What these show:** How `Boolean()` / `bool()` / `==` treat empty strings, zero, `"0"`, and empty containers. **Why it matters:** Truthiness rules differ—guessing causes validation bugs. **When to care:** Any `if (value)` guard on user or partner input.
 
 ```javascript
 // JavaScript / TypeScript
@@ -81,7 +83,7 @@ if (userInput) {
 
 A user enters `"0"` for a quantity or flag; your guard passes when you meant "no value provided."
 
-### Senior dev rule
+### Safer habit
 
 Use **explicit checks**, not truthiness, when the domain cares about `"0"`, empty string, or zero:
 
@@ -98,6 +100,8 @@ In PHP, use `===` always. In Python, compare to `None` with `is` and use explici
 ## 2. Python mutable default arguments
 
 ### Example
+
+**What:** A function default list shared across calls. **Why:** Defaults are evaluated once at definition time. **When:** Any helper with `=[]`—especially FastAPI dependencies.
 
 ```python
 def add_item(item, lst=[]):
@@ -116,7 +120,7 @@ Default argument values are evaluated **once**, at **function definition time**.
 
 A FastAPI dependency or helper that accumulates into a default list leaks state **between HTTP requests** in the same worker process—one tenant's data can appear in another's response.
 
-### Senior dev rule
+### Safer habit
 
 Never use mutable defaults. Use `None` and create a fresh container inside the function:
 
@@ -135,6 +139,8 @@ def add_item(item, lst=None):
 ## 3. Loop variable capture (JS/TS)
 
 ### Example
+
+**What:** `var` vs `let` in a loop scheduling timeouts. **Why:** Function-scoped `var` shares one binding. **When:** Scheduling N async callbacks from a loop (Project 7).
 
 ```javascript
 for (var i = 0; i < 3; i++) {
@@ -158,7 +164,7 @@ for (let i = 0; i < 3; i++) {
 
 Scheduling N queue jobs or timers in a loop with `var` fires N handlers that all see the final index—duplicate work, skipped items, or out-of-bounds access.
 
-### Senior dev rule
+### Safer habit
 
 Use `let` in loops. Avoid `var` unless you can explain exactly why you need function scope. In TypeScript, `for...of` with `const` is usually clearest.
 
@@ -169,6 +175,8 @@ Use `let` in loops. Avoid `var` unless you can explain exactly why you need func
 ## 4. PHP arrays are ordered hash maps
 
 ### Example
+
+**What:** `unset` leaves sparse numeric keys. **Why:** PHP arrays are hash tables, not vectors. **When:** Any numeric `for` loop over arrays after deletion.
 
 ```php
 <?php
@@ -192,7 +200,7 @@ for ($i = 0; $i < count($a); $i++) {
 
 After `unset`, numeric loops skip or hit missing indices.
 
-### Senior dev rule
+### Safer habit
 
 Iterate with `foreach ($a as $v)` or reindex with `array_values($a)` when you need dense 0..n-1 access.
 
@@ -203,6 +211,8 @@ Iterate with `foreach ($a as $v)` or reindex with `array_values($a)` when you ne
 ## 5. JavaScript floating-point precision
 
 ### Example
+
+**What:** Decimal arithmetic in IEEE-754 doubles. **Why:** 0.1 and 0.2 are not exact in binary. **When:** Money, tax, or rate comparisons with `===`.
 
 ```javascript
 0.1 + 0.2 === 0.3   // false
@@ -217,7 +227,7 @@ JavaScript numbers are IEEE-754 **double-precision floats**. Decimal fractions l
 
 Comparing invoice totals, tax lines, or rate-limiter thresholds with `===` after arithmetic rejects valid payments or triggers false alerts.
 
-### Senior dev rule
+### Safer habit
 
 Never compare floats for exact equality in business logic. Use integer cents, a decimal library, or an epsilon with a documented tolerance. Round at display boundaries, not silently in core logic.
 
@@ -228,6 +238,8 @@ Never compare floats for exact equality in business logic. Use integer cents, a 
 ## 6. Python late binding in closures
 
 ### Example
+
+**What:** Lambdas in a loop all see the final `i`. **Why:** Closures capture variables, not values. **When:** Building deferred callback lists.
 
 ```python
 funcs = []
@@ -251,7 +263,7 @@ Python closures capture **variables**, not **values**. All lambdas reference the
 
 Building a list of deferred callbacks (batch jobs, retry handlers) without binding loop variables runs every callback with the final loop state.
 
-### Senior dev rule
+### Safer habit
 
 Bind early with a default argument (`lambda i=i: ...`) or use a factory function that takes `i` as a parameter.
 
@@ -262,6 +274,8 @@ Bind early with a default argument (`lambda i=i: ...`) or use a factory function
 ## 7. PHP type juggling (`==`)
 
 ### Example
+
+**What:** Loose equality coercing strings and booleans. **Why:** Non-numeric strings become 0 in numeric comparisons. **When:** Webhook signature or API key checks—use `===`.
 
 ```php
 <?php
@@ -278,7 +292,7 @@ PHP converts operands to a common type for `==`. Numeric strings truncate at the
 
 Webhook signature checks, API key validation, or status flags compared with `==` accept malformed strings that should fail.
 
-### Senior dev rule
+### Safer habit
 
 Use `===` and `!==` for every comparison where types matter—and they almost always matter in integration code.
 
@@ -289,6 +303,8 @@ Use `===` and `!==` for every comparison where types matter—and they almost al
 ## 8. JavaScript hoisting and TDZ
 
 ### Example
+
+**What:** `var` hoists as undefined; `let` throws in the temporal dead zone (TDZ). **Why:** Different declaration semantics. **When:** Refactoring legacy JS to TypeScript strict mode.
 
 ```javascript
 console.log(x); // undefined — not ReferenceError
@@ -308,7 +324,7 @@ let y = 10;
 
 Refactoring `let` to `var` (or copy-pasting legacy snippets) hides use-before-assign bugs that TypeScript strict mode would have caught.
 
-### Senior dev rule
+### Safer habit
 
 Use `let`/`const` only. Enable `"strict": true` in TypeScript. Treat `var` as legacy code to delete, not write.
 
@@ -319,6 +335,8 @@ Use `let`/`const` only. Enable `"strict": true` in TypeScript. Treat `var` as le
 ## 9. Python `is` vs `==`
 
 ### Example
+
+**What:** Value equality vs object identity for lists. **Why:** Two equal lists can be different objects. **When:** Never use `is` for data comparison—only for `None`.
 
 ```python
 a = [1, 2, 3]
@@ -336,7 +354,7 @@ a is b   # False — different objects
 
 Using `if x is []` or `if x is "done"` never matches user data—only accidentally cached singletons. Using `== None` instead of `is None` can break when objects override equality.
 
-### Senior dev rule
+### Safer habit
 
 Use `is` / `is not` only for **`None`**, and occasionally for small cached singletons when you know the semantics. Use `==` for value comparison.
 
@@ -347,6 +365,8 @@ Use `is` / `is not` only for **`None`**, and occasionally for small cached singl
 ## 10. PHP numeric string key conversion
 
 ### Example
+
+**What:** `"10"` and `10` map to the same array slot. **Why:** PHP normalizes numeric string keys to integers. **When:** Partner IDs that look numeric.
 
 ```php
 <?php
@@ -366,7 +386,7 @@ PHP converts string keys that look like integers to **integer keys**. `"10"` and
 
 External IDs stored as string keys (`"001"`, `"10"`) collide with numeric keys after coercion, overwriting webhook payload fields or config entries.
 
-### Senior dev rule
+### Safer habit
 
 Treat array keys as opaque when IDs come from partners. Prefix string keys (`"id:10"`) or use objects/`ArrayObject` when string identity must be preserved.
 
@@ -377,6 +397,8 @@ Treat array keys as opaque when IDs come from partners. Prefix string keys (`"id
 ## 11. JavaScript `this` binding
 
 ### Example
+
+**What:** Extracting a method loses its receiver. **Why:** `this` depends on call site, not definition. **When:** Passing class methods as Express/Fastify callbacks.
 
 ```javascript
 const obj = {
@@ -399,7 +421,7 @@ fn2();       // 10
 
 Passing `obj.handleWebhook` as an Express/Fastify callback without binding drops `this`—middleware that relied on instance state reads `undefined`.
 
-### Senior dev rule
+### Safer habit
 
 Use arrow functions for callbacks when you need lexical `this`, or `.bind()` explicitly. In TypeScript classes, prefer class fields with arrow methods for handlers.
 
@@ -410,6 +432,8 @@ Use arrow functions for callbacks when you need lexical `this`, or `.bind()` exp
 ## 12. Python integer caching (CPython)
 
 ### Example
+
+**What:** Small integers may share identity in CPython. **Why:** Interning optimization (-5..256). **When:** Never rely on `is` for numeric equality.
 
 ```python
 a = 256
@@ -429,7 +453,7 @@ CPython **interns** small integers (-5 through 256) for performance. Larger lite
 
 Relying on `is` for small integers "because it worked in the REPL" breaks across implementations or when values are computed at runtime.
 
-### Senior dev rule
+### Safer habit
 
 Never use `is` for numeric equality. Use `==`. Treat integer caching as a CPython implementation detail, not an API.
 
@@ -440,6 +464,8 @@ Never use `is` for numeric equality. Use `==`. Treat integer caching as a CPytho
 ## 13. PHP `empty()` semantics
 
 ### Example
+
+**What:** `empty("0")` is true because `"0"` is falsy in PHP. **Why:** `empty()` uses PHP falsiness, not structural emptiness. **When:** Form validation—prefer explicit checks.
 
 ```php
 <?php
@@ -457,7 +483,7 @@ var_dump(empty(" "));  // false — whitespace is NOT empty
 
 Valid form values (`"0"`, `0`) are treated as missing; required-field validation passes when it should not, or vice versa.
 
-### Senior dev rule
+### Safer habit
 
 Prefer explicit checks: `=== ''`, `=== null`, `count($arr) === 0`. Use `empty()` only when you truly mean "falsy in PHP's sense" and document that.
 
@@ -468,6 +494,8 @@ Prefer explicit checks: `=== ''`, `=== null`, `count($arr) === 0`. Use `empty()`
 ## 14. JavaScript automatic semicolon insertion
 
 ### Example
+
+**What:** Newline after `return` terminates the statement early. **Why:** Automatic semicolon insertion (ASI). **When:** Multi-line return of object literals.
 
 ```javascript
 function broken() {
@@ -498,7 +526,7 @@ JavaScript's parser inserts semicolons when a newline would otherwise be a synta
 
 API handlers that accidentally return `undefined` instead of a JSON body—clients see 200 with empty body and hard-to-trace integration failures.
 
-### Senior dev rule
+### Safer habit
 
 Keep `return` on the same line as the value, or wrap the value in parentheses. Use a linter (ESLint) with ASI-aware rules.
 
@@ -509,6 +537,8 @@ Keep `return` on the same line as the value, or wrap the value in parentheses. U
 ## 15. Python tuple comma gotcha
 
 ### Example
+
+**What:** `(1)` is an int; `(1,)` is a tuple. **Why:** Commas define tuples, not parentheses alone. **When:** Functions returning single-element tuples.
 
 ```python
 x = (1)     # int — parentheses are grouping, not a tuple
@@ -523,7 +553,7 @@ Tuples are defined by the **comma**, not the parentheses. A single value in pare
 
 A function annotated to return `tuple` actually returns `int`; unpacking fails at runtime in batch processors expecting `(status, payload)`.
 
-### Senior dev rule
+### Safer habit
 
 Always use a trailing comma for single-element tuples: `(value,)`. Prefer explicit typing (`tuple[int, str]`) in modern Python.
 
@@ -534,6 +564,8 @@ Always use a trailing comma for single-element tuples: `(value,)`. Prefer explic
 ## 16. PHP boolean string conversion
 
 ### Example
+
+**What:** Non-empty string `"false"` casts to true. **Why:** Only `""` and `"0"` are false strings. **When:** Query-string feature flags.
 
 ```php
 <?php
@@ -550,7 +582,7 @@ PHP converts strings to boolean by length and content: empty string and `"0"` ar
 
 Feature flags from query strings (`?enabled=false`) cast to `true` because the value is the non-empty string `"false"`.
 
-### Senior dev rule
+### Safer habit
 
 Parse booleans explicitly: compare to known tokens (`'true'`, `'1'`, `'yes'`) or use `filter_var($v, FILTER_VALIDATE_BOOLEAN)`.
 
@@ -561,6 +593,8 @@ Parse booleans explicitly: compare to known tokens (`'true'`, `'1'`, `'yes'`) or
 ## 17. JS/TS object key coercion
 
 ### Example
+
+**What:** Object keys become `"[object Object]"`. **Why:** Property keys are strings. **When:** Use `Map` for non-string keys.
 
 ```javascript
 const obj = {};
@@ -579,7 +613,7 @@ Object property keys are converted to strings. Plain objects become `"[object Ob
 
 Using objects as Map keys without `Map` causes silent overwrites in in-memory dedup caches.
 
-### Senior dev rule
+### Safer habit
 
 Use `Map` when keys are objects. For plain objects, use string keys you control (`id`, `JSON.stringify` with stable ordering).
 
@@ -590,6 +624,8 @@ Use `Map` when keys are objects. For plain objects, use string keys you control 
 ## 18. Python list multiplication aliasing
 
 ### Example
+
+**What:** `[[0]] * 3` shares one inner list. **Why:** `*` repeats references. **When:** Grid/row templates—use comprehensions.
 
 ```python
 a = [[0]] * 3
@@ -612,7 +648,7 @@ a = [[0] for _ in range(3)]
 
 Initializing a grid, batch buffer, or per-tenant row template with `[[default]] * n` mutates all rows when one row changes.
 
-### Senior dev rule
+### Safer habit
 
 Use list comprehensions for nested mutable structures. Reserve `*` for immutable leaf values (`[0] * n` is safe; `[[0]] * n` is not).
 
@@ -623,6 +659,8 @@ Use list comprehensions for nested mutable structures. Reserve `*` for immutable
 ## 19. PHP `foreach` copies values
 
 ### Example
+
+**What:** Assigning to `$v` without `&` does not mutate the array. **Why:** foreach copies values by default. **When:** In-place array normalization.
 
 ```php
 <?php
@@ -651,7 +689,7 @@ print_r($arr); // [99, 99, 99]
 
 Attempting in-place normalization inside `foreach` without references—data never updates, tests pass on copies but production data stays wrong.
 
-### Senior dev rule
+### Safer habit
 
 Use `foreach ($arr as &$v)` only when mutation is intentional; always `unset($v)` after a by-reference loop. Prefer `array_map` for transforms that return new arrays.
 
@@ -662,6 +700,8 @@ Use `foreach ($arr as &$v)` only when mutation is intentional; always `unset($v)
 ## 20. JavaScript `NaN` behavior
 
 ### Example
+
+**What:** `NaN !== NaN`; global `isNaN` coerces strings. **Why:** IEEE-754 and legacy API. **When:** Metric dedup and parse validation—use `Number.isNaN`.
 
 ```javascript
 NaN === NaN           // false
@@ -678,7 +718,7 @@ IEEE-754 defines `NaN` as not equal to anything, including itself. Global `isNaN
 
 Deduplicating error codes or metric samples with `Set` or `===` fails for NaN values. Parsing invalid input with `isNaN` treats non-numbers as NaN incorrectly.
 
-### Senior dev rule
+### Safer habit
 
 Use `Number.isNaN(x)` for NaN checks. Never rely on `x === x` as a generic pattern—document why if you use it for NaN only.
 
@@ -686,11 +726,11 @@ Use `Number.isNaN(x)` for NaN checks. Never rely on `x === x` as a generic patte
 
 ---
 
-## Senior interview prep
+## Interview prep
 
 **Use this:** Backend and full-stack screens often probe **language semantics**, not just frameworks. Pair this section with [DSA interview track](../career/dsa-interview-track.md) for coding rounds and [Language fundamentals comparison](language-fundamentals-comparison.md#cross-language-gotchas-interview-favorites) for Go/Rust edges.
 
-### Talk tracks (by cluster)
+### Talk tracks (plain-language clusters)
 
 **1. Equality and truthiness**
 

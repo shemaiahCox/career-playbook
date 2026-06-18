@@ -14,7 +14,7 @@
 4. **After each problem:** State time/space complexity aloud; name the pattern; log misses in [PROGRESS.md](../../PROGRESS.md).
 5. **Do not memorize solutions** — recognize patterns and reproduce from scratch.
 
-**Target volume:** 150 problems for L3–L4 readiness; 200–300 for hard-round comfort. Quality + timed reps beat raw count.
+**Target volume:** 150 problems for Level 3–Level 4 (L3–L4) readiness; 200–300 for hard-round comfort. Quality + timed reps beat raw count.
 
 ---
 
@@ -23,10 +23,10 @@
 | Handbook section | Interview pattern | When in track |
 |------------------|-------------------|---------------|
 | [Big-O](../concepts/algorithms-and-data-structures.md#big-o-is-scaling-not-seconds) | Complexity analysis on every problem | Week 1+ |
-| [Hash tables](../concepts/algorithms-and-data-structures.md#hash-tables-maps--sets) | Two sum, anagrams, frequency maps | Weeks 1–2 |
+| [Hash tables](../concepts/algorithms-and-data-structures.md#hash-map-and-hash-set) | Two sum, anagrams, frequency maps | Weeks 1–2 |
 | [Two pointers / sliding window](../concepts/algorithms-and-data-structures.md#two-pointers-and-sliding-window) | Subarray sum, longest substring | Weeks 2–3 |
 | [Binary search](../concepts/algorithms-and-data-structures.md#binary-search) | Search on answer, rotated array | Week 4 |
-| [Trees / BST](../concepts/algorithms-and-data-structures.md#trees-and-balanced-bst-conceptual) | Traversals, LCA, validate BST | Weeks 5–6 |
+| [Trees / BST](../concepts/algorithms-and-data-structures.md#trees-and-balanced-bst-conceptual) | Traversals, Lowest Common Ancestor (LCA), validate BST | Weeks 5–6 |
 | [Heap](../concepts/algorithms-and-data-structures.md#heap--priority-queue) | Top K, merge K lists, median stream | Week 7 |
 | [BFS / DFS](../concepts/algorithms-and-data-structures.md#bfs-and-dfs) | Islands, shortest path, topological sort | Weeks 7–8 |
 | [Graphs](../concepts/algorithms-and-data-structures.md#graph-representations) | Course schedule, clone graph | Week 8 |
@@ -44,11 +44,7 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 1 — Arrays, hash maps, basics
 
-**Read:** Handbook Big-O + hash table sections.
-
-**Patterns:** Frequency count, two sum, contains duplicate, valid anagram, group anagrams.
-
-**NeetCode tags:** Arrays & Hashing (first 8–10 problems).
+Read the handbook Big-O and hash table sections. Focus on frequency count, two sum, contains duplicate, valid anagram, and group anagrams patterns (NeetCode "Arrays & Hashing" — first 8–10 problems).
 
 **Stop and explain:** Why hash map lookup is O(1) average; when nested loops become O(n²).
 
@@ -58,9 +54,7 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 2 — Two pointers, sliding window, stack
 
-**Patterns:** Valid palindrome, 3sum, container with most water, longest substring without repeat, min window substring, valid parentheses, daily temperatures.
-
-**NeetCode tags:** Two Pointers, Stack (first 6–8 each).
+Patterns include valid palindrome, 3sum, container with most water, longest substring without repeat, min window substring, valid parentheses, and daily temperatures (NeetCode Two Pointers and Stack — first 6–8 each).
 
 **Stop and explain:** When two pointers beat nested loops; stack for matching/nearest greater.
 
@@ -68,19 +62,13 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 3 — Linked lists, intervals (awareness)
 
-**Patterns:** Reverse linked list, merge two lists, reorder list, merge intervals, insert interval.
-
-**NeetCode tags:** Linked List, Intervals.
-
-**Note:** Less common in backend interviews than arrays/graphs — do not over-invest; 5–6 problems sufficient.
+Patterns include reverse linked list, merge two lists, reorder list, merge intervals, and insert interval (NeetCode Linked List and Intervals). Less common in backend interviews than arrays/graphs — 5–6 problems sufficient; do not over-invest.
 
 ---
 
 ### Week 4 — Binary search, sorting applications
 
-**Patterns:** Binary search, search rotated array, find minimum in rotated, Koko eating bananas (search on answer), time-based key-value store.
-
-**NeetCode tags:** Binary Search.
+Patterns include binary search, search rotated array, find minimum in rotated, Koko eating bananas (search on answer), and time-based key-value store (NeetCode Binary Search).
 
 **Stop and explain:** Monotonic predicate for "search on answer."
 
@@ -90,9 +78,7 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 5 — Trees (traversals, properties)
 
-**Patterns:** Invert tree, max depth, same tree, subtree, lowest common ancestor, validate BST, level order traversal.
-
-**NeetCode tags:** Trees (first 10).
+Patterns include invert tree, max depth, same tree, subtree, lowest common ancestor, validate BST, and level order traversal (NeetCode Trees — first 10).
 
 **Stop and explain:** DFS vs BFS on trees; why BST search is O(log n) when balanced.
 
@@ -100,17 +86,13 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 6 — Trees (advanced) + backtracking intro
 
-**Patterns:** Path sum, construct from preorder/inorder, serialize/deserialize, word search (backtracking intro).
-
-**NeetCode tags:** Trees (remaining), Backtracking (1–2).
+Patterns include path sum, construct from preorder/inorder, serialize/deserialize, and word search as backtracking intro (NeetCode Trees remaining, Backtracking 1–2).
 
 ---
 
 ### Week 7 — Graphs + heap
 
-**Patterns:** Number of islands, clone graph, Pacific Atlantic water flow, course schedule (topological), min cost to connect points; Kth largest, merge K sorted lists, find median from data stream.
-
-**NeetCode tags:** Graphs (first 6), Heap (first 4).
+Patterns include number of islands, clone graph, Pacific Atlantic water flow, course schedule (topological), min cost to connect points; plus Kth largest, merge K sorted lists, find median from data stream (NeetCode Graphs first 6, Heap first 4).
 
 **Stop and explain:** Adjacency list vs matrix; when BFS gives shortest unweighted path.
 
@@ -120,17 +102,13 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 8 — Graphs (advanced) + union-find awareness
 
-**Patterns:** Course schedule II, redundant connection, graph valid tree, word ladder; (optional) union-find problems.
-
-**NeetCode tags:** Graphs (remaining), Advanced Graphs (1–2).
+Patterns include course schedule II, redundant connection, graph valid tree, word ladder; optional union-find problems (NeetCode Graphs remaining, Advanced Graphs 1–2).
 
 ---
 
 ### Week 9 — 1D dynamic programming
 
-**Patterns:** Climbing stairs, house robber, house robber II, longest palindromic substring, decode ways, coin change, maximum product subarray.
-
-**NeetCode tags:** 1-D DP (first 8).
+Patterns include climbing stairs, house robber, house robber II, longest palindromic substring, decode ways, coin change, and maximum product subarray (NeetCode 1-D DP — first 8).
 
 **Stop and explain:** Overlapping subproblems; memo vs tabulation.
 
@@ -138,9 +116,7 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 10 — 2D DP + trie + greedy
 
-**Patterns:** Unique paths, longest common subsequence, word break, palindromic substrings; implement trie, design add/search words; jump game, gas station.
-
-**NeetCode tags:** 2-D DP (first 5), Trie (2), Greedy (2–3).
+Patterns include unique paths, longest common subsequence, word break, palindromic substrings; implement trie, design add/search words; jump game, gas station (NeetCode 2-D DP first 5, Trie 2, Greedy 2–3).
 
 **Lab link:** Trie section complements [Project 25](../../career-project-specs/25-search-autocomplete-lab.md) if you build it.
 
@@ -148,19 +124,13 @@ Use **NeetCode 150** or **Blind 75** as problem lists — grouped below by patte
 
 ### Week 11 — Mixed mediums (mock pressure)
 
-**Action:** 5 timed sessions — pick random **medium** from weeks 1–10 without looking at tags first.
-
-**Goal:** Pattern recognition under ambiguity (closest to phone screen).
-
-**Log:** Pattern missed, time to solution, complexity stated correctly (Y/N).
+Run 5 timed sessions — pick random **medium** problems from weeks 1–10 without looking at tags first. Goal: pattern recognition under ambiguity (closest to phone screen). Log pattern missed, time to solution, and whether complexity was stated correctly.
 
 ---
 
 ### Week 12 — Hard intro + maintenance plan
 
-**Action:** 3 hard problems (1D DP hard, graph hard, heap hard). 2 full **mock interviews** (Pramp, interviewing.io, or peer).
-
-**Maintenance (ongoing):** 2–3 problems/week; 1 mock/month until offers or pause.
+Complete 3 hard problems (1D DP hard, graph hard, heap hard) and 2 full **mock interviews** (Pramp, interviewing.io, or peer). Ongoing maintenance: 2–3 problems/week; 1 mock/month until offers or pause.
 
 ---
 
@@ -212,6 +182,8 @@ After each week, append to [PROGRESS.md](../../PROGRESS.md):
 - Patterns weak: …
 - Mock / timed notes: …
 ```
+
+The template above tracks volume, solid patterns, weak patterns, and mock notes — enough to spot gaps without over-logging every problem.
 
 ---
 

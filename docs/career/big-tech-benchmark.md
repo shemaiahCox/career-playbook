@@ -2,7 +2,7 @@
 
 **Use this:** Benchmark your [22-step path](../../README.md#progression-step-1--22) against **Google, Meta, and similar** backend hiring loops — even if you are not applying there. This doc raises your ceiling; [target-alignment.md](target-alignment.md) remains the primary **UK £80k** execution plan.
 
-**Profile this supports:** Backend & Systems Engineer — PHP/SQL/JS commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation.
+**Profile this supports:** Backend & Systems Engineer — PHP/SQL/JavaScript (JS) commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation.
 
 **Companions:** [DSA interview track](dsa-interview-track.md) · [System design interview map](system-design-interview-map.md) · [Portfolio artifacts template](../templates/portfolio-artifacts.md)
 
@@ -12,7 +12,7 @@
 
 Your playbook **over-indexes on production systems skills** (the [five architecture pillars](../concepts/architecture-framework.md): idempotency, queues, observability, SQL tuning, polyglot boundaries) that senior engineers at Google/Meta use daily. It **under-indexes on interview-specific prep**: timed LeetCode-style coding and formal system design drills.
 
-**System design interviews** = narrating **pillar tradeoffs at scale** (fan-out, caching, consistency, sharding vocabulary) on a whiteboard — see [system design interview map](system-design-interview-map.md) as a layer on top of production pillars, not a separate curriculum.
+**System design interviews** mean narrating **pillar tradeoffs at scale** (fan-out, caching, consistency, sharding vocabulary) on a whiteboard — see [system design interview map](system-design-interview-map.md) as a layer on top of production pillars, not a separate curriculum.
 
 **Execution gap matters more than curriculum gap:** only **3 of 22 labs** are on GitHub; Project 2 still has stub retrieval; no shipped `docs/portfolio/` milestones logged in [PROGRESS.md](../../PROGRESS.md). For any top-tier bar, **shipping Projects 8, 19, 16, and 22** with full portfolio packets is prerequisite.
 
@@ -22,14 +22,14 @@ Your playbook **over-indexes on production systems skills** (the [five architect
 
 ## How Google, Meta, and peers test candidates
 
-| Stage | Google (typical SWE) | Meta (typical SWE) | What they measure |
+| Stage | Google (typical Software Engineer (SWE)) | Meta (typical SWE) | What they measure |
 |-------|----------------------|--------------------|-------------------|
-| **Recruiter / resume** | Polyglot backend + scale signals; AI roles want shipped ML features | Similar; strong OSS or internal-scale stories | Credible story + pass the resume bar |
+| **Recruiter / resume** | Polyglot backend + scale signals; AI roles want shipped ML features | Similar; strong Open Source Software (OSS) or internal-scale stories | Credible story + pass the resume bar |
 | **Phone screen** | 1 × 45–60 min coding (medium DSA) | 1–2 coding screens | Clean code, complexity analysis, edge cases under time pressure |
 | **Onsite** | 4–5 rounds: 2–3 coding, 1–2 system design (L4+), behavioral | 2 coding + 1 system design + behavioral (+ domain for specialist) | DSA fluency **and** tradeoff reasoning |
 | **System design** | "Design X at scale" (URL shortener, news feed, chat, rate limiter) | Similar; fan-out, caching, consistency | Requirements → APIs → data model → bottlenecks → failure modes |
-| **Behavioral** | "Googleyness" — ambiguity, collaboration, ownership | Impact, move fast, conflict resolution | STAR stories tied to real incidents |
-| **Specialist loops** | ML: ML system design + coding; Infra: deeper OS/network | AI infra: training/serving pipelines | [Project 2](../../career-project-specs/02-rag-llm-service.md) / [11](../../career-project-specs/11-llm-web-app-lab.md) help **if shipped with evals** |
+| **Behavioral** | "Googleyness" — ambiguity, collaboration, ownership | Impact, move fast, conflict resolution | Situation-Task-Action-Result (STAR) stories tied to real incidents |
+| **Specialist loops** | Machine Learning (ML): ML system design + coding; Infra: deeper OS/network | AI infra: training/serving pipelines | [Project 2](../../career-project-specs/02-rag-llm-service.md) / [11](../../career-project-specs/11-llm-web-app-lab.md) help **if shipped with evals** |
 
 ### Level calibration (rough)
 
@@ -51,8 +51,8 @@ Your commercial PHP/SQL/JS background + playbook spine targets **L4 narrative fo
 | **Observability** | Good — P3, Prometheus on P8 | SLI/SLO, tracing, on-call | **Low** | Add SLO snippet to portfolio artifacts |
 | **SQL / data modeling** | Strong — P4, [database-design.md](../concepts/database-design.md) | Sharding, replication lag, CAP nuance | **Low–medium** | Study sharding; [system design map](system-design-interview-map.md) |
 | **Messaging at scale** | Redis-first; Kafka/gRPC = stretch | Kafka/PubSub hands-on common | **Medium** | [Big Tech benchmark tier](#big-tech-benchmark-tier) on P6/P8 |
-| **K8s / cloud** | P16, P17 | GKE/EKS, IAM, multi-region | **Medium** | Deploy P16 on GCP or AWS |
-| **Security** | P9, P20 | OAuth/OIDC, threat modeling | **Medium** | OAuth required on P12 benchmark tier |
+| **K8s / cloud** | P16, P17 | Google Kubernetes Engine (GKE)/Elastic Kubernetes Service (EKS), Identity and Access Management (IAM), multi-region | **Medium** | Deploy P16 on Google Cloud Platform (GCP) or Amazon Web Services (AWS) |
+| **Security** | P9, P20 | Open Authorization (OAuth)/OpenID Connect (OIDC), threat modeling | **Medium** | OAuth required on P12 benchmark tier |
 | **Algorithms (LeetCode)** | [algorithms-and-data-structures.md](../concepts/algorithms-and-data-structures.md) = design literacy | 150–300 timed problems | **High** | [DSA interview track](dsa-interview-track.md) |
 | **System design interview** | Scattered checklists | 15–20 classic problems with diagrams | **Medium–high** | [System design interview map](system-design-interview-map.md) |
 | **Behavioral** | Interview lines per spec | 8–12 STAR stories | **Medium** | Section below |
@@ -65,7 +65,7 @@ Your commercial PHP/SQL/JS background + playbook spine targets **L4 narrative fo
 1. **Webhook → queue → worker pipeline** — payment webhooks, event buses, async fan-out at Meta/Google.
 2. **Go vs Rust ADR with p95/RSS** ([P19](../../career-project-specs/19-rust-hot-path-lab.md)) — engineering judgment, not language religion.
 3. **RAG with eval JSONL** ([P2](../../career-project-specs/02-rag-llm-service.md)) — AI-adjacent backend roles.
-4. **SQL plan-backed tuning** ([P4](../../career-project-specs/04-sql-performance-lab.md)) — stronger than ORM-only candidates.
+4. **SQL plan-backed tuning** ([P4](../../career-project-specs/04-sql-performance-lab.md)) — stronger than Object-Relational Mapping (ORM)-only candidates.
 5. **Capstone orchestration** ([P22](../../career-project-specs/22-integrated-platform-capstone.md)) — "design a platform" in one demo.
 
 **Interview narrative (Big Tech version):**
@@ -125,6 +125,8 @@ flowchart TB
   spine -.->|weekends| SDRead
 ```
 
+The diagram shows two parallel tracks. The primary spine (observability → worker → Go → Rust → deploy → capstone) stays unchanged. Evenings go to DSA practice; weekends to system design reading. After P8, add a Kafka stretch; after P22, optionally build P23.
+
 | Phase | Spine | Parallel |
 |-------|-------|----------|
 | **1 (0–3 mo)** | P3 → P6 → P8 + portfolio artifacts | DSA: easy/medium (arrays, hash maps, two pointers) — [DSA track](dsa-interview-track.md) |
@@ -135,7 +137,7 @@ flowchart TB
 
 ## Behavioral prep
 
-Mine **8–12 STAR stories** from commercial PHP work + future lab incidents. Template:
+Mine **8–12 STAR stories** from commercial PHP work + future lab incidents. Each story needs:
 
 | Field | Content |
 |-------|---------|

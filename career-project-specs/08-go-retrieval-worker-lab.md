@@ -60,19 +60,27 @@ Production RAG and automation stacks often split **slow, rich** Python services 
 - Webhook path **enqueues**; Go worker **drains** queue extending [Project 1](01-integration-webhook-receiver.md).
 - Connector-style microservice with **OpenAPI JSON** contract and structured logs ([Project 3](03-observability-lab.md)).
 
+### How to talk about this
+
+Python owns LLM (large language model) orchestration and evals; Go owns concurrent retrieval with strict timeouts—you split on profiling and failure isolation, not hype. Bring p95 (95th percentile latency) and RSS (resident set size) evidence from `pprof` when you moved fan-out or queue consumption to Go, and repeat the at-least-once idempotency story from Projects 1 and 6.
+
 ## Important concepts
 
-### Concept spotlight
+### Concurrency and backpressure
 
-| **Concurrency + backpressure** | Bounded goroutine pool for chunk fan-out; `context` timeouts on handlers and jobs |
-| **Idempotency (worker)** | Dedupe on `job_id` before writes; safe under at-least-once queue delivery |
-| **Performance boundary** | Go `/retrieve` serves Python [Project 2](02-rag-llm-service.md); document JSON contract |
-| **Profile before split** | **Go-first (replaces P19):** `pprof` CPU+heap during fan-out; capture p95/RSS with vs without worker pool in [`performance.md`](../docs/templates/performance-p8-go.md) ([Memory and performance](../docs/concepts/memory-and-performance.md)) |
+Use a bounded goroutine pool for chunk fan-out and `context` timeouts on handlers and jobs. Unbounded concurrency exhausts file descriptors and memory; backpressure keeps retrieval gateways stable under load.
 
-**Interview line:** *“Python owns LLM and evals; Go owns concurrent retrieval with strict timeouts—we split on profiling and failure isolation, not hype.”*
+### Idempotency (worker)
 
+Dedupe on `job_id` before writes; safe under at-least-once queue delivery. Duplicate delivery is expected—business keys and durable dedupe stores are how you avoid double writes.
 
-**Interview line:** *“Python owns LLM and evals; Go owns concurrent retrieval with strict timeouts—we split on profiling and failure isolation, not hype.”*
+### Performance boundary
+
+Go `/retrieve` serves Python [Project 2](02-rag-llm-service.md); document the JSON contract in OpenAPI or README. Python keeps model vendor churn and eval iteration; Go keeps hot-path throughput and timeout discipline.
+
+### Profile before split
+
+Use `pprof` CPU and heap during fan-out; capture p95/RSS with versus without a worker pool in [`performance.md`](../docs/templates/performance-p8-go.md) ([Memory and performance](../docs/concepts/memory-and-performance.md)). Split languages when measurement shows a boundary, not by default on day one.
 
 ## Code repo
 

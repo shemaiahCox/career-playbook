@@ -10,7 +10,7 @@
 
 ## What you will learn
 
-- SSE/WebSocket push with reconnect
+- SSE (Server-Sent Events) / WebSocket push with reconnect
 - Backpressure and stale UI handling
 - Live updates from worker events
 
@@ -44,18 +44,23 @@ Build a **TypeScript dashboard** that consumes live events from [Project 6](06-a
 
 Real-time UIs fail on **reconnect storms**, **duplicate events**, and **unbounded client buffers**. This lab pairs with event-bus stretches in Project 8 and [Project 21](21-iot-edge-lab.md) telemetry feeds.
 
+### How to talk about this
+
+The dashboard uses SSE (Server-Sent Events) with reconnect and `Last-Event-ID` so ops see live queue health without polling the API every second. Explain your resume-or-dedupe policy after disconnect, batching or throttling under high event rates, and why secrets stay off the frontend bundle.
+
 ## Important concepts
 
-### Concept spotlight
+### SSE and WebSocket push
 
-| **SSE / WebSocket push** | Server pushes job/telemetry events; client handles disconnect |
-| **Reconnect + last-event-id** | Resume or dedupe after reconnect; document policy |
-| **Backpressure awareness** | UI drops or batches high-rate events; no unbounded DOM growth |
+The server pushes job or telemetry events; the client handles disconnect and stale UI. Pick SSE for one-way ops feeds or WebSockets when you need bidirectional control—document the choice in an ADR (architecture decision record).
 
-**Interview line:** *“The dashboard uses SSE with reconnect and last-event-id so ops see live queue health without polling the API every second.”*
+### Reconnect and last-event-id
 
+Resume or dedupe after reconnect using `Last-Event-ID` or an equivalent cursor; document policy in README. Server restarts should not double-count completed jobs in the UI if the client replays overlapping events.
 
-**Interview line:** *“The dashboard uses SSE with reconnect and last-event-id so ops see live queue health without polling the API every second.”*
+### Backpressure awareness
+
+Drop or batch high-rate events so the DOM does not grow without bound. One thousand events per minute should remain usable—throttle rendering, cap buffer size, or collapse updates into periodic snapshots.
 
 ## Code repo
 

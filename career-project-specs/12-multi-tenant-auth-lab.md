@@ -11,8 +11,8 @@
 ## What you will learn
 
 - Row-level tenant isolation
-- JWT/session patterns with scoped queries
-- AuthZ on every data path
+- JWT (JSON Web Token) / session patterns with scoped queries
+- AuthZ (authorization) on every data path
 
 ## Architecture pillars
 
@@ -42,18 +42,23 @@ Add **authentication** and **tenant isolation** to a small API + SQL schema: use
 
 Multi-tenant bugs are **cross-customer data leaks**—career-ending severity. This lab builds on [Project 5](05-contract-first-api.md) contracts and [Project 4](04-sql-performance-lab.md) indexing (`tenant_id` in composite indexes). Complements [Project 9](09-application-security-lab.md) session hygiene.
 
+### How to talk about this
+
+Tenant id comes from auth context, never from client body—you index and test for cross-tenant leakage. Describe JWT (JSON Web Token) or session extraction on every route, composite indexes that lead with `tenant_id`, and integration tests where tenant A’s token cannot read tenant B’s rows.
+
 ## Important concepts
 
-### Concept spotlight
+### Tenant isolation
 
-| **Tenant isolation** | Every query filters by authenticated tenant; tests prove no cross-tenant read |
-| **Auth boundary** | JWT or session; secure cookies; logout invalidates server state where used |
-| **Idempotent provisioning** | Sign-up or invite webhook uses idempotency key ([Project 1](01-integration-webhook-receiver.md) pattern) |
+Every query filters by authenticated tenant; tests prove no cross-tenant read. Forged `tenant_id` in JSON must be ignored or rejected with `403`—the server derives scope from auth, not from client-supplied fields.
 
-**Interview line:** *“Tenant id comes from auth context, never from client body—we index and test for cross-tenant leakage.”*
+### Auth boundary
 
+Use JWT or session cookies with secure flags; logout invalidates server-side session state where your stack supports it. Document headers or cookies in OpenAPI or README so consumers do not guess auth shape.
 
-**Interview line:** *“Tenant id comes from auth context, never from client body—we index and test for cross-tenant leakage.”*
+### Idempotent provisioning
+
+Sign-up or invite webhooks use idempotency keys ([Project 1](01-integration-webhook-receiver.md) pattern) so duplicate delivery does not create duplicate memberships or tenants.
 
 ## Code repo
 

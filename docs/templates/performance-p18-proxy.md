@@ -4,7 +4,7 @@ Copy to your lab repo as `docs/portfolio/performance.md` and fill in measured va
 
 ## Context
 
-Edge-layer performance: timeouts, pooling, and graceful shutdown under load.
+This file captures edge-layer performance: timeouts, connection pooling, and graceful shutdown under load.
 
 ## Measurements
 
@@ -21,6 +21,6 @@ Edge-layer performance: timeouts, pooling, and graceful shutdown under load.
 hey -n 1000 -c 50 -m GET http://localhost:8080/health
 ```
 
-## Interview line
+## How to explain this in an interview
 
-_“Our proxy enforces upstream timeouts and graceful drain on deploy — slow backends don’t wedge the whole edge.”_
+The proxy enforces upstream timeouts and graceful drain on deploy — slow backends do not wedge the whole edge.

@@ -12,7 +12,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| CI smoke tests, deploy preflight, cron wrappers, log grep helpers, `demo.sh` orchestration | Subcommands, structured config, DLQ replay CLI, long-lived ops tools | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md)–[4](../../career-project-specs/04-sql-performance-lab.md) milestones, **[Project 14](../../career-project-specs/14-shell-automation-lab.md)**, [Project 16](../../career-project-specs/16-cloud-deploy-lab.md), [Project 22 capstone](../../career-project-specs/22-integrated-platform-capstone.md) |
+| CI smoke tests, deploy preflight, cron wrappers, log grep helpers, `demo.sh` orchestration | Subcommands, structured config, dead-letter queue (DLQ) replay CLI, long-lived ops tools | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md)–[4](../../career-project-specs/04-sql-performance-lab.md) milestones, **[Project 14](../../career-project-specs/14-shell-automation-lab.md)**, [Project 16](../../career-project-specs/16-cloud-deploy-lab.md), [Project 22 capstone](../../career-project-specs/22-integrated-platform-capstone.md) |
 
 **In scope vs defer** (playbook filter):
 
@@ -20,7 +20,7 @@
 |-----------------------------|-------------|----------------------------|
 | Strict-mode scripts in `scripts/` | P1–P13 milestones, P14, P16, P22 | Full application logic in bash |
 | `curl`/`jq` API probes | P1 webhook smoke, P14 toolkit | Complex parsers—use Go/Python |
-| Deploy and smoke glue | P16 `deploy.sh`, P22 `demo.sh` | Production DLQ replay CLI (use [Project 15 Go CLI](../../career-project-specs/15-devops-cli-lab.md)) |
+| Deploy and smoke glue | P16 `deploy.sh`, P22 `demo.sh` | Production dead-letter queue (DLQ) replay CLI (use [Project 15 Go CLI](../../career-project-specs/15-devops-cli-lab.md)) |
 | CI lint of shell | P14 `shellcheck` + bats | Rewriting Go/Rust services in shell |
 
 **Easy follow path:** [Project catalog](../../README.md#progression-step-1--22) · Per-project [Bash scripting milestone](../../career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections · [Project 15 DevOps CLI](../../career-project-specs/15-devops-cli-lab.md) after P14.
@@ -79,6 +79,9 @@ shell-automation-lab/
 
 ```bash
 #!/usr/bin/env bash
+# What: strict mode flags for every playbook script
+# Why: -e exits on error; -u catches typos; pipefail surfaces curl|jq failures
+# When: start of every script in Project 14 and milestone smoke tests
 set -euo pipefail
 ```
 
@@ -110,7 +113,7 @@ set -euo pipefail
 - **Missing `pipefail`** — pipeline succeeds if last stage succeeds while `curl` failed mid-pipe.
 - **Ignoring `grep` exit 1** — use `grep -q ... \|\| true` or `if grep ...; then` when no match is OK.
 - **Secrets in logs** — redact tokens in script output.
-- **Reimplementing CLIs in bash** — use Go ([Project 15](../../career-project-specs/15-devops-cli-lab.md)) for subcommands and DLQ replay.
+- **Reimplementing CLIs in bash** — use Go ([Project 15](../../career-project-specs/15-devops-cli-lab.md)) for subcommands and dead-letter queue (DLQ) replay.
 
 ---
 

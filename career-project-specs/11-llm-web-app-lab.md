@@ -10,7 +10,7 @@
 
 ## What you will learn
 
-- Thin BFF in TypeScript over Python RAG
+- Thin BFF (backend-for-frontend) in TypeScript over Python RAG
 - Streaming UX and eval-aware error handling
 - Product boundary for AI features
 
@@ -42,18 +42,23 @@ Ship a **thin TypeScript web app** (server-rendered or minimal SPA) that talks t
 
 “AI engineer” roles often mean **API + product boundary**: the UI must handle latency, partial streams, empty retrieval, and policy refusals. This lab keeps frontend scope **thin** (no Next.js curriculum)—one disciplined app proving TS + Python split.
 
+### How to talk about this
+
+The browser never holds model keys—the BFF calls Project 2 and surfaces retrieval versus model failures differently for support. Describe server-side proxying to `POST /query`, streaming or polling UX with cancel on navigation, and eval-aware error copy when retrieval is empty versus the model times out.
+
 ## Important concepts
 
-### Concept spotlight
+### BFF and API boundary
 
-| **BFF / API boundary** | TS server proxies to Project 2; no API keys in browser |
-| **Streaming UX** | SSE or chunked response; cancel on navigation |
-| **Eval-aware errors** | Distinguish retrieval miss vs model error vs timeout in UI copy |
+The TypeScript server proxies to Project 2; no API keys in the browser bundle. Secrets and rate limits stay server-side; the UI talks only to your BFF.
 
-**Interview line:** *“The browser never holds model keys—the BFF calls Project 2 and surfaces retrieval vs model failures differently for support.”*
+### Streaming UX
 
+Use SSE (Server-Sent Events) or chunked responses; cancel in-flight requests on navigation. Partial streams need cleanup so clients do not leak listeners or show stale tokens after the user leaves the page.
 
-**Interview line:** *“The browser never holds model keys—the BFF calls Project 2 and surfaces retrieval vs model failures differently for support.”*
+### Eval-aware errors
+
+Distinguish retrieval miss versus model error versus timeout in UI copy and logs. Support should grep `request_id` from Project 2 and know whether to fix the index, the prompt, or the provider—not treat every failure as “the AI broke.”
 
 ## Code repo
 

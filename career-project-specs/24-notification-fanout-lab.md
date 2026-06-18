@@ -37,26 +37,49 @@
 
 ## Problem
 
-Build a **notification service** that accepts `POST /notify` (event type, user id, payload), **fans out** to N delivery targets per user preferences, and processes deliveries **asynchronously** with idempotency, retries, and DLQ — the classic Meta/Google system design problem.
+Build a **notification service** that accepts `POST /notify` (event type, user id, payload), **fans out** to N delivery targets per user preferences, and processes deliveries **asynchronously** with idempotency, retries, and dead-letter queue (DLQ) — the classic Meta/Google system design problem.
 
 ## Career relevance
 
-**Summary:** You practice **multi-channel fan-out at scale** — one of the most common senior system design interviews — using the same idempotency and DLQ habits as [Project 1](01-integration-webhook-receiver.md) and [Project 6](06-async-worker-stretch.md).
+**Summary:** You practice **multi-channel fan-out at scale** — one of the most common senior system design interviews — using the same idempotency and dead-letter queue (DLQ) habits as [Project 1](01-integration-webhook-receiver.md) and [Project 6](06-async-worker-stretch.md).
 
 ### In depth
 
-Notification systems combine **high fan-out** (one post → millions of devices), **heterogeneous providers** (email, push, SMS), and **strict delivery semantics** (at-least-once with idempotent handlers). Interviewers probe: priority, digest vs immediate, provider webhooks, and poison message isolation. This lab is **highest ROI** among optional projects — it reuses your spine without a new domain.
+Notification systems combine **high fan-out** (one post → millions of devices), **heterogeneous providers** (email, push, short message service (SMS)), and **strict delivery semantics** (at-least-once with idempotent handlers). Interviewers probe: priority, digest vs immediate, provider webhooks, and poison message isolation. This lab is **highest ROI** among optional projects — it reuses your spine without a new domain.
 
-**Interview line:** *"Each notification has a stable `notification_id`; workers dedupe before side effects; urgent traffic uses a priority queue without starving digest jobs."*
+**Why learning this moves the needle**
+
+- **Interview frequency:** notification fan-out is among the most common senior system design prompts at large tech companies.
+- **Reuse:** same idempotency and dead-letter queue (DLQ) habits as [Project 1](01-integration-webhook-receiver.md) and [Project 6](06-async-worker-stretch.md)—no new domain to learn.
+- **Scale vocabulary:** priority queues, provider adapters, and fan-out-on-write vs lazy digest are transferable patterns.
+
+**Real-world situations this project mirrors**
+
+- **Social post fan-out:** one domain event becomes N per-user delivery jobs across email, push, and in-app channels.
+- **Provider failures:** one email stub returns 500; retries succeed while other users still deliver.
+- **Priority traffic:** urgent notifications drain ahead of digest batches under load.
+
+### How to talk about this
+
+Each notification has a stable `notification_id`; workers dedupe before side effects; urgent traffic uses a priority queue without starving digest jobs. When interviewers ask about fan-out, describe one `POST /notify` enqueueing one job per `(user, channel)` with idempotency keys. When they ask about at-least-once delivery, explain dedupe tables or unique constraints so duplicate Kafka or queue redelivery does not double-call providers.
 
 ## Important concepts
 
-### Concept spotlight
+### Fan-out
 
-| **Fan-out** | One event → N per-user delivery jobs enqueued |
-| **Idempotent delivery** | `notification_id` + channel dedupes provider calls |
-| **Priority** | Urgent vs digest queues or weighted consumers |
-| **Provider boundary** | Stub email/push adapters with retry + DLQ |
+One domain event expands to N per-user delivery jobs—one per enabled channel according to user preferences. Enqueue durably before returning `202 Accepted`.
+
+### Idempotent delivery
+
+Stable `notification_id` plus channel dedupes provider calls. Duplicate job delivery must not increment provider call counts or send duplicate emails.
+
+### Priority
+
+Urgent vs digest queues or weighted consumers: document which traffic drains first under backlog and how you prevent starvation.
+
+### Provider boundary
+
+Stub email and push adapters with configurable failure rates, retries, and DLQ after N attempts—isolate third-party instability from core API availability.
 
 ## Code repo
 

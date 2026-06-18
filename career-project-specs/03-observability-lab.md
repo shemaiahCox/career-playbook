@@ -45,7 +45,7 @@ Production systems spend most of their life **failing in ways you did not expect
 
 - **Incident response:** Correlation IDs turn vague reports (“checkout broke”) into **one grep or one trace** across services. The skill is **propagation**: browser → edge → API → worker → DB, same id everywhere stakeholders can agree on.
 - **Why this matters:** Production backend work rewards **logging, metrics, and tracing** you can actually use; hands-on beats textbook definitions. Owning *“we added `request_id` to every log line and returned it in the header”* as lived behavior is more credible than naming three vendors.
-- **Cost and performance:** Structured fields (`duration_ms`, `db_ms`, `partner_status`, cache hit/miss) feed **dashboards and alerts** before customers notice slowness. SRE-minded teams **alert on SLOs**, not on “someone read the logs.”
+- **Cost and performance:** Structured fields (`duration_ms`, `db_ms`, `partner_status`, cache hit/miss) feed **dashboards and alerts** before customers notice slowness. Site Reliability Engineering (SRE)–minded teams **alert on service level objectives (SLOs)**, not on “someone read the logs.”
 - **Compliance and audits:** Log shape and retention policies matter when someone asks **who saw what data and when**. Even a README that states **what you never log** (full card numbers, passwords) shows you’ve thought past the happy path.
 
 **Real-world situations this project mirrors**
@@ -55,18 +55,23 @@ Production systems spend most of their life **failing in ways you did not expect
 - **Latency mysteries:** a **noisy neighbor** query or N+1 only appears under load; spans show **which hop** ate the budget (DB vs HTTP vs cache vs LLM) without attaching a debugger in prod.
 - **Distributed lies:** the edge returned **200** but async work or a downstream **billing** call failed—without shared context, each service’s logs look “fine”; with correlation, the failure is **one narrative**.
 
+### How to talk about this
+
+Every request gets a correlation id propagated through logs so support can grep one id and reconstruct the full path. When interviewers ask about incidents, describe propagation end-to-end (accept or generate `X-Request-Id`, echo on the response, include on every log line) and structured JSON fields (`duration_ms`, route, error class)—not prose-only strings that resist dashboards and alerts.
+
 ## Important concepts
 
-### Concept spotlight
+### Correlation ID
 
-| **Correlation ID** | Generate or echo `request_id` / `X-Request-Id`; include on every log line and response header |
-| **Structured logging** | JSON logs with level, duration_ms, route, error class—not prose-only strings |
-| **Latency attribution** | Log segment timings (DB, partner HTTP, LLM) to find dominant hop |
+Generate or echo `request_id` / `X-Request-Id`; include it on every log line and the response header. One user-facing request should produce one greppable story across handlers, workers, and support tickets.
 
-**Interview line:** *“Every request gets a correlation id propagated through logs so support can grep one id and reconstruct the full path.”*
+### Structured logging
 
+Emit JSON logs with level, `duration_ms`, route, and error class—not prose-only strings. Fields enable alerts, dashboards, and slicing by route or build SHA after a deploy regression.
 
-**Interview line:** *“Every request gets a correlation id propagated through logs so support can grep one id and reconstruct the full path.”*
+### Latency attribution
+
+Log segment timings (database, partner HTTP, LLM call) to find the dominant hop. When p95 spikes, attribution tells you whether to tune SQL, cache, or an external dependency—not guess from total wall time alone.
 
 ## Code repo
 

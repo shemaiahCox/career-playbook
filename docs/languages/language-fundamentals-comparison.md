@@ -1,6 +1,6 @@
 # Language fundamentals comparison
 
-**Purpose:** One reference for the same **ideas**—variables, operators, conditionals, loops, functions, classes, collections, modules, enums, generics, strings, scope, errors, nulls, async—across the **core stack** for **integration and AI engineers**: **JavaScript/TypeScript**, **PHP**, **Go**, **Python**, and **Rust** (Tier-2 after Project 8 Go—see [Rust stack](rust.md)). Query syntax lives in [SQL stack](sql.md). **Start at [Cross-stack study map](#cross-stack-study-map)** for the full 20-concept index.
+**Purpose:** One reference for the same **ideas**—variables, operators, conditionals, loops, functions, classes, collections, modules, enums, generics, strings, scope, errors, nulls, async—across the **core stack** for **integration and AI engineers**: **JavaScript/TypeScript**, **PHP**, **Go**, **Python**, and **Rust** (second growth lane after Project 8 Go—see [Rust stack](rust.md)). Query syntax lives in [SQL stack](sql.md). **Start at [Cross-stack study map](#cross-stack-study-map)** for the full 20-concept index.
 
 **Companion docs:** [Software engineering](../concepts/software-engineering.md) (patterns, concurrency ops) · [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) (Big-O, trees, interview structures) · [Python stack](python.md) · [Rust stack](rust.md) · [SQL stack](sql.md)
 
@@ -31,7 +31,7 @@
 | 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) | — |
 | 18 | Build systems & tooling | [Modules, imports, and packages](#modules-imports-and-packages) | [Command-line tooling](../concepts/command-line-tooling.md) · per-language maps in [glossary](glossary.md) | — |
 | 19 | Networking & IO | — (HTTP/streaming in labs) | [Servers and networking](../concepts/servers-and-networking.md) · [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md) | — |
-| 20 | Architecture concepts | [DDD](../concepts/software-engineering.md#domain-driven-design-ddd) · [CQRS & Event Sourcing](../concepts/software-engineering.md#cqrs-and-event-sourcing) | [Architecture framework](../concepts/architecture-framework.md) · [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) | — |
+| 20 | Architecture concepts | [domain-driven design (DDD)](../concepts/software-engineering.md#domain-driven-design-ddd) · [command query responsibility segregation (CQRS) & event sourcing](../concepts/software-engineering.md#cqrs-and-event-sourcing) | [Architecture framework](../concepts/architecture-framework.md) · [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) | — |
 
 ---
 
@@ -60,7 +60,7 @@
 - [Error handling](#error-handling)
 - [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness)
 - [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals)
-- [Intermediate and advanced concepts (cross-stack)](#intermediate-and-advanced-concepts-cross-stack)
+- [Advanced concepts (cross-stack)](#advanced-concepts-cross-stack)
   - [Immutability and value vs reference](#immutability-and-value-vs-reference)
   - [Closures and capture gotchas](#closures-and-capture-gotchas)
   - [Lazy evaluation: generators and iterators](#lazy-evaluation-generators-and-iterators)
@@ -83,9 +83,9 @@
 1. **Read** the section for the concept you are translating (e.g. “how do maps work in Go?”).
 2. **Skim** the comparison table, then read the **multi-language snippet**.
 3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--22) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
-4. **Depth on complexity and classic DS&A** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
+4. **Depth on complexity and classic data structures and algorithms (DS&A)** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
-6. **Senior-depth language features** (generators, ownership, type-system edges) live in [Intermediate and advanced concepts](#intermediate-and-advanced-concepts-cross-stack)—read when translating between stacks during an active lab. Operational concurrency (thread pools, backpressure, queue workers) stays in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
+6. **Advanced language features** (generators, ownership, type-system edges) live in [Advanced concepts](#advanced-concepts-cross-stack)—read when translating between stacks during an active lab. Operational concurrency (thread pools, backpressure, queue workers) stays in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
 
 **Comment style note:** JavaScript, TypeScript, Go, Rust, and PHP use `//` for line comments. Python uses `#`. PHP block comments use `/* ... */` like JS.
 
@@ -93,7 +93,13 @@
 
 ## Variables and mutability
 
-Every language lets you bind a name to a value; they differ on **whether rebinding or mutation is allowed by default** and on **type syntax**.
+**What:** Binding a name to a value—constants, mutable locals, type annotations, and what other modules may import.
+
+**Why:** Integration code passes config (URLs, timeouts, limits) through many layers. If you assume “const means frozen” or “Python UPPER_CASE is enforced,” you will mutate shared state by accident.
+
+**When:** Reach for this section when porting config parsing, env defaults, or module exports from one stack to another.
+
+Every language lets you bind a name to a value; they differ on **whether rebinding or mutation is allowed by default** and on **type syntax**. Skim the table first, then compare how each language spells the same config object.
 
 | Idea | JavaScript | TypeScript | PHP | Go | Python | Rust |
 |------|------------|------------|-----|-----|--------|------|
@@ -102,34 +108,56 @@ Every language lets you bind a name to a value; they differ on **whether rebindi
 | Type annotation | optional | `const url: string` | `string $name` (PHP 7.4+) | `var name string = "Ada"` | `name: str = "Ada"` (optional hints) | `name: String` · inference |
 | Module-level export | `export const API = ...` | same | `namespace` + class constants | Capitalized name = exported in package | module-level names; `__all__` for public API | `pub const` · `pub fn` · `pub struct` |
 
+The snippets below show the **same config shape** in each language—what each line does, why the default mutability model matters, and when you would use that spelling in a service.
+
+**JavaScript** — `const` stops rebinding the variable, not mutation of object fields. Use `const` for bindings you will not reassign; use `let` when the reference changes.
+
 ```javascript
-// JavaScript — const = no rebinding; object innards can still mutate
+// What: const binding + mutable object innards
+// Why: const is the default for config objects you still need to patch at runtime
+// When: Node/ browser modules exporting shared limits or feature flags
 const limits = { max: 10 };
-limits.max = 20; // allowed
+limits.max = 20; // allowed — object innards still mutate
 ```
+
+**PHP (PHP: Hypertext Preprocessor)** — every variable name starts with `$`. Arrays pull double duty as lists and maps (see [Built-in data structures](#built-in-data-structures)).
 
 ```php
 <?php
-// PHP — variables always start with $
+// What: scalar and associative array bindings
+// Why: $ prefix is mandatory; arrays are the default collection type
+// When: Laravel config, request payloads, webhook field extraction
 $url = 'https://example.com';
 $limits = ['max' => 10];
 ```
 
+**Go** — `:=` declares and assigns; `=` reassigns an existing variable. Exported names start with a capital letter.
+
 ```go
-// Go — short declare := , assign with =
+// What: short declare then reassignment
+// Why: := vs = is a common porting mistake from other languages
+// When: worker config, struct fields, function-local state in Project 8
 name := "Ada"
 name = "Bob"
 ```
 
+**Python** — no language-level `const`; `UPPER_CASE` is a convention only. Dicts and lists stay mutable even when the name looks like a constant.
+
 ```python
-# Python — no const keyword; UPPER_CASE signals intent
+# What: module-level "constant" that still allows dict mutation
+# Why: Python will not stop you from mutating nested structures
+# When: FastAPI settings, shared defaults—prefer frozen dataclasses for true immutability
 API_BASE = "https://example.com"
 limits = {"max": 10}
 limits["max"] = 20  # dict is mutable even if name is "constant"
 ```
 
+**Rust** — bindings are immutable unless `mut`; compile-time `const` for true constants. Explicit `mut` when you need in-place map updates.
+
 ```rust
-// Rust — immutable by default
+// What: compile-time const + mutable HashMap binding
+// Why: Rust separates "cannot rebind" from "can mutate through mut"
+// When: hot-path config in Project 18—prefer immutability until profiling says otherwise
 const API_BASE: &str = "https://example.com";
 let mut limits = HashMap::from([("max", 10)]);
 ```
@@ -138,7 +166,13 @@ let mut limits = HashMap::from([("max", 10)]);
 
 ## Functions
 
-Functions group logic; **methods** attach to types. Visibility and **multiple return values** vary widely.
+**What:** Named blocks of logic, optional type annotations, visibility/export rules, and how each language returns errors or multiple values.
+
+**Why:** The same “parse timeout from env with a default” appears in every project lab—but Go returns `(value, error)`, Python raises, TypeScript throws, and Rust uses `Result`.
+
+**When:** Use this section when translating helpers between stacks or aligning error handling at HTTP boundaries.
+
+Functions group logic; **methods** attach to types. Visibility and **multiple return values** vary widely. The shared example below is **`parseTimeoutMs`**—identical behavior, different failure spelling.
 
 | Idea | JavaScript/TS | PHP | Go | Python | Rust |
 |------|---------------|-----|-----|--------|------|
@@ -147,8 +181,12 @@ Functions group logic; **methods** attach to types. Visibility and **multiple re
 | Multiple returns | array/tuple destructuring | array or object; no native tuple | `(value, error)` idiomatic | `return a, b` → tuple | `Result<T,E>` · tuples |
 | Export / visibility | `export function` | `public function` in class | Capitalized = exported | leading `_` convention for "private" | `pub fn` · module privacy |
 
+**TypeScript** — exported helper with nullish default and thrown error on invalid input. Use at HTTP middleware boundaries in Project 7.
+
 ```typescript
-// TypeScript — export + typed params (Node sandbox: node-ts-http-probe)
+// What: parse env string to positive milliseconds
+// Why: throw at boundary so callers get a typed number or a single failure path
+// When: Node/TS config modules (Project 7)
 export function parseTimeoutMs(raw: string | undefined): number {
   const n = Number(raw ?? "3000");
   if (!Number.isFinite(n) || n <= 0) throw new Error("invalid timeout");
@@ -156,9 +194,13 @@ export function parseTimeoutMs(raw: string | undefined): number {
 }
 ```
 
+**PHP** — nullable parameter type, default via `??`, domain exception on invalid values.
+
 ```php
 <?php
-// PHP — visibility + return types (Laravel slice: laravel-route-slice)
+// What: same timeout parser with PHP nullable types
+// Why: InvalidArgumentException maps cleanly to HTTP 422 in Laravel handlers
+// When: Project 1 webhook/config helpers
 function parseTimeoutMs(?string $raw): int {
     $n = (int) ($raw ?? 3000);
     if ($n <= 0) {
@@ -168,15 +210,23 @@ function parseTimeoutMs(?string $raw): int {
 }
 ```
 
+**Go** — idiomatic `(T, error)` even for trivial math—callers must check `err` every time.
+
 ```go
-// Go — multiple return: value + error
+// What: value + error return pair (shown with add; same pattern as parse helpers)
+// Why: forces explicit error handling—no hidden exceptions
+// When: every Go worker and HTTP handler in Project 6/8
 func add(a, b int) (int, error) {
     return a + b, nil
 }
 ```
 
+**Python** — type hints document intent; runtime ignores them unless you run mypy/pyright in CI.
+
 ```python
-# Python — type hints optional at runtime; enforced by checkers (mypy/pyright)
+# What: parse with default and ValueError on bad input
+# Why: exceptions bubble to FastAPI/Flask handlers unless you catch locally
+# When: Project 2 service modules—pair with tests because hints are not enforced at runtime
 def parse_timeout_ms(raw: str | None) -> int:
     n = int(raw or 3000)
     if n <= 0:
@@ -184,7 +234,12 @@ def parse_timeout_ms(raw: str | None) -> int:
     return n
 ```
 
+**Rust** — `Option` for absence, `Result` for failure, `?` to propagate parse errors up the call stack.
+
 ```rust
+// What: parse optional string to u64 Result
+// Why: caller must handle Err—no silent failure in worker hot paths
+// When: Project 18 after sync path works; map Err to HTTP 500 or DLQ at boundary
 fn parse_timeout_ms(raw: Option<&str>) -> Result<u64, String> {
     let n: u64 = raw.unwrap_or("3000").parse().map_err(|e| e.to_string())?;
     if n == 0 { return Err("invalid timeout".into()); }
@@ -194,12 +249,22 @@ fn parse_timeout_ms(raw: Option<&str>) -> Result<u64, String> {
 
 ### Closures (functions that capture surroundings)
 
+**What:** Inner functions or lambdas that read variables from an enclosing scope.
+
+**Why:** Factory patterns (`makeAdder`) and callbacks depend on capture semantics—loop bugs live here (see [Closures and capture gotchas](#closures-and-capture-gotchas)).
+
+**When:** Event handlers, middleware factories, and deferred job callbacks in any stack.
+
 | Idea | JavaScript | PHP | Go | Python | Rust |
 |------|------------|-----|-----|--------|------|
 | Closure / lambda | `(x) => x + base` | `fn($x) => $x + $base` | `func(x int) int { return x + base }` | `lambda x: x + base` | `|x| x + base` · move/borrow rules |
 
+Each snippet builds **`makeAdder(base)`** returning a function that adds `base`. Compare capture rules—especially in loops ([capture gotchas](#closures-and-capture-gotchas)).
+
 ```javascript
-// JavaScript — arrow function closes over `base`
+// What: outer function returns inner arrow that closes over `base`
+// Why: lexical capture—`base` is read when add10 runs, not when makeAdder returns
+// When: middleware factories, partial application in Node handlers
 function makeAdder(base) {
   return (x) => x + base;
 }
@@ -207,7 +272,9 @@ const add10 = makeAdder(10);
 ```
 
 ```python
-# Python — nested def captures enclosing scope
+# What: nested def with enclosing scope capture
+# Why: same factory pattern as JS—watch late binding in loops (gotcha #6)
+# When: FastAPI dependency factories, small decorators
 def make_adder(base):
     def add(x):
         return x + base
@@ -217,6 +284,9 @@ add10 = make_adder(10)
 ```
 
 ```rust
+// What: move closure takes ownership of captured `base`
+// Why: `move` required when returning closure that outlives stack frame
+// When: tokio callbacks and iterator adapters in Project 18
 fn make_adder(base: i32) -> impl Fn(i32) -> i32 {
     move |x| x + base
 }
@@ -226,7 +296,9 @@ fn make_adder(base: i32) -> impl Fn(i32) -> i32 {
 
 ## Classes, structs, and interfaces
 
-**OOP** languages center on **classes**; **Go** favors **structs** + behavior attached separately. **TypeScript** adds structural interfaces; **Python** uses duck typing with optional `Protocol` types.
+Object-oriented (OO) languages like JavaScript, PHP, and Python center on **classes**—blueprints that bundle data and behavior. Go and Rust take a different route: **structs** hold data, and you attach behavior with separate **methods** (Go) or **`impl` blocks** (Rust). TypeScript adds explicit **interfaces** for typing; Python often uses **duck typing** ("if it has the methods I need, it works") with optional **`Protocol`** types when you want static checking.
+
+The table below maps the same ideas across languages. Use it when you are translating a design from one stack to another—for example, a Laravel service class becomes a Go struct plus functions, not a Go "class."
 
 | Idea | JavaScript | PHP | Go | Python | Rust |
 |------|------------|-----|-----|--------|------|
@@ -235,41 +307,62 @@ fn make_adder(base: i32) -> impl Fn(i32) -> i32 {
 | Inheritance | `extends` | `extends` | composition, no subclassing | `class Child(Parent):` | no inheritance — compose |
 | Method on type | `method() { }` | `public function method()` | `func (u *User) Save()` | `def save(self):` | `impl User { fn save(&self) }` |
 
+Each snippet below implements the same tiny **`Greeter`**—hold a name, return a greeting. Compare how each language attaches state to behavior.
+
+**JavaScript** — a `class` with a constructor stores `name` on `this`. Methods live on the prototype. You would use this in Node or browser code when you want familiar OO syntax.
+
 ```javascript
-// JavaScript — class + constructor field shorthand
+// What: ## Classes, structs, and interfaces — class Greeter {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 class Greeter {
   constructor(name) {
-    this.name = name;
+    this.name = name;       // instance field set at construction
   }
   hello() {
-    return `hi ${this.name}`;
+    return `hi ${this.name}`;  // method reads instance state
   }
 }
+// Usage: new Greeter("Ada").hello()  →  "hi Ada"
 ```
+
+**PHP (PHP: Hypertext Preprocessor, 8+)** — **promoted constructor properties** declare and assign fields in one line inside `__construct`. Common in Laravel models and services.
 
 ```php
 <?php
-// PHP — promoted constructor properties (PHP 8+)
+// What: ## Classes, structs, and interfaces — 
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 class Greeter {
-    public function __construct(private string $name) {}
+    public function __construct(private string $name) {}  // promotes $name to a property
     public function hello(): string {
         return "hi {$this->name}";
     }
 }
+// Usage: (new Greeter("Ada"))->hello()
 ```
 
+**Go** — no `class` keyword. A **struct** holds fields; a **method** is a function with a receiver `(g Greeter)`. Go favors composition over inheritance—embed other structs instead of extending classes.
+
 ```go
-// Go — struct + methods; no class keyword
+// What: ## Classes, structs, and interfaces — type Greeter struct {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 type Greeter struct {
     Name string
 }
-func (g Greeter) Hello() string {
+func (g Greeter) Hello() string {   // method on Greeter value receiver
     return "hi " + g.Name
 }
+// Usage: Greeter{Name: "Ada"}.Hello()
 ```
 
+**Python** — a **`@dataclass`** generates `__init__`, `__repr__`, and equality for simple record types. Use it for DTOs (Data Transfer Objects) and config objects instead of hand-writing boilerplate.
+
 ```python
-# Python — dataclass for simple records
+# What: ## Classes, structs, and interfaces — from dataclasses import dataclass
+# Why: compare spelling when translating between stacks
+# When: active lab cross-stack translation
 from dataclasses import dataclass
 
 @dataclass
@@ -278,45 +371,81 @@ class Greeter:
 
     def hello(self) -> str:
         return f"hi {self.name}"
+# Usage: Greeter("Ada").hello()
 ```
 
+**Rust** — a **struct** plus an **`impl` block** defines methods. `&self` is an immutable borrow of the instance (Rust's way of saying "method on self without taking ownership").
+
 ```rust
+// What: ## Classes, structs, and interfaces — struct Greeter { name: String }
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 struct Greeter { name: String }
 impl Greeter {
     fn hello(&self) -> String { format!("hi {}", self.name) }
 }
+// Usage: Greeter { name: "Ada".into() }.hello()
 ```
+
+**When to pick which shape:** use classes or dataclasses when the type carries behavior and invariants (validation in `__init__`, methods that enforce rules). Use plain structs or dicts when you only need a bag of fields with no logic—especially in Go and Python service layers where functions operate on simple data.
 
 ---
 
 ## Built-in data structures
 
+**What:** Ordered lists, key–value maps, sets, tuples, and everyday stack/queue patterns built into each language.
+
+**Why:** Wrong structure choice (PHP array as vector, Go slice aliasing, JS `shift` on large arrays) shows up as prod bugs before Big-O theory does.
+
+**When:** Picking storage for webhook payloads, user lists, dedup caches, or paginated API results.
+
 **Lists/arrays**, **maps/dictionaries**, and **sets** exist everywhere. This section covers **how you create them**, **read and update elements**, and **common methods**—not when Big-O favors one over another ([Algorithms and data structures — Data structures](../concepts/algorithms-and-data-structures.md#data-structures)).
 
 ### Overview: literals and types
 
-**Interview lens:** *“I pick the right structure for access pattern—list for order, map for lookup, set for uniqueness—and know PHP arrays are ordered hash maps.”*
+**What:** The shortest way to create a three-element ordered sequence in each language.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**Why:** Literal syntax is the first thing you translate when reading unfamiliar code.
+
+**When:** Skimming a new codebase or writing test fixtures.
+
+**Key takeaway:** Pick the right structure for the access pattern—list for order, map for lookup, set for uniqueness—and remember PHP arrays are ordered hash maps, not pure vectors.
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
+// What: growable Vec literal with three ints
+// Why: `vec!` is the default dynamic array in Rust
+// When: collecting results before returning from hot-path code
 let mut v = vec![1, 2, 3];
 ```
 
 ```python
+# What: list literal — dynamic array
+# Why: default ordered mutable sequence in Python
+# When: in-memory rows before ORM persistence
 a = [1, 2, 3]  # dynamic array
 ```
 
 ```javascript
+// What: array literal (object, not C array)
+// Why: reference type—aliases share mutations
+// When: JSON arrays in Node handlers
 let a = [1, 2, 3]; // array object, not a fixed C array
 ```
 
 ```go
+// What: slice literal of ints
+// Why: slices are views with shared backing arrays
+// When: batch IDs in Go workers
 s := []int{1, 2, 3}
 ```
 
 ```php
 <?php
+// What: PHP array literal (ordered hash map)
+// Why: not a dense vector—keys may have gaps after unset
+// When: webhook payload lists in Project 1
 $a = [1, 2, 3]; // ordered hash map (not a pure vector)
 ```
 
@@ -350,7 +479,12 @@ Ordered sequences with **integer indices** (0-based in JS, PHP, Python). **Go:**
 | Sort | `.sort()` (in place) | `sort($arr)` | `sort.Ints(s)` | `.sort()` / `sorted(arr)` | `v.sort()` |
 | Copy | `[...arr]` | `[...$a]` (spread 7.4+) | `slices.Clone(s)` | `arr.copy()` / `list(arr)` | `v.clone()` |
 
+Each block performs the same list operations (push/append, pop, slice, sort). **When:** normalizing webhook list fields or batch IDs.—append, pop, slice/subrange, sort—so you can compare method names.
+
 ```javascript
+// What: push, pop, slice, sort on a number array
+// Why: in-place sort mutates—copy first if immutability matters
+// When: in-memory batch processing in Node
 // JavaScript — array ops
 const nums = [1, 2, 3];
 nums.push(4);
@@ -370,6 +504,9 @@ sort($nums);
 ```
 
 ```go
+// What: slice literal, append, sub-slice, sort
+// Why: sub-slices alias backing array—copy if independent mutation needed
+// When: batch chunk lists in retrieval workers
 // Go — slice (growable); array [3]int has fixed length
 nums := []int{1, 2, 3}
 nums = append(nums, 4)
@@ -378,6 +515,9 @@ sort.Ints(nums)
 ```
 
 ```python
+# What: list append, pop, slice, in-place sort
+# Why: lists are reference types—copy with list() or slice[:] if sharing is unsafe
+# When: in-memory row batches in FastAPI services
 # Python — list is the default ordered mutable sequence
 nums = [1, 2, 3]
 nums.append(4)
@@ -408,6 +548,9 @@ Key–value lookup. **Missing keys:** JavaScript `undefined`; Go returns **zero 
 | Keys | `Object.keys(m)` | `array_keys($m)` | `for k := range m` | `m.keys()` | `m.keys()` |
 
 ```javascript
+// What: plain object vs Map for key lookup
+// Why: Map preserves insertion order and any key type; objects coerce keys to strings
+// When: dedup caches (Set) vs lookup tables (Map/object)
 // JavaScript — object or Map
 const byId = { u1: { name: "Ada" } };
 byId.u2 = { name: "Bob" };
@@ -420,6 +563,9 @@ if (map.has("a")) {
 
 ```php
 <?php
+// What: nested associative array for id lookup
+// Why: isset before read avoids notices in strict configs
+// When: webhook payload maps in Project 1
 // PHP — associative array as map
 $byId = ['u1' => ['name' => 'Ada']];
 $byId['u2'] = ['name' => 'Bob'];
@@ -430,6 +576,9 @@ $names = array_column($users, 'name');
 ```
 
 ```go
+// What: map insert, comma-ok read, delete
+// Why: missing keys return zero value—comma-ok distinguishes absent from zero
+// When: score tables, id lookups in Project 8
 // Go — comma-ok for missing keys
 scores := map[string]int{"ada": 10}
 scores["bob"] = 5
@@ -441,6 +590,9 @@ delete(scores, "bob")
 ```
 
 ```python
+# What: nested dict access with .get defaults
+# Why: KeyError crashes request handlers—.get chains safely
+# When: optional nested webhook fields
 # Python — dict; .get avoids KeyError
 by_id = {"u1": {"name": "Ada"}}
 by_id["u2"] = {"name": "Bob"}
@@ -456,6 +608,8 @@ by_id.insert("u1", "Ada");
 ```
 
 ### Sets
+
+**What:** Collections that enforce uniqueness. **Why:** Dedup caches and membership tests. **When:** Tracking seen webhook IDs or correlation tokens.
 
 Unordered **unique** values. **PHP** has no first-class `Set`; use `array_unique`, `in_array`, or SPL `SplObjectStorage` for objects.
 
@@ -505,6 +659,8 @@ seen.insert("c");
 
 ### Tuples and fixed-size pairs
 
+**What:** Fixed-size groupings without defining a class. **Why:** Lightweight return pairs from functions. **When:** `(status, body)` rows or TypeScript `[code, label]` pairs.
+
 Fixed-arity groupings without defining a class. **PHP:** use a small array `[id, name]` or a class/`readonly` DTO. **Go:** no tuple type—use a small struct.
 
 | Idea | TypeScript | PHP | Go | Python | Rust |
@@ -526,6 +682,8 @@ id, name = "u1", "Ada"  # also valid tuple unpacking
 
 ### Stack and queue idioms
 
+**What:** Last-in-first-out (LIFO) stack and first-in-first-out (FIFO) queue patterns using lists. **Why:** Many languages lack dedicated stack types. **When:** Small in-memory buffers—not hot-path production queues.
+
 Many languages use **array/list methods** instead of separate `Stack`/`Queue` types for simple cases.
 
 | Pattern | JavaScript | PHP | Go | Python | Rust |
@@ -534,6 +692,9 @@ Many languages use **array/list methods** instead of separate `Stack`/`Queue` ty
 | Queue (FIFO) | `push` / `shift` | `array_push` / `array_shift` | slice + copy front (or channel) | `collections.deque` | `VecDeque` |
 
 ```javascript
+// What: array-as-stack and array-as-queue
+// Why: shift() is O(n)—use deque pattern in hot paths
+// When: small in-memory buffers only
 // Stack
 const stack = [];
 stack.push(1);
@@ -579,6 +740,12 @@ For **time/space tradeoffs** and interview structures (heap, tree, graph), see [
 
 ## Operators and expressions
 
+**What:** Arithmetic, comparison, logical, assignment, null-safe access, and increment idioms.
+
+**Why:** `==` vs `===`, PHP juggling, Python `//`, and JS `??` vs `||` cause integration bugs at validation boundaries.
+
+**When:** Writing conditionals, default values, and config parsing in any stack.
+
 Operators combine values into expressions. Watch **integer division**, **null-safe access**, and languages that **forbid** `++` on primitives (Go, Python).
 
 | Category | JavaScript | TypeScript | PHP | Go | Python | Rust |
@@ -590,15 +757,25 @@ Operators combine values into expressions. Watch **integer division**, **null-sa
 | Null-safe | `?.` `??` | same | `?->` `??` (since 7.0) | — (explicit checks) | — (explicit checks) | `Option` + `match` |
 | Increment | `++` `--` | same | `++` `--` | none (`i++` invalid) | none (`+= 1`) | none (`+= 1`) |
 
+**JavaScript** — nullish coalescing (`??`) only replaces `null`/`undefined`; logical OR (`||`) treats all falsy values as missing.
+
 ```javascript
+// What: defaults and optional chaining
+// Why: ?? avoids treating 0 or "" as "missing" when they are valid
+// When: config/env parsing in Project 7
 // JavaScript — nullish coalescing vs logical OR
 const timeout = config.ms ?? 3000; // only null/undefined
 const label = user.name || "guest"; // any falsy triggers default
 const city = user.address?.city;
 ```
 
+**PHP** — use `===` in integration conditionals; null coalesce and nullsafe operator reduce nested isset checks.
+
 ```php
 <?php
+// What: strict status check and safe nested access
+// Why: == juggling breaks webhook validation
+// When: Project 1 payload guards
 // PHP — strict compare for safety in conditionals
 if ($status === 200) { }
 $timeout = $config['ms'] ?? 3000;
@@ -610,7 +787,12 @@ $city = $user?->address?->city;
 if n > 0 && total/n > limit { }
 ```
 
+**Python** — no `++` operator; use `+= 1`. Floor division `//` for integer division.
+
 ```python
+# What: integer half and default timeout
+# Why: or vs get(key, default) differ when 0 is valid
+// When: batch sizing and config in Project 2
 # Python — no ++; floor division with //
 half = count // 2
 timeout = config.get("ms") or 3000  # or: config.get("ms", 3000)
@@ -619,6 +801,12 @@ timeout = config.get("ms") or 3000  # or: config.get("ms", 3000)
 ---
 
 ## Conditionals and branching
+
+**What:** `if`/`else`, `switch`, `match`, ternary (where supported), and default-value patterns.
+
+**Why:** Fall-through `switch`, PHP `match` strictness, and Go’s lack of ternary all affect how you spell status-code dispatch.
+
+**When:** HTTP status mapping, feature flags, and enum-like dispatch.
 
 Branch when logic diverges. **`switch`** (C-family) often **falls through** unless you `break`; **`match`** (PHP 8+, Python 3.10+) is usually **expression-oriented** and strict.
 
@@ -629,7 +817,12 @@ Branch when logic diverges. **`switch`** (C-family) often **falls through** unle
 | Ternary | `a ? b : c` | `$a ? $b : $c` | no ternary — use `if` | `b if cond else c` | no ternary — `if` expr |
 | Elvis / default | `??` | `?:` | — | `or` / `if not` patterns | `unwrap_or` · `Option` |
 
+**JavaScript** — `switch` falls through without `break`; easy to accidentally run multiple cases.
+
 ```javascript
+// What: HTTP status to label mapping
+// Why: break prevents fall-through into the next case
+// When: legacy JS handlers—prefer object maps or TS discriminated unions in new code
 // JavaScript — switch needs break to avoid fall-through
 switch (status) {
   case 200:
@@ -643,6 +836,9 @@ switch (status) {
 
 ```php
 <?php
+// What: expression-oriented match on status code
+// Why: match is strict—no fall-through bugs like switch
+// When: mapping HTTP/partner status codes in Laravel
 // PHP — match (8.0+) is expression-like and strict
 $label = match ($status) {
     200 => 'ok',
@@ -652,7 +848,10 @@ $label = match ($status) {
 ```
 
 ```python
-# Python — match (3.10+) for structural patterns
+# What: structural match on status integer
+# Why: cleaner than long if/elif chains for enums
+# When: Python 3.10+ services
+# Python — match (3.10+) for structural patterns for structural patterns
 match status:
     case 200:
         label = "ok"
@@ -674,6 +873,12 @@ let label = match status {
 
 ## Loops and iteration
 
+**What:** Index loops, foreach/for-in, `while`, and `break`/`continue` across languages.
+
+**Why:** Manual indexing on sparse PHP arrays and `for...in` on JS objects are common footguns—prefer collection iterators when available.
+
+**When:** Processing webhook batch rows, queue messages, or paginated API pages.
+
 Loops repeat work over **ranges**, **conditions**, or **collections**. Prefer **foreach / for-in** over manual indexing when the language supports it—fewer off-by-one bugs.
 
 | Idea | JavaScript | PHP | Go | Python | Rust |
@@ -683,7 +888,12 @@ Loops repeat work over **ranges**, **conditions**, or **collections**. Prefer **
 | while | `while (cond)` | `while ($cond)` | `for cond { }` (only loop keyword) | `while cond:` | `while cond { }` |
 | break / continue | `break` `continue` | same | same | same | `break` `continue` |
 
+**JavaScript** — `for...of` iterates values; `for...in` on objects iterates keys (often not what you want on arrays).
+
 ```javascript
+// What: skip flagged users and log names
+// Why: for...of avoids manual index bugs
+// When: processing webhook batch arrays in Node
 // JavaScript — for...of (values) vs for...in (keys on objects)
 for (const user of users) {
   if (user.skip) continue;
@@ -716,6 +926,9 @@ for k, v := range scores {
 ```
 
 ```python
+# What: ## Loops and iteration — for user in users:
+# Why: compare spelling when translating between stacks
+# When: active lab cross-stack translation
 for user in users:
     if user.get("skip"):
         continue
@@ -729,6 +942,9 @@ for key, value in scores.items():
 ```
 
 ```rust
+// What: ## Loops and iteration — for user in &users {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 for user in &users {
     if user.skip { continue; }
     println!("{}", user.name);
@@ -739,6 +955,12 @@ for user in &users {
 
 ## Modules, imports, and packages
 
+**What:** How code is split into files, how names are exported, and how imports resolve.
+
+**Why:** ESM vs CommonJS (CJS), Go module paths, PHP PSR-4 autoload, and Python package layout break CI when cwd or `"type": "module"` is wrong.
+
+**When:** Starting a lab, adding a shared helper, or fixing "cannot find module" errors.
+
 **Modules** group code for reuse. Path rules differ: Node **file paths**, Go **module path in go.mod**, PHP **namespaces + Composer autoload**, Python **packages + `__init__.py`**.
 
 | Idea | JavaScript / TS | PHP | Go | Python | Rust |
@@ -747,7 +969,12 @@ for user in &users {
 | Import | `import { fn } from "./file.js"` | `use App\\Models\\User;` | `import "example.com/pkg"` | `from pkg import fn` | `use crate::...` |
 | Entry | `package.json` `"type":"module"` | `composer.json` autoload | `package main` + `go.mod` | `if __name__ == "__main__":` | `fn main()` + `Cargo.toml` |
 
+**JavaScript (ECMAScript modules / ESM)** — explicit `.js` extensions often required in Node ESM.
+
 ```javascript
+// What: import and re-export a local helper
+// Why: ESM resolution differs from CommonJS require
+// When: Project 7 with "type": "module"
 // JavaScript (ESM) — explicit .js extension often required in Node
 import { parseTimeoutMs } from "./parse.js";
 export { parseTimeoutMs };
@@ -755,6 +982,9 @@ export { parseTimeoutMs };
 
 ```php
 <?php
+// What: namespace declaration and use imports
+// Why: PSR-4 autoload maps namespace to directory
+// When: any Laravel controller or job class
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -762,6 +992,9 @@ use Illuminate\Http\Request;
 ```
 
 ```go
+// What: package main with stdlib imports
+// Why: import path comes from go.mod module path
+// When: every Go binary entry in Project 8
 // Go — module path + package name per directory
 package main
 
@@ -788,6 +1021,12 @@ use crate::utils::parse_timeout_ms;
 
 ## Enums, unions, and pattern matching
 
+**What:** Named constant sets, union/sealed types, and dispatch with `switch`/`match`.
+
+**Why:** Go uses `iota` constants—not sum types—while Rust and modern PHP/Python prefer exhaustive `match`.
+
+**When:** Modeling webhook status, job state, or API result variants.
+
 **Enums** name a fixed set of variants. **Union types** (TS) and **match** (PHP, Python) model “one of several shapes” and dispatch safely.
 
 | Idea | JavaScript / TS | PHP | Go | Python | Rust |
@@ -796,7 +1035,12 @@ use crate::utils::parse_timeout_ms;
 | Union / sealed | `type R = A \| B` | limited | interface + types | `Union` / `TypedDict` | `enum` variants |
 | Dispatch | `switch` / `if` | `match` | `switch` | `match` / `if`/`elif` | `match` preferred |
 
+**TypeScript** — discriminated unions let the compiler narrow types after an `if` check.
+
 ```typescript
+// What: Result-shaped union with ok flag
+// Why: invalid states become unrepresentable at compile time
+// When: API client responses in Project 7
 // TypeScript — union + narrowing
 type Result = { ok: true; data: string } | { ok: false; error: string };
 
@@ -837,33 +1081,54 @@ class Status(str, Enum):
 
 ## Generics and type parameters
 
+**What:** Type parameters (`<T>`) so one function or struct works for many types safely.
+
+**Why:** Static stacks catch misuse at compile time; PHP has no reified generics; Python generics are mainly for checkers.
+
+**When:** Shared list helpers, repositories, or containers before copy-pasting per-type code.
+
 **Generics** let one implementation work for many types while staying type-safe. PHP has **no reified generics** in the application language; Go added generics in **1.18+**; Python generics are primarily for static checkers.
 
-**Interview lens:** *“Static stacks catch type errors before deploy; dynamic stacks rely on tests and optional checkers (mypy, TypeScript strict).”*
+**Key takeaway:** Statically typed stacks catch type errors before deploy; dynamic stacks rely on tests and optional checkers (mypy, TypeScript `strict`).
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
+// What: ## Generics and type parameters — fn add(a: i32, b: i32) -> i32 { a + b }
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 fn add(a: i32, b: i32) -> i32 { a + b }
 ```
 
 ```python
+# What: ## Generics and type parameters — def add(a, b):
+# Why: compare spelling when translating between stacks
+# When: active lab cross-stack translation
 def add(a, b):
     return a + b
 ```
 
 ```javascript
+// What: ## Generics and type parameters — function add(a, b) {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 function add(a, b) {
   return a + b;
 }
 ```
 
 ```go
+// What: ## Generics and type parameters — func add(a int, b int) int { return a + b }
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 func add(a int, b int) int { return a + b }
 ```
 
 ```php
 <?php
+// What: ## Generics and type parameters — 
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 function add(int $a, int $b): int { return $a + $b; }
 ```
 
@@ -876,12 +1141,18 @@ function add(int $a, int $b): int { return $a + $b; }
 | Erasure | types erased at emit | — | monomorphized at compile | erased at runtime | monomorphized at compile |
 
 ```typescript
+// What: generic function returning first element or undefined
+// Why: reuse one helper for any element type
+// When: shared array utilities in strict TS
 function first<T>(items: T[]): T | undefined {
   return items[0];
 }
 ```
 
 ```go
+// What: generic First with zero value on empty slice
+// Why: (T, bool) mirrors comma-ok map pattern
+// When: reusable slice helpers post–Go 1.18
 // Go 1.18+ — type parameters on functions and types
 func First[T any](items []T) (T, bool) {
     if len(items) == 0 {
@@ -907,6 +1178,12 @@ def first(items: list[T]) -> T | None:
 
 ## Strings, formatting, and destructuring
 
+**What:** String templates, slicing, and unpacking objects/arrays into bindings.
+
+**Why:** UTF-8 byte slicing in Go, PHP `$var` interpolation, and JS spread/destructure appear in every log line and DTO mapping.
+
+**When:** Building log messages, merging config objects, or unpacking API rows.
+
 **Interpolation** embeds values in strings; **destructuring** pulls fields or elements into bindings in one step.
 
 | Idea | JavaScript | PHP | Go | Python | Rust |
@@ -915,7 +1192,12 @@ def first(items: list[T]) -> T | None:
 | Substring / slice | `s.slice(0, 3)` | `substr` / `mb_substr` | `s[0:3]` bytes (UTF-8 care) | `s[0:3]` | `&s[0..3]` |
 | Destructure | `const { id } = user` | `[$a, $b] = $pair` · `list()` | explicit fields | `a, b = pair` · `**kwargs` | struct destructuring |
 
+**JavaScript** — destructuring unpacks objects/arrays; spread merges shallow copies.
+
 ```javascript
+// What: pull fields, rest, and merge config objects
+// Why: concise DTO mapping at HTTP boundaries
+// When: mapping partner JSON to internal shapes
 // JavaScript — object and array destructuring + spread
 const { id, name } = user;
 const [head, ...rest] = ids;
@@ -924,12 +1206,18 @@ const merged = { ...defaults, ...overrides };
 
 ```php
 <?php
+// What: array destructuring into variables
+// Why: unpack CSV/API rows without manual index access
+// When: Laravel jobs processing tabular partner data
 // PHP — list destructuring; spread in arrays (7.4+)
 [$first, $second] = $parts;
 ['id' => $id, 'name' => $name] = $row;
 ```
 
 ```python
+# What: tuple unpack, starred rest, dict merge
+# Why: `{**a, **b}` shallow-merges config layers
+# When: merging defaults with request overrides
 # Python — unpacking and dict merge
 id, name = user.id, user.name
 head, *rest = ids
@@ -940,6 +1228,12 @@ merged = {**defaults, **overrides}
 
 ## Scope, blocks, and casting
 
+**What:** Where names are visible, legacy hoisting, and runtime type conversion.
+
+**Why:** JS `var` hoisting, TDZ (temporal dead zone) on `let`, and Go type assertions on `interface{}` values trip up refactors.
+
+**When:** Refactoring legacy JS, parsing query params, or narrowing unknown JSON fields.
+
 **Block scope** limits where a name is visible. **Casting** converts between types at runtime—prefer type-safe patterns (generics, guards, `isinstance`) when the language offers them.
 
 | Idea | JavaScript | PHP | Go | Python | Rust |
@@ -948,7 +1242,12 @@ merged = {**defaults, **overrides}
 | Hoisting | `var`/`function` hoisted | — | — | — | — |
 | Cast / assert | `Number(x)` · `String(x)` | `(int)$x` | `v, ok := x.(Type)` | `int(x)` · `isinstance(x, str)` | `x as i32` · `downcast` |
 
+**JavaScript** — `let`/`const` are block-scoped; `var` is function-scoped (legacy).
+
 ```javascript
+// What: block-local binding and parseInt
+// Why: var hoisting causes subtle bugs—prefer let/const
+// When: any new JS/TS code in this playbook
 // JavaScript — let/const block-scoped; var function-scoped (legacy)
 function demo() {
   if (true) {
@@ -982,13 +1281,22 @@ if isinstance(value, str):
 
 ## Error handling
 
+**What:** How each language signals expected failures—returned errors, exceptions, `Result`, and panics.
+
+**Why:** Swallowed errors poison queues; boundaries must map failures to HTTP status, logs, or dead-letter queue (DLQ) policy.
+
+**When:** Every HTTP handler, worker job, and CLI entrypoint—before shipping integration code.
+
 Same lesson everywhere: distinguish **expected failures** (network down, bad user input) from **programmer bugs** (null deref). Spelling falls into **returned errors** or **exceptions**.
 
-**Interview lens:** *“Expected failures are explicit at the boundary—Result or checked error in Go/Rust, caught exceptions in JS/Python/PHP—with no swallowed errors.”*
+**Key takeaway:** Expected failures are explicit at the boundary—`Result` or checked `error` in Go/Rust, caught exceptions in JavaScript/Python/PHP—with no swallowed errors.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
+// What: ## Error handling — fn div(a: i32, b: i32) -> Result<i32, String> {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 fn div(a: i32, b: i32) -> Result<i32, String> {
     if b == 0 {
         Err("divide by zero".into())
@@ -999,6 +1307,9 @@ fn div(a: i32, b: i32) -> Result<i32, String> {
 ```
 
 ```python
+# What: ## Error handling — try:
+# Why: compare spelling when translating between stacks
+# When: active lab cross-stack translation
 try:
     1 / 0
 except ZeroDivisionError:
@@ -1006,6 +1317,9 @@ except ZeroDivisionError:
 ```
 
 ```javascript
+// What: ## Error handling — try {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 try {
   throw new Error("nope");
 } catch (e) {
@@ -1014,6 +1328,9 @@ try {
 ```
 
 ```go
+// What: ## Error handling — if err != nil {
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 if err != nil {
     return err
 }
@@ -1021,6 +1338,9 @@ if err != nil {
 
 ```php
 <?php
+// What: ## Error handling — 
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 try {
     throw new Exception("nope");
 } catch (Exception $e) {
@@ -1043,7 +1363,12 @@ try {
 
 ### Go — returned `error`
 
+**What:** Check every `(T, error)` return before using `T`. **Why:** Ignored errors fail silently in workers. **When:** All Go HTTP and queue code.
+
 ```go
+// What: HTTP client call with mandatory err check
+// Why: network failures must not proceed with nil response
+// When: Project 8 retrieval gateway
 resp, err := client.Do(req)
 if err != nil {
     fmt.Fprintf(os.Stderr, "request failed: %v\n", err)
@@ -1054,7 +1379,12 @@ defer resp.Body.Close()
 
 ### TypeScript — `try/catch` around `fetch`
 
+**What:** Wrap async I/O that rejects on failure. **Why:** Unhandled rejections crash Node processes. **When:** Outbound partner calls with timeout.
+
 ```typescript
+// What: fetch with AbortSignal timeout in try/catch
+// Why: narrow err before reading .message
+// When: Project 7 integration probes
 try {
   const response = await fetch(url, { signal: AbortSignal.timeout(3000) });
 } catch (err) {
@@ -1067,7 +1397,12 @@ try {
 
 ### PHP — exceptions + HTTP helpers
 
+**What:** Parse JSON with throw-on-error flag; catch at controller boundary. **Why:** Invalid payloads become 422, not 500. **When:** Project 1 webhook body parsing.
+
 ```php
+// What: json_decode with JSON_THROW_ON_ERROR
+// Why: catch JsonException and return structured 422
+// When: Laravel API ingress
 try {
     $payload = json_decode($json, true, flags: JSON_THROW_ON_ERROR);
 } catch (JsonException $e) {
@@ -1078,7 +1413,12 @@ try {
 
 ### Python — `try` / `except`
 
+**What:** Catch specific exceptions; chain with `raise ... from e` for traceability. **Why:** Bare except hides root cause. **When:** FastAPI services parsing partner JSON.
+
 ```python
+# What: json.loads with decode error handling
+# Why: log and re-raise as domain ValueError
+# When: Project 2 payload normalization
 try:
     payload = json.loads(raw)
 except json.JSONDecodeError as e:
@@ -1089,10 +1429,15 @@ except json.JSONDecodeError as e:
 
 ### Rust — `Result` and `?`
 
+**What:** `?` propagates `Err` up the call stack. **Why:** Same boundary discipline as Go—map to HTTP 500 or DLQ at the edge. **When:** Project 18 HTTP client code.
+
 ```rust
+// What: async HTTP get with ? propagation
+// Why: do not unwrap in workers—panics poison tasks
+// When: after sync Rust path is green
 let resp = client.get(url).send().await?;
 let body = resp.text().await?;
-// ? propagates Err; map to HTTP 500 or DLQ at boundary
+// ? propagates Err; map to HTTP 500 or dead-letter queue (DLQ) at boundary
 ```
 
 **Transferable takeaway:** Pick the boundary (HTTP handler, CLI `main`, worker job) where failures become **user-visible messages** or **logged errors**—regardless of language spelling.
@@ -1102,6 +1447,12 @@ let body = resp.text().await?;
 ---
 
 ## Null, optionals, equality, and truthiness
+
+**What:** Absent values (`null`, `None`, `nil`, `Option`), equality rules, and truthy/falsy checks.
+
+**Why:** `"0"` is truthy in JS but falsy in PHP `empty()`; Go typed-nil interfaces; Python `is None` vs `== None`.
+
+**When:** Validating webhook fields, optional config, and API query parameters.
 
 ### Null and optional patterns
 
@@ -1114,7 +1465,12 @@ let body = resp.text().await?;
 | Python | `None`; test with `is None` (not `== None`) |
 | Rust | `Option<T>` (`Some`/`None`); no null in safe code |
 
+**TypeScript** — optional properties need explicit guards when `strictNullChecks` is on.
+
 ```typescript
+// What: require url when property is optional on type
+// Why: strictNullChecks catches missing fields at compile time
+// When: Project 7 request DTO validation
 // TypeScript — optional property + guard
 type Probe = { url?: string };
 function endpoint(p: Probe): string {
@@ -1149,11 +1505,17 @@ if (a === b) { }
 
 ```php
 <?php
+// What: loose vs strict equality demonstration
+// Why: == juggling is the #1 PHP integration footgun
+// When: code review—replace with === in new code
 var_dump("1" == 1);  // true  — juggling
 var_dump("1" === 1); // false — strict
 ```
 
 ```python
+# What: identity check for None and value equality
+# Why: is None is correct; == for value comparison
+# When: optional fields in FastAPI models
 if x is None:
     pass
 if a == b:
@@ -1176,13 +1538,22 @@ Know each language’s **falsy** set before writing `if (value)`:
 
 ## Async and concurrency (fundamentals)
 
+**What:** Language syntax for overlapping work—Promises, goroutines, asyncio, Rust async, PHP queues.
+
+**Why:** Wrong model (blocking CPU on the Node event loop, unbounded goroutines, sync work inside `async def`) collapses throughput under load.
+
+**When:** HTTP fan-out, queue workers, and any lab touching Project 6/8/7 concurrency paths.
+
 This section is **syntax and models** only. Operational concurrency (thread pools, backpressure, queue workers) lives in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics) and [Concurrency beyond syntax](#concurrency-beyond-syntax).
 
-**Interview lens:** *“I match the concurrency model to the work—async for IO, bounded workers for CPU, queues when the request must return fast.”*
+**Key takeaway:** Match the concurrency model to the work—asynchronous I/O for network waits, bounded worker pools for CPU, queues when the HTTP response must return immediately.
 
-**At a glance — concurrency models (Rust · Python · JavaScript · Go · PHP):**
+**At a glance — concurrency models (compare how each runtime starts overlapping work): (Rust · Python · JavaScript · Go · PHP):**
 
 ```rust
+// What: ## Async and concurrency (fundamentals) — use std::sync::mpsc;
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 use std::sync::mpsc;
 use std::thread;
 
@@ -1192,6 +1563,9 @@ println!("{}", rx.recv().unwrap());
 ```
 
 ```python
+# What: ## Async and concurrency (fundamentals) — import asyncio
+# Why: compare spelling when translating between stacks
+# When: active lab cross-stack translation
 import asyncio
 
 async def main():
@@ -1202,23 +1576,34 @@ asyncio.run(main())
 ```
 
 ```javascript
+// What: ## Async and concurrency (fundamentals) — setTimeout(() => console.log("done"), 1000);
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 setTimeout(() => console.log("done"), 1000);
 ```
 
 ```go
+// What: ## Async and concurrency (fundamentals) — ch := make(chan int)
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 ch := make(chan int)
 go func() { ch <- 42 }()
 fmt.Println(<-ch)
 ```
 
+**PHP** — typical web requests run synchronously under PHP-FPM (FastCGI Process Manager); long work goes to Laravel queues.
+
 ```php
 <?php
+// What: dispatch job instead of in-request work
+// Why: FPM request thread must return quickly to the client
+// When: Project 1 webhook ack + async processing
 // Playbook default: queue long work (Laravel Horizon)—not in-request async
 dispatch(new ProcessWebhookJob($payload));
 // Stretch: PHP 8 Fibers / Swoole—optional, not FPM default
 ```
 
-**At a glance — async spelling (items 3 & 7):**
+**At a glance — async spelling (how each language writes async functions): (items 3 & 7):**
 
 ```rust
 async fn fetch() { /* .await in tokio */ }
@@ -1238,6 +1623,9 @@ go doWork() // no async/await — goroutines + channels
 
 ```php
 <?php
+// What: ## Async and concurrency (fundamentals) — 
+// Why: compare spelling when translating between stacks
+// When: active lab cross-stack translation
 dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM request
 ```
 
@@ -1245,7 +1633,7 @@ dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM reques
 |------|--------|------------------|
 | **JavaScript** | Event loop; Promises; `async`/`await` | `await fetch(url)` |
 | **TypeScript** | Same as JS + typed `Promise<T>` | `async function run(): Promise<void>` |
-| **PHP** | Often **sync per request** (FPM); queues/Octane for async work | `dispatch(new Job($payload))` |
+| **PHP** | Often **sync per request** (PHP-FPM — FastCGI Process Manager); queues/Octane for async work | `dispatch(new Job($payload))` |
 | **Go** | Goroutines + channels; `go fn()` | `go worker()` · `context` for cancel |
 | **Python** | `asyncio` coroutines | `async def` · `await` · `asyncio.run()` |
 | **Rust** | `async`/`await` + **tokio** (after sync path) | `async fn` · `.await` · `#[tokio::main]` |
@@ -1256,17 +1644,29 @@ dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM reques
 
 ---
 
-## Intermediate and advanced concepts (cross-stack)
+## Advanced concepts (cross-stack)
 
-**Purpose:** Curated **translation reference** for senior-level language features—generators, ownership, type-system edges, error philosophy, metaprogramming—when you move between stacks during an active lab. Not a parallel language course or interview cram sheet; each topic ties to a playbook project.
+**What:** Deeper cross-stack topics—immutability, capture, generators, memory models, type edges, error philosophy, functional idioms, metaprogramming, production concurrency.
 
-**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-step-1--22). DS&A theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
+**Why:** These are the translation gaps senior reviews focus on when you move a pattern from Laravel to Go or FastAPI to TypeScript.
+
+**When:** During an active lab when syntax tables are not enough—not as a first read before building.
+
+**Purpose:** Curated **translation reference** for advanced language features—generators, ownership, type-system edges, error philosophy, metaprogramming—when you move between stacks during an active lab. Not a parallel language course—each topic ties to a playbook project.
+
+**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-step-1--22). data structures and algorithms (DS&A) theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
 
 ### Immutability and value vs reference
 
-**Interview lens:** *“I know whether this assignment copies, moves, or aliases—and I avoid mutating shared state by accident.”*
+**What:** Whether assignment copies data, moves ownership, or creates an alias to shared storage.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**Why:** Accidental mutation through aliases causes cross-request bugs and stale slice views in workers.
+
+**When:** Passing collections between functions, goroutines, or request handlers.
+
+**Key takeaway:** Know whether an assignment copies, moves, or aliases shared data—accidental mutation of aliased collections causes cross-request bugs.
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Same aliasing demo—mutate through one binding and observe the other.
 
 ```rust
 let x = 5;
@@ -1333,11 +1733,17 @@ print_r($a); // [1, 2] — copy-on-write until mutate
 
 ### Closures and capture gotchas
 
-**Interview lens:** *“Closures capture their environment—but loop variables and late binding bite you unless you bind per iteration.”*
+**What:** How closures capture loop variables—not just outer function parameters.
+
+**Why:** Classic source of duplicate jobs, wrong indices, and goroutines printing the same value.
+
+**When:** Spawning async work or timers inside loops.
+
+**Key takeaway:** Closures capture their environment—loop variables and late binding fail unless you bind a fresh value each iteration.
 
 Beyond [Closures (fundamentals)](#closures-functions-that-capture-surroundings)—how capture behaves in **loops** and **late binding**.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
 let mut x = 10;
@@ -1398,9 +1804,15 @@ $fn();
 
 ### Lazy evaluation: generators and iterators
 
-**Interview lens:** *“I stream or paginate instead of loading everything into memory—generators and iterators are single-pass unless I materialize on purpose.”*
+**What:** Producing values one at a time instead of building a full in-memory list.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**Why:** Bounded memory for paginated APIs and large ingest pipelines.
+
+**When:** Walking partner pages, CSV rows, or RAG chunk streams.
+
+**Key takeaway:** Stream or paginate large datasets instead of loading everything into memory—generators and iterators are single-pass unless you call `list()` or `.collect()` on purpose.
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
 (1..=5).map(|x| x * 2).for_each(|x| println!("{x}"));
@@ -1462,6 +1874,9 @@ function gen() {
 **Related:** [Functional idioms](#functional-idioms-map-filter-reduce) · [Built-in data structures](#built-in-data-structures)
 
 ```python
+# What: generator yielding IDs page by page without loading all rows
+# Why: bounded memory for large partner datasets
+# When: RAG ingest and bulk API walks (Project 2)
 # Python — paginated IDs (integration pattern)
 def page_ids(url: str, page_size: int = 100):
     page = 0
@@ -1475,6 +1890,9 @@ def page_ids(url: str, page_size: int = 100):
 ```
 
 ```javascript
+// What: sync generator walking paginated API pages
+// Why: consumer pulls one ID at a time—no giant array in memory
+// When: Node clients calling paginated partner APIs (Project 7)
 // JavaScript — sync generator for paginated API
 function* pageIds(fetchPage, pageSize = 100) {
   let page = 0;
@@ -1543,9 +1961,15 @@ function pageIds(callable $fetchPage, int $pageSize = 100): Generator {
 
 ### Ownership, borrowing, and memory models
 
-**Interview lens:** *“I know who frees memory and when—Rust enforces it at compile time; GC languages still leak via references and closures.”*
+**What:** Who owns heap data and when it is freed—or how garbage collection (GC) reclaims it.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**Why:** Memory leaks and use-after-free still happen in GC languages via lingering references.
+
+**When:** Long-running workers, closures holding large buffers, Rust hot paths.
+
+**Key takeaway:** Know who frees memory and when—Rust enforces this at compile time; garbage-collected (GC) languages still leak when references or closures keep objects alive.
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
 let s = String::from("hi");
@@ -1561,7 +1985,7 @@ print(sys.getrefcount(a))  # refcount hint (not exact in CPython)
 
 ```javascript
 let a = { x: 1 };
-a = null; // eligible for GC when unreachable
+a = null; // eligible for garbage collection (GC) when unreachable
 ```
 
 ```go
@@ -1573,17 +1997,17 @@ func f() *int {
 
 ```php
 <?php
-// FPM: memory resets each request; queue workers need explicit cleanup
+// PHP-FPM: memory resets each request; queue workers need explicit cleanup
 ```
 
 **Decode:** Rust `E0502` (“cannot borrow as mutable because it is also borrowed as immutable”) means two live references conflict—restructure scopes or use interior mutability sparingly.
 
 | Lang | Model | Who frees? | Typical gotcha |
 |------|-------|------------|----------------|
-| **JavaScript** | GC + reference counting (some engines) | Runtime | Closures holding large objects; event listener leaks |
+| **JavaScript** | Garbage collection (GC) + reference counting (some engines) | Runtime | Closures holding large objects; event listener leaks |
 | **TypeScript** | Same as JS (types erased) | Runtime | Same as JS |
-| **PHP** | Reference-counted GC | Runtime per request (FPM) | Long-running workers accumulate if references linger |
-| **Go** | Concurrent GC | Runtime | Escape analysis hides allocations; slice backing arrays shared |
+| **PHP** | Reference-counted garbage collection (GC) | Runtime per request (PHP-FPM) | Long-running workers accumulate if references linger |
+| **Go** | Concurrent garbage collection (GC) | Runtime | Escape analysis hides allocations; slice backing arrays shared |
 | **Python** | Refcount + cyclic GC | Runtime | Large lists in hot loops; `__slots__` for many small objects |
 | **Rust** | **Ownership + borrow checker** | Compile-time rules; drop at scope | Fighting the borrow checker with `.clone()` everywhere |
 
@@ -1603,7 +2027,13 @@ func f() *int {
 
 ### Type systems beyond annotations
 
-**Interview lens:** *“I use the type system to make invalid states unrepresentable—Option not null, strict equality, CI type checkers on Python/TS.”*
+**What:** Structural vs nominal typing, nullability, and making invalid states unrepresentable.
+
+**Why:** Annotations alone do not catch nil interface bugs or Python hints ignored at runtime.
+
+**When:** Designing DTOs, optional config, and CI type gates.
+
+**Key takeaway:** Use the type system to rule out invalid states—`Option` instead of null, strict equality (`===`), and CI type checkers (mypy, TypeScript `strict`) on Python and TypeScript.
 
 Annotations are the surface; **structural vs nominal typing**, **nullability**, and **variance** are what senior reviews focus on.
 
@@ -1677,7 +2107,13 @@ function loadConfig(?Config $raw): Config {
 
 ### Error philosophy and control flow
 
-**Interview lens:** *“Errors are values or exceptions—but always handled at a boundary with logging, HTTP status, or DLQ—not swallowed in the middle.”*
+**What:** Choosing return values vs exceptions at service boundaries.
+
+**Why:** Middle layers that swallow errors poison queues and hide partner failures.
+
+**When:** HTTP handlers, worker jobs, and CLI `main` functions.
+
+**Key takeaway:** Errors are values or exceptions—but always handled at a boundary with logging, HTTP status, or dead-letter queue (DLQ) policy, never swallowed in the middle.
 
 Fundamentals live in [Error handling](#error-handling). This section is **how senior engineers choose** between styles at service boundaries.
 
@@ -1776,11 +2212,17 @@ function findUser(string $id): User {
 
 ### Cross-language gotchas (interview favorites)
 
-**Interview lens:** *“I use strict equality, explicit nil/None checks, and I can explain the Go nil interface trap and Rust borrow conflicts without guessing.”*
+**What:** The highest-frequency semantic traps when moving between stacks.
+
+**Why:** These show up in code review and production incidents—not trick questions.
+
+**When:** Before merging cross-stack ports or during incident postmortems.
+
+**Key takeaway:** Use strict equality, explicit nil/`None` checks, and understand the Go typed-nil interface trap and Rust borrow conflicts.
 
 Consolidated **tripwires**—see also [Equality gotchas](#equality-gotchas), [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness), and [Language gotchas deep dive](language-gotchas-deep-dive.md) (20 mentor-depth sections for Python · TS/JS · PHP + interview prep).
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
 let mut x = 5;
@@ -1826,11 +2268,17 @@ var_dump("0" === 0); // false
 
 ### Functional idioms (map, filter, reduce)
 
-**Interview lens:** *“I express transforms as map/filter/reduce or iterator chains—side effects stay at the edges.”*
+**What:** Expressing list transforms without manual index loops.
+
+**Why:** Clearer data pipelines; easier to test when side effects stay at the edges.
+
+**When:** Shaping API responses, filtering active records, aggregating metrics.
+
+**Key takeaway:** Express transforms with map/filter/reduce or iterator chains—keep side effects at the edges (I/O, logging), not inside pure transforms.
 
 Cross-language spellings—theory (pure functions, HOF) in [Programming paradigms](../concepts/software-engineering.md#programming-paradigms).
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
 let doubled: Vec<_> = (1..=5).map(|x| x * 2).collect();
@@ -1870,6 +2318,9 @@ $doubled = array_map(fn($x) => $x * 2, [1, 2, 3, 4, 5]);
 **Pipeline example:** active user IDs doubled.
 
 ```javascript
+// What: filter active users then map ids
+// Why: keep side effects out of map/filter—pure transforms
+// When: shaping data before a downstream API call
 const ids = users.filter((u) => u.active).map((u) => u.id * 2);
 ```
 
@@ -1882,6 +2333,9 @@ let ids: Vec<_> = users.iter().filter(|u| u.active).map(|u| u.id * 2).collect();
 ```
 
 ```go
+// What: filter/map spelled as explicit for loop
+// Why: Go stdlib favors loops over chained helpers
+// When: hot paths where clarity beats cleverness
 // Go — explicit loop (idiomatic)
 var ids []int
 for _, u := range users {
@@ -1905,7 +2359,7 @@ $ids = array_map(
 
 ### Metaprogramming: decorators, macros, traits
 
-Senior spelling differs wildly: **runtime decoration** (Python/PHP), **compile-time macros** (Rust), **structural traits** (Rust/Go interfaces).
+Spelling differs widely at this level: **runtime decoration** (Python/PHP), **compile-time macros** (Rust), **structural traits** (Rust/Go interfaces).
 
 | Lang | Mechanism | Typical use |
 |------|-----------|-------------|
@@ -1927,6 +2381,9 @@ Senior spelling differs wildly: **runtime decoration** (Python/PHP), **compile-t
 **Same scenario:** wrap a handler to log duration.
 
 ```python
+# What: timing decorator with functools.wraps
+# Why: preserves function metadata for logs and OpenAPI
+# When: FastAPI route wrappers and retry helpers (Project 2)
 # Python — decorator
 import functools
 import time
@@ -1952,6 +2409,9 @@ trait Timed {
 ```
 
 ```go
+// What: HTTP middleware measuring request duration
+// Why: Go has no runtime decorators—explicit wrapper functions
+// When: Project 8 gateway logging
 // Go — explicit middleware wrapper (idiomatic)
 func timed(next http.HandlerFunc) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
@@ -1991,11 +2451,17 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 
 ### Concurrency beyond syntax
 
-**Interview lens:** *“Concurrency overlaps work; parallelism uses multiple CPUs—I bound IO with async/pools and never spawn unbounded goroutines on CPU-heavy loops.”*
+**What:** Production concurrency—bounded pools, backpressure, and CPU vs I/O split—not just async spelling.
 
-[Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) covers **spelling**. Senior work adds **models, backpressure, and failure modes**—detailed in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
+**Why:** Unbounded goroutines or blocking the event loop fail under real load.
 
-**At a glance (Rust · Python · JavaScript · Go · PHP):**
+**When:** Queue workers (Project 6/8), Node fan-out (Project 7), realtime labs.
+
+**Key takeaway:** Concurrency overlaps work; parallelism uses multiple CPUs—bound I/O with async and pools; never spawn unbounded goroutines on CPU-heavy loops.
+
+[Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) covers **spelling**. Production work adds **models, backpressure, and failure modes**—detailed in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
+
+**At a glance (Rust · Python · JavaScript · Go · PHP):** Each line creates a three-element ordered sequence—the most common literal in that language.
 
 ```rust
 // IO-bound: tokio tasks with Semaphore cap
@@ -2113,7 +2579,12 @@ Python is common in AI pipelines, glue scripts, and backend services. It has **n
 | Identity vs value | `x is None` (not `== None`) · `==` for values |
 | Typing at scale | `mypy` / `pyright` in CI; runtime ignores most hints |
 
+**Python** — common script layout: dataclass models, list comprehension filter, `if __name__ == "__main__"` guard.
+
 ```python
+# What: load active users from raw dict rows
+# Why: dataclass + comprehension keeps glue readable
+# When: one-off ingest scripts beside Project 2 services
 # Python — typical glue script shape
 from dataclasses import dataclass
 

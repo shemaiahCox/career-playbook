@@ -4,7 +4,7 @@
 
 **Path:** [Architecture framework](architecture-framework.md) (you are here) → [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [PROGRESS.md](../../PROGRESS.md)
 
-**Quality bar example:** [sample portfolio](../examples/sample-portfolio/) — filled diagram, ADR, and failure modes tagged by pillar.
+**Quality bar example:** [sample portfolio](../examples/sample-portfolio/) — filled diagram, Architecture Decision Record (ADR), and failure modes tagged by pillar.
 
 ---
 
@@ -12,14 +12,14 @@
 
 Architecture is the set of **choices that are expensive to reverse**: how work is split, how data flows, what fails and how, and what you optimize for (latency, cost, consistency, operability).
 
-Two lenses show up in hiring — **production first** in this playbook, **interview SD** as a whiteboard layer on top:
+Two lenses show up in hiring — **production first** in this playbook, **interview system design** as a whiteboard layer on top:
 
 | Lens | What it emphasizes | Where in this playbook |
 |------|-------------------|------------------------|
 | **Production architecture** | Boundaries, contracts, queues, databases, observability, failure modes in shipped systems | Five pillars below + portfolio artifacts |
 | **Interview system design** | Scale estimates, classic problems, tradeoff narration | [System design interview map](../career/system-design-interview-map.md) |
 
-Where backend engineers are heading: **integration-first platforms** (webhooks, queues, workers), **AI systems boundaries** (Python for LLM logic, Go/Rust for throughput), and **operational credibility** (idempotency, DLQ, structured logs, deploy/rollback). Senior signal = end-to-end shape + explicit failure modes + measured performance + credible ADRs.
+Where backend engineers are heading: **integration-first platforms** (webhooks, queues, workers), **AI systems boundaries** (Python for Large Language Model (LLM) logic, Go/Rust for throughput), and **operational credibility** (idempotency, Dead Letter Queue (DLQ), structured logs, deploy/rollback). Senior signal means end-to-end shape plus explicit failure modes, measured performance, and credible ADRs.
 
 ---
 
@@ -37,6 +37,8 @@ Partner / Boomi / n8n trigger
     → Postgres (SQL correctness, indexes, vectors)           [Pillar 3]
 ```
 
+The diagram reads top to bottom as a single event flow. A partner system or integration platform (Boomi, n8n) fires a trigger. Your ingress layer — PHP or Node — verifies the request (signing), deduplicates it (idempotency), and returns a fast HTTP 2xx success so the partner does not retry unnecessarily. That is where synchronous Hypertext Transfer Protocol (HTTP) ends and durable work begins: the payload lands on a queue or transactional outbox. A Go worker picks it up, retries on failure, routes poison messages to a DLQ, and can fan out to multiple downstream calls concurrently. When the work involves AI, a Python Retrieval-Augmented Generation (RAG) service handles LLM logic with evaluation sets, citations, and guardrails. A Go retrieval gateway sits on the performance boundary — fetching chunks with strict timeouts so slow Python does not wedge the hot path. Postgres holds relational correctness, indexes, and optionally vector embeddings.
+
 **Pillar 1 deep dive:** [Systems integration architect — Pillar 1](systems-integration-architect.md)
 
 ---
@@ -45,18 +47,13 @@ Partner / Boomi / n8n trigger
 
 ### Pillar 1 — System shape (highest leverage)
 
-**Decisions you make:**
+System shape is about drawing boundaries before you write code. The central question is where HTTP ends and durable work begins: do you hold the partner on a long synchronous request, or return a fast acknowledgment and finish in a queue? At each integration edge you choose sync versus async. You decide who owns retrieval, who owns the LLM, and who owns ingress. The playbook default is **monolith first** — start with a modular monolith and split only when evidence demands it.
 
-- Where does HTTP end and durable work begin? (fast 2xx + queue vs long sync request)
-- Sync vs async at each integration edge
-- Service boundaries — who owns retrieval, LLM, ingress
-- Modular monolith vs microservices — **playbook default: monolith first**
-
-**Playbook stance:** Draw system shape before opening an IDE. One diagram per shipped lab beats none.
+Draw system shape before opening an integrated development environment (IDE). One diagram per shipped lab beats none.
 
 **Deep docs:** [systems-integration-architect.md](systems-integration-architect.md) · [software-engineering.md § Architectural patterns](software-engineering.md#architectural-patterns)
 
-**Example ADR prompts:** SQLite vs Postgres for idempotency store; why Go owns retrieval not Python; compose-orchestrated capstone vs monorepo.
+**Example ADR prompts:** SQLite versus Postgres for an idempotency store; why Go owns retrieval and not Python; compose-orchestrated capstone versus monorepo.
 
 **Primary projects:** 1, 5, 7, 8, 11, 22
 
@@ -64,18 +61,13 @@ Partner / Boomi / n8n trigger
 
 ### Pillar 2 — Integration and messaging
 
-**Decisions you make:**
+Integration and messaging covers how systems talk and what happens when messages arrive more than once. You choose delivery semantics — at-most-once, at-least-once, or effectively-once via idempotency. You pick a broker (Redis versus Kafka versus a database outbox), an API style (Representational State Transfer (REST)/OpenAPI versus gRPC versus webhooks), and how idempotency keys, DLQs, and replay work together.
 
-- Delivery semantics — at-most / at-least / effectively-once (via idempotency)
-- Broker choice — Redis vs Kafka vs DB outbox
-- API style — REST/OpenAPI vs gRPC vs webhooks
-- Idempotency keys, DLQ, replay
-
-**Playbook stance:** Design for duplicate delivery first; narrow the window where it hurts. Master idempotency + DLQ on **one** broker before adding a second.
+Design for duplicate delivery first; narrow the window where duplicates hurt. Master idempotency and DLQ on **one** broker before adding a second.
 
 **Deep docs:** [messaging-and-rpc.md](messaging-and-rpc.md) · [software-engineering.md § Integration](software-engineering.md#integration-sync-async-and-messaging) · [integration-hardening.md](../../checklists/integration-hardening.md)
 
-**Example ADR prompts:** Redis vs DB outbox for queue; ack before vs after handler commit; REST vs gRPC for Python↔Go.
+**Example ADR prompts:** Redis versus database outbox for the queue; acknowledge before versus after handler commit; REST versus gRPC for Python↔Go.
 
 **Primary projects:** 1, 6, 8, 10, 23, 24
 
@@ -83,17 +75,13 @@ Partner / Boomi / n8n trigger
 
 ### Pillar 3 — Data architecture
 
-**Decisions you make:**
+Data architecture is schema design, indexing, transactions, and tenancy. You model hot query paths, choose between row-level `tenant_id` filtering and Postgres Row-Level Security (RLS), and use Consistency, Availability, Partition tolerance (CAP) vocabulary when discussing replication lag — especially useful in system design interviews.
 
-- Schema, indexes, transactions — hot query paths
-- Multi-tenancy — row-level `tenant_id` vs Postgres RLS
-- CAP vocabulary — consistency vs availability; replication lag (study for SD interviews)
-
-**Playbook stance:** Prove data-layer choices with `EXPLAIN ANALYZE` and explicit transaction boundaries.
+Prove data-layer choices with `EXPLAIN ANALYZE` and explicit transaction boundaries.
 
 **Deep docs:** [database-design.md](database-design.md) · [Project 12 spec](../../career-project-specs/12-multi-tenant-auth-lab.md)
 
-**Example ADR prompts:** Partial vs covering index for hot query; JWT claims vs session for tenant context; Postgres FTS vs external search engine.
+**Example ADR prompts:** Partial versus covering index for a hot query; JSON Web Token (JWT) claims versus session for tenant context; Postgres full-text search versus external search engine.
 
 **Primary projects:** 4, 2, 8, 12, 25
 
@@ -101,17 +89,13 @@ Partner / Boomi / n8n trigger
 
 ### Pillar 4 — Performance and language boundaries
 
-**Decisions you make:**
+Performance decisions start with measurement. Profile before rewriting. When you split Python versus Go versus Rust, use the same contract and write an evidence-based ADR. Caching, fan-out on write versus read, and rate limiting all live here.
 
-- Measure → profile → fix before rewriting
-- Python vs Go vs Rust — same contract, evidence-based ADR
-- Caching, fan-out on write vs read, rate limiting
-
-**Playbook stance:** Go-first for throughput; Rust optional with p95 + RSS evidence. No rewrite without a profile.
+The playbook stance is Go-first for throughput; Rust is optional with 95th percentile (p95) latency and Resident Set Size (RSS) evidence. No rewrite without a profile.
 
 **Deep docs:** [memory-and-performance.md](memory-and-performance.md) · [performance templates](../templates/)
 
-**Example ADR prompts:** Why Go owns retrieval boundary; token bucket vs sliding window; trie in-memory vs DB-backed prefix index.
+**Example ADR prompts:** Why Go owns the retrieval boundary; token bucket versus sliding window; trie in-memory versus database-backed prefix index.
 
 **Primary projects:** 4, 8, 18, 19 (optional), 23, 25
 
@@ -119,18 +103,13 @@ Partner / Boomi / n8n trigger
 
 ### Pillar 5 — Reliability, security, operations
 
-**Decisions you make:**
+Reliability covers observability (correlation identifiers, logs/metrics/traces, Service Level Objective (SLO) thinking), failure modes (partial outage, duplicate delivery, cache stampede), security at edges (Hash-based Message Authentication Code (HMAC), Cross-Site Request Forgery (CSRF), tenant isolation), and deploy/rollback (health checks, Continuous Integration (CI) gates).
 
-- Observability — correlation IDs, logs/metrics/traces, SLO thinking
-- Failure modes — partial outage, duplicate delivery, cache stampede
-- Security at edges — HMAC, CSRF, tenant isolation
-- Deploy and rollback — health checks, CI gates
-
-**Playbook stance:** Every lab documents **three failure modes** without its mitigations. Gate milestones with [production-readiness.md](../../checklists/production-readiness.md).
+Every lab documents **three failure modes** and their mitigations. Gate milestones with [production-readiness.md](../../checklists/production-readiness.md).
 
 **Deep docs:** [production-readiness.md](../../checklists/production-readiness.md) · [software-engineering.md § Observability](software-engineering.md#observability-logs-metrics-traces) · Projects 3, 9, 16
 
-**Example ADR prompts:** JSON log schema; session vs token auth; cloud target and rollback strategy.
+**Example ADR prompts:** JSON log schema; session versus token auth; cloud target and rollback strategy.
 
 **Primary projects:** 3, 9, 12, 14, 15, 16 (+ failure modes on **every** lab)
 
@@ -200,9 +179,9 @@ Log milestones in [PROGRESS.md](../../PROGRESS.md) with **Pillar(s)**, **Tradeof
 
 ## Interview appendix (not a sixth pillar)
 
-[System design interview map](../career/system-design-interview-map.md) maps classic whiteboard problems to labs. In interviews, narrate **pillar tradeoffs at scale** — e.g. fan-out on write (Pillar 4 + 2), idempotency under retry (Pillar 2), tenant isolation (Pillar 3).
+[System design interview map](../career/system-design-interview-map.md) maps classic whiteboard problems to labs. In interviews, narrate **pillar tradeoffs at scale** — for example fan-out on write (Pillar 4 + 2), idempotency under retry (Pillar 2), tenant isolation (Pillar 3).
 
-[Big Tech benchmark](../career/big-tech-benchmark.md): production pillars + parallel DSA/SD drills.
+[Big Tech benchmark](../career/big-tech-benchmark.md): production pillars + parallel Data Structures and Algorithms (DSA)/system design drills.
 
 ---
 

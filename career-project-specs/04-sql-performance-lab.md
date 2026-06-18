@@ -57,18 +57,23 @@ Most backend roles assume you can **join**, **filter**, and **migrate** responsi
 - **Double spends / double inserts** when two workers race without a **transaction boundary** or **unique** constraint aligned to the business key.
 - **Staging-only miracles:** fixes that used indexes present in prod but not in CI’s dataset—your lab teaches **repeatable** seeds and plans checked into the repo.
 
+### How to talk about this
+
+You fixed p95 (95th percentile latency) with a plan-backed index change—you can show sequential scan versus index scan and what it cost on writes. Bring before/after `EXPLAIN (ANALYZE, BUFFERS)` excerpts, rows removed by filter, and an honest note on write amplification when you added partial or covering indexes.
+
 ## Important concepts
 
-### Concept spotlight
+### Query plans
 
-| **Query plans** | Run `EXPLAIN (ANALYZE, BUFFERS)`; compare seq scan vs index scan with evidence |
-| **Index tradeoffs** | Add partial/covering indexes; note write amplification in README |
-| **Transactions + idempotent writes** | Use constraints/transactions so duplicate worker upserts stay safe ([Project 6](06-async-worker-stretch.md), [Project 8](08-go-retrieval-worker-lab.md)) |
+Run `EXPLAIN (ANALYZE, BUFFERS)` and compare sequential scan versus index scan with evidence checked into README or comments. Plans stop optimization from being vibes—they show why a query is slow and whether your fix actually changed the access path.
 
-**Interview line:** *“I fixed p95 with a plan-backed index change—I can show seq scan vs index scan and what it cost on writes.”*
+### Index tradeoffs
 
+Add partial or covering indexes aligned to predicates and sort keys; note write amplification and autovacuum impact in README. A read win that slows every insert is a tradeoff you should be able to defend in review.
 
-**Interview line:** *“I fixed p95 with a plan-backed index change—I can show seq scan vs index scan and what it cost on writes.”*
+### Transactions and idempotent writes
+
+Use constraints and transaction boundaries so duplicate worker upserts stay safe ([Project 6](06-async-worker-stretch.md), [Project 8](08-go-retrieval-worker-lab.md)). ACID (atomicity, consistency, isolation, durability) properties plus unique business keys are how queues and webhooks redeliver without double-spend stories.
 
 ## Code repo
 

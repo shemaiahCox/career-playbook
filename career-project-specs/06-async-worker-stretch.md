@@ -12,7 +12,7 @@
 
 - Move durable work off the HTTP thread with queues
 - Handle at-least-once delivery with idempotent workers
-- Operate DLQ, retries, and replay safely
+- Operate DLQ (dead-letter queue), retries, and replay safely
 
 ## Architecture pillars
 
@@ -59,18 +59,23 @@ Almost every mature product eventually splits **fast acknowledgment** (HTTP 200 
 - **Rate limits and partners:** a downstream API **429s** you; workers **back off** and spread load instead of tying up web workers or cascading timeouts to users.
 - **Operational safety:** one malformed message **crashes** the consumer loop; **DLQ + alerting** isolates the bad payload so the main queue **drains** while someone replays or patches the handler.
 
+### How to talk about this
+
+The queue may deliver twice—you idempotent-key side effects so redelivery never double-writes. Tie the story to Project 1: business idempotency is broker-independent. Mention visibility timeout, ack timing, backoff, and DLQ inspection when interviewers ask what happens after N failures or a poison message.
+
 ## Important concepts
 
-### Concept spotlight
+### At-least-once delivery
 
-| **At-least-once delivery** | Assume duplicate messages; design worker for safe redelivery |
-| **Idempotency (worker)** | Dedupe on `job_id` or business key before side effects |
-| **DLQ + backoff** | Poison messages to DLQ after N tries; transient failures retry with backoff |
+Assume duplicate messages; design the worker for safe redelivery. Crashes before ack and visibility timeouts mean the same job may run twice—your handler must dedupe on `job_id` or a business key before side effects.
 
-**Interview line:** *“The queue may deliver twice—we idempotent-key side effects so redelivery never double-writes.”*
+### Idempotency (worker)
 
+Dedupe on `job_id` or business key before writes, mirroring `Idempotency-Key` semantics from [Project 1](01-integration-webhook-receiver.md). Transport duplicates and queue redelivery are the same class of problem at a different boundary.
 
-**Interview line:** *“The queue may deliver twice—we idempotent-key side effects so redelivery never double-writes.”*
+### DLQ and backoff
+
+Route poison messages to a DLQ (dead-letter queue) after N tries; retry transient failures with exponential backoff. Isolating bad payloads lets the main queue drain while ops inspect evidence and replay deliberately after a fix.
 
 ## Code repo
 
@@ -195,7 +200,7 @@ Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchma
 
 - [ ] **Kafka** (or GCP Pub/Sub) as primary broker for at least one deployment path — same idempotency keys, DLQ, and replay semantics as Redis.
 - [ ] README documents consumer group, partition strategy, and offset commit timing.
-- [ ] Interview line ready: *"Same idempotency whether Redis or Kafka; I can ramp on your broker."*
+- [ ] Be ready to explain: same idempotency whether Redis or Kafka; you can ramp on the team’s broker.
 
 **Capstone:** Pair with [Project 1](01-integration-webhook-receiver.md) ingress and [Project 8](08-go-retrieval-worker-lab.md) retrieval. See [Stretch: connect your labs](08-go-retrieval-worker-lab.md#stretch-connect-your-labs) when Project 8 is green.
 

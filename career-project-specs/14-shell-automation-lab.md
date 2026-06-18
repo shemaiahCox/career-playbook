@@ -11,10 +11,10 @@
 ## What you will learn
 
 - `set -euo pipefail`, quoting, and functions in production-shaped scripts
-- Exit codes (0 success, 1 usage/error, 2 config) scriptable by CI and cron
+- Exit codes (0 success, 1 usage/error, 2 config) scriptable by continuous integration (CI) and cron
 - Idempotent cron-safe scripts with explicit dry-run flags
 - `curl` + `jq` for API probes against your real labs
-- `shellcheck` in CI and `bats-core` for testable shell logic
+- `shellcheck` in continuous integration (CI) and `bats-core` for testable shell logic
 - When bash glue stops and a Go CLI ([Project 15](15-devops-cli-lab.md)) should take over
 
 ## Architecture pillars
@@ -44,28 +44,51 @@ Minimum deliverables:
 |--------|---------|
 | `lib/common.sh` | Shared logging, `die()`, strict-mode helpers |
 | `scripts/webhook-smoke.sh` | Signed POST to [Project 1](01-integration-webhook-receiver.md) receiver; assert 2xx; optional idempotency replay |
-| `scripts/queue-depth.sh` | Redis/SQS depth with timeout; JSON stdout for piping |
+| `scripts/queue-depth.sh` | Redis/Amazon Simple Queue Service (SQS) depth with timeout; JSON stdout for piping |
 | `scripts/logs-request-id.sh` | Grep structured logs by `request_id` ([Project 3](03-observability-lab.md)) |
 | `scripts/preflight.sh` | Verify env vars, `docker`, health URLs before deploy (feeds [Project 16](16-cloud-deploy-lab.md)) |
 
 ## Career relevance
 
-**Summary:** Backend and systems roles expect **bash literacy** for CI glue, deploy hooks, and incident smoke tests—even when production CLIs are Go or Rust.
+**Summary:** Backend and systems roles expect **bash literacy** for continuous integration (CI) glue, deploy hooks, and incident smoke tests—even when production command-line interfaces (CLIs) are Go or Rust.
 
 ### In depth
 
 Employers distinguish engineers who write **fragile one-liners** from those who ship **strict-mode scripts** with exit codes, shellcheck-clean CI, and clear bash-vs-Go boundaries. This lab formalizes patterns you started in Projects 1–13 and precedes the Go ops CLI in [Project 15](15-devops-cli-lab.md).
 
-**Interview line:** *“Bash wraps our stack for smoke and deploy preflight; the Go CLI handles idempotent DLQ replay at 3am—we don't reimplement subcommands in shell.”*
+**Why learning this moves the needle**
+
+- **CI and cron:** Pipelines and scheduled jobs need scripts that **fail loudly** with predictable exit codes—not scripts that swallow errors and leave production in a half-deployed state.
+- **Incident response:** Smoke tests against real labs (webhook, queue, logs) are how you prove “the stack is up” before paging the on-call engineer for a deeper issue.
+- **Boundary discipline:** Knowing when bash stops and a typed CLI starts is a **staff-level** ops conversation; reimplementing subcommands in shell is a maintenance trap.
+
+**Real-world situations this project mirrors**
+
+- **Deploy preflight:** missing env vars or unhealthy dependencies caught **before** `docker compose up` or a cloud push—not after customers hit 502s.
+- **Cron-safe queue checks:** a scheduled script reports Redis or Amazon Simple Queue Service (SQS) depth as JSON for alerting without re-running destructive logic on every tick.
+- **Partner smoke tests:** signed POST to your webhook receiver after a deploy, with idempotency replay to prove the integration path still works.
+
+### How to talk about this
+
+Bash wraps your stack for smoke and deploy preflight; the Go CLI handles idempotent dead-letter queue (DLQ) replay at 3am—you do not reimplement subcommands in shell. When interviewers ask about script safety, explain strict mode (`set -euo pipefail`), documented exit codes (0 success, 1 runtime error, 2 missing config), and shellcheck in CI. When they ask about ops tooling boundaries, describe bash as glue that invokes a typed binary for anything with subcommands, config files, or long-lived maintenance workflows.
 
 ## Important concepts
 
-### Concept spotlight
+### Strict mode
 
-| **Strict mode** | `set -euo pipefail`; handle expected non-zero (`grep \|\| true`) |
-| **Scriptable exit codes** | 0 = success, 1 = runtime/usage error, 2 = missing config |
-| **Idempotent cron scripts** | Safe to re-run; dry-run flag for destructive paths |
-| **Bash vs Go CLI** | Bash for glue; Go for subcommands, config, and long-lived ops tools |
+Enable `set -euo pipefail` on every script (or source `lib/common.sh` that does). Treat unset variables and pipeline failures as errors. Handle **expected** non-zero exits explicitly—e.g. `grep pattern file || true` when absence is normal—so strict mode does not false-positive.
+
+### Scriptable exit codes
+
+Document a small contract: **0** = success, **1** = runtime or usage error, **2** = missing configuration. CI, cron, and human operators can branch on these codes without parsing English stderr.
+
+### Idempotent cron scripts
+
+Design scripts safe to re-run: read current state, compare desired state, act only on diff. Destructive paths require an explicit `--dry-run` flag so reviewers and automation can preview changes.
+
+### Bash vs Go CLI
+
+Use bash for glue—env checks, invoking binaries, piping JSON with `jq`, wiring deploy hooks. Use Go (see [Project 15](15-devops-cli-lab.md)) for subcommands, structured config, DLQ semantics, and tools you maintain at 3am. Document the boundary in an architecture decision record (ADR) or README section.
 
 ## Code repo
 

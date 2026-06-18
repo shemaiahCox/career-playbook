@@ -10,9 +10,9 @@
 
 ## What you will learn
 
-- Verify webhook callers with HMAC over the raw body
+- Verify webhook callers with HMAC (Hash-based Message Authentication Code) over the raw body
 - Make retries safe with idempotency keys and a durable store
-- Return fast ack after recording intent; park poison messages in a DLQ
+- Return fast ack after recording intent; park poison messages in a DLQ (dead-letter queue)
 - Leave an audit trail with request IDs and structured logs
 
 ## Architecture pillars
@@ -43,7 +43,7 @@ Practice a **production-shaped** HTTP inbound integration: verify caller, dedupe
 
 ### In depth
 
-Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push events into your product. Interviewers and senior engineers expect you to reason about **retries, spoofing, and partial failures**—not just “parse JSON and insert a row.” The same patterns apply when you own **event consumers** behind Kafka or a queue later; HTTP is just the easiest place to drill the habits.
+Inbound webhooks are how **payments, CRMs (customer relationship management), shipping, and iPaaS (integration Platform as a Service) tools** push events into your product. Interviewers and senior engineers expect you to reason about **retries, spoofing, and partial failures**—not just “parse JSON and insert a row.” The same patterns apply when you own **event consumers** behind Kafka or a queue later; HTTP is just the easiest place to drill the habits.
 
 **Why learning this moves the needle**
 
@@ -59,19 +59,27 @@ Inbound webhooks are how **payments, CRMs, shipping, and iPaaS tools** push even
 - **Forged traffic:** without verification, anyone who knows your URL can POST fake “subscription canceled” events. Signature verification is how you maintain **non-repudiation** at the HTTP boundary.
 - **Partial failure:** handler throws after **some** DB writes; without idempotency or compensation, replay might **duplicate** side effects. Dead-letter + abandon (or similar) is how you get back to a known state and retry deliberately.
 
+### How to talk about this
+
+Partners retry webhooks; you dedupe on `Idempotency-Key` and return the stored response so transport duplicates never double-apply business effects. When interviewers ask about forged traffic, explain HMAC verification over the raw body before JSON parse. When they ask about poison payloads, describe dead-letter storage with evidence and a documented replay path after you fix the handler—not blind retries that spam errors or block the pipeline.
+
 ## Important concepts
 
-### Concept spotlight
+### Idempotency
 
-| **Idempotency** | Key on `Idempotency-Key` (header or body); store outcome; replay returns same response without double side effects |
-| **HMAC verification** | Verify signature over **raw body** before parsing; reject forgeries with 401 |
-| **Dead letter + replay** | Park poison payloads with evidence; document safe replay after fix |
-| **Fast ack** | Return 2xx after durable record of intent—not after all downstream work |
+Key on `Idempotency-Key` (header or body), store the outcome in a durable record, and on replay return the same response without double side effects. This separates transport retries from business semantics: the partner may send the same bytes twice, but your wallet or inventory must move once.
 
-**Interview line:** *“Partners retry webhooks; we dedupe on Idempotency-Key and return the stored response so transport duplicates never double-apply business effects.”*
+### HMAC verification
 
+Verify the signature over the **raw body** before parsing JSON; reject forgeries with `401`. Re-encoding changes bytes and breaks signatures, so read the body once and compare with constant-time equality checks.
 
-**Interview line:** *“Partners retry webhooks; we dedupe on Idempotency-Key and return the stored response so transport duplicates never double-apply business effects.”*
+### Dead letter and replay
+
+Park poison payloads with evidence (payload, error, idempotency key) so humans can inspect and replay after a fix. Abandon or equivalent cleanup lets the partner retry the same key once your handler is healthy again.
+
+### Fast ack
+
+Return `2xx` after a durable record of intent—not after all downstream work finishes. Integration platforms treat your HTTP response as their success signal; heavy work belongs behind the ack boundary.
 
 ## Code repo
 

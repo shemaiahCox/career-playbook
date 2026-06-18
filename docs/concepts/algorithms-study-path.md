@@ -2,7 +2,7 @@
 
 Guided **read and apply** path through [Algorithms and data structures](algorithms-and-data-structures.md). This is **not optional** when you are in [Project 4](../../career-project-specs/04-sql-performance-lab.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md), or building **chunk/retrieval pipelines** in [Project 2](../../career-project-specs/02-rag-llm-service.md).
 
-**Rule:** After each section below, **stop and explain aloud** (or write in [PROGRESS.md](../../PROGRESS.md)) the answer to the prompt—one paragraph minimum.
+**Rule:** After each section below, **stop and explain aloud** (or write in [PROGRESS.md](../../PROGRESS.md)) the answer to the prompt — one paragraph minimum.
 
 ---
 
@@ -18,7 +18,7 @@ Guided **read and apply** path through [Algorithms and data structures](algorith
 | Webhook idempotency table lookup by `event_id` | Why is average O(1)? What breaks worst case? |
 | SQL `OFFSET` pagination on hot list | Why does cost grow with page number? |
 
-**Stop and explain:** “Why is O(n²) dangerous at 10⁶ items but maybe fine at 10²?”
+**Stop and explain:** Write one paragraph on why O(n²) is dangerous at 10⁶ items but might be fine at 10².
 
 ---
 
@@ -26,7 +26,7 @@ Guided **read and apply** path through [Algorithms and data structures](algorith
 
 **Read:** [Array, dynamic array, list](algorithms-and-data-structures.md#array-dynamic-array-list-contiguous).
 
-**Apply:** Go slice append in a loop vs preallocated capacity; PHP array growth; Python list comp vs repeated append.
+**Apply:** Compare Go slice append in a loop versus preallocated capacity; PHP array growth; Python list comprehension versus repeated append.
 
 **Stop and explain:** What **amortized O(1) append** means and when you still pay O(n).
 
@@ -34,19 +34,19 @@ Guided **read and apply** path through [Algorithms and data structures](algorith
 
 ## 3. Hash tables (maps / sets)
 
-**Read:** Hash map section in handbook Data structures.
+**Read:** Hash map section in the algorithms handbook.
 
-**Apply:** Idempotency key store; dedupe set for seen job IDs in Project 8 worker; JS `Map` for in-memory cache.
+**Apply:** Idempotency key store; dedupe set for seen job IDs in Project 8 worker; JavaScript `Map` for in-memory cache.
 
-**Stop and explain:** Average O(1) lookup vs worst O(n) collisions—when would you worry?
+**Stop and explain:** Average O(1) lookup versus worst O(n) collisions — when would you worry?
 
 ---
 
 ## 4. Queues and stacks
 
-**Read:** Queue/stack sections if present; else [Built-in data structures — stack/queue](../languages/language-fundamentals-comparison.md#stack-and-queue-idioms).
+**Read:** Queue/stack sections in the handbook; if you need idioms, see [Built-in data structures — stack/queue](../languages/language-fundamentals-comparison.md#stack-and-queue-idioms).
 
-**Apply:** Project 6 worker drain; DLQ as secondary queue; Boomi “execution” as ordered steps.
+**Apply:** Project 6 worker drain; DLQ as secondary queue; Boomi "execution" as ordered steps.
 
 **Stop and explain:** Why queue drain is O(n) in number of messages and what **backpressure** means when producers outrun consumers.
 
@@ -58,21 +58,21 @@ Guided **read and apply** path through [Algorithms and data structures](algorith
 
 **Apply:** Project 4 `EXPLAIN` before/after index; why B-tree index helps `WHERE id = ?` but not always `LIKE '%x%'`.
 
-**Stop and explain:** Difference between **full table scan** and **index scan** in plain language.
+**Stop and explain:** The difference between **full table scan** and **index scan** in plain language.
 
 ---
 
 ## 6. Graphs (awareness)
 
-**Read:** Graph intro in algorithms handbook (if present) or skim graph terminology in glossary.
+**Read:** Graph section in the algorithms handbook, or skim graph terminology in the glossary.
 
-**Apply:** Integration flows (Boomi process with branches)—not necessarily code a graph library; recognize **cycle** risk in saga compensations.
+**Apply:** Integration flows (Boomi process with branches) — you do not need to code a graph library; recognize **cycle** risk in saga compensations.
 
-**Stop and explain:** One integration workflow that is a **DAG** vs one that could **cycle**.
+**Stop and explain:** One integration workflow that is a **Directed Acyclic Graph (DAG)** versus one that could **cycle**.
 
 ---
 
-## Checklist before calling Project 4/Project 8 “done”
+## Checklist before calling Project 4/Project 8 "done"
 
 - [ ] Named Big-O of at least **one hot path** in your lab README.
 - [ ] Showed **before/after** plan or timing for one SQL or retrieval change.

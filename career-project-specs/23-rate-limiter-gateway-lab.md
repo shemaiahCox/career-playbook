@@ -37,22 +37,49 @@
 
 ## Problem
 
-Add a **rate limiting gateway** in front of an existing API (your Project 8 `/retrieve` or a minimal mock upstream): enforce **per-client limits** (API key or IP), return **`429 Too Many Requests`** with **`Retry-After`**, and document **token bucket vs sliding window** in an ADR.
+Add a **rate limiting gateway** in front of an existing API (your Project 8 `/retrieve` or a minimal mock upstream): enforce **per-client limits** (API key or IP), return **`429 Too Many Requests`** with **`Retry-After`**, and document **token bucket vs sliding window** in an architecture decision record (ADR).
 
 ## Career relevance
 
 **Summary:** Rate limiting is a **top-five system design question** at Google/Meta. This lab turns vocabulary into working middleware with measurable behavior.
 
-**Interview line:** *"We use a sliding window in Redis with Lua for atomic increment; hot keys shard by prefixing API key hash — same backpressure thinking as bounded goroutines in Project 8."*
+### In depth
+
+Gateway middleware sits at the edge before expensive upstream work—same backpressure thinking as bounded goroutines in [Project 8](08-go-retrieval-worker-lab.md). Optional performance depth on the Go-first track; pick this **or** [Project 25](25-search-autocomplete-lab.md), not both required.
+
+**Why learning this moves the needle**
+
+- **System design interviews:** Token bucket vs sliding window is nearly always on the menu; working code beats whiteboard-only answers.
+- **Distributed correctness:** Redis atomic counters and race awareness separate toy limiters from production-shaped ones.
+- **Operator UX:** `429 Too Many Requests` with `Retry-After` gives clients a backoff signal—not ambiguous 500s.
+
+**Real-world situations this project mirrors**
+
+- **API key abuse:** per-client limits on `/retrieve` or similar hot paths.
+- **Redis outage:** fail open vs fail closed policy documented and tested.
+- **Hot keys:** shard by hashing API key prefix when one tenant dominates traffic.
+
+### How to talk about this
+
+You use a sliding window in Redis with Lua for atomic increment; hot keys shard by prefixing API key hash—same backpressure thinking as bounded goroutines in Project 8. When interviewers compare algorithms, explain token bucket burst tolerance vs sliding window smoothness. When interviewers ask about placement, describe limiting at the gateway before upstream retrieval or LLM work runs.
 
 ## Important concepts
 
-### Concept spotlight
+### Token bucket
 
-| **Token bucket** | Steady refill rate; allows short bursts up to bucket size |
-| **Sliding window** | Count requests in rolling time window; smoother than fixed window |
-| **Distributed limiter** | Redis `INCR` + TTL or dedicated limiter service; race awareness |
-| **Gateway placement** | Limit at edge before expensive upstream work |
+Steady refill rate allows short bursts up to bucket capacity. Good when occasional spikes are acceptable but sustained overage must be rejected.
+
+### Sliding window
+
+Count requests in a rolling time window; smoother than fixed windows that reset abruptly at interval boundaries. Often implemented with Redis sorted sets or Lua scripts for atomicity.
+
+### Distributed limiter
+
+Use Redis `INCR` with TTL or a dedicated limiter service; be explicit about races under parallel clients. Document single-node vs cluster capacity for benchmark tier.
+
+### Gateway placement
+
+Enforce limits at the edge before expensive upstream work—retrieval, LLM calls, or database fan-out. Timeouts remain independent of rate limits ([Project 18](18-proxy-load-balancer-lab.md)).
 
 ## Code repo
 

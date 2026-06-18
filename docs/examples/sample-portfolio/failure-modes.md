@@ -6,9 +6,9 @@
 
 1. **Duplicate webhook delivery** → double billing or duplicate orders unless idempotency key is stored and replay returns the same response without re-applying side effects.
 
-2. **Forged POST to public URL** → unauthorized state change unless HMAC is verified over the **raw body** before JSON parsing (body mutation breaks signature).
+2. **Forged POST to public URL** → unauthorized state change unless hash-based message authentication code (HMAC) is verified over the **raw body** before JSON parsing (body mutation breaks signature).
 
-3. **Poison payload retry loop** → partner hammers 5xx forever, ops blind without DLQ + structured logs tying `request_id` to payload hash.
+3. **Poison payload retry loop** → partner hammers 5xx forever, ops blind without dead-letter queue (DLQ) + structured logs tying `request_id` to payload hash.
 
 4. **Slow handler timeout** → partner retries while first request still running → race on idempotency unless store is checked at start of every attempt.
 

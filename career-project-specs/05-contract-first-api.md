@@ -10,7 +10,7 @@
 
 ## What you will learn
 
-- Treat OpenAPI as the source of truth checked into git
+- Treat OpenAPI (OpenAPI Specification) as the source of truth checked into git
 - Gate breaking vs non-breaking changes in CI
 - Version and deprecate APIs without orphaning consumers
 
@@ -58,18 +58,23 @@ Public and partner APIs are **long-lived contracts**. Teams that treat the spec 
 - **Audit and reviews:** legal or security asks what the API **guaranteed** at release time; `openapi.yaml` committed next to the code is a cheap, reviewable artifact (especially compared to stale wiki pages).
 - **Multi-team codegen:** you need a **TypeScript or Kotlin client** (or internal SDK) without hand-writing DTOs—the spec becomes the **single generator input** for all consumers.
 
+### How to talk about this
+
+The OpenAPI file is the contract—you diff it in CI and treat breaking changes like API semantic versioning, not surprise refactors. Explain how you gate renames, required fields, and error shape changes; describe deprecation windows and consumer-driven contract tests when mobile or partners depend on stable JSON.
+
 ## Important concepts
 
-### Concept spotlight
+### OpenAPI as source of truth
 
-| **OpenAPI as source of truth** | Check in `openapi.yaml`; validate implementation against spec in CI |
-| **Breaking vs non-breaking change** | Document and gate renames, required fields, error shape changes |
-| **Versioning discipline** | Path or header versioning; deprecation window for consumers |
+Check in `openapi.yaml` and validate implementation against the spec in CI. Humans and tools agree on what “correct” looks like before code ships—docs, clients, and mock servers share one artifact.
 
-**Interview line:** *“The OpenAPI file is the contract—we diff it in CI and treat breaking changes like API semver, not surprise refactors.”*
+### Breaking versus non-breaking change
 
+Document and gate renames, required fields, and error shape changes. Adding optional fields is usually safe; removing or tightening validation is breaking and needs versioning or an explicit deprecation ritual.
 
-**Interview line:** *“The OpenAPI file is the contract—we diff it in CI and treat breaking changes like API semver, not surprise refactors.”*
+### Versioning discipline
+
+Use path or header versioning and a deprecation window for consumers. Publishing accurate docs and stability promises is how you grow an ecosystem without orphaning `v1` clients when `v2` ships.
 
 ## Code repo
 

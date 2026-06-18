@@ -34,7 +34,7 @@
 
 ## Problem
 
-Ship **one** small production-shaped HTTP service in **Node + TypeScript** so your playbook covers the same integration and API habits as [Project 1](01-integration-webhook-receiver.md) / [Project 5](05-contract-first-api.md) / [Project 6](06-async-worker-stretch.md)—in the stack many SaaS teams default to for APIs and BFFs.
+Ship **one** small production-shaped HTTP service in **Node + TypeScript** so your playbook covers the same integration and API habits as [Project 1](01-integration-webhook-receiver.md) / [Project 5](05-contract-first-api.md) / [Project 6](06-async-worker-stretch.md)—in the stack many SaaS teams default to for APIs and BFFs (backend-for-frontend layers).
 
 **Pick one focus** (avoid three half-finished repos):
 
@@ -66,18 +66,23 @@ This is not about chasing every new JS framework; it is about **one disciplined 
 
 **Stretch:** Custom **n8n node** (TypeScript)—same reliability habits (errors, secrets, idempotency) in a workflow step; see [integration-automation map](../docs/concepts/integration-automation.md).
 
+### How to talk about this
+
+Your TypeScript service uses schema-first validation and the same idempotency habits as your PHP webhook—polyglot discipline, not different reliability rules per language. When interviewers ask why Node, point to typed boundaries (Zod or equivalent), raw-body HMAC on track A, and OpenAPI or contract tests on track B—not a second junior tutorial with weaker integration hygiene.
+
 ## Important concepts
 
-### Concept spotlight
+### Typed API boundary
 
-| **Typed API boundary** | Strict TS validation (Zod or equivalent) on body/headers/query |
-| **Integration parity** | Track A: HMAC + idempotency like [Project 1](01-integration-webhook-receiver.md); Track C: queue + worker |
-| **Contract in code** | Track B: OpenAPI aligned with [Project 5](05-contract-first-api.md) |
+Use strict TypeScript validation (Zod or equivalent) on body, headers, and query. Catch shape drift at the boundary before bad data hits business logic—the same failure class as unchecked JSON in PHP.
 
-**Interview line:** *“Our TS service uses schema-first validation and the same idempotency habits as our PHP webhook—polyglot discipline, not different reliability rules per language.”*
+### Integration parity
 
+Track A: HMAC (Hash-based Message Authentication Code) verification and idempotency like [Project 1](01-integration-webhook-receiver.md). Track C: queue plus worker with duplicate-delivery tests like [Project 6](06-async-worker-stretch.md). The concepts port; only the store and broker implementation differ.
 
-**Interview line:** *“Our TS service uses schema-first validation and the same idempotency habits as our PHP webhook—polyglot discipline, not different reliability rules per language.”*
+### Contract in code
+
+Track B: keep OpenAPI aligned with [Project 5](05-contract-first-api.md)—generated from Zod or hand-maintained `openapi.yaml`, with a breaking-change ritual in CI.
 
 ## Code repo
 

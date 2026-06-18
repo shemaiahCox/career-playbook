@@ -1,8 +1,8 @@
-# SDLC ↔ career playbook map
+# Software Development Lifecycle (SDLC) ↔ career playbook map
 
 > **Not the learning path.** Follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
 
-This doc maps the **classic software development lifecycle** to playbook projects, concept docs, and checklists. The playbook teaches **technical delivery** (build, test, ship, operate)—not Agile/Scrum process, stakeholder workshops, or product discovery.
+This doc maps the **classic software development lifecycle** to playbook projects, concept docs, and checklists. The playbook teaches **technical delivery** (build, test, ship, operate) — not Agile/Scrum process, stakeholder workshops, or product discovery.
 
 **Companion:** [Engineering pillars](engineering-pillars.md) (topic index) · [Software engineering handbook](software-engineering.md) · [Software engineering glossary](software-engineering-glossary.md) (jargon from specs)
 
@@ -48,6 +48,8 @@ flowchart LR
   operate -.->|"iterate_next_project"| planning
 ```
 
+The diagram shows how playbook content maps to SDLC phases. Planning draws on project specs and contract-first APIs. Design uses ADRs, the software engineering handbook, and database design docs. Build is the 22 project labs. Testing references per-project testing guidance and production-readiness gates. Deployment covers shell automation, ops CLI, and cloud deploy labs. Operations loops through observability, DLQ replay, and the capstone — then feeds back into the next project's planning.
+
 ---
 
 ## Phase 1 — Planning & requirements
@@ -76,14 +78,14 @@ Architecture under the [five pillars](architecture-framework.md#the-five-pillars
 | [systems-integration-architect.md](systems-integration-architect.md) | Pillar 1 deep dive |
 | [software-engineering.md](software-engineering.md) | Architectural and integration patterns |
 | [database-design.md](database-design.md) | Pillar 3 — schema, transactions, indexes |
-| [messaging-and-rpc.md](messaging-and-rpc.md) | Pillar 2 — broker and RPC choices |
+| [messaging-and-rpc.md](messaging-and-rpc.md) | Pillar 2 — broker and Remote Procedure Call (RPC) choices |
 | [memory-and-performance.md](memory-and-performance.md) | Pillar 4 — measure before rewrite |
 | [portfolio-artifacts.md](../templates/portfolio-artifacts.md) | ADR (with **Pillar** tag) + architecture diagram per lab |
 | [examples/sample-portfolio/](../examples/sample-portfolio/) | Reference quality bar |
-| [system-design-interview-map.md](../career/system-design-interview-map.md) | Whiteboard SD layer on pillars |
+| [system-design-interview-map.md](../career/system-design-interview-map.md) | Whiteboard system design layer on pillars |
 | [Project 5](../../career-project-specs/05-contract-first-api.md), [12](../../career-project-specs/12-multi-tenant-auth-lab.md), [19](../../career-project-specs/19-rust-hot-path-lab.md) | Contracts, tenant isolation, Go vs Rust ADR |
 
-**Coverage:** Moderate–strong (engineering design) · **Gap:** formal UML, enterprise governance at scale
+**Coverage:** Moderate–strong (engineering design) · **Gap:** formal Unified Modeling Language (UML), enterprise governance at scale
 
 ---
 
@@ -109,7 +111,7 @@ Write production-shaped code with shared patterns.
 
 ## Phase 4 — Testing
 
-Verify at unit, integration, and E2E layers; gate releases.
+Verify at unit, integration, and End-to-End (E2E) layers; gate releases.
 
 | Playbook source | Role |
 |-----------------|------|
@@ -117,9 +119,9 @@ Verify at unit, integration, and E2E layers; gate releases.
 | [per-project-testing.md](per-project-testing.md) | Lab-by-lab strategy (Projects 1–22) |
 | Each spec — **Testing approach (lab)** | Stack-specific emphasis |
 | [production-readiness.md](../../checklists/production-readiness.md) | Ship gate per milestone |
-| [Project 2](../../career-project-specs/02-rag-llm-service.md), [9](../../career-project-specs/09-application-security-lab.md), [22](../../career-project-specs/22-integrated-platform-capstone.md) | Eval regression, OWASP scripts, E2E smoke |
+| [Project 2](../../career-project-specs/02-rag-llm-service.md), [9](../../career-project-specs/09-application-security-lab.md), [22](../../career-project-specs/22-integrated-platform-capstone.md) | Eval regression, Open Web Application Security Project (OWASP) scripts, E2E smoke |
 
-**Coverage:** **Strong** · **Gap:** formal QA process, test management tooling
+**Coverage:** **Strong** · **Gap:** formal Quality Assurance (QA) process, test management tooling
 
 ---
 
@@ -136,7 +138,7 @@ Build artifacts, promote through environments, ship safely.
 | [Project 17](../../career-project-specs/17-k8s-controller-lab.md) | K8s reconcile pattern |
 | [production-readiness.md](../../checklists/production-readiness.md) | Versioning, pinned deps, smoke URLs |
 
-**Coverage:** **Strong** · **Gap:** org-scale release management (CAB, staged rollouts)
+**Coverage:** **Strong** · **Gap:** org-scale release management (Change Advisory Board (CAB), staged rollouts)
 
 ---
 
@@ -147,7 +149,7 @@ Monitor, respond, replay/repair, evolve under load.
 | Playbook source | Role |
 |-----------------|------|
 | [Project 3 — Observability](../../career-project-specs/03-observability-lab.md) | Correlation IDs, structured logs, latency |
-| [software-engineering.md#observability-logs-metrics-traces](software-engineering.md#observability-logs-metrics-traces) | Logs, metrics, traces; SLI/SLO |
+| [software-engineering.md#observability-logs-metrics-traces](software-engineering.md#observability-logs-metrics-traces) | Logs, metrics, traces; Service Level Indicator (SLI)/SLO |
 | [production-readiness.md](../../checklists/production-readiness.md) | Per-step applicability matrix |
 | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md), [6](../../career-project-specs/06-async-worker-stretch.md) | DLQ, replay, poison messages |
 | [Project 15](../../career-project-specs/15-devops-cli-lab.md), [18](../../career-project-specs/18-proxy-load-balancer-lab.md) | Ops CLI, graceful shutdown |
@@ -190,7 +192,7 @@ Every project repeats this loop ([README](../../README.md)):
 | Build → test → deploy | **1** → **6** → **16** |
 | Full lifecycle in one story | Spine through **16**, then **22** |
 
-Default path: **P3** (observability) and **P5** (contracts) arrive early—you are not implementation-only for long.
+The default path brings observability (Project 3) and contracts (Project 5) early — you are not implementation-only for long.
 
 ---
 

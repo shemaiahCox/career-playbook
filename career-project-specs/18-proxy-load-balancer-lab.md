@@ -43,18 +43,35 @@ Implement a **small reverse proxy or load balancer** in **Go**: forward HTTP to 
 
 **Advanced.** Complements [Project 8](08-go-retrieval-worker-lab.md) gateway work and [Project 19](19-rust-hot-path-lab.md) performance comparisons.
 
+**Why learning this moves the needle**
+
+- **Edge reliability:** Slow upstreams wedge the whole service without proxy-level timeouts and connection limits.
+- **Deploy safety:** Graceful shutdown on SIGTERM drains in-flight requests before exit—critical for zero-downtime rollouts.
+- **Interview depth:** Rate limiting ([Project 23](23-rate-limiter-gateway-lab.md)) and load balancing vocabulary start here.
+
+**Real-world situations this project mirrors**
+
+- **One bad upstream:** timeout fires; healthy upstreams still serve traffic.
+- **Deploy during load:** SIGTERM triggers drain; in-flight completes or times out per policy.
+- **Capacity planning:** round-robin or least-conn across two upstreams with access logs for p95 analysis.
+
+### How to talk about this
+
+Your proxy enforces upstream timeouts and graceful drain on deploy so slow backends do not wedge the whole edge. When interviewers ask about pooling, describe reusing upstream connections with a max concurrent cap. When they ask about failure modes, mention 502/504 mapping, retry storms at the client layer, and why the proxy does not blindly retry idempotent-looking failures.
+
 ## Important concepts
 
-### Concept spotlight
+### Timeout budgets
 
-| **Timeout budgets** | Client, upstream, and idle timeouts configured and tested |
-| **Graceful shutdown** | Drain connections on SIGTERM before exit |
-| **Connection pooling** | Reuse upstream connections; cap max concurrent |
+Configure client, upstream, and idle timeouts explicitly. Test that a slow upstream returns 502 or 504 within the budget and logs the failure—do not let requests hang indefinitely.
 
-**Interview line:** *“Our proxy enforces upstream timeouts and graceful drain on deploy so slow backends don’t wedge the whole edge.”*
+### Graceful shutdown
 
+On SIGTERM, stop accepting new connections, drain in-flight requests within a deadline, then exit. Document whether in-flight requests complete or are cut off after the drain window.
 
-**Interview line:** *“Our proxy enforces upstream timeouts and graceful drain on deploy so slow backends don’t wedge the whole edge.”*
+### Connection pooling
+
+Reuse upstream TCP connections to reduce latency and syscall overhead. Cap max concurrent connections so one slow client cannot exhaust the pool and block everyone else.
 
 ## Code repo
 

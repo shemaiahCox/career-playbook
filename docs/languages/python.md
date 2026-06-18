@@ -20,7 +20,7 @@
 
 | Execution | Typing | Memory / concurrency |
 |-----------|--------|----------------------|
-| **CPython** interprets bytecode; **GIL** limits parallel CPU in one process | Gradual typing (`type hints` + mypy/pyright optional) | GC; **asyncio** event loop for I/O-bound ASGI; threads help I/O waits, not CPU-heavy bytecode |
+| **CPython** interprets bytecode; **global interpreter lock (GIL)** limits parallel CPU in one process | Gradual typing (`type hints` + mypy/pyright optional) | garbage collection (GC); **asyncio** event loop for I/O-bound ASGI; threads help I/O waits, not CPU-heavy bytecode |
 
 ---
 

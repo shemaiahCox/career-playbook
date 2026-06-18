@@ -20,7 +20,7 @@
 
 | Execution | Typing | Memory / concurrency |
 |-----------|--------|----------------------|
-| **Interpreted** per request under **PHP-FPM** (memory resets each request); **Octane/long-lived** workers reuse RAM across requests | Dynamic typing with optional **typed properties** and return types (PHP 7.4+) | Request-scoped by default; statics/singleton caches become footguns under Octane |
+| **Interpreted** per request under **PHP FastCGI Process Manager (PHP-FPM)** (memory resets each request); **Octane/long-lived** workers reuse RAM across requests | Dynamic typing with optional **typed properties** and return types (PHP 7.4+) | Request-scoped by default; statics/singleton caches become footguns under Octane |
 
 ---
 
@@ -35,7 +35,7 @@
 composer create-project laravel/laravel laravel-scaffold && cd laravel-scaffold && php artisan serve
 ```
 
-Paste into `routes/web.php`:
+Paste into `routes/web.php` (exploration route—**what:** JSON hello endpoint; **why:** verify Laravel routing before Project 1; **when:** first local scaffold smoke test):
 
 ```php
 Route::get('/exploration/hello', function () {
@@ -119,7 +119,7 @@ my-app/
 
 Laravel hides ceremony—come here when tutorials assume buzzwords sunk in overnight.
 
-- **PHP-FPM** — Pool of PHP workers—each typical web **request is born and dies isolated** (**memory resets** when the handler finishes unless you opted into long-lived runtimes).
+- **PHP FastCGI Process Manager (PHP-FPM)** — Pool of PHP workers—each typical web **request is born and dies isolated** (**memory resets** when the handler finishes unless you opted into long-lived runtimes).
 - **`artisan`** — Laravel CLI you run for queues, migrations, generators, cron glue.
 - **Octane / RoadRunner / FrankenPHP / long-lived workers** — Faster because processes stay alive—**globals/static caches/leaks** behave like backend services (**not throwaway RAM** anymore).
 - **Composer / lock / PSR-4** — Composer downloads packages (`vendor/`) following `composer.lock`; namespaces map predictable paths—**don't edit upstream inside `vendor/`**.

@@ -48,16 +48,43 @@ Complements your RAG story ([Project 2](02-rag-llm-service.md)) with **classic s
 
 **Summary:** Search and autocomplete appear in system design loops alongside news feed and notifications. This lab connects trie theory to a shippable HTTP service.
 
-**Interview line:** *"Autocomplete uses a trie for O(L) prefix lookup; full search uses an inverted index with BM25-style ranking vocabulary — RAG retrieval is a different path for semantic match."*
+### In depth
+
+Keyword search complements your RAG story ([Project 2](02-rag-llm-service.md)): retrieval-augmented generation handles semantic match; inverted indexes handle exact and prefix keyword match. Optional Go-first performance depth after [Project 4](04-sql-performance-lab.md) and [Project 8](08-go-retrieval-worker-lab.md)—pick this **or** [Project 23](23-rate-limiter-gateway-lab.md).
+
+**Why learning this moves the needle**
+
+- **Classic system design:** typeahead and full-text search (FTS) appear in loops at major tech companies; trie plus inverted index vocabulary transfers across employers.
+- **Latency budgets:** autocomplete p95 under 50ms locally forces index and cache choices you can defend in interviews.
+- **Contrast with RAG:** explaining when keyword search wins vs vector retrieval shows architectural maturity.
+
+**Real-world situations this project mirrors**
+
+- **Typeahead UI:** wire suggest to [Project 11](11-llm-web-app-lab.md) with debounced client contract.
+- **Re-ingest:** same `doc_id` updates index idempotently after content changes.
+- **Viral prefix:** hot prefix cache with TTL; document cache stampede mitigation.
+
+### How to talk about this
+
+Autocomplete uses a trie for O(L) prefix lookup where L is query length; full search uses an inverted index with BM25-style ranking vocabulary—RAG retrieval is a different path for semantic match. When interviewers ask about data structures, contrast in-memory trie vs database-backed prefix indexes. When interviewers ask about ranking, explain term frequency–inverse document frequency (TF-IDF) or BM25 intuition and exact-match boosts.
 
 ## Important concepts
 
-### Concept spotlight
+### Trie (prefix tree)
 
-| **Trie** | Shared prefixes; O(L) per query length |
-| **Inverted index** | term → document IDs; core of full-text search |
-| **Ranking** | TF-IDF / BM25 intuition; boost exact matches |
-| **Cache** | Top prefixes in Redis; TTL on suggest path |
+Shared prefixes collapse storage; lookup cost scales with query length O(L), not corpus size. Strong fit for in-memory autocomplete on moderate corpora.
+
+### Inverted index
+
+Maps terms to document IDs—the core of full-text search. Postgres `tsvector` with generalized inverted index (GIN) is acceptable for lab scale; external engines are an ADR comparison.
+
+### Ranking
+
+TF-IDF or best matching 25 (BM25) intuition plus boosts for exact matches. Document ranking choices in README with example queries.
+
+### Cache
+
+Store hot prefixes in Redis with TTL on the suggest path. Log cache hits; document stampede behavior when a prefix goes viral.
 
 ## Code repo
 

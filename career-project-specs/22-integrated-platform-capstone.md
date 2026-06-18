@@ -46,16 +46,39 @@ Ship **one integrated system** that composes your existing labs—**not a rewrit
 
 Individual labs prove skills; the capstone proves **systems thinking**. Senior hires show: end-to-end architecture, explicit failure modes, measured performance, and production gates—not twenty disconnected repos. Project 22 is where the playbook’s linear path becomes a **single narrative**.
 
+**Why learning this moves the needle**
+
+- **Interview narrative:** Five-minute walkthrough from webhook or IoT ingest to dashboard event with `request_id` in logs beats listing twenty repo names.
+- **Composition discipline:** Pin lab images and wire env—do not rewrite [Project 2](02-rag-llm-service.md) inside the capstone repo.
+- **Tenant safety:** [Project 12](12-multi-tenant-auth-lab.md) isolation on user paths is non-negotiable for a credible SaaS-shaped demo.
+
+**Real-world situations this project mirrors**
+
+- **Demo day:** one `scripts/demo.sh` command runs the happy path for reviewers.
+- **Cross-service incident:** grep one `request_id` across BFF, retrieval-augmented generation (RAG), and Go gateway logs.
+- **Partial failure:** kill worker mid-job; queue redelivery with idempotent outcome.
+
+### How to talk about this
+
+This is one Compose stack: webhook and IoT ingest enqueue work, Go workers retrieve, Python serves RAG with evals, TypeScript (TS) backend-for-frontend (BFF) enforces tenant scope, and your demo script proves the full path with `request_id`s in logs. When interviewers ask why orchestration over rewrite, explain pinned lab images, env wiring, and linked `docs/portfolio/` artifacts per service—not a monorepo reimplementation.
+
 ## Important concepts
 
-### Concept spotlight
+### Orchestration over rewrite
 
-| **Orchestration over rewrite** | Pin lab images/tags; wire env and networks; don’t reimplement Project 2 in Project 22 |
-| **Tenant-scoped demo** | Auth from Project 12 on user paths; no cross-tenant leakage in dashboard or query |
-| **Trace across boundaries** | Same `request_id` from BFF → RAG → Go gateway in logs |
-| **Flagship README** | System diagram, demo script output, links to each service’s `docs/portfolio/` |
+Pin lab images or tags; wire env vars and networks in `docker-compose.yml`. Do not reimplement [Project 2](02-rag-llm-service.md) or other labs inside the capstone repo—the capstone is a thin orchestration layer.
 
-**Interview line:** *“This is one compose stack: webhook and IoT ingest enqueue work, Go workers retrieve, Python serves RAG with evals, TS BFF enforces tenant scope, and our demo script proves the full path with request_ids in logs.”*
+### Tenant-scoped demo
+
+Apply auth from [Project 12](12-multi-tenant-auth-lab.md) on user paths. Prove no cross-tenant leakage in dashboard events or RAG query results in integration tests.
+
+### Trace across boundaries
+
+Propagate the same `request_id` from BFF → RAG → Go gateway in structured logs ([Project 3](03-observability-lab.md)). Reviewers should follow one id across at least three services.
+
+### Flagship README
+
+Include a system diagram, demo script output (video or screenshots), and links to each service’s `docs/portfolio/`—the capstone README is the table of contents for your entire playbook.
 
 ## System map
 

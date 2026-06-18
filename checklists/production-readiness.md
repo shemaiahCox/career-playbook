@@ -1,18 +1,20 @@
 # Checklist — production readiness (platform engineering gate)
 
-Use before calling **any** lab milestone **done**. This is the universal gate senior engineers expect—rate limits through security notes—not a replacement for domain deep dives.
+Use this before calling **any** lab milestone **done**. It is the universal gate senior engineers expect — from rate limits through security notes — not a replacement for domain deep dives.
 
-**How to use:** Walk sections **top to bottom** for your active step. Skip rows marked **N/A** in the [applicability matrix](#applicability-by-step-1-22) for that step; if you defer a required row, note one line in [PROGRESS.md](../PROGRESS.md) (“Deferred: … because …”).
+**How to use:** Walk sections **top to bottom** for your active step. Skip rows marked **N/A** in the [applicability matrix](#applicability-by-step-1-22) for that step. If you defer a required row, note one line in [PROGRESS.md](../PROGRESS.md) (“Deferred: … because …”).
 
 **Also run when applicable:**
 
 - Inbound webhooks / partner HTTP: [integration-hardening.md](integration-hardening.md)
-- User-facing RAG / LLM paths: [llm-feature-ship.md](llm-feature-ship.md)
+- User-facing retrieval-augmented generation (RAG) / large language model (LLM) paths: [llm-feature-ship.md](llm-feature-ship.md)
 - Browser, forms, sessions (Project 9): [application-security-web-owasp.md](application-security-web-owasp.md)
 
 ---
 
 ## Rate limits
+
+These items keep public or partner traffic from overwhelming your service.
 
 - [ ] Public or partner-facing endpoints have documented limits (per IP, per tenant, or per API key).
 - [ ] Limit exceeded returns a consistent error shape (429 + retry guidance where appropriate).
@@ -20,11 +22,15 @@ Use before calling **any** lab milestone **done**. This is the universal gate se
 
 ## Retries
 
+These items make sure failed work is retried safely without double side effects.
+
 - [ ] Retry policy documented: which errors retry, max attempts, backoff (exponential + jitter where relevant).
-- [ ] Retries are **safe** with idempotency (see below)—no double side effects on replay.
+- [ ] Retries are **safe** with idempotency (see below) — no double side effects on replay.
 - [ ] Timeouts nest: client ≤ upstream ≤ job deadline.
 
 ## Idempotency
+
+These items ensure duplicate requests do not apply the same change twice.
 
 - [ ] Stable idempotency key (header, body field, or business key) for side-effecting operations.
 - [ ] Stored outcome or constraint prevents duplicate apply within replay window.
@@ -32,43 +38,57 @@ Use before calling **any** lab milestone **done**. This is the universal gate se
 
 ## Dead letter queue (DLQ)
 
-- [ ] Poison messages park with evidence (payload hash, error, timestamp)—not infinite retry loops.
+These items park poison messages instead of retrying them forever.
+
+- [ ] Poison messages park with evidence (payload hash, error, timestamp) — not infinite retry loops.
 - [ ] Replay or abandon path documented; ops can find DLQ depth.
 - [ ] DLQ tied to alerting or dashboard hook when in scope for the step.
 
 ## Metrics
 
+These items give you numbers beyond “it works on my machine.”
+
 - [ ] At least one operational metric beyond “it works” (accepted/rejected, queue depth, p95 latency, error rate).
-- [ ] Metric source documented (log grep, Prometheus stub, cloud dashboard)—perfection not required early.
+- [ ] Metric source documented (log grep, Prometheus stub, cloud dashboard) — perfection not required early.
 - [ ] Baseline captured for comparison after changes.
 
 ## Logs
 
-- [ ] Structured logs (JSON or key=value); no secrets or full PII in prod logs.
+These items make production debugging possible without reproducing blindly.
+
+- [ ] Structured logs (JSON or key=value); no secrets or full PII in production logs.
 - [ ] **request_id** (or trace id) on every request path entry.
 - [ ] Error logs include enough context to debug without reproducing blindly.
 
 ## Tracing
 
+These items let you follow one request across the services you own.
+
 - [ ] **request_id** propagated across service boundaries you own (header or log field).
-- [ ] Optional: OpenTelemetry or vendor trace—required for multi-service steps (8, 11, 13, 16, 22).
+- [ ] Optional: OpenTelemetry or vendor trace — required for multi-service steps (8, 11, 13, 16, 22).
 - [ ] One documented “follow this id across services” example in lab README.
 
 ## Health checks
 
+These items tell deploy tools and load balancers whether your service is ready to receive traffic.
+
 - [ ] Liveness/readiness or `/health` endpoint where the step ships a long-running service.
-- [ ] Health check fails fast on missing critical deps (DB, queue URL).
+- [ ] Health check fails fast on missing critical dependencies (database, queue URL).
 - [ ] Deploy docs reference health URL for smoke tests.
 
 ## Versioning
 
+These items document how APIs and event schemas evolve without breaking consumers.
+
 - [ ] API or event schema versioning story documented (URL prefix, header, or event `version` field).
-- [ ] Breaking-change ritual named (OpenAPI diff, consumer notice, deprecation window)—even if “N/A, internal only.”
+- [ ] Breaking-change ritual named (OpenAPI diff, consumer notice, deprecation window) — even if “N/A, internal only.”
 - [ ] Dependencies pinned (lockfile, image tag, or compose digest) for reproducible deploys.
 
 ## Security notes
 
-- [ ] Secrets in env / secret manager only; `.env.example` lists keys, not values.
+These items cover secrets, input validation, and what threats you did and did not address.
+
+- [ ] Secrets in environment variables / secret manager only; `.env.example` lists keys, not values.
 - [ ] Input validation at boundary; auth on non-public routes when step includes auth.
 - [ ] Threat notes in README: what you mitigated and what remains out of scope.
 

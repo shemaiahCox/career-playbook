@@ -12,7 +12,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| Data correctness, query plans, migrations, transactional invariants | Application business logic in PHP/Python/Go—SQL owns persistence shape, not feature orchestration | [Project 4 — SQL performance lab](../../career-project-specs/04-sql-performance-lab.md); ORM-backed apps in Projects 1–2, 5–7 |
+| Data correctness, query plans, migrations, transactional invariants | Application business logic in PHP/Python/Go—SQL owns persistence shape, not feature orchestration | [Project 4 — SQL performance lab](../../career-project-specs/04-sql-performance-lab.md); object-relational mapper (ORM)-backed apps in Projects 1–2, 5–7 |
 
 ---
 
@@ -68,7 +68,7 @@ db/
 **Performance shape**
 
 - **Indexes** trade **write cost + storage** for **read selectivity**; **composite** index column order follows **filter + sort** shape of real queries.
-- **EXPLAIN** (or `EXPLAIN ANALYZE`) is how you verify **plan** matches intent—ORM “simple” APIs can hide **seq scans** or **N+1**.
+- **EXPLAIN** (or `EXPLAIN ANALYZE`) is how you verify **plan** matches intent—ORM “simple” APIs can hide **seq scans** or **N+1 query**.
 
 **Schema change**
 
@@ -95,7 +95,7 @@ Skim slowly—you are **not** expected to memorize everything tonight.
 
 - **Declarative vs planner** — You say *what data* you want (SQL looks like a checklist); the engine chooses *how* to fetch it.
 - **Dialect** — Vendor-specific quirks on top of “standard” SQL punctuation and functions.
-- **ORM** — Code layer that hides raw SQL—you still owe the database sane queries.
+- **object-relational mapper (ORM)** — Code layer that hides raw SQL—you still owe the database sane queries.
 - **ACID / isolation levels** — Rules for locking and visibility when many transactions overlap (prevents spooky partial reads—or trades speed for strictness depending on setting).
 - **Lost update / phantom read** — Two sessions stepping on each other’s writes or seeing odd mid-flight rows—isolation knobs exist to tame them.
 - **At-least-once delivery / idempotency** — Messaging systems may deliver duplicates; databases still need safeguards so writing twice doesn’t corrupt data (**idempotency** = same request twice = safe).
@@ -103,7 +103,7 @@ Skim slowly—you are **not** expected to memorize everything tonight.
 - **Composite index** — One index covering multiple columns—**column order** should match how you filter/sort in real queries.
 - **EXPLAIN / EXPLAIN ANALYZE** — Database report showing the **execution plan** (did it scan the whole table or use an index?).
 - **Seq scan** — Reading a whole table because no index helped—fine for tiny tables, dangerous for big ones.
-- **N+1** — One query for parents + one per child row—ORM default sometimes; fix with joins or batch loading.
+- **N+1 query** — One query for parents + one per child row—ORM default sometimes; fix with joins or batch loading.
 - **Eager loading** — Fetch related rows in one round trip so the ORM doesn’t surprise you per row.
 - **Migration** — Versioned schema change script run during deploy.
 - **Expand/contract / backfill** — Safe pattern: add new shape, copy data, switch readers, remove old shape—avoids downtime drama.

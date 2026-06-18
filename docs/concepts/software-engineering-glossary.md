@@ -18,49 +18,49 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### ACID (databases)
 
-**Beginner:** A checklist for safe database transactions: **A**tomicity (all steps succeed or none do), **C**onsistency (rules stay true), **I**solation (transactions do not step on each other’s half-finished work), **D**urability (committed data survives crashes). You will hear “ACID” when people talk about reliability of money-like updates.
+ACID is a checklist for safe database transactions. **A**tomicity means all steps succeed or none do. **C**onsistency means business rules stay true before and after the transaction. **I**solation keeps transactions from stepping on each other's half-finished work, and **D**urability means committed data survives crashes. You will hear "ACID" when people talk about the reliability of money-like updates.
 
 **See also:** [Database design](database-design.md)
 
 ### ADR (Architecture Decision Record)
 
-**Beginner:** A short write-up of an important technical choice: what you decided, why, and what you expect to trade off. It helps future you (and teammates) avoid re-litigating the same debate.
+An ADR (Architecture Decision Record) is a short write-up of an important technical choice: what you decided, why, and what you expect to trade off. It captures context that is easy to lose once the debate ends. Future you and your teammates can read it instead of re-litigating the same argument months later.
 
 **See also:** [Code review and documentation — ADRs](software-engineering.md#code-review-and-documentation)
 
 ### API (Application Programming Interface)
 
-**Beginner:** A **contract** for how software talks to other software—often over HTTP (JSON), but also libraries inside one app. If you “expose an API,” other code can call your functions or endpoints in the way you document.
+An API (Application Programming Interface) is a contract for how software talks to other software—often over HTTP with JSON, but also through libraries inside one app. It defines what callers can request, what they get back, and what errors mean. If you "expose an API," other code can call your functions or endpoints in the way you document.
 
 **See also:** [REST](software-engineering.md#rest)
 
 ### Adapter (pattern)
 
-**Beginner:** A small layer that translates one interface into another so two pieces of code can work together without rewriting either side—like a travel plug adapter.
+An adapter is a small layer that translates one interface into another so two pieces of code can work together without rewriting either side. Think of it like a travel plug adapter: each device keeps its own plug shape, and the adapter bridges the gap. You reach for this pattern when integrating a third-party library or legacy module whose API does not match what your code expects.
 
 **See also:** [Design patterns](software-engineering.md#design-patterns-gof-style-survey)
 
 ### Anti-pattern
 
-**Beginner:** A common "solution" that looks reasonable but reliably causes pain (god object, anemic domain, premature microservices, N+1 queries). Recognizing them by name is half the fix—but most are context-dependent, so name the tradeoff rather than cargo-culting the rule.
+An anti-pattern is a common "solution" that looks reasonable but reliably causes pain—examples include a god object, anemic domain, premature microservices, and the N+1 query problem. Recognizing them by name is half the fix, but most are context-dependent. Name the tradeoff you are making rather than cargo-culting the rule.
 
 **See also:** [Anti-patterns (what NOT to do)](software-engineering.md#anti-patterns-what-not-to-do)
 
 ### At-least-once delivery
 
-**Beginner:** A messaging guarantee: a message might arrive **more than once** (retries are common), so your handler must not break if it sees a duplicate—usually by **idempotency** or **deduplication**.
+At-least-once delivery is a messaging guarantee where a message might arrive more than once because retries are common. Your handler must not break if it sees a duplicate. The usual defenses are idempotency (same effect no matter how many times you process it) or deduplication (track and skip messages you have already handled).
 
 **See also:** [Integration: sync, async, and messaging](software-engineering.md#integration-sync-async-and-messaging)
 
 ### At-most-once delivery
 
-**Beginner:** A messaging guarantee: a message is processed **zero or one** time—**loss** is possible if the consumer crashes after work but before ack. Fine only when missing an event is acceptable (telemetry, best-effort cache warm).
+At-most-once delivery is a messaging guarantee where a message is processed zero or one time. Loss is possible if the consumer crashes after doing work but before acknowledging the message. This is fine only when missing an event is acceptable—telemetry, best-effort cache warming, and similar non-critical paths.
 
 **See also:** [Message queues and delivery semantics](software-engineering.md#message-queues-and-delivery-semantics)
 
 ### Authentication (Authn) vs authorization (Authz)
 
-**Beginner:** **Authentication** answers “who are you?” (login, tokens). **Authorization** answers “what are you allowed to do?” (roles, permissions). Mixing them up causes security bugs.
+Authentication (Authn) answers "who are you?"—login flows, tokens, and identity checks. Authorization (Authz) answers "what are you allowed to do?"—roles, permissions, and access rules. Mixing them up is a common source of security bugs, because knowing someone's identity does not tell you what they may change or read.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
@@ -70,43 +70,43 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Backoff (exponential)
 
-**Beginner:** When retries wait longer each time (for example 1s, 2s, 4s) so a struggling service gets relief instead of a stampede of requests.
+Exponential backoff means that when a retry fails, the client waits longer before each subsequent attempt—for example 1 second, then 2, then 4. The goal is to give a struggling service breathing room instead of a stampede of requests. It is almost always paired with a maximum wait cap and often with jitter so retries do not align across many clients.
 
 **See also:** [Sync HTTP callers](software-engineering.md#sync-http-callers)
 
 ### Backpressure
 
-**Beginner:** When a **slow consumer** signals upstream to **slow down or drop** work instead of buffering forever—unbounded queues or DOM updates cause memory blow-ups and latency cliffs.
+Backpressure is what happens when a slow consumer signals upstream to slow down or drop work instead of buffering forever. Without it, unbounded queues or unbounded DOM updates can cause memory blow-ups and sudden latency cliffs. Well-designed pipelines propagate pressure so producers stop flooding a stage that cannot keep up.
 
 **See also:** [Memory and performance](memory-and-performance.md); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md); [Project 13 — Real-time dashboard](../../career-project-specs/13-realtime-dashboard-lab.md)
 
 ### BFF (Backend for Frontend)
 
-**Beginner:** A **thin server** tailored to one UI: it calls backend services, holds secrets, and shapes responses—so the browser never stores API keys or talks to every microservice directly.
+A BFF (Backend for Frontend) is a thin server tailored to one UI. It calls backend services, holds secrets, and shapes responses so the browser never stores API keys or talks to every microservice directly. Each client platform—web, mobile, admin—can have its own BFF with the exact data shape that UI needs.
 
 **See also:** [Project 11 — LLM web app](../../career-project-specs/11-llm-web-app-lab.md)
 
 ### Big-O notation
 
-**Beginner:** A shorthand for how work grows as input size grows—for example “O(n)” means roughly proportional to n. Used to compare algorithms at a high level.
+Big-O notation is shorthand for how work grows as input size grows—for example O(n) means roughly proportional to n. It compares algorithms at a high level without pinning down constant factors or hardware details. You use it in interviews and design discussions to reason about scalability before you profile.
 
 **See also:** [Algorithms and data structures](algorithms-and-data-structures.md)
 
 ### Blue-green deployment
 
-**Beginner:** Running two production environments (“blue” and “green”); you switch traffic to the new version so you can roll back quickly by switching back.
+Blue-green deployment means running two production environments—traditionally called "blue" and "green." You deploy the new version to the idle environment, verify it, then switch traffic over in one step. Rollback is fast: switch traffic back to the previous environment if something goes wrong.
 
 **See also:** [CI/CD and delivery](software-engineering.md#cicd-and-delivery)
 
 ### Blast radius
 
-**Beginner:** How much of the system or how many users break if a change fails—**canary** deploys and **feature flags** shrink blast radius.
+Blast radius is how much of the system or how many users break if a change fails. A bad deploy that takes down every region has a large blast radius; one that affects 1% of traffic has a small one. Canary deploys and feature flags exist largely to shrink blast radius while you learn from real traffic.
 
 **See also:** [Canary deployment](#canary-deployment); [Feature flag](#feature-flag)
 
 ### Bounded concurrency / worker pool
 
-**Beginner:** A **fixed cap** on how many jobs or requests run at once (pool, semaphore, max workers)—prevents unbounded goroutines or threads from exhausting memory under load.
+Bounded concurrency means putting a fixed cap on how many jobs or requests run at once—implemented with a pool, semaphore, or max-workers setting. Without a cap, load spikes can spawn unbounded goroutines or threads and exhaust memory. A worker pool gives you predictable resource use at the cost of some requests waiting in line.
 
 **See also:** [Concurrency basics](software-engineering.md#concurrency-basics); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md)
 
@@ -116,73 +116,73 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Canary deployment
 
-**Beginner:** Sending a **small slice** of real traffic to a new version first. If metrics look good, you increase the slice; if not, you stop before everyone is affected.
+A canary deployment sends a small slice of real traffic to a new version first. If metrics look good, you increase the slice; if not, you stop before everyone is affected. The name comes from the canary in a coal mine—early warning before the whole crew is exposed.
 
 **See also:** [CI/CD and delivery](software-engineering.md#cicd-and-delivery)
 
 ### Cardinality (metrics)
 
-**Beginner:** The number of **distinct label values** on a metric—for example one time series per user id. **High cardinality** (millions of unique labels) breaks many metrics systems and dashboards.
+Cardinality in metrics is the number of distinct label values on a metric—for example one time series per user ID. High cardinality (millions of unique labels) breaks many metrics systems and dashboards because storage and query cost explode. Keep labels coarse—service, endpoint, status code—not unbounded IDs unless you have a system built for it.
 
 **See also:** [Observability — metrics](software-engineering.md#observability-logs-metrics-traces)
 
 ### CI/CD (Continuous Integration / Continuous Delivery or Deployment)
 
-**Beginner:** **CI** means frequently merging work and automatically building and testing it. **CD** means keeping the app in a **releasable** state (Delivery) or automatically shipping it (Deployment), depending on team setup.
+CI/CD combines Continuous Integration (CI) and Continuous Delivery or Deployment (CD). CI means frequently merging work and automatically building and testing it on every change. CD means keeping the app in a releasable state (Delivery) or automatically shipping it to production (Deployment), depending on team setup and risk tolerance.
 
 **See also:** [CI/CD and delivery](software-engineering.md#cicd-and-delivery)
 
 ### Circuit breaker
 
-**Beginner:** A pattern that **stops calling** a failing dependency for a while so your service fails fast instead of piling up waiting requests.
+A circuit breaker stops calling a failing dependency for a while so your service fails fast instead of piling up waiting requests. After a cooldown it may probe with a single call to see if the dependency recovered—like an electrical breaker that trips under overload. Without this pattern, one slow downstream can tie up all your threads and cascade failure across the system.
 
 **See also:** [Sync HTTP callers](software-engineering.md#sync-http-callers)
 
 ### Code review
 
-**Beginner:** A teammate reads your change before it merges to catch bugs, share knowledge, and align on style and design.
+Code review is when a teammate reads your change before it merges. It catches bugs, spreads knowledge, and aligns the team on style and design. Good reviews focus on correctness, clarity, and risk—not nitpicking for its own sake.
 
 **See also:** [Code review and documentation](software-engineering.md#code-review-and-documentation)
 
 ### Connection pooling
 
-**Beginner:** **Reusing** open database or HTTP connections instead of opening a new one per request—faster, but **pool exhaustion** looks like latency even when SQL is fine.
+Connection pooling means reusing open database or HTTP connections instead of opening a new one per request. It is faster because handshake and setup costs are amortized, but pool exhaustion can look like latency even when your SQL is fine. Size pools based on concurrency limits and what your database can sustain.
 
 **See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md); [Memory and performance](memory-and-performance.md)
 
 ### Correlation ID / request_id
 
-**Beginner:** A unique id attached to **one request or business event** and copied into every log and downstream call—so you can grep or trace one failure across services.
+A correlation ID (sometimes called request_id) is a unique identifier attached to one request or business event and copied into every log and downstream call. When something fails, you can grep or trace that single ID across services instead of guessing which log lines belong together. It is one of the cheapest wins in observability for distributed systems.
 
 **See also:** [Project 3 — Observability](../../career-project-specs/03-observability-lab.md); [Production readiness](../../checklists/production-readiness.md)
 
 ### CORS (Cross-Origin Resource Sharing)
 
-**Beginner:** Browser rules for whether a web page on one origin may read responses from another. **CORS is not a substitute for real authorization** on the server.
+CORS (Cross-Origin Resource Sharing) is a browser mechanism that controls whether a web page on one origin may read responses from another. The server sends headers that tell the browser which cross-origin requests are allowed. CORS is not a substitute for real authorization on the server—any non-browser client can ignore it.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
 ### Clean / Onion architecture
 
-**Beginner:** Concentric layers (entities → use cases → interface adapters → frameworks) governed by the **Dependency Rule**: source-code dependencies point **only inward**, so the domain never imports the web framework or database. Same instinct as hexagonal/ports-adapters; easy to over-engineer for small apps.
+Clean architecture and Onion architecture organize code in concentric layers: entities, use cases, interface adapters, and frameworks. The Dependency Rule says source-code dependencies point only inward, so the domain never imports the web framework or database. The same instinct as hexagonal (ports and adapters) architecture; easy to over-engineer for small apps.
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns); [Hexagonal architecture](#hexagonal-architecture-ports-and-adapters)
 
 ### CQRS (Command Query Responsibility Segregation)
 
-**Beginner:** Splitting **writes** (commands) from **reads** (queries), sometimes with different models or databases for each. Useful at scale; overkill for tiny CRUD apps. The read side is often updated asynchronously, so it is eventually consistent.
+CQRS (Command Query Responsibility Segregation) splits writes (commands) from reads (queries), sometimes with different models or databases for each side. It helps at scale when read and write patterns diverge, but it is overkill for tiny CRUD apps. The read side is often updated asynchronously, so reads are eventually consistent with writes.
 
 **See also:** [CQRS and Event Sourcing](software-engineering.md#cqrs-and-event-sourcing)
 
 ### CRD (Custom Resource Definition)
 
-**Beginner:** A Kubernetes extension that adds **your own resource types** to the API (beyond built-in Deployments, Services, …)—often paired with a **controller** that reconciles desired state.
+A CRD (Custom Resource Definition) is a Kubernetes extension that adds your own resource types to the API beyond built-in Deployments, Services, and the like. You define the schema in YAML, and the cluster stores instances like any other resource. CRDs are often paired with a controller that reconciles desired state into actual state.
 
 **See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
 
 ### CSRF (Cross-Site Request Forgery)
 
-**Beginner:** An attack that tricks a **logged-in** user’s browser into submitting a request your site will accept (often with cookies). Defenses include tokens and same-site cookies.
+CSRF (Cross-Site Request Forgery) is an attack that tricks a logged-in user's browser into submitting a request your site will accept—often using cookies the browser sends automatically. Defenses include anti-CSRF tokens, same-site cookies, and requiring re-authentication for sensitive actions. Any endpoint that mutates state via cookie-based auth needs CSRF protection.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
@@ -192,43 +192,43 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### DAST (Dynamic Application Security Testing)
 
-**Beginner:** Security testing that hits a **running** app (often black-box), looking for issues like misconfigurations or injectable inputs.
+DAST (Dynamic Application Security Testing) is security testing that hits a running application, often in a black-box style. It looks for issues like misconfigurations, exposed endpoints, and injectable inputs without requiring full source access. DAST complements SAST (Static Application Security Testing) by finding problems that only appear when the app is actually running.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
 ### Dead letter queue (DLQ)
 
-**Beginner:** A holding area for messages that **failed processing** too many times so they do not block the main queue and can be inspected or replayed later.
+A dead letter queue (DLQ) is a holding area for messages that failed processing too many times. They leave the main queue so one bad message does not block everything behind it. Operators can inspect, fix, and replay DLQ messages once the underlying bug or bad payload is understood.
 
 **See also:** [Integration hardening](../../checklists/integration-hardening.md)
 
 ### Debugging
 
-**Beginner:** Narrowing why the program’s **actual** behavior differs from what you expected—using reproduction, smaller cases, logs, traces, and tests.
+Debugging is the process of narrowing why a program's actual behavior differs from what you expected. You reproduce the problem, shrink it to a smaller case, and use logs, traces, and tests to find the root cause. Good debugging is systematic guess-and-check, not random edits until something works.
 
 **See also:** [Debugging (workflow)](software-engineering.md#debugging-workflow)
 
 ### Deduplication / dedupe
 
-**Beginner:** Detecting and **ignoring duplicate** messages or requests—often via a stored idempotency key or unique constraint—so **at-least-once** delivery does not double-apply effects.
+Deduplication (dedupe) means detecting and ignoring duplicate messages or requests. Common approaches include storing an idempotency key or enforcing a unique constraint so the same event cannot be applied twice. It is essential when you have at-least-once delivery and must not double-apply side effects like charging a card.
 
 **See also:** [Idempotency](#idempotency); [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer)
 
 ### Dependency injection
 
-**Beginner:** Passing dependencies (like a database client or clock) **into** a component from outside instead of creating them inside—makes code easier to test and swap.
+Dependency injection means passing dependencies—like a database client or clock—into a component from outside instead of creating them inside. The caller decides which concrete implementation to use, which makes code easier to test and swap. It is the practical side of the dependency inversion principle from SOLID.
 
 **See also:** [SOLID — dependency inversion](software-engineering.md#solid)
 
 ### DDD (Domain-Driven Design)
 
-**Beginner:** Designing software around the **business domain** and a **ubiquitous language** shared with domain experts. Key terms: **bounded context** (a boundary where one model is consistent), **entity** (identity over time), **value object** (defined by attributes, immutable), **aggregate** (a consistency unit accessed through its **root**), and **domain event**. Powerful for complex domains; overkill for CRUD.
+DDD (Domain-Driven Design) is an approach to designing software around the business domain and a ubiquitous language shared with domain experts. Key terms include bounded context (a boundary where one model is consistent), entity (identity over time), value object (defined by attributes, immutable), aggregate (a consistency unit accessed through its root), and domain event. It is powerful for complex domains and overkill for simple CRUD.
 
 **See also:** [Domain-Driven Design (DDD)](software-engineering.md#domain-driven-design-ddd)
 
-### DRY (Don’t Repeat Yourself)
+### DRY (Don't Repeat Yourself)
 
-**Beginner:** Each piece of knowledge should have **one clear home**; avoid copy-paste logic that will diverge. **Exception:** sometimes a little duplication is better than the wrong shared abstraction.
+DRY (Don't Repeat Yourself) means each piece of knowledge should have one clear home in the codebase, avoiding copy-paste logic that will diverge over time. The goal is maintainability, not eliminating every repeated line. Sometimes a little duplication is better than the wrong shared abstraction.
 
 **See also:** [DRY and when duplication wins](software-engineering.md#dry-and-when-duplication-wins)
 
@@ -238,43 +238,43 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### E2E (end-to-end) test
 
-**Beginner:** A test that exercises the **whole system** (or most of it)—often through the UI or public API. High confidence but slower and can be flaky if overused.
+An E2E (end-to-end) test exercises the whole system—or most of it—often through the UI or public API. It gives high confidence that the pieces wire together correctly, but it is slower than unit tests and can be flaky if overused. Teams usually keep a small suite of critical-path E2E tests and rely on faster tests for day-to-day feedback.
 
 **See also:** [Testing](software-engineering.md#testing)
 
 ### Encapsulation
 
-**Beginner:** Hiding internal details behind a clear surface so outside code cannot accidentally break invariants—core to object-oriented design.
+Encapsulation means hiding internal details behind a clear public surface so outside code cannot accidentally break invariants. You expose what callers need and keep implementation private. It is core to object-oriented design and applies more broadly anytime you define a module boundary.
 
 **See also:** [Programming paradigms](software-engineering.md#programming-paradigms)
 
 ### Event-driven architecture
 
-**Beginner:** Components react to **events** (messages) instead of calling each other directly. Enables loose coupling but you must think about ordering, duplicates, and consistency.
+Event-driven architecture means components react to events (messages) instead of calling each other directly over synchronous HTTP. It enables loose coupling and independent scaling, but you must think about ordering, duplicates, and consistency across services. Many production systems mix sync calls for queries and events for side effects.
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
 
 ### Event sourcing
 
-**Beginner:** Store the **append-only log of events** that produced state (`MoneyDeposited`, `MoneyWithdrawn`) rather than only the current row; rebuild state by **replaying** events, with **snapshots** to keep replay fast. Gives a perfect audit trail and temporal queries, at the cost of event versioning and replay complexity. Often paired with CQRS.
+Event sourcing stores the append-only log of events that produced state—such as `MoneyDeposited` and `MoneyWithdrawn`—rather than only the current row in a table. You rebuild state by replaying events, often with snapshots to keep replay fast. It gives a perfect audit trail and temporal queries at the cost of event versioning and replay complexity, and is often paired with CQRS (Command Query Responsibility Segregation).
 
 **See also:** [CQRS and Event Sourcing](software-engineering.md#cqrs-and-event-sourcing)
 
 ### Eventual consistency
 
-**Beginner:** After a write, **reads may be stale for a while** before all replicas or consumers catch up—common in event-driven systems; design for it with idempotency and clear user expectations.
+Eventual consistency means that after a write, reads may be stale for a while before all replicas or consumers catch up. It is common in event-driven and distributed systems where synchronous strong consistency would be too slow or fragile. Design for it with idempotency, clear user expectations, and UI that does not promise instant global truth.
 
 **See also:** [Architectural patterns — event-driven](software-engineering.md#architectural-patterns)
 
 ### Eval / eval regression
 
-**Beginner:** A **fixed test set** (often JSONL) of prompts and expected behaviors for an LLM/RAG feature—re-run after model or prompt changes to catch **answer drift** before production.
+An eval (evaluation) is a fixed test set—often JSONL—of prompts and expected behaviors for an LLM (Large Language Model) or RAG (Retrieval-Augmented Generation) feature. You re-run it after model or prompt changes to catch answer drift before production. Treat it like a regression suite for non-deterministic AI behavior.
 
 **See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
 
-### Exactly-once (and why people say “effectively-once”)
+### Exactly-once (and why people say "effectively-once")
 
-**Beginner:** Marketing often promises **exactly-once** delivery; in distributed systems you usually implement **at-least-once** delivery plus **idempotent** handling so duplicates do not cause extra side effects.
+Exactly-once delivery is often marketed as a messaging guarantee, but in distributed systems you usually implement at-least-once delivery plus idempotent handling. That way duplicates do not cause extra side effects—"effectively once" from the business perspective. True exactly-once end-to-end is extremely hard and usually delegated to transactional outbox patterns or idempotent consumers.
 
 **See also:** [Message queues and delivery semantics](software-engineering.md#message-queues-and-delivery-semantics)
 
@@ -284,31 +284,31 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Factory (pattern)
 
-**Beginner:** A central place to **create** objects so construction rules stay consistent and callers do not scatter `new` everywhere.
+A factory is a central place to create objects so construction rules stay consistent and callers do not scatter `new` everywhere. It hides which concrete class you instantiate and can enforce invariants at creation time. Useful when construction involves configuration, pooling, or choosing among several implementations.
 
 **See also:** [Design patterns](software-engineering.md#design-patterns-gof-style-survey)
 
 ### Fake (test double)
 
-**Beginner:** A test double with a **working in-memory implementation** (fake database, fake clock)—prefer over mocks when you need realistic behavior without real I/O.
+A fake is a test double with a working in-memory implementation—a fake database, fake clock, or fake queue. It behaves realistically enough for integration-style tests without real I/O. Prefer fakes over mocks when you need plausible behavior rather than just verifying that a method was called.
 
 **See also:** [Testing — doubles](software-engineering.md#testing)
 
 ### Fast ack
 
-**Beginner:** Responding **HTTP 2xx quickly** on webhooks or ingress while **slow work** runs in a queue—partners time out and retry if you block on PDFs, ML, or long chains.
+Fast ack means responding with HTTP 2xx quickly on webhooks or ingress while slow work runs in a queue or background worker. Partners and platforms time out and retry if you block on PDF generation, ML inference, or long call chains. Acknowledge receipt, persist the job, and process asynchronously.
 
 **See also:** [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer); [Project 1 — Webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md)
 
 ### Feature flag
 
-**Beginner:** A switch that turns code paths on/off **without deploying again**—useful for gradual rollouts or hiding unfinished work.
+A feature flag is a switch that turns code paths on or off without deploying again. Teams use them for gradual rollouts, A/B tests, and hiding unfinished work behind a safe default. Flags add operational complexity, so retire them once a feature is fully launched.
 
 **See also:** [CI/CD and delivery](software-engineering.md#cicd-and-delivery)
 
 ### Fan-out
 
-**Beginner:** One incoming event or request triggers **many downstream** calls or notifications—watch for latency, partial failure, and need for idempotency on each branch.
+Fan-out is when one incoming event or request triggers many downstream calls or notifications. Watch for latency (you may wait for the slowest branch), partial failure (some branches succeed and others do not), and the need for idempotency on each branch. Notification systems and workflow engines are classic fan-out examples.
 
 **See also:** [Project 24 — Notification fanout](../../career-project-specs/24-notification-fanout-lab.md)
 
@@ -318,25 +318,25 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Graceful shutdown
 
-**Beginner:** On deploy or SIGTERM, **stop accepting new work**, **finish or time out in-flight** requests, then exit—avoids cutting clients mid-request.
+Graceful shutdown means that on deploy or SIGTERM, a process stops accepting new work, finishes or times out in-flight requests, then exits. It avoids cutting clients off mid-request and gives load balancers time to drain the instance. Every long-running server and worker should implement this.
 
 **See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md)
 
 ### GraphQL
 
-**Beginner:** An API style where clients ask for specific **fields** in one query. Flexible for clients; servers must watch performance (for example resolver **N+1** issues).
+GraphQL is an API style where clients ask for specific fields in one query, reducing over-fetching and under-fetching compared to fixed REST responses. It is flexible for client teams but servers must watch performance—especially resolver N+1 issues where one query triggers a database round trip per row. Schema and resolvers are the server-side contract.
 
 **See also:** [GraphQL, gRPC, and webhooks](software-engineering.md#graphql-grpc-and-webhooks)
 
 ### gRPC
 
-**Beginner:** A high-performance **RPC** framework (often protobuf + HTTP/2) common for **service-to-service** calls inside a backend.
+gRPC is a high-performance RPC (Remote Procedure Call) framework, often using Protocol Buffers over HTTP/2. It is common for service-to-service calls inside a backend where strong typing and streaming matter. Browser support is limited compared to REST, so gRPC usually sits behind an API gateway or BFF (Backend for Frontend).
 
 **See also:** [GraphQL, gRPC, and webhooks](software-engineering.md#graphql-grpc-and-webhooks)
 
 ### Guardrails (LLM)
 
-**Beginner:** Policy limits on model behavior—citations required, refusals on sensitive topics, output filters—so AI features fail safely instead of hallucinating confidently.
+Guardrails are policy limits on LLM (Large Language Model) behavior—citations required, refusals on sensitive topics, output filters, and length caps. They help AI features fail safely instead of hallucinating confidently. Guardrails sit alongside evals and human review in a responsible ship checklist.
 
 **See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLMs handbook](llms.md)
 
@@ -346,19 +346,19 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### HMAC
 
-**Beginner:** A **cryptographic signature** over a message (often webhook raw body + shared secret)—proves the sender knew the secret; verify **before** trusting payload or enqueueing work.
+HMAC (Hash-based Message Authentication Code) is a cryptographic signature over a message—often a webhook raw body plus a shared secret. It proves the sender knew the secret without transmitting the secret itself. Verify the signature before you trust the payload or enqueue work.
 
 **See also:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — Webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md)
 
 ### Hot path
 
-**Beginner:** Code that runs on **every request** or in the tight loop—optimize and measure **here first**; avoid heavy work, extra allocations, or blocking I/O on the hot path.
+The hot path is code that runs on every request or inside a tight loop. Optimize and measure here first: avoid heavy work, extra allocations, and blocking I/O on the hot path. Micro-optimizing cold paths rarely moves user-visible latency.
 
 **See also:** [Memory and performance](memory-and-performance.md); [Project 19 — Rust hot-path](../../career-project-specs/19-rust-hot-path-lab.md)
 
 ### Hexagonal architecture (ports and adapters)
 
-**Beginner:** Keep **domain logic** in the middle; put HTTP, databases, and queues on the **outside** as adapters. Makes swapping infrastructure easier.
+Hexagonal architecture keeps domain logic in the middle and puts HTTP, databases, and queues on the outside as adapters connected through ports (interfaces). Swapping infrastructure means writing a new adapter, not rewriting business rules. It is the same idea as Clean/Onion architecture with different diagram vocabulary.
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
 
@@ -368,25 +368,25 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### I/O-bound vs CPU-bound
 
-**Beginner:** **I/O-bound** work waits on network, disk, or DB (CPU idle); **CPU-bound** work is compute-heavy. Fix I/O with fewer round trips, pooling, async; fix CPU with algorithms, profiling, or moving work off the hot path.
+I/O-bound work spends most of its time waiting on network, disk, or the database while the CPU sits idle. CPU-bound work is compute-heavy—parsing, encryption, rendering—and the bottleneck is processor time. Fix I/O-bound problems with fewer round trips, pooling, and async concurrency; fix CPU-bound problems with better algorithms, profiling, or moving work off the hot path.
 
 **See also:** [Memory and performance](memory-and-performance.md)
 
 ### Idempotency
 
-**Beginner:** Doing the same operation **twice** has the **same effect** as once—for example “set balance to $10” vs “add $10” (which is not naturally idempotent). Critical for retries and webhooks.
+Idempotency means doing the same operation twice has the same effect as doing it once. "Set balance to $10" is idempotent; "add $10" is not unless you dedupe by transaction ID. It is critical for retries, webhooks, and any at-least-once delivery path.
 
 **See also:** [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer)
 
 ### Integration test
 
-**Beginner:** A test that uses **real** pieces working together—a database, HTTP server, queue—usually slower than unit tests but catches wiring issues.
+An integration test uses real pieces working together—a database, HTTP server, or queue—rather than mocks for everything. It is usually slower than a unit test but catches wiring and configuration issues unit tests miss. Most teams run a subset on every commit and a larger set before release.
 
 **See also:** [Testing](software-engineering.md#testing)
 
 ### Injection (SQL injection)
 
-**Beginner:** An attack where attacker-controlled input becomes part of a **database query**. Prevent with parameterized queries / ORMs used correctly—not string concatenation of SQL.
+SQL injection is an attack where attacker-controlled input becomes part of a database query. Prevent it with parameterized queries or ORMs used correctly—not by concatenating strings into SQL. It remains one of the most common and preventable web vulnerabilities.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
@@ -396,13 +396,13 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Jitter
 
-**Beginner:** **Random extra wait** added to retry backoff so many clients do not retry at the same instant—a **thundering herd** on a recovering service.
+Jitter is random extra wait added to retry backoff so many clients do not retry at the same instant. Without jitter, a recovering service can get hit by a thundering herd of synchronized retries. Even a small random spread dramatically smooths load after an outage.
 
 **See also:** [Backoff (exponential)](#backoff-exponential); [Sync HTTP callers](software-engineering.md#sync-http-callers)
 
 ### JSON (JavaScript Object Notation)
 
-**Beginner:** A common text format for APIs—structured like objects and arrays. Despite the name it is language-agnostic.
+JSON (JavaScript Object Notation) is a common text format for APIs—structured like objects and arrays with string keys. Despite the name it is language-agnostic and human-readable. Most REST APIs and config snippets you encounter use JSON.
 
 **See also:** [REST](software-engineering.md#rest)
 
@@ -412,13 +412,13 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Keyset (cursor) pagination
 
-**Beginner:** Paging with a **stable cursor** (last seen id/timestamp) instead of **offset** (`LIMIT 20 OFFSET 1000`)—avoids skipped or duplicate rows when data changes during paging.
+Keyset pagination (also called cursor pagination) pages through results with a stable cursor—usually the last seen ID or timestamp—instead of offset (`LIMIT 20 OFFSET 1000`). It avoids skipped or duplicate rows when data changes during paging, which offset pagination cannot guarantee under concurrent writes. APIs that expose infinite scroll or large tables often prefer keyset pagination.
 
 **See also:** [Pagination (cursor / offset)](#pagination-cursor--offset); [Project 4 — SQL performance](../../career-project-specs/04-sql-performance-lab.md)
 
 ### Kubernetes (K8s)
 
-**Beginner:** A **container orchestrator**: it schedules app containers across machines, restarts failed ones, exposes services, and scales replicas. You often meet it as **YAML** manifests and “pods / deployments / services” vocabulary.
+Kubernetes (often abbreviated K8s) is a container orchestrator: it schedules app containers across machines, restarts failed ones, exposes services, and scales replicas. You often meet it as YAML manifests and vocabulary like pods, deployments, and services. It handles the operational complexity of running many containers in production.
 
 **See also:** [Servers and networking](servers-and-networking.md)
 
@@ -428,19 +428,19 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Lint / linter
 
-**Beginner:** A tool that statically checks code for style issues and common mistakes **without running** the full app.
+A linter is a tool that statically checks code for style issues and common mistakes without running the full application. It catches unused variables, suspicious patterns, and formatting drift early in CI (Continuous Integration). Linters complement tests; they do not replace them.
 
 **See also:** [CI/CD — pipeline](software-engineering.md#cicd-and-delivery)
 
 ### Load balancer
 
-**Beginner:** A component that spreads incoming requests across multiple servers so one machine does not get overwhelmed.
+A load balancer spreads incoming requests across multiple servers so one machine does not get overwhelmed. It may also terminate TLS, perform health checks, and route by path or header. Without one, scaling out adds machines that never receive traffic.
 
 **See also:** [Servers and networking](servers-and-networking.md)
 
 ### Liveness vs readiness
 
-**Beginner:** **Liveness** = “is the process alive?” (restart if not). **Readiness** = “can this instance take traffic?” (remove from load balancer if DB is down). Both are common **health check** types.
+Liveness asks "is the process alive?"—if not, the orchestrator restarts it. Readiness asks "can this instance take traffic?"—if not, it is removed from the load balancer even if the process is running (for example when the database is unreachable). Both are common health check types in Kubernetes and production deploy pipelines.
 
 **See also:** [Production readiness — health checks](../../checklists/production-readiness.md); [Project 16 — Cloud deploy](../../career-project-specs/16-cloud-deploy-lab.md)
 
@@ -450,31 +450,31 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Message queue
 
-**Beginner:** A buffer that lets producers **enqueue** work and consumers **process** later—decouples “now” from “when we have capacity.”
+A message queue is a buffer that lets producers enqueue work and consumers process it later. It decouples "accept the request now" from "do the work when we have capacity." Queues also smooth spikes and survive brief consumer outages—at the cost of eventual processing and operational complexity.
 
 **See also:** [Integration: sync, async, and messaging](software-engineering.md#integration-sync-async-and-messaging)
 
 ### Metrics
 
-**Beginner:** Numeric measurements over time—request rates, latency percentiles, error counts—cheap to aggregate for dashboards and alerts.
+Metrics are numeric measurements over time—request rates, latency percentiles, error counts—that are cheap to aggregate for dashboards and alerts. Unlike logs, they summarize behavior rather than recording every event. Good metrics use consistent labels without exploding cardinality.
 
 **See also:** [Observability: logs, metrics, traces](software-engineering.md#observability-logs-metrics-traces)
 
 ### Microservices
 
-**Beginner:** Many small independently deployable services instead of one big app (“monolith”). Tradeoff: operational and network complexity for team autonomy.
+Microservices means many small independently deployable services instead of one big application (a monolith). Teams gain autonomy and independent scaling but pay in operational and network complexity—distributed tracing, versioning, and failure modes multiply. It is a organizational and scaling tradeoff, not a default architecture.
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
 
 ### Mock (test double)
 
-**Beginner:** A test double that records **whether** collaborators were called—and often **how**—so you assert interactions. Prefer **real or fake** collaborators when feasible; over-mocking couples tests to implementation.
+A mock is a test double that records whether collaborators were called—and often how—so you can assert interactions. Mocks help when the contract is "must call X once with Y," but over-mocking couples tests to implementation details. Prefer real or fake collaborators when feasible.
 
 **See also:** [Testing — doubles](software-engineering.md#testing)
 
 ### Modular monolith
 
-**Beginner:** One deployable app with **clean internal modules/boundaries**—a pragmatic default before splitting into microservices.
+A modular monolith is one deployable application with clean internal modules and boundaries—often aligned to domain areas. You get simplicity of a single deploy and shared database while keeping code organized for a possible future split. It is a pragmatic default before jumping to microservices.
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
 
@@ -484,7 +484,7 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### N+1 query problem
 
-**Beginner:** A performance bug where code runs **one query per row** instead of fetching in bulk—for example loading 100 authors with 101 database round trips.
+The N+1 query problem is a performance bug where code runs one query per row instead of fetching in bulk—for example loading 100 authors with 101 database round trips (one for the list plus one per author). ORMs make this easy to accidentally introduce through lazy loading. Fix it with eager loading, joins, or batch queries.
 
 **See also:** [Database design — N+1](database-design.md#orms-and-the-n1-query-pattern)
 
@@ -494,37 +494,37 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Object-oriented programming (OOP)
 
-**Beginner:** Organizing programs around **objects** with data and behavior, using ideas like encapsulation and polymorphism—not the only paradigm teams use day to day.
+Object-oriented programming (OOP) organizes programs around objects that combine data and behavior, using ideas like encapsulation and polymorphism. It dominated enterprise software for decades but is not the only paradigm teams use day to day—functional and procedural styles mix in most codebases. OOP shines when domain entities have rich behavior and clear boundaries.
 
 **See also:** [Programming paradigms](software-engineering.md#programming-paradigms)
 
 ### Observability
 
-**Beginner:** How well you can understand a system’s insides from **outside signals**—mainly logs, metrics, and traces—with correlation across requests.
+Observability is how well you can understand a system's internal state from outside signals—mainly logs, metrics, and traces—with correlation across requests. It is not just "having dashboards"; it is whether you can answer novel questions when production misbehaves. Strong observability shortens mean time to recovery.
 
 **See also:** [Observability: logs, metrics, traces](software-engineering.md#observability-logs-metrics-traces)
 
 ### OpenAPI
 
-**Beginner:** A standard way to **describe REST-style HTTP APIs** (endpoints, request/response shapes) so humans and tools can agree on contracts.
+OpenAPI is a standard way to describe REST-style HTTP APIs—endpoints, request and response shapes, and error codes—in a machine-readable format. Humans and tools (code generators, mock servers, contract tests) can agree on the same contract. It is the modern successor to informal "here is the wiki" API docs.
 
 **See also:** [REST](software-engineering.md#rest); [Contract-first API](../../career-project-specs/05-contract-first-api.md)
 
 ### OpenTelemetry
 
-**Beginner:** A **vendor-neutral** standard (and libraries) for **traces, metrics, and logs**—one instrumentation style for many backends (Jaeger, Datadog, …).
+OpenTelemetry (often abbreviated OTel) is a vendor-neutral standard and set of libraries for traces, metrics, and logs. You instrument once and export to many backends—Jaeger, Datadog, and others. It reduces lock-in compared to proprietary agent SDKs.
 
 **See also:** [Observability: logs, metrics, traces](software-engineering.md#observability-logs-metrics-traces)
 
 ### Outbox pattern
 
-**Beginner:** Write **DB changes and an outbox row** in one transaction; a separate process publishes to the queue—avoids “DB committed but message never sent” (or the reverse).
+The outbox pattern writes database changes and an outbox row in one transaction, then a separate process publishes from the outbox to the message queue. It avoids the failure mode where the DB committed but the message never sent—or the message sent but the DB rolled back. It is a standard way to get reliable event publishing from transactional systems.
 
 **See also:** [Event-driven integration](software-engineering.md#event-driven-integration)
 
 ### OWASP
 
-**Beginner:** A well-known catalogue of common **web application risks**—useful checklist language for XSS, injection, broken access control, and more.
+OWASP (Open Web Application Security Project) maintains a well-known catalogue of common web application risks. Teams use its Top 10 list as checklist language for XSS (Cross-Site Scripting), injection, broken access control, and related issues. It is a starting point for threat modeling, not a complete security program.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
@@ -534,31 +534,31 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Pagination (cursor / offset)
 
-**Beginner:** Returning large lists in **chunks**. **Offset** pages can drift if data changes; **cursor** pagination is often more stable for APIs.
+Pagination means returning large lists in chunks instead of all at once. Offset pagination (`page=2&size=20`) is simple but can skip or duplicate rows if data changes while the client pages. Cursor pagination is often more stable for live APIs and large datasets.
 
 **See also:** [REST](software-engineering.md#rest)
 
 ### p50 / p95 / p99 (latency percentiles)
 
-**Beginner:** If **p95 latency is 300ms**, 95% of requests finished within 300ms—the **slow tail** (p99) is what SLOs and users often feel; **averages hide outliers**.
+Latency percentiles describe the distribution of response times—if p95 latency is 300ms, 95% of requests finished within 300ms. The slow tail (p99 and above) is what SLOs (Service Level Objectives) and users often feel, while averages hide outliers. Always report percentiles alongside averages when discussing performance.
 
 **See also:** [Memory and performance](memory-and-performance.md); [Project 3 — Observability](../../career-project-specs/03-observability-lab.md)
 
 ### Poison message
 
-**Beginner:** A queue job that **always fails** (bad payload, bug)—after max retries it should land in a **DLQ** instead of blocking the queue forever.
+A poison message is a queue job that always fails—bad payload, schema mismatch, or a bug in the handler. After max retries it should land in a DLQ (dead letter queue) instead of blocking the queue forever. Without DLQ handling, one poison message can stall the entire consumer.
 
 **See also:** [Dead letter queue (DLQ)](#dead-letter-queue-dlq); [Project 6 — Async worker](../../career-project-specs/06-async-worker-stretch.md)
 
 ### Polymorphism
 
-**Beginner:** Treating different concrete types through the **same interface**—callers depend on behavior, not the exact class.
+Polymorphism means treating different concrete types through the same interface—callers depend on behavior, not the exact class. It lets you swap implementations and extend behavior without changing every call site. In typed languages this is often expressed with interfaces or abstract base classes.
 
 **See also:** [SOLID — Liskov](software-engineering.md#solid)
 
 ### Process vs thread
 
-**Beginner:** A **process** has its own memory space; **threads** inside one process share memory and need careful synchronization to avoid data races.
+A process has its own memory space and is isolated from other processes by the operating system. Threads within one process share memory and must synchronize carefully to avoid data races. More threads do not always mean more speed—contention and I/O patterns matter more than raw thread count.
 
 **See also:** [Concurrency basics](software-engineering.md#concurrency-basics)
 
@@ -568,7 +568,7 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Queue (see message queue)
 
-**Beginner:** Often means a **message queue**—work waiting for a consumer—or a **FIFO** data structure in algorithms.
+In backend conversations, "queue" usually means a message queue—work waiting for a consumer to process asynchronously. In algorithms, it means a FIFO (First In, First Out) data structure. Context determines which meaning applies; integration docs almost always mean message queue.
 
 **See also:** [Message queue](#message-queue)
 
@@ -578,43 +578,43 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Regression test
 
-**Beginner:** A test that locks in a **fix** so the same bug cannot return unnoticed.
+A regression test locks in a fix so the same bug cannot return unnoticed. It often starts as a failing test written while debugging, then stays in the suite forever. Regression tests are how you pay down the cost of past incidents with compound interest in confidence.
 
 **See also:** [Debugging — safety net](software-engineering.md#debugging-workflow)
 
 ### RAG (Retrieval-Augmented Generation)
 
-**Beginner:** **Retrieve** relevant documents from a store, then **generate** an answer with the model grounded in those chunks—reduces pure hallucination vs naked LLM prompts.
+RAG (Retrieval-Augmented Generation) retrieves relevant documents from a store, then generates an answer with an LLM (Large Language Model) grounded in those chunks. It reduces pure hallucination compared to naked prompts because the model can cite or reason over retrieved text. Quality depends heavily on retrieval, chunking, and eval coverage.
 
 **See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLMs handbook](llms.md)
 
 ### Rate limiting (429)
 
-**Beginner:** Rejecting excess traffic with **HTTP 429 Too Many Requests** (often plus **Retry-After**)—protects your service and upstreams; per IP, tenant, or API key.
+Rate limiting rejects excess traffic, typically with HTTP 429 Too Many Requests and often a Retry-After header. Limits may apply per IP, tenant, or API key depending on fairness goals. It protects your service and upstream dependencies from abuse and accidental overload.
 
 **See also:** [Project 23 — Rate limiter gateway](../../career-project-specs/23-rate-limiter-gateway-lab.md); [Production readiness — rate limits](../../checklists/production-readiness.md)
 
 ### Reconcile loop
 
-**Beginner:** A control loop: **observe** current state → **diff** vs desired → **act** → **requeue** until stable—core of Kubernetes **controllers** and many operators.
+A reconcile loop is a control pattern: observe current state, diff it against desired state, act to close the gap, then requeue until stable. It is the core of Kubernetes controllers and many operators. The loop is idempotent—running it again when nothing changed should be a no-op.
 
 **See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
 
 ### REST
 
-**Beginner:** A common style for HTTP APIs: **resources** at URLs, using HTTP methods (GET, POST, …) and status codes with meaning. Often paired with JSON.
+REST (Representational State Transfer) is a common style for HTTP APIs: resources at URLs, HTTP methods (GET, POST, PUT, PATCH, DELETE) with conventional meaning, and status codes that communicate outcome. It is often paired with JSON bodies and stateless servers. REST is a set of constraints and conventions, not a single RFC you can compliance-test against.
 
 **See also:** [REST](software-engineering.md#rest)
 
 ### Retry
 
-**Beginner:** Trying a failed operation again—must pair with **timeouts**, **backoff**, and **idempotency** for mutating calls.
+Retry means trying a failed operation again, usually after a transient error like a timeout or 503. Retries must pair with timeouts, backoff, and idempotency for mutating calls—otherwise you amplify load or duplicate side effects. Not every error is retryable; 4xx client errors usually are not.
 
 **See also:** [Sync HTTP callers](software-engineering.md#sync-http-callers)
 
 ### Reverse proxy
 
-**Beginner:** A server in front of your app that terminates TLS, routes paths, buffers slow clients, and may **load-balance** to multiple upstreams—nginx, Envoy, your Project 18 lab.
+A reverse proxy sits in front of your application and terminates TLS, routes paths, buffers slow clients, and may load-balance to multiple upstreams. Examples include nginx, Envoy, and cloud load balancers. Clients see one host; the proxy fans out to the actual app servers.
 
 **See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md); [Servers and networking](servers-and-networking.md)
 
@@ -624,55 +624,55 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### SAST (Static Application Security Testing)
 
-**Beginner:** Security scanning of **source code** (and sometimes configs) without executing the app—finds classes of bugs early (“shift left”).
+SAST (Static Application Security Testing) scans source code—and sometimes configuration—without executing the application. It finds classes of bugs like injection sinks and hard-coded secrets early in CI (Continuous Integration), often called "shifting left." SAST produces false positives, so teams tune rules and triage findings rather than blocking on every warning.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
 ### Saga
 
-**Beginner:** A **long business process** split into local steps with **compensating actions** (refund if shipment fails)—distributed transactions without one giant two-phase commit.
+A saga is a long business process split into local steps with compensating actions—refund if shipment fails, cancel reservation if payment fails. It implements distributed transactions without one giant two-phase commit across services. Sagas require explicit design for partial failure and human intervention on stuck states.
 
 **See also:** [Event-driven integration — saga](software-engineering.md#event-driven-integration)
 
 ### SemVer (semantic versioning)
 
-**Beginner:** Version numbers like `MAJOR.MINOR.PATCH`—bump **major** when you break compatibility for consumers who rely on the contract.
+SemVer (Semantic Versioning) uses version numbers like `MAJOR.MINOR.PATCH`. Bump major when you break compatibility for consumers who rely on the contract, minor for backward-compatible features, and patch for backward-compatible fixes. Clear versioning lets clients decide when upgrading is safe.
 
 **See also:** [Versioning and compatibility](software-engineering.md#versioning-and-compatibility)
 
 ### SLA / SLO / SLI
 
-**Beginner:** **SLI** = what you measure (latency, errors). **SLO** = internal target (“99.9% under 300ms”). **SLA** = customer-facing promise with consequences.
+An SLI (Service Level Indicator) is what you measure—latency, error rate, availability. An SLO (Service Level Objective) is an internal target built on SLIs, such as "99.9% of requests under 300ms." An SLA (Service Level Agreement) is a customer-facing promise with consequences if you miss it. SLOs drive engineering priorities; SLAs drive contracts.
 
 **See also:** [Observability — SLI / SLO / SLA](software-engineering.md#observability-logs-metrics-traces)
 
 ### Shift-left
 
-**Beginner:** Catching defects **earlier** in the lifecycle (design, CI, SAST) when they are cheaper to fix than in production.
+Shift-left means catching defects earlier in the lifecycle—design reviews, CI (Continuous Integration), SAST (Static Application Security Testing)—when they are cheaper to fix than in production. It is a mindset about feedback loops, not a specific tool. The opposite failure mode is discovering security or integration bugs only after release.
 
 **See also:** [Security for applications — SAST/DAST](software-engineering.md#security-for-applications)
 
 ### Sliding window (rate limiting)
 
-**Beginner:** Count requests in a **rolling time window**—smoother than a fixed window that resets abruptly at each minute boundary.
+Sliding window rate limiting counts requests in a rolling time window rather than a fixed window that resets abruptly at each minute boundary. It produces smoother enforcement—no sudden "free burst" at the top of every hour. Implementation cost is slightly higher than a fixed window but behavior is fairer under steady load.
 
 **See also:** [Project 23 — Rate limiter gateway](../../career-project-specs/23-rate-limiter-gateway-lab.md)
 
 ### SOAP
 
-**Beginner:** An older **XML-heavy** style of web services, still common in some enterprises; compared often with **REST** + JSON.
+SOAP (Simple Object Access Protocol) is an older XML-heavy style of web services, still common in some enterprises and government integrations. Requests and responses are envelope-shaped XML documents with strict schemas. Teams often compare SOAP with REST plus JSON for greenfield APIs.
 
 **See also:** [SOAP and WS-style services](software-engineering.md#soap-and-ws-style-services)
 
 ### Stateless (service)
 
-**Beginner:** The server does not rely on **in-memory session** tied to one machine between requests; session data lives in a store or token so any instance can handle the next request.
+A stateless service does not rely on in-memory session data tied to one machine between requests. Session state lives in a shared store or signed token so any instance can handle the next request. Statelessness simplifies horizontal scaling and rolling deploys—core to REST and twelve-factor apps.
 
 **See also:** [REST — stateless](software-engineering.md#rest); [12-factor](software-engineering.md#cicd-and-delivery)
 
 ### Stub (test double)
 
-**Beginner:** A test double that returns **canned answers** without a full implementation—lighter than a fake; unlike a **mock**, it usually does not assert how it was called.
+A stub is a test double that returns canned answers without a full implementation—lighter than a fake. Unlike a mock, it usually does not record or assert how it was called. Use stubs when you only need predictable responses, not interaction verification.
 
 **See also:** [Testing — doubles](software-engineering.md#testing)
 
@@ -682,37 +682,37 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Technical debt
 
-**Beginner:** Work you **postpone** (often for speed) that carries ongoing cost—like financial debt, interest compounds until you pay it down.
+Technical debt is work you postpone—often for speed—that carries ongoing cost in maintenance, bugs, and slower feature delivery. Like financial debt, the "interest" compounds until you pay it down with refactors, tests, or rewrites. Not all debt is bad; intentional debt with a repayment plan differs from accidental mess.
 
 **See also:** [Complexity, change, and technical debt](software-engineering.md#complexity-change-and-technical-debt)
 
 ### Tail latency
 
-**Beginner:** The **slow end** of your latency distribution (p95, p99)—often dominates user experience and SLO breaches even when the average looks fine.
+Tail latency is the slow end of your latency distribution—the p95, p99, and beyond. It often dominates user experience and SLO (Service Level Objective) breaches even when the average looks fine. Optimizing averages while ignoring the tail is a common performance blind spot.
 
 **See also:** [p50 / p95 / p99](#p50--p95--p99-latency-percentiles)
 
 ### Thundering herd
 
-**Beginner:** Many clients **retry at once** when a service recovers—overwhelming it again. **Jittered backoff** and **circuit breakers** reduce the stampede.
+A thundering herd is when many clients retry at once when a service recovers, overwhelming it again before it stabilizes. Jittered backoff and circuit breakers reduce the stampede by spreading retries and stopping calls to still-unhealthy dependencies. Cache expiry and cron jobs can cause similar synchronized load spikes.
 
 **See also:** [Jitter](#jitter); [Circuit breaker](#circuit-breaker)
 
 ### Timeout
 
-**Beginner:** A limit on how long to wait for an I/O call. Without timeouts, slow dependencies can **pile up** threads or connections and take down your service.
+A timeout is a limit on how long to wait for an I/O call—HTTP, database, RPC (Remote Procedure Call)—before giving up. Without timeouts, slow dependencies can pile up threads or connections and take down your service. Set timeouts slightly below client-facing deadlines so you fail fast and return a useful error.
 
 **See also:** [Sync HTTP callers](software-engineering.md#sync-http-callers)
 
 ### Trace (distributed tracing)
 
-**Beginner:** A tree of **spans** showing how a request moved through services—essential for finding latency in microservice setups.
+A distributed trace is a tree of spans showing how a request moved through services—each span is one unit of work with timing and metadata. Tracing is essential for finding latency in microservice setups where logs alone cannot reconstruct the full path. OpenTelemetry is the common instrumentation standard.
 
 **See also:** [Observability: logs, metrics, traces](software-engineering.md#observability-logs-metrics-traces)
 
 ### Token bucket (rate limiting)
 
-**Beginner:** A rate limiter that **refills tokens** at a steady rate; each request spends a token—allows **controlled bursts** while capping average rate.
+A token bucket rate limiter refills tokens at a steady rate; each request spends one token. It allows controlled bursts while capping average rate over time—unlike a strict fixed window that rejects everything once the count is hit. Token buckets are a standard algorithm in API gateways and sidecar proxies.
 
 **See also:** [Project 23 — Rate limiter gateway](../../career-project-specs/23-rate-limiter-gateway-lab.md)
 
@@ -722,13 +722,13 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Unit test
 
-**Beginner:** A fast, narrow test of one module or function, usually **without** real network or database—pinpoints logic bugs quickly.
+A unit test is a fast, narrow test of one module or function, usually without real network or database I/O. It pinpoints logic bugs quickly and runs on every save or commit. Unit tests work best when code has clear inputs, outputs, and minimal hidden dependencies.
 
 **See also:** [Testing](software-engineering.md#testing)
 
 ### UTF-8
 
-**Beginner:** The **encoding** you should usually use for text on the web and in modern systems—variable-width, supports many languages.
+UTF-8 (Unicode Transformation Format, 8-bit) is the encoding you should usually use for text on the web and in modern systems. It is variable-width and supports virtually all written languages in one byte stream. Mixing encodings without explicit conversion is a classic source of mojibake and subtle bugs.
 
 **See also:** [Internationalization and encoding](software-engineering.md#internationalization-and-encoding)
 
@@ -738,7 +738,7 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Versioning (API)
 
-**Beginner:** How you signal **breaking changes**—for example `/v1/` in the URL or version headers—so clients can migrate safely.
+API versioning is how you signal breaking changes to clients—for example `/v1/` in the URL, a version header, or content negotiation. The goal is to let existing integrations keep working while new clients adopt improved contracts. Versioning strategy should be documented before you ship your first external API.
 
 **See also:** [Versioning and compatibility](software-engineering.md#versioning-and-compatibility)
 
@@ -748,13 +748,13 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Webhook
 
-**Beginner:** An HTTP **callback** another system calls on your URL when something happens. Treat deliveries as **at-least-once**: verify **signatures**, respond quickly, process **idempotently**.
+A webhook is an HTTP callback another system invokes on your URL when something happens—a payment succeeded, a commit was pushed, a form was submitted. Treat deliveries as at-least-once: verify signatures, respond quickly with a fast ack, and process idempotently in the background. Webhooks invert the usual polling model and push work to you.
 
 **See also:** [GraphQL, gRPC, and webhooks](software-engineering.md#graphql-grpc-and-webhooks)
 
 ### Worker
 
-**Beginner:** A process that **pulls jobs** from a queue or scheduler and does slow work outside the request/response path.
+A worker is a process that pulls jobs from a queue or scheduler and does slow work outside the request/response path. Workers handle PDF generation, email sends, index updates, and anything that should not block an HTTP response. Scaling workers independently from web servers is a common async architecture pattern.
 
 **See also:** [Integration: sync, async, and messaging](software-engineering.md#integration-sync-async-and-messaging)
 
@@ -764,13 +764,13 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### XSS (Cross-Site Scripting)
 
-**Beginner:** Injecting **script** into pages other users see—often via unsanitized user input. Defenses include escaping, CSP, and safe templating.
+XSS (Cross-Site Scripting) is injecting script into pages that other users will see—often via unsanitized user input rendered as HTML. Defenses include contextual escaping, Content Security Policy (CSP), and safe templating that treats user data as text by default. Stored XSS in a comment field is a classic example.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
 ### XML
 
-**Beginner:** A verbose text format with tags; common in **SOAP** and some enterprise integrations; compared with **JSON** for REST.
+XML (Extensible Markup Language) is a verbose text format with nested tags and attributes. It is common in SOAP (Simple Object Access Protocol) services and some enterprise integrations, especially where schemas and tooling predated JSON. Compared with JSON, XML is heavier on the wire and harder to read by hand.
 
 **See also:** [SOAP and WS-style services](software-engineering.md#soap-and-ws-style-services)
 
@@ -780,7 +780,7 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### YAML
 
-**Beginner:** A human-readable config format (indentation-based) often used for CI pipelines and Kubernetes manifests—watch indentation mistakes.
+YAML (YAML Ain't Markup Language) is a human-readable config format based on indentation, often used for CI (Continuous Integration) pipelines and Kubernetes manifests. Indentation errors are the most common footgun—tabs vs spaces break parsers silently or with cryptic errors. Many teams validate YAML in CI before apply.
 
 **See also:** [Command-line tooling](command-line-tooling.md)
 
@@ -790,6 +790,6 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 ### Zero-downtime deployment
 
-**Beginner:** Shipping new versions **without** taking the service offline for users—often via **blue-green**, **canary**, or rolling updates.
+Zero-downtime deployment means shipping new versions without taking the service offline for users. Common techniques include blue-green deploys, canary rollouts, and rolling updates where instances drain gracefully before replacement. True zero downtime also requires backward-compatible schema and API changes during the transition.
 
 **See also:** [CI/CD and delivery](software-engineering.md#cicd-and-delivery)

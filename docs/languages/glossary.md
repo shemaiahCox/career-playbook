@@ -1,6 +1,6 @@
 # Stacks glossary — plain language index
 
-Jump to **Plain language** sections at the bottom of each ecosystem map. Each map follows a shared **top-to-bottom** flow—best for → how it runs → setup → layout → daily commands → playbook concepts ([template](../templates/language-ecosystem-map.md)). Core stack: **JS/TS, PHP, SQL, Go, Python, Rust, Bash**, plus **integration/automation** patterns.
+Jump to **Plain language** sections at the bottom of each ecosystem map. Each map follows a shared **top-to-bottom** flow—best for → how it runs → setup → layout → daily commands → playbook concepts ([template](../templates/language-ecosystem-map.md)). Core stack: **JavaScript/TypeScript (JS/TS), PHP, SQL, Go, Python, Rust, Bash**, plus **integration/automation** patterns.
 
 | Map | Jump to definitions |
 |-----|---------------------|
@@ -21,6 +21,6 @@ Jump to **Plain language** sections at the bottom of each ecosystem map. Each ma
 - [Event-driven integration](../concepts/software-engineering.md#event-driven-integration)
 - [Concurrency basics](../concepts/software-engineering.md#concurrency-basics)
 - [Algorithms study path](../concepts/algorithms-study-path.md)
-- [Database design — N+1](../concepts/database-design.md#orms-and-the-n1-query-pattern)
+- [Database design — N+1 query pattern](../concepts/database-design.md#orms-and-the-n1-query-pattern)
 
-Syntax across core languages (including **Rust**): [Language fundamentals comparison](language-fundamentals-comparison.md). **20-concept study map** (examples + links to depth): [Cross-stack study map](language-fundamentals-comparison.md#cross-stack-study-map). **Mentor-depth gotchas** (Python · TS/JS · PHP): [Language gotchas deep dive](language-gotchas-deep-dive.md).
+Syntax across core languages (including **Rust**): [Language fundamentals comparison](language-fundamentals-comparison.md). **20-concept study map** (examples + links to depth): [Cross-stack study map](language-fundamentals-comparison.md#cross-stack-study-map). **Language gotchas deep dive** (Python · TS/JS · PHP): [Language gotchas deep dive](language-gotchas-deep-dive.md).

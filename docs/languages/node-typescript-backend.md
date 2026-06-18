@@ -20,7 +20,7 @@
 
 | Execution | Typing | Memory / concurrency |
 |-----------|--------|----------------------|
-| **Node** interprets JS on a **single-threaded event loop** per process; **TS** compiles to JS (`tsc`) or runs via **tsx** in dev | Structural typing with **`strict`** tsconfig | V8 GC; async I/O via Promises—CPU-heavy work blocks the loop unless offloaded to worker threads or another service |
+| **Node** interprets JS on a **single-threaded event loop** per process; **TS** compiles to JS (`tsc`) or runs via **tsx** in dev | Structural typing with **`strict`** tsconfig | V8 garbage collection (GC); async I/O via Promises—CPU-heavy work blocks the loop unless offloaded to worker threads or another service |
 
 ---
 
@@ -109,7 +109,7 @@ Read this **after** the tables if the jargon felt dense.
 - **npm / pnpm / yarn** — Package managers; **lockfile** pins transitive versions for reproducible builds.
 - **`package.json`** — Manifest: dependencies, scripts (`npm test`, `npm run dev`), sometimes `"type": "module"`.
 - **TypeScript** — Typed JavaScript; **`tsc`** emits JS; **`strict`** catches many null and shape bugs early.
-- **ESM vs CommonJS** — Two module systems; mixing them without tooling causes “cannot use import outside a module” class errors.
+- **ECMAScript modules (ESM) vs CommonJS (CJS)** — Two module systems; mixing them without tooling causes “cannot use import outside a module” class errors.
 - **Express / Fastify / NestJS** — Popular HTTP frameworks—Express is minimal middleware stack; Fastify emphasizes schema and speed; Nest adds Angular-inspired structure (modules, DI).
 - **Middleware** — Functions run in order on each request (auth, parse JSON, attach context).
 - **Zod / joi** — Runtime validation libraries—define input shapes and fail fast with 400s.

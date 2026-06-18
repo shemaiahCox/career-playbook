@@ -1,6 +1,6 @@
 # Servers and networking
 
-Study notes for how traffic reaches software, how TLS and DNS fit together, and how cloud and edge pieces connect. **Basic** = vocabulary; **Intermediate** = tradeoffs and debugging; **Advanced** = distributed and failure nuances.
+How traffic reaches software, how Transport Layer Security (TLS) and Domain Name System (DNS) fit together, and how cloud and edge components connect—written for job and interview prep.
 
 **Companion docs:** [Command-line tooling](command-line-tooling.md) · [Database design](database-design.md) · [Software engineering](software-engineering.md)
 
@@ -8,7 +8,6 @@ Study notes for how traffic reaches software, how TLS and DNS fit together, and 
 
 ## Table of contents
 
-- [How this doc is organized](#how-this-doc-is-organized)
 - [How a request crosses the network](#how-a-request-crosses-the-network)
 - [TCP/IP, IP addresses, and ports](#tcpip-ip-addresses-and-ports)
 - [DNS](#dns)
@@ -27,19 +26,9 @@ Study notes for how traffic reaches software, how TLS and DNS fit together, and 
 
 ---
 
-## How this doc is organized
-
-| Level | You should be able to… |
-|--------|-------------------------|
-| **Basic** | Define IP, port, DNS name, HTTP method, status code, TLS role; sketch client → server. |
-| **Intermediate** | Explain connection refused vs timeout; TLS handshake at a high level; when to use a reverse proxy; read a simple firewall rule impact. |
-| **Advanced** | Discuss TLS termination tradeoffs, replication lag across regions, graceful degradation under partitions (tie to [database CAP](database-design.md)). |
-
----
-
 ## How a request crosses the network
 
-**Idea:** Your browser or API client resolves a **hostname**, opens a **TCP connection** to an **IP:port**, then speaks **HTTP** or **HTTPS** (HTTP over TLS). Middle boxes may include **DNS**, **load balancers**, **reverse proxies**, and **CDNs**.
+When your browser or API client fetches a page, it resolves a **hostname** to an address, opens a **Transmission Control Protocol (TCP)** connection to an **IP address and port**, then speaks **Hypertext Transfer Protocol (HTTP)** or **HTTPS** (HTTP secured with TLS). Middle infrastructure may include DNS resolvers, load balancers, reverse proxies, and Content Delivery Networks (CDNs).
 
 ```mermaid
 flowchart LR
@@ -53,35 +42,30 @@ flowchart LR
   edge --> app
 ```
 
-**Takeaway:** DNS tells you *where* to connect; TCP delivers a reliable byte stream; HTTP defines *what* you ask for.
+DNS tells you *where* to connect. TCP delivers a reliable byte stream between endpoints. HTTP defines *what* you ask for and how the server responds. Each layer has separate failure modes—DNS misconfiguration, connection refused, TLS certificate mismatch, HTTP 502 from an upstream—all of which show up differently in logs and client errors.
 
 ---
 
 ## TCP/IP, IP addresses, and ports
 
-- **IP address:** locates a host on a network (IPv4 like `203.0.113.10` or IPv6).
-- **Port:** a 16-bit number selecting a *service* on that host (e.g. 443 for HTTPS, 22 for SSH).
-- **Socket:** the pair `(client_ip:port, server_ip:port)` identifying one connection.
+An **IP address** locates a host on a network—IPv4 looks like `203.0.113.10`; IPv6 uses longer hexadecimal addresses. A **port** is a 16-bit number selecting a service on that host: port 443 for HTTPS, port 22 for Secure Shell (SSH). A **socket** is the pair `(client_ip:port, server_ip:port)` identifying one connection.
 
-**Connection refused vs timeout (Intermediate):**
+**Connection refused** means the host was reached but nothing is listening on that port—wrong port, service down, or a firewall that sends a reset. **Timeout** means no response arrived—host offline, wrong IP, firewall silently dropping packets, routing problems, or severe packet loss. The distinction matters for debugging: refused is local to the target service; timeout often implicates network path or firewall rules.
 
-- **Refused:** host reached, but nothing listening on that port (wrong port, service down, firewall drop that presents as RST on some stacks).
-- **Timeout:** no response—host offline, wrong IP, firewall *silently* dropping, routing loop, or severe packet loss.
-
-**Examples:**
+**What:** connectivity checks to a host and port. **Why:** confirm DNS resolution, routing, and that a service is listening before debugging application logic. **When:** after deploys, firewall changes, or "cannot connect" reports.
 
 ```bash
 curl -v https://example.com:443/
 nc -vz example.com 443
 ```
 
-PowerShell: `Test-NetConnection example.com -Port 443`.
+On Windows PowerShell: `Test-NetConnection example.com -Port 443`.
 
 ---
 
 ## DNS
 
-**Basic:** Maps human-readable names to addresses.
+The **Domain Name System (DNS)** maps human-readable hostnames to addresses and other records.
 
 | Record (concept) | Role |
 |------------------|------|
@@ -89,27 +73,23 @@ PowerShell: `Test-NetConnection example.com -Port 443`.
 | AAAA | Hostname → IPv6 |
 | CNAME | Alias to another name |
 
-#### DNS record types (going deeper)
+An **A record** points a hostname to an **IPv4** address—what most clients use to connect. An **AAAA record** does the same for **IPv6**; many stacks try AAAA first when IPv6 is available. A **CNAME record** declares that this hostname is an **alias** of another name; the resolver continues lookup on the target. You cannot attach arbitrary data at a CNAME the way you can at an A record; **apex** domains (the bare domain without `www`) often need **ALIAS/ANAME** records at DNS providers instead of a plain CNAME.
 
-- **A** — Points a hostname to an **IPv4** address. What clients use most often for “connect to this name.”
-- **AAAA** — Same as **A** but for **IPv6**. Many stacks try AAAA first when IPv6 is available; missing AAAA is fine if you only serve IPv4.
-- **CNAME** — **Canonical name**: this hostname is an **alias** of another name; the resolver continues with the target. You cannot set arbitrary data “at” a CNAME in the same way as an A record; **apex** domains often need **ALIAS/ANAME** at DNS providers instead of a plain CNAME.
+Resolution flows from a stub resolver on the client through a recursive resolver to the authority chain: root → top-level domain (TLD) → your zone.
 
-**Resolution order (simplified):** stub resolver → recursive resolver → authority chain from root → TLD → zone.
-
-**Example:**
+**What:** look up the IPv4 address for a hostname. **Why:** verify DNS propagation after a change or debug "wrong server" issues. **When:** after updating A records or migrating hosts.
 
 ```bash
 dig +short A example.com
 ```
 
-**Intermediate:** **TTL** affects how fast DNS changes propagate. **CNAME at zone apex** has constraints (often use ALIAS/ANAME at DNS providers).
+**Time To Live (TTL)** controls how long resolvers cache a record—lower TTL speeds propagation of changes but increases query load. Plan TTL reductions before migrations so stale caches expire quickly.
 
 ---
 
 ## HTTP
 
-**Basic:** Text-based **request/response** (often HTTP/1.1 or HTTP/2 over TLS). Request: **method**, **path**, **headers**, optional **body**. Response: **status code**, headers, body.
+**Hypertext Transfer Protocol (HTTP)** is a text-based request/response protocol, commonly HTTP/1.1 or HTTP/2 over TLS. A request carries a **method**, **path**, **headers**, and optional **body**. A response carries a **status code**, headers, and body.
 
 | Method | Typical use |
 |--------|-------------|
@@ -118,13 +98,15 @@ dig +short A example.com
 | PUT / PATCH | Replace / partial update |
 | DELETE | Delete |
 
-#### HTTP methods (going deeper)
+**GET** fetches a representation. It should be **safe**—no server-side side effects—and is often **cacheable**. Browsers prefetch links; APIs use GET for reads.
 
-- **GET** — Fetch a representation; should be **safe** (no server-side side effects) and is often **cacheable**. Browsers prefetch links; APIs use GET for reads.
-- **POST** — Submit data or trigger an action; **not assumed idempotent**—retries may duplicate work unless the API uses idempotency keys.
-- **PUT** — Replace a resource at a known URI; repeating the same body is often treated as idempotent “make it look like this.”
-- **PATCH** — Partial update; semantics vary by API (JSON Merge Patch vs JSON Patch, etc.).
-- **DELETE** — Remove a resource; idempotency expectations differ by API (second delete may be 404 or 204).
+**POST** submits data or triggers an action. It is **not assumed idempotent**—retries may duplicate work unless the API uses idempotency keys.
+
+**PUT** replaces a resource at a known Uniform Resource Identifier (URI); repeating the same body is often treated as idempotent.
+
+**PATCH** applies a partial update; semantics vary by API (JSON Merge Patch versus JSON Patch, for example).
+
+**DELETE** removes a resource; idempotency expectations differ—a second delete may return 404 or 204 depending on the API contract.
 
 | Code range | Meaning |
 |------------|---------|
@@ -133,12 +115,7 @@ dig +short A example.com
 | 4xx | Client error |
 | 5xx | Server error |
 
-#### HTTP status families (going deeper)
-
-- **2xx** — Success: **200** generic OK, **201** created, **204** no body. Cache and client libraries treat these as “request understood and accepted.”
-- **3xx** — Redirection: client should retry elsewhere (**301** permanent, **302/307/308** temporary or method-preserving variants—details matter for POST).
-- **4xx** — Client fault: **400** bad request, **401** unauthenticated, **403** forbidden, **404** not found, **429** rate limited—fix request, credentials, or backoff.
-- **5xx** — Server fault: **500** unexpected error, **502/503/504** often from gateways or overload—retry with backoff may help; fix is usually server-side.
+**2xx** means success: **200** generic OK, **201** created, **204** no body. **3xx** means redirection—the client should retry elsewhere; **301** is permanent, **302/307/308** are temporary or method-preserving variants, and details matter for POST redirects. **4xx** means client fault: **400** bad request, **401** unauthenticated, **403** forbidden, **404** not found, **429** rate limited. **5xx** means server fault: **500** unexpected error, **502/503/504** often from gateways or overload—retries with backoff may help, but the fix is usually server-side.
 
 ```mermaid
 sequenceDiagram
@@ -148,15 +125,15 @@ sequenceDiagram
   S->>C: 200 OK body
 ```
 
-**Intermediate:** **Idempotency:** repeating GET "should" be safe; POST may not be. APIs often document idempotency keys for payments.
+**Idempotency** means repeating a request has the same effect as doing it once. GET should be safe to repeat; POST often is not. Payment and order APIs commonly accept idempotency keys so retries do not double-charge.
 
 ---
 
 ## TLS and HTTPS
 
-**Basic:** **TLS** encrypts and authenticates the connection. The server presents a **certificate** chaining to a **trusted CA**; the client verifies the name matches the hostname (**SNI** on the wire).
+**Transport Layer Security (TLS)** encrypts traffic and authenticates the server. The server presents a **certificate** chaining to a trusted **Certificate Authority (CA)**; the client verifies the certificate matches the hostname via **Server Name Indication (SNI)** on the wire. **HTTPS** is HTTP over TLS.
 
-**Intermediate — handshake (conceptual):**
+The handshake negotiates symmetric encryption keys after an asymmetric bootstrap. The certificate proves identity if validation succeeds—expired, wrong hostname, or untrusted CA breaks browser trust immediately.
 
 ```mermaid
 sequenceDiagram
@@ -168,22 +145,22 @@ sequenceDiagram
   Note over C,S: Encrypted application data HTTP
 ```
 
-**Takeaway:** Symmetric keys negotiated after asymmetric bootstrap; certificate proves identity if validation succeeds.
-
-**Advanced:** **TLS termination** at a load balancer simplifies certificates on app nodes but concentrates trust on the proxy path (encrypt **inside** the data center if required by policy).
+**TLS termination** at a load balancer simplifies certificate management on application nodes but concentrates trust on the proxy path. If policy requires encryption inside the data center, terminate TLS at the edge and re-encrypt to backends, or use mutual TLS between services.
 
 ---
 
 ## SSH
 
-**Basic:** Encrypted remote shell and file copy; **public-key auth** common (`~/.ssh/id_ed25519` private, `.pub` public).
+**Secure Shell (SSH)** provides encrypted remote login and file copy. **Public-key authentication** is common: a private key on your machine (`~/.ssh/id_ed25519`) and the matching public key (`.pub`) on the server.
+
+**What:** test GitHub SSH auth and copy a file to a remote host. **Why:** verify key setup before debugging deploy or git failures. **When:** initial machine setup or after key rotation.
 
 ```bash
 ssh -T git@github.com
 scp local.txt user@host:/remote/path/
 ```
 
-**Intermediate:** `~/.ssh/config` for hosts; **agent forwarding** only when necessary (untrusted server can abuse it).
+Use `~/.ssh/config` to alias hosts and set keys per destination. **Agent forwarding** lets a remote server use your local key to reach further hosts—enable it only when necessary, because an untrusted server can abuse a forwarded agent.
 
 See also the SSH section in [Command-line tooling](command-line-tooling.md).
 
@@ -191,15 +168,17 @@ See also the SSH section in [Command-line tooling](command-line-tooling.md).
 
 ## Firewalls and security groups
 
-**Basic:** Rules allowing or denying **IP + port + direction** (inbound/outbound). **Least privilege:** only open what you need.
+Firewalls allow or deny traffic by **IP address, port, and direction** (inbound or outbound). **Least privilege** means opening only what you need—default deny, explicit allow.
 
-**Cloud security groups** are stateful filters attached to VMs or ENIs—misconfiguration is a top cause of “works in dev, unreachable in prod.”
+Cloud **security groups** are stateful filters attached to virtual machines or Elastic Network Interfaces (ENIs). Misconfiguration is a top cause of "works in dev, unreachable in prod": the application listens on the right port, but the security group never allows inbound traffic on it.
 
 ---
 
 ## Reverse proxies and load balancers
 
-**Reverse proxy (e.g. nginx):** Terminates TLS, routes by Host/path, serves static files, buffers slow clients. **LB:** Distributes connections across **backends** using algorithms (round-robin, least connections); **health checks** remove bad nodes.
+A **reverse proxy** (for example, nginx) sits in front of application servers. It terminates TLS, routes by Host header or path, serves static files, and buffers slow clients so backends are not tied up waiting for uploads.
+
+A **load balancer (LB)** distributes connections across **backends** using algorithms like round-robin or least connections. **Health checks** remove unhealthy nodes from rotation.
 
 ```mermaid
 flowchart TB
@@ -213,21 +192,25 @@ flowchart TB
   lb --> b
 ```
 
-**Intermediate:** **Sticky sessions** vs **stateless** apps; **Session affinity** can hide backend bugs until nodes fail.
+**Sticky sessions** (session affinity) route the same client to the same backend. That can hide stateful bugs in the application until a node fails—prefer stateless apps with shared session storage when possible.
 
 ---
 
 ## Caching, CDNs, and browsers
 
-**Browser/CDN:** `Cache-Control`, `ETag`, `Last-Modified` reduce origin load. **Intermediate:** stale-while-revalidate patterns; **cache busting** with hashed asset names.
+Browsers and **Content Delivery Networks (CDNs)** cache responses using headers like `Cache-Control`, `ETag`, and `Last-Modified`. A CDN serves static assets from edge locations closer to users, reducing origin load and latency.
+
+**Stale-while-revalidate** lets clients serve slightly stale content while fetching a fresh copy in the background. **Cache busting** with hashed asset filenames (for example, `app.a1b2c3.js`) ensures browsers fetch new bundles after deploys without disabling caching entirely.
 
 ---
 
 ## WebSockets and long polling
 
-**WebSockets:** Bi-directional channel over a single long-lived HTTP upgrade—chat, live dashboards.
+**WebSockets** upgrade an HTTP connection into a bidirectional channel over a single long-lived TCP connection—useful for chat, live dashboards, and collaborative editing.
 
-**Long polling:** Client holds request open until server has data—fallback when WebSockets unavailable.
+**Long polling** holds an HTTP request open until the server has data to send, then the client immediately opens a new request. It is a fallback when WebSockets are blocked by proxies or corporate networks.
+
+WebSockets reduce overhead for frequent updates; long polling is simpler but creates more HTTP churn. Choose based on update frequency, infrastructure constraints, and client capabilities.
 
 ---
 
@@ -239,23 +222,25 @@ flowchart TB
 | **PaaS** | App and config | Runtime, patching often abstracted |
 | **SaaS** | Users and data | Almost everything |
 
-**Regions and AZs:** Fault isolation; cross-region = latency + replication complexity.
+**Infrastructure as a Service (IaaS)** gives you virtual machines and networks—you patch the OS and run your stack. **Platform as a Service (PaaS)** abstracts the runtime—you deploy code and configuration. **Software as a Service (SaaS)** is the full product—you manage users and data.
+
+**Regions** and **Availability Zones (AZs)** provide fault isolation within a cloud provider. Cross-region deployment adds latency and replication complexity—tie this to consistency tradeoffs in [database CAP discussion](database-design.md#cap-theorem-careful-reading).
 
 ---
 
 ## Edge protection: WAF, rate limits, DDoS
 
-**WAF (Web Application Firewall):** HTTP-aware rules (e.g. SQLi patterns)—**not** a substitute for secure code.
+A **Web Application Firewall (WAF)** applies HTTP-aware rules—SQL injection patterns, suspicious paths, geographic blocks. It is not a substitute for secure application code; it adds a filter layer at the edge.
 
-**Rate limiting:** Protects brute-force and abusive clients; tune carefully to avoid blocking legitimate bursty traffic.
+**Rate limiting** protects against brute-force login attempts and abusive clients. Tune thresholds carefully—legitimate bursty traffic (mobile apps reconnecting, batch imports) can look like abuse if limits are too aggressive.
 
-**DDoS:** Volume or protocol attacks; often mitigated at ISP/cloud scrubbing centers—**architecture** + provider features, not app logic alone.
+**Distributed Denial of Service (DDoS)** attacks flood targets with volume or exploit protocol weaknesses. Mitigation usually happens at Internet Service Provider (ISP) or cloud scrubbing centers through architecture choices and provider features, not application logic alone.
 
 ---
 
 ## Email and DNS (SPF/DKIM) — brief
 
-Deliverability often requires **SPF** (which IPs may send for a domain) and **DKIM** (signed messages). Mis-DNS breaks mail—relevant when you own domains.
+Email deliverability often requires **Sender Policy Framework (SPF)**—which IP addresses may send mail for a domain—and **DomainKeys Identified Mail (DKIM)**—cryptographic signatures on messages. Misconfigured DNS records break outbound mail. This matters when you own domains and send transactional email from your application.
 
 ---
 
@@ -274,8 +259,8 @@ Deliverability often requires **SPF** (which IPs may send for a domain) and **DK
 
 - Explain **DNS** A vs CNAME and **TTL**.
 - **TCP connection refused** vs **timeout** with examples of causes.
-- **HTTP** verbs and **common status codes**; **idempotency**.
-- **TLS** purpose; **certificate** vs **key**; what **misconfiguration** breaks browser trust.
+- **HTTP** verbs and common status codes; **idempotency**.
+- **TLS** purpose; **certificate** vs **key**; what misconfiguration breaks browser trust.
 - **Load balancer** vs **reverse proxy**; **health checks**.
 - **IaaS vs PaaS vs SaaS** with an example each.
 - **WAF vs network firewall** at a high level.

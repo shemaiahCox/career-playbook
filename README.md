@@ -4,6 +4,10 @@ Practice projects for **AI Systems · Cloud · Automation · IoT** — one linea
 
 **Rule:** one active project at a time.
 
+## How to read this playbook
+
+Start with the architecture framework, then follow the step table in order. Each row links to a project spec that tells you what to build, what to learn, and when you are done. Use PROGRESS.md to log milestones; use checklists when you are close to shipping. Browse-by tables below are for finding evidence by skill or pillar — not a different learning order.
+
 ## Start here
 
 1. **[Architecture framework](docs/concepts/architecture-framework.md)** — read first (~15 min): five pillars, reference shape, decision checklists
@@ -21,9 +25,9 @@ Modern backend work is architectural work. Every project practices decisions und
 | Pillar | One-line focus |
 |--------|----------------|
 | 1. System shape | Boundaries, sync vs async, who owns what |
-| 2. Integration & messaging | Delivery semantics, brokers, idempotency, DLQ |
+| 2. Integration and messaging | Delivery semantics, brokers, idempotency, dead-letter queue (DLQ) |
 | 3. Data architecture | Schema, indexes, tenancy, consistency |
-| 4. Performance & language boundaries | Measure first; Python/Go/Rust splits |
+| 4. Performance and language boundaries | Measure first; Python/Go/Rust splits |
 | 5. Reliability, security, operations | Observability, failure modes, deploy |
 
 **Start:** [Architecture framework](docs/concepts/architecture-framework.md) → [sample portfolio](docs/examples/sample-portfolio/) (quality bar) → [Project 1](career-project-specs/01-integration-webhook-receiver.md).
@@ -32,26 +36,26 @@ Modern backend work is architectural work. Every project practices decisions und
 
 | Step | Project | Primary category | Stack | You will learn | Lab |
 |------|---------|------------------|-------|----------------|-----|
-| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | Reliability | PHP | Idempotency, HMAC, fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/webhook-receiver-lab) |
-| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Reliability | Python | RAG, evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-lab) |
+| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | Reliability | PHP | Idempotency, hash-based message authentication code (HMAC), fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/webhook-receiver-lab) |
+| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Reliability | Python | Retrieval-augmented generation (RAG), evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-lab) |
 | 3 | [Observability lab](career-project-specs/03-observability-lab.md) | Reliability | Any (on Project 2 lab) | Correlation IDs, structured logs, latency | On Project 2 lab |
 | 4 | [SQL performance lab](career-project-specs/04-sql-performance-lab.md) | Performance | Postgres | Plans, indexes, vectors, transactions | [Lab exists](https://github.com/shemaiahCox/sql-perf-lab) |
 | 5 | [Contract-first API](career-project-specs/05-contract-first-api.md) | Reliability | Laravel / FastAPI / TS | OpenAPI, versioning, breaking changes | _TBD_ |
 | 6 | [Async worker stretch](career-project-specs/06-async-worker-stretch.md) | Concurrency | PHP / Go / TS | Queues, at-least-once, idempotency, DLQ | _TBD_ |
 | 7 | [Node / TypeScript lab](career-project-specs/07-node-typescript-lab.md) | Concurrency | TypeScript | Typed HTTP API, webhooks, queue track | _TBD_ |
 | 8 | [Go retrieval + worker](career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency | Go | Concurrency, retrieval gateway, workers | _TBD_ |
-| 9 | [Application security lab](career-project-specs/09-application-security-lab.md) | Reliability | Any | OWASP, integration-edge security | _TBD_ |
+| 9 | [Application security lab](career-project-specs/09-application-security-lab.md) | Reliability | Any | Open Web Application Security Project (OWASP), integration-edge security | _TBD_ |
 | 10 | [Automation bot / workflow](career-project-specs/10-automation-bot-lab.md) | Concurrency | TS + Python | Workflow steps, secrets, idempotent side effects | _TBD_ |
-| 11 | [LLM web app](career-project-specs/11-llm-web-app-lab.md) | Reliability | TS + Python | BFF, streaming UX, eval-aware errors | _TBD_ |
-| 12 | [Multi-tenant + auth](career-project-specs/12-multi-tenant-auth-lab.md) | Reliability | TS + SQL | Tenant isolation, JWT/session | _TBD_ |
-| 13 | [Real-time dashboard](career-project-specs/13-realtime-dashboard-lab.md) | Networking | TypeScript | SSE/WebSocket, reconnect, backpressure | _TBD_ |
+| 11 | [LLM web app](career-project-specs/11-llm-web-app-lab.md) | Reliability | TS + Python | Backend-for-frontend (BFF), streaming UX, eval-aware errors | _TBD_ |
+| 12 | [Multi-tenant + auth](career-project-specs/12-multi-tenant-auth-lab.md) | Reliability | TS + SQL | Tenant isolation, JSON Web Token (JWT)/session | _TBD_ |
+| 13 | [Real-time dashboard](career-project-specs/13-realtime-dashboard-lab.md) | Networking | TypeScript | Server-sent events (SSE)/WebSocket, reconnect, backpressure | _TBD_ |
 | 14 | [Shell automation lab](career-project-specs/14-shell-automation-lab.md) | Deploy | Bash | Strict mode, smoke scripts, shellcheck, bats | _TBD_ |
 | 15 | [DevOps CLI](career-project-specs/15-devops-cli-lab.md) | Deploy | Go | DLQ replay, ops flags, exit codes | _TBD_ |
 | 16 | [Cloud deploy](career-project-specs/16-cloud-deploy-lab.md) | Deploy | Compose + cloud | Deploy, secrets, health checks | _TBD_ |
 | 17 | [K8s controller-lite](career-project-specs/17-k8s-controller-lab.md) | Concurrency | Go | Reconcile loop, idempotent apply | _TBD_ |
 | 18 | [Proxy / load balancer](career-project-specs/18-proxy-load-balancer-lab.md) | Networking | Go | Timeouts, pooling, graceful shutdown | _TBD_ |
-| 19 | [Rust hot-path](career-project-specs/19-rust-hot-path-lab.md) | Performance | Rust | Same Project 8 contract; Go vs Rust ADR | _Optional_ |
-| 20 | [WASM secure component](career-project-specs/20-wasm-secure-component-lab.md) | Performance | Rust | Sandboxed logic, FFI boundaries | _Optional_ |
+| 19 | [Rust hot-path](career-project-specs/19-rust-hot-path-lab.md) | Performance | Rust | Same Project 8 contract; Go vs Rust architecture decision record (ADR) | _Optional_ |
+| 20 | [WASM secure component](career-project-specs/20-wasm-secure-component-lab.md) | Performance | Rust | Sandboxed logic, foreign function interface (FFI) boundaries | _Optional_ |
 | 21 | [IoT / edge ingest](career-project-specs/21-iot-edge-lab.md) | Concurrency | Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
 | 22 | [Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) | Capstone | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
 
@@ -81,7 +85,7 @@ Not the learning order — use when you want **evidence by capability** (how bac
 | **Concurrency / background jobs** | 6, 7, 8, 10, 17, 21 | 1, 13, 22 |
 | **Performance tuning / profiling** | 4, 8, 18 | 3, 19 (optional Rust), 22 |
 | **Linux / processes / networking** | 13, 18 | 16, 17, 21, 22 |
-| **Deployment / automation (CI/CD, Docker, scripting)** | 14, 15, 16 | 1, 4, 10, 22 |
+| **Deployment / automation (continuous integration/continuous deployment (CI/CD), Docker, scripting)** | 14, 15, 16 | 1, 4, 10, 22 |
 
 **Optional performance depth (Go-first, after P8):** pick **one** — [P23 rate limiter](career-project-specs/23-rate-limiter-gateway-lab.md) (Go + Redis; edge middleware p99) **or** [P25 search/autocomplete](career-project-specs/25-search-autocomplete-lab.md) (Go + Postgres + Redis; trie/index p95). Both replace Rust P19/P20 interview depth without a second language rewrite.
 
@@ -94,9 +98,9 @@ Not the learning order — use when you want **evidence by architectural decisio
 | Pillar | Primary projects | Also practiced in |
 |--------|------------------|-------------------|
 | **1. System shape** | 1, 5, 7, 8, 11, 22 | 2, 6, 10, 12, 13, 17, 18, 21 |
-| **2. Integration & messaging** | 1, 6, 8, 10, 23, 24 | 5, 7, 15, 17, 21, 25 |
+| **2. Integration and messaging** | 1, 6, 8, 10, 23, 24 | 5, 7, 15, 17, 21, 25 |
 | **3. Data architecture** | 4, 2, 8, 12, 25 | 1, 6, 22 |
-| **4. Performance & language boundaries** | 4, 8, 18, 23, 25 | 2, 13, 19 (optional), 24 |
+| **4. Performance and language boundaries** | 4, 8, 18, 23, 25 | 2, 13, 19 (optional), 24 |
 | **5. Reliability, security, operations** | 3, 9, 12, 14, 15, 16 | every lab (failure modes) |
 
 **Minimum credible (Go-first, all five pillars):** shape **1** · integration **6** · data **4** · performance **8** (+ **4** or **18** for numbers) · reliability/ops **3 + 14 + 16** · capstone **22**.

@@ -2,7 +2,7 @@
 
 > **Not the learning path.** Read [Architecture framework](architecture-framework.md) first, then follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
 
-Browse by **engineering pillar** (AI, Full-Stack, DevOps, etc.) when you want every project that touches a **domain topic**. For **architectural decision types** (shape, integration, data, performance, ops), use the [five-pillar framework](architecture-framework.md) instead.
+Browse by **engineering pillar** (Artificial Intelligence (AI), Full-Stack, DevOps, etc.) when you want every project that touches a **domain topic**. For **architectural decision types** (shape, integration, data, performance, ops), use the [five-pillar framework](architecture-framework.md) instead.
 
 **Companion:** [Project catalog](../../README.md#progression-step-1--22) · [Concept matrix](#concept--project-matrix)
 
@@ -10,9 +10,11 @@ Browse by **engineering pillar** (AI, Full-Stack, DevOps, etc.) when you want ev
 
 ## Five pillars at a glance
 
+These engineering pillars group projects by domain topic. They complement — but do not replace — the five **architecture** pillars in the framework doc.
+
 | Pillar | Stack emphasis | Wave 1 (Project 1–Project 8) | Wave 2 (Project 10–Project 16) | Wave 3 (Project 17–Project 21) |
 |--------|----------------|----------------|------------------|------------------|
-| **AI & Automation** | Python, Go, TS | Project 1, Project 2, Project 6, Project 8 | Project 10, Project 11 | — |
+| **AI & Automation** | Python, Go, TypeScript (TS) | Project 1, Project 2, Project 6, Project 8 | Project 10, Project 11 | — |
 | **Full-Stack Platforms** | TS, Go, SQL | Project 5, Project 7, Project 4 | Project 12, Project 13 | — |
 | **DevOps & Cloud** | Bash, Go, Rust | Project 3 | Project 14, Project 15, Project 16 | Project 17, Project 18 |
 | **Security & Systems** | Rust, any | Project 1, Project 9 | — | Project 19, Project 20 |
@@ -31,7 +33,7 @@ Browse by **engineering pillar** (AI, Full-Stack, DevOps, etc.) when you want ev
 | Project 6 | Async data pipeline | [06](../career-project-specs/06-async-worker-stretch.md) | At-least-once, idempotency (worker), DLQ |
 | Project 8 | Retrieval + pipeline worker | [08](../career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, timeouts, ingest |
 | Project 10 | Automation bot / workflow connector | [10](../career-project-specs/10-automation-bot-lab.md) | Workflow steps, secrets, idempotent side effects |
-| Project 11 | LLM-integrated web app | [11](../career-project-specs/11-llm-web-app-lab.md) | BFF, streaming UX, eval-aware errors |
+| Project 11 | LLM-integrated web app | [11](../career-project-specs/11-llm-web-app-lab.md) | Backend for Frontend (BFF), streaming UX, eval-aware errors |
 
 ---
 
@@ -43,9 +45,9 @@ Browse by **engineering pillar** (AI, Full-Stack, DevOps, etc.) when you want ev
 | Project 7 | Node/TS HTTP service | [07](../career-project-specs/07-node-typescript-lab.md) | Typed API, webhooks, queue track |
 | Project 4 | SQL / data under load | [04](../career-project-specs/04-sql-performance-lab.md) | Plans, indexes, vectors, transactions |
 | Project 12 | Auth + multi-tenant SaaS slice | [12](../career-project-specs/12-multi-tenant-auth-lab.md) | Tenant isolation, JWT/session, row scoping |
-| Project 13 | Real-time dashboard | [13](../career-project-specs/13-realtime-dashboard-lab.md) | SSE/WebSocket, backpressure, reconnect |
+| Project 13 | Real-time dashboard | [13](../career-project-specs/13-realtime-dashboard-lab.md) | Server-Sent Events (SSE)/WebSocket, backpressure, reconnect |
 
-High-traffic API patterns combine Project 5, Project 7, and Project 8—not a separate spec.
+High-traffic API patterns combine Project 5, Project 7, and Project 8 — not a separate spec.
 
 ---
 
@@ -68,9 +70,9 @@ Per-project **Bash scripting milestone** sections in Projects 1–13 build skill
 
 | # | Project | Spec | Primary concepts |
 |---|---------|------|------------------|
-| Project 9 | OWASP + integration security | [09](../career-project-specs/09-application-security-lab.md) | SQLi, XSS, CSRF, session hygiene |
+| Project 9 | OWASP + integration security | [09](../career-project-specs/09-application-security-lab.md) | SQL injection (SQLi), Cross-Site Scripting (XSS), CSRF, session hygiene |
 | Project 19 | Rust hot-path reimplementation | [19](../career-project-specs/19-rust-hot-path-lab.md) | Same Project 8 contract, Go vs Rust ADR |
-| Project 20 | WASM / secure network component | [20](../career-project-specs/20-wasm-secure-component-lab.md) | Sandboxed logic, FFI boundaries |
+| Project 20 | WebAssembly (WASM) / secure network component | [20](../career-project-specs/20-wasm-secure-component-lab.md) | Sandboxed logic, Foreign Function Interface (FFI) boundaries |
 
 Project 1 HMAC covers integration-edge trust alongside Project 9.
 
@@ -80,7 +82,7 @@ Project 1 HMAC covers integration-edge trust alongside Project 9.
 
 | # | Project | Spec | Primary concepts |
 |---|---------|------|------------------|
-| Project 21 | Edge ingest + local inference | [21](../career-project-specs/21-iot-edge-lab.md) | MQTT, idempotent telemetry, offline buffer, dashboard hook |
+| Project 21 | Edge ingest + local inference | [21](../career-project-specs/21-iot-edge-lab.md) | Message Queuing Telemetry Transport (MQTT), idempotent telemetry, offline buffer, dashboard hook |
 
 Project 13 shares the real-time dashboard pillar with Full-Stack.
 
@@ -92,7 +94,7 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 |------|----------------------|-------|------|
 | **1 — Foundation** | 1–12 | Project 1 → Project 2/Project 3 → Project 5 → Project 6/Project 8 → Project 7 → Project 4 → Project 9 | Shared habits + bash milestones start |
 | **2 — Pillar depth** | 12–24 | Project 10, Project 11, Project 12, Project 13, Project 14, Project 15, Project 16 | Shell automation + deploy |
-| **3 — Advanced** | 24–36 | Project 17, Project 18, Project 19, Project 20, Project 21 | K8s, Rust systems, IoT |
+| **3 — Advanced** | 24–36 | Project 17, Project 18, Project 19, Project 20, Project 21 | Kubernetes (K8s), Rust systems, IoT |
 | **4 — Capstone** | After Wave 3 | [Project 22](../../career-project-specs/22-integrated-platform-capstone.md) | Flagship integrated platform demo |
 
 **Dependencies (highlights):**
@@ -101,7 +103,7 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 - Project 13 after Project 6/Project 8 · Project 14 after Project 6 (and prior bash milestones) · Project 15 after Project 14 · Project 16 after Project 8
 - Project 17 after Project 16 · Project 19 after Project 8 Go green · Project 21 after Project 6 + Project 4 · **Project 22 after Projects 1–21 green (or documented deferrals)**
 
-**Controlled parallelism:** Project 4 drills or Project 9 reading while another spec is spine—not a second ship target.
+**Controlled parallelism:** Project 4 drills or Project 9 reading while another spec is spine — not a second ship target.
 
 ---
 

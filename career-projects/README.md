@@ -1,6 +1,10 @@
 # career-projects
 
-Numbered lab workspaces. **The two-digit prefix is the progression step** — same number as the spec file and **Project N** in the path table.
+Numbered lab workspaces live here. **The two-digit folder prefix matches the progression step** — same number as the spec file and **Project N** in the main path table.
+
+## How to read this folder
+
+Each row below maps a step to a clone folder name and spec. Clone the lab into the named folder under `career-projects/` when you start that step. GitHub remote names may differ from folder names — see each spec's **Code repo** section for SSH URLs.
 
 | Step | Clone into | Spec |
 |------|------------|------|
@@ -22,8 +26,6 @@ Each folder is normally a **nested git clone** — not duplicated in this parent
 
 - **Path:** [README.md](../README.md#progression-step-1--22) (Step 1 → 22)
 - **Specs:** [career-project-specs/](../career-project-specs/)
-
-GitHub remote names may differ from folder names — see each spec's **Code repo** section for SSH URLs.
 
 **Renamed from old numbering?** If you still have `04-rag-llm-lab`, `07-sql-perf-lab`, `14-devops-cli-lab`, or `21-platform-capstone-lab`, rename to match current step prefixes (`02-rag-llm-lab`, `04-sql-perf-lab`, `15-devops-cli-lab`, `22-platform-capstone-lab`). Git history stays inside each clone.
 

@@ -47,18 +47,35 @@ Build an **edge ingest path**: MQTT (or HTTP) telemetry from sensor simulator or
 
 **Wave 3 — advanced.** Requires [Project 6](06-async-worker-stretch.md) queue/idempotency habits and [Project 4](04-sql-performance-lab.md) storage. Smart-home / sensor network scope stays **one load-bearing demo**, not a firmware degree.
 
+**Why learning this moves the needle**
+
+- **Telemetry idempotency:** Message Queuing Telemetry Transport (MQTT) quality of service (QoS) 1 delivers at-least-once; your store must dedupe on `(device_id, sequence)` or equivalent.
+- **Offline resilience:** Edge buffers when uplink fails; replay without double-counting readings is a classic senior design question.
+- **Full-stack story:** Ingest → Postgres → server-sent events (SSE) dashboard ties edge work to [Project 13](13-realtime-dashboard-lab.md) patterns employers recognize.
+
+**Real-world situations this project mirrors**
+
+- **Duplicate QoS1 delivery:** broker retries; one row per logical reading despite multiple MQTT deliveries.
+- **Broker outage:** five-minute disconnect, local buffer, replay on reconnect without gaps or dupes per policy.
+- **Optional inference:** edge or cloud call to [Project 2](02-rag-llm-service.md) with latency and privacy tradeoff documented.
+
+### How to talk about this
+
+Telemetry uses device id plus sequence for idempotent upsert; edge buffers offline and replays without inflating readings. When interviewers ask about MQTT, explain subscribe QoS choice and why at-least-once requires idempotent writes. When they ask about edge vs cloud inference, describe latency, privacy, and when a stub model is enough for the demo.
+
 ## Important concepts
 
-### Concept spotlight
+### MQTT and at-least-once telemetry
 
-| **MQTT / at-least-once telemetry** | Subscribe with QoS; handle duplicate messages idempotently |
-| **Offline buffer + replay** | Edge stores batch when uplink down; replay without double-count |
-| **Local inference boundary** | Optional call to Project 2 or edge model; document latency/privacy tradeoff |
+Subscribe with explicit QoS; handle duplicate message delivery idempotently at the storage layer. Transport guarantees do not replace application-level dedupe keys.
 
-**Interview line:** *“Telemetry uses device id + sequence for idempotent upsert; edge buffers offline and replays without inflating readings.”*
+### Offline buffer and replay
 
+When uplink is down, persist batches locally; replay on reconnect without double-counting readings. Document overflow policy if the buffer fills.
 
-**Interview line:** *“Telemetry uses device id + sequence for idempotent upsert; edge buffers offline and replays without inflating readings.”*
+### Local inference boundary
+
+Optional call to [Project 2](02-rag-llm-service.md) or a small edge model stub. Document latency, privacy, and cost tradeoffs—edge inference is not always cheaper or safer.
 
 ## Code repo
 

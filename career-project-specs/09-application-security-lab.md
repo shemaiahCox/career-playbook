@@ -10,7 +10,7 @@
 
 ## What you will learn
 
-- Practice OWASP Top 10 risks in a deliberate lab setting
+- Practice OWASP (Open Web Application Security Project) Top 10 risks in a deliberate lab setting
 - Harden integration edges alongside user-facing forms
 - Document secure SDLC habits for interviews
 
@@ -54,18 +54,23 @@ Employers increasingly expect **baseline cybersecurity hygiene** from backend an
 - **Session issues:** fixation, weak cookie flags, or logout that doesn’t invalidate server-side session.
 - **CSRF:** state-changing POST from another origin when the app relies on **session cookies** alone.
 
+### How to talk about this
+
+You treat OWASP basics as ship criteria—parameterized queries, encoded output, and CSRF (cross-site request forgery) protection on cookie-authenticated forms—not a separate security phase. Ground answers in your repo: show where you bound SQL parameters, escape output by context, set secure cookie flags, and issue CSRF tokens on state-changing routes.
+
 ## Important concepts
 
-### Concept spotlight
+### Parameterized data access
 
-| **Parameterized data access** | No string-concat SQL; bound parameters / safe ORM APIs only |
-| **XSS + output encoding** | Escape or sanitize by context; note CSP where applicable |
-| **Session + CSRF hygiene** | Secure cookie flags; CSRF tokens on state-changing forms |
+No string-concatenated SQL; use bound parameters or safe ORM APIs only. Injection bypasses application auth when a “quick” search or report endpoint builds queries from user input.
 
-**Interview line:** *“We treat OWASP basics as ship criteria—parameterized queries, encoded output, and CSRF on cookie-authenticated forms—not a separate security phase.”*
+### XSS and output encoding
 
+Escape or sanitize by context (HTML, attribute, JavaScript); note Content Security Policy (CSP) where applicable. Stored cross-site scripting (XSS) in a profile or comment field executes for every admin who opens the page.
 
-**Interview line:** *“We treat OWASP basics as ship criteria—parameterized queries, encoded output, and CSRF on cookie-authenticated forms—not a separate security phase.”*
+### Session and CSRF hygiene
+
+Use secure cookie flags (`HttpOnly`, `Secure`, `SameSite` as appropriate); CSRF tokens on state-changing forms when session cookies carry auth. Logout should invalidate server-side session state where your stack supports it.
 
 ## Code repo
 

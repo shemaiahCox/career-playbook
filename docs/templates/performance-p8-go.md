@@ -2,11 +2,11 @@
 
 Copy to your lab repo as `docs/portfolio/performance.md` and fill in measured values.
 
-**Go-first track:** This artifact replaces [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) Rust comparison — Python↔Go ADR + pprof evidence is enough.
+**Go-first track:** This artifact replaces [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) Rust comparison — Python↔Go architecture decision record (ADR) + pprof evidence is enough.
 
 ## Context
 
-Application-layer performance: retrieval fan-out and optional worker throughput.
+This file captures application-layer performance: retrieval fan-out and optional worker throughput.
 
 ## Measurements
 
@@ -27,6 +27,6 @@ Application-layer performance: retrieval fan-out and optional worker throughput.
 
 Link to `docs/portfolio/adr-001-python-go-boundary.md` (or equivalent) — decision based on **profile**, not language hype.
 
-## Interview line
+## How to explain this in an interview
 
-_“We profiled Python retrieval, moved fan-out to Go with bounded concurrency, and validated p95 + RSS with pprof.”_
+You profiled Python retrieval, moved fan-out to Go with bounded concurrency, and validated p95 latency and RSS (Resident Set Size) with pprof.

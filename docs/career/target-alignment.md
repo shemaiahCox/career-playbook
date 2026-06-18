@@ -14,7 +14,7 @@
 
 The playbook spine already matches **Monzo-shaped fintech backend** and **Rust+Go systems** roles in the £70k–£100k band. Execution and **portfolio artifact quality** matter more than adding new project steps.
 
-Your target band is **not** HFT microsecond trading (£150k–£225k+) or blockchain OMS core — those ask for market data, FIX, C++, and sub-millisecond tuning the playbook deliberately skips.
+Your target band is **not** High-Frequency Trading (HFT) microsecond trading (£150k–£225k+) or blockchain Order Management System (OMS) core — those ask for market data, Financial Information eXchange (FIX), C++, and sub-millisecond tuning the playbook deliberately skips.
 
 ---
 
@@ -51,12 +51,7 @@ Seven portfolio projects UK market advice says get interviews. Each maps to an e
 
 ### GitHub / interview bar (every pinned repo)
 
-- Clean commits; README with runnable demo
-- Tests (unit + at least one integration path)
-- `docs/portfolio/` — diagram, ADR, perf numbers, failure modes, observability ([template](../templates/portfolio-artifacts.md))
-- **CI pipeline** (lint + test on PR) — [Project 16](../../career-project-specs/16-cloud-deploy-lab.md)
-- Benchmarks where relevant (Projects **8** and **19** — p95 + peak RSS)
-- `scripts/demo.sh` or equivalent for reviewers — strict mode + shellcheck ([Project 14](../../career-project-specs/14-shell-automation-lab.md))
+Every pinned repo should have clean commits and a README with a runnable demo. Include tests (unit plus at least one integration path) and `docs/portfolio/` with diagram, ADR, performance numbers, failure modes, and observability evidence ([template](../templates/portfolio-artifacts.md)). Add a **CI pipeline** (lint + test on pull request) per [Project 16](../../career-project-specs/16-cloud-deploy-lab.md). Include benchmarks where relevant (Projects **8** and **19** — p95 + peak RSS). Provide `scripts/demo.sh` or equivalent for reviewers — strict mode + shellcheck ([Project 14](../../career-project-specs/14-shell-automation-lab.md)).
 
 ---
 
@@ -82,11 +77,11 @@ Researched Monzo, fintech backend, infra Rust, and trading/HFT (London). Your £
 | Go + strongly typed backend | Monzo, fintech | Strong — Project 8 | None |
 | Rust + Tokio async | Monzo (growing), infra | Good — Project 19 | Minor — Tokio named in P19 |
 | Idempotency, at-least-once, DLQ | Universal | Strong — 1, 6, 8, 15 | None |
-| Bash / Linux ops glue | Most backend, SRE-adjacent | Strong — P14 + milestones | None |
+| Bash / Linux ops glue | Most backend, Site Reliability Engineering (SRE)-adjacent | Strong — P14 + milestones | None |
 | Postgres + SQL | Most backend | Strong — Project 4 | None |
 | Kafka | Monzo onboarding, scale-ups | Stretch + [messaging doc](../concepts/messaging-and-rpc.md) | Medium — vocabulary + optional hands-on |
 | Kubernetes + Docker | Monzo, cloud-native | Good — 16, 17 | Minor |
-| AWS + Linux ops | Monzo, Keyrock | Partial — Project 16 (ECS/EKS examples) | Low |
+| AWS + Linux ops | Monzo, Keyrock | Partial — Project 16 (Elastic Container Service (ECS)/EKS examples) | Low |
 | gRPC / service RPC | Monzo (Envoy), fintech profiles | Stretch on Project 8 + [messaging doc](../concepts/messaging-and-rpc.md) | Medium |
 | CI/CD (GitHub Actions) | Every employer | **Required** in Project 16 | Closed by spec update |
 | Prometheus + Grafana | Monzo profiles, K8s roles | **Required** `/metrics` in Project 8 | Closed by spec update |
@@ -123,7 +118,7 @@ Monzo hires backend engineers agnostic to stack — they teach **Go, Kafka, Cass
 
 ### Do not chase
 
-- HFT microsecond latency, market data, FIX, KDB, C++/FPGA
+- HFT microsecond latency, market data, FIX, KDB, C++/Field-Programmable Gate Array (FPGA)
 - Event sourcing at trading-firm scale
 - Blockchain OMS / validator nodes (unless explicit pivot)
 - Full embedded firmware / ESP32 drivers
@@ -133,7 +128,7 @@ Monzo hires backend engineers agnostic to stack — they teach **Go, Kafka, Cass
 
 ## £80k-ready milestones
 
-£80k readiness = **evidence of systems thinking under production constraints**, not a language checklist.
+£80k readiness means **evidence of systems thinking under production constraints**, not a language checklist.
 
 ### Minimum credible (interview-ready Go-first backend & systems)
 

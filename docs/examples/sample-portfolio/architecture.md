@@ -21,11 +21,11 @@ flowchart LR
 | Component / path | Pillar | Decision |
 |------------------|--------|----------|
 | Fast 2xx after idempotency write | **1 — System shape** | HTTP ends before heavy downstream work |
-| HMAC on raw body before JSON parse | **5 — Reliability & security** | Forged POST rejected at edge |
+| Hash-based message authentication code (HMAC) on raw body before JSON parse | **5 — Reliability and security** | Forged POST rejected at edge |
 | Idempotency key store | **2 — Integration** | At-least-once transport; effectively-once business effect |
 | Idempotency schema | **3 — Data** | Unique constraint on `event_id` or header key |
-| DLQ branch | **2 + 5** | Poison messages parked without blocking partner retries |
+| Dead-letter queue (DLQ) branch | **2 + 5** | Poison messages parked without blocking partner retries |
 
-## Interview line
+## How to explain this in an interview
 
-*"Partners retry until 2xx — we record idempotency before side effects and return the stored response on replay, so transport duplicates never double-apply billing."*
+Partners retry until they see HTTP 2xx — you record idempotency before side effects and return the stored response on replay, so transport duplicates never double-apply billing.

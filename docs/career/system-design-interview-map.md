@@ -2,19 +2,19 @@
 
 **Use this:** Prepare for **Google/Meta system design rounds** by mapping classic problems to labs you ship and gaps you study. Companion to [Big Tech benchmark](big-tech-benchmark.md).
 
-**Not the learning path** — follow [Project 1 → 22](../../README.md#progression-step-1--22) for hands-on depth. Use this doc for **weekend reading** and **mock SD practice** (2×/week per [big-tech-benchmark](big-tech-benchmark.md)).
+**Not the learning path** — follow [Project 1 → 22](../../README.md#progression-step-1--22) for hands-on depth. Use this doc for **weekend reading** and **mock system design practice** (2×/week per [big-tech-benchmark](big-tech-benchmark.md)).
 
 ---
 
 ## How to practice a system design problem
 
-45–60 minute structure (say aloud or whiteboard):
+Use this 45–60 minute structure (say aloud or whiteboard):
 
 1. **Requirements** (5 min) — functional + non-functional (scale, latency, consistency).
-2. **Capacity estimate** (5 min) — users, QPS, storage (order-of-magnitude OK).
+2. **Capacity estimate** (5 min) — users, Queries Per Second (QPS), storage (order-of-magnitude OK).
 3. **API design** (5 min) — key endpoints, idempotency where needed.
 4. **Data model** (10 min) — tables, keys, indexes; read vs write path.
-5. **High-level diagram** (10 min) — clients, LB, services, cache, queue, DB.
+5. **High-level diagram** (10 min) — clients, Load Balancer (LB), services, cache, queue, database.
 6. **Deep dive** (15 min) — one hot path (fan-out, sharding, or consistency).
 7. **Failure modes** (5 min) — partial outage, duplicate delivery, cache stampede.
 
@@ -41,7 +41,7 @@
 | **API gateway / BFF** | [P7](../../career-project-specs/07-node-typescript-lab.md), [P11](../../career-project-specs/11-llm-web-app-lab.md) | Auth termination, routing, aggregation | P23 overlap |
 | **Multi-tenant SaaS** | [P12](../../career-project-specs/12-multi-tenant-auth-lab.md) | Row-level security, noisy neighbor, per-tenant rate limits | — |
 | **Metrics / observability platform** | [P3](../../career-project-specs/03-observability-lab.md), P8 `/metrics` | Time-series DB, cardinality, sampling | — |
-| **IoT telemetry ingest** | [P21](../../career-project-specs/21-iot-edge-lab.md) | MQTT QoS, edge buffer, time-series write path | — |
+| **IoT telemetry ingest** | [P21](../../career-project-specs/21-iot-edge-lab.md) | MQTT Quality of Service (QoS), edge buffer, time-series write path | — |
 
 ---
 
@@ -49,50 +49,29 @@
 
 ### URL shortener
 
-**Functional:** Create short URL, redirect, optional analytics.
+A URL shortener must create short URLs, redirect on lookup, and optionally track analytics. Your playbook proof comes from idempotent `POST /shorten` with a client key ([P1](../../career-project-specs/01-integration-webhook-receiver.md)) and indexed lookup ([P4](../../career-project-specs/04-sql-performance-lab.md)).
 
-**Your proof:** Idempotent `POST /shorten` with client key ([P1](../../career-project-specs/01-integration-webhook-receiver.md)); indexed lookup ([P4](../../career-project-specs/04-sql-performance-lab.md)).
+Study gaps include Base62 versus hash collision handling, read:write ratio (cache hot URLs in a Content Delivery Network (CDN) or Redis), sharding by `short_code` hash with consistent hashing vocabulary, and redirect **301 vs 302** for analytics.
 
-**Study gaps:**
-
-- Base62 vs hash collision handling
-- **Read:write ratio** — cache hot URLs (CDN or Redis)
-- Shard by `short_code` hash; consistent hashing vocabulary
-- Redirect **301 vs 302** for analytics
-
-**Interview line:** *"Shorten is write-light, redirect is read-heavy — I'd cache the mapping and use a DB unique index on the code."*
+**How to explain this in an interview:** Shorten is write-light and redirect is read-heavy — you would cache the mapping and use a database unique index on the short code so lookups stay fast under read traffic.
 
 ---
 
 ### News feed / timeline
 
-**Functional:** Users post; followers see personalized feed.
+Users post content; followers see a personalized feed. Your proof is async fan-out via queue ([P6](../../career-project-specs/06-async-worker-stretch.md)) and a worker pool ([P8](../../career-project-specs/08-go-retrieval-worker-lab.md)).
 
-**Your proof:** Async fan-out via queue ([P6](../../career-project-specs/06-async-worker-stretch.md)); worker pool ([P8](../../career-project-specs/08-go-retrieval-worker-lab.md)).
+Study gaps include **fan-out on write** (push to follower feeds) versus **fan-out on read** (merge at read time), the celebrity user hybrid approach, feed ranking as async enrichment, and caching user feed snapshots.
 
-**Study gaps:**
-
-- **Fan-out on write** (push to follower feeds) vs **fan-out on read** (merge at read time)
-- Celebrity user — hybrid approach
-- Feed ranking (ML) as async enrichment
-- Cache user feed snapshots
-
-**Interview line:** *"I'd enqueue fan-out jobs with idempotent `(post_id, follower_id)` keys — same duplicate semantics as my webhook worker."*
+**How to explain this in an interview:** Enqueue fan-out jobs with idempotent `(post_id, follower_id)` keys — the same duplicate-delivery semantics you already practice in a webhook worker.
 
 ---
 
 ### Rate limiter
 
-**Functional:** Limit requests per user/IP/API key globally or per endpoint.
+A rate limiter must limit requests per user, IP, or API key — globally or per endpoint. Your proof is bounded concurrency and backpressure ([P8](../../career-project-specs/08-go-retrieval-worker-lab.md)) and proxy timeouts ([P18](../../career-project-specs/18-proxy-load-balancer-lab.md)).
 
-**Your proof:** Bounded concurrency and backpressure ([P8](../../career-project-specs/08-go-retrieval-worker-lab.md)); proxy timeouts ([P17](../../career-project-specs/17-proxy-load-balancer-lab.md)).
-
-**Study gaps:**
-
-- **Token bucket** vs **sliding window** vs fixed window
-- Redis `INCR` + TTL vs dedicated rate-limit service
-- **Distributed** consistency — race on counter; Lua scripts
-- Return `429` + `Retry-After`
+Study gaps include **token bucket** versus **sliding window** versus fixed window, Redis `INCR` + Time To Live (TTL) versus a dedicated rate-limit service, **distributed** consistency and races on counters (Lua scripts), and returning HTTP 429 + `Retry-After`.
 
 **Build:** [Project 23 — optional](../../career-project-specs/23-rate-limiter-gateway-lab.md)
 
@@ -100,32 +79,19 @@
 
 ### Notification system
 
-**Functional:** Send email/push/SMS on events; preferences; retries.
+A notification system sends email/push/SMS on events with user preferences and retries. Your proof is at-least-once delivery with idempotent handlers ([P1](../../career-project-specs/01-integration-webhook-receiver.md), [P6](../../career-project-specs/06-async-worker-stretch.md)) and DLQ with replay ([P15](../../career-project-specs/15-devops-cli-lab.md)).
 
-**Your proof:** At-least-once + idempotent delivery ([P1](../../career-project-specs/01-integration-webhook-receiver.md), [P6](../../career-project-specs/06-async-worker-stretch.md)); DLQ ([P15](../../career-project-specs/15-devops-cli-lab.md) replay).
+Study gaps include **fan-out** from one event to N devices, priority queues (urgent vs digest), provider webhooks for delivery status (tie to P1), and a template service with idempotent `notification_id`.
 
-**Study gaps:**
-
-- **Fan-out** from one event to N devices
-- Priority queues (urgent vs digest)
-- Provider webhooks (delivery status) — tie to P1
-- Template service + idempotent `notification_id`
-
-**Build:** [Project 24 — optional](../../career-project-specs/24-notification-fanout-lab.md) — **highest ROI optional lab**
+**Build:** [Project 24 — optional](../../career-project-specs/24-notification-fanout-lab.md) — **highest Return On Investment (ROI) optional lab**
 
 ---
 
 ### Search / autocomplete
 
-**Functional:** Typeahead suggestions; full-text search.
+Typeahead suggestions and full-text search. Your proof is SQL indexes plus vectors ([P4](../../career-project-specs/04-sql-performance-lab.md)) and trie theory ([algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree)).
 
-**Your proof:** SQL indexes + vectors ([P4](../../career-project-specs/04-sql-performance-lab.md)); trie theory ([algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree)).
-
-**Study gaps:**
-
-- **Trie** in memory for prefix; inverted index for full search
-- Ranking (TF-IDF, BM25 — vocabulary level)
-- Cache top prefixes; debounce client
+Study gaps include **trie** in memory for prefix matching, inverted index for full search, ranking (Term Frequency-Inverse Document Frequency (TF-IDF), Best Matching 25 (BM25) — vocabulary level), and caching top prefixes with client debounce.
 
 **Build:** [Project 25 — optional](../../career-project-specs/25-search-autocomplete-lab.md)
 
@@ -133,33 +99,19 @@
 
 ### RAG / LLM serving
 
-**Functional:** Answer questions with retrieval; low latency; safe failures.
+Answer questions with retrieval at low latency with safe failures. Your proof is [P2](../../career-project-specs/02-rag-llm-service.md) eval JSONL, [P11](../../career-project-specs/11-llm-web-app-lab.md) BFF, and [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) retrieval gateway.
 
-**Your proof:** [P2](../../career-project-specs/02-rag-llm-service.md) eval JSONL; [P11](../../career-project-specs/11-llm-web-app-lab.md) BFF; [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) retrieval gateway.
+Study gaps include embedding cache (chunk hash → vector), **guardrails** for injection and Personally Identifiable Information (PII) filter before model, cost SLO with token budget per request, and degrade path (retrieval-only when model is down).
 
-**Study gaps:**
-
-- Embedding cache (chunk hash → vector)
-- **Guardrails** — injection, PII filter before model
-- Cost SLO — token budget per request
-- Degrade path: retrieval-only when model down
-
-**Interview line:** *"We regression-test RAG with eval JSONL; retrieval runs in Go with timeouts so model slowness doesn't wedge the gateway."*
+**How to explain this in an interview:** Regression-test RAG (Retrieval-Augmented Generation) with eval JSONL; run retrieval in Go with timeouts so model slowness does not wedge the gateway.
 
 ---
 
 ### Distributed cache
 
-**Functional:** Low-latency key-value; TTL; eviction.
+Low-latency key-value with TTL and eviction. Your proof is Redis in P6/P8 and idempotency keys as cache-like lookups.
 
-**Your proof:** Redis in P6/P8; idempotency keys as cache-like lookups.
-
-**Study gaps:**
-
-- LRU/LFU eviction
-- **Cache aside** vs read-through vs write-through
-- Thundering herd — singleflight / request coalescing
-- Invalidation on write (hard problem — name it)
+Study gaps include Least Recently Used (LRU)/Least Frequently Used (LFU) eviction, **cache aside** versus read-through versus write-through, thundering herd (singleflight / request coalescing), and invalidation on write — name it as a hard problem.
 
 ---
 
@@ -202,7 +154,7 @@ Order-of-magnitude is enough in interviews:
 
 | Assumption | Typical calc |
 |------------|--------------|
-| 10M DAU, 10 actions/day | ~10M × 10 / 86400 ≈ **1.2k QPS** average (×10 for peak) |
+| 10M Daily Active Users (DAU), 10 actions/day | ~10M × 10 / 86400 ≈ **1.2k QPS** average (×10 for peak) |
 | 1 KB per record, 1B records | **~1 TB** storage |
 | 100 ms per request budget | p99 drives architecture more than average |
 

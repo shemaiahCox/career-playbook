@@ -44,18 +44,23 @@ iPaaS and workflow tools (n8n, Boomi, Zapier-class) are how many enterprises glu
 
 **Real-world situations:** Partner workflow retries a failed node; your step must not double-create tickets. API key rotation without plaintext in exported JSON. Clear error messages for ops when downstream LLM times out.
 
+### How to talk about this
+
+Your n8n node treats retries like webhooks—idempotent keys and structured errors so workflow replays do not duplicate side effects. Explain secrets via env or vault (never in exported workflow JSON), actionable errors back to the orchestrator, and `request_id` in logs when downstream Project 1 or 2 calls fail.
+
 ## Important concepts
 
-### Concept spotlight
+### Idempotent side effects
 
-| **Idempotent side effects** | Key outbound writes on business id; safe on workflow retry |
-| **Secrets hygiene** | Credentials via env/vault; never commit workflow export secrets |
-| **Fast failure + structured errors** | Return actionable errors to workflow engine; log `request_id` |
+Key outbound writes on a business id; safe on workflow retry. At-least-once step execution is the default in iPaaS (integration Platform as a Service) tools—design side effects like queue consumers, not like one-shot scripts.
 
-**Interview line:** *“Our n8n node treats retries like webhooks—idempotent keys and structured errors so workflow replays don’t duplicate side effects.”*
+### Secrets hygiene
 
+Store credentials via environment variables or vault; never commit workflow export secrets. Rotation should not require grep-ing plaintext keys from shared JSON exports.
 
-**Interview line:** *“Our n8n node treats retries like webhooks—idempotent keys and structured errors so workflow replays don’t duplicate side effects.”*
+### Fast failure and structured errors
+
+Return actionable errors to the workflow engine and log `request_id` for correlation. Ops need “downstream 503, retry safe” versus “invalid API key, fix config”—not opaque stack traces in the UI alone.
 
 ## Code repo
 

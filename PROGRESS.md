@@ -1,30 +1,34 @@
 # Progress log
 
+## How to read this file
+
+The top section explains **when** to use checklists and **how** to write log entries. The dated sections below are an append-only history of playbook and lab milestones — read newest first if you want recent context, or scroll to the bottom for the earliest scaffold.
+
 ## How to use checklists and this log
 
 ### Checklists
 
-Use them **when you are close to shipping** a slice (or before you call a lab milestone done)—not as everyday task lists.
+Use them **when you are close to shipping** a slice (or before you call a lab milestone done) — not as everyday task lists.
 
-- **Platform engineering gate (every step):** [checklists/production-readiness.md](checklists/production-readiness.md) — rate limits, retries, idempotency, DLQ, metrics, logs, tracing, health, versioning, security. See applicability matrix for your step.
-- **Portfolio artifacts (every step):** [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) — diagram, ADR, performance numbers, failure modes, observability evidence in lab `docs/portfolio/`.
+- **Platform engineering gate (every step):** [checklists/production-readiness.md](checklists/production-readiness.md) — rate limits, retries, idempotency, dead-letter queue (DLQ), metrics, logs, tracing, health, versioning, security. See applicability matrix for your step.
+- **Portfolio artifacts (every step):** [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) — diagram, architecture decision record (ADR), performance numbers, failure modes, observability evidence in lab `docs/portfolio/`.
 - **Inbound webhooks, partner HTTP, sync integration edges** (and HTTP fronts that enqueue later): [checklists/integration-hardening.md](checklists/integration-hardening.md).
-- **User-facing model / RAG / tool paths**: [checklists/llm-feature-ship.md](checklists/llm-feature-ship.md).
-- **OWASP / web application security (Project 9)** — forms, SQLi, XSS, sessions, CSRF: [checklists/application-security-web-owasp.md](checklists/application-security-web-owasp.md).
+- **User-facing model / retrieval-augmented generation (RAG) / tool paths**: [checklists/llm-feature-ship.md](checklists/llm-feature-ship.md).
+- **Open Web Application Security Project (OWASP) / web application security (Project 9)** — forms, SQL injection, cross-site scripting (XSS), sessions, cross-site request forgery (CSRF): [checklists/application-security-web-owasp.md](checklists/application-security-web-owasp.md).
 - **New stack + AI** (you are accountable for concepts, not only the prompt): [checklists/unfamiliar-stack-ship.md](checklists/unfamiliar-stack-ship.md). Workflow: [docs/concepts/ai-assisted-unfamiliar-stack.md](docs/concepts/ai-assisted-unfamiliar-stack.md).
 
-Walk the sections **top to bottom** once with the repo and env in front of you. You do not have to tick boxes inside the markdown file unless you want to; the point is not skipping whole categories (signatures, idempotency, DLQ, eval regression, PII, timeouts, OWASP-style web risks when Project 9 is in scope, etc.). If you **defer** a row on purpose, note one line here under that milestone (“Deferred: … because …”) so it is explicit.
+Walk the sections **top to bottom** once with the repo and environment in front of you. You do not have to tick boxes inside the markdown file unless you want to; the point is not skipping whole categories (signatures, idempotency, DLQ, eval regression, personally identifiable information (PII), timeouts, OWASP-style web risks when Project 9 is in scope, etc.). If you **defer** a row on purpose, note one line here under that milestone (“Deferred: … because …”) so it is explicit.
 
 ### This log
 
-**Append-only:** add a new dated `## …` section when something worth remembering lands (merged lab PR, meaningful success-criteria row, lesson that changes the next design, or a small playbook-only doc change).
+**Append-only:** add a new dated `## …` section when something worth remembering lands (merged lab pull request (PR), meaningful success-criteria row, lesson that changes the next design, or a small playbook-only doc change).
 
 Suggested shape for a **lab milestone** (keep it short):
 
 - **What shipped** — fact-level outcome.
-- **Pillar(s)** — which architecture pillar(s) this milestone primarily proves (1–5).
+- **Pillar(s)** — which architecture pillar(s) this milestone primarily proves (1–5; see [architecture framework](docs/concepts/architecture-framework.md)).
 - **Tradeoff** *(optional, high signal for explaining decisions later)* — what you rejected and why.
-- **Failure mode** *(optional)* — what breaks in prod without what you built.
+- **Failure mode** *(optional)* — what breaks in production without what you built.
 - **Portfolio** *(optional)* — link to lab `docs/portfolio/` or note deferred artifacts ([template](docs/templates/portfolio-artifacts.md)).
 - **Next** *(optional)* — one concrete next step.
 
@@ -261,7 +265,7 @@ For **architecture-style narration**, lean on **Pillar(s)**, **Tradeoff**, and *
 ## 2026-05-10 — Ecosystem one-pagers (draft)
 
 - Added five **≤2-page** maps under [docs/](docs/) (index in [README.md](docs/README.md)): [swift-ios.md](docs/swift-ios.md), [kotlin-android.md](docs/kotlin-android.md), [nextjs-react-typescript.md](docs/nextjs-react-typescript.md), [csharp-dotnet.md](docs/csharp-dotnet.md), [php-laravel.md](docs/languages/php-laravel.md).
-- [docs/README.md](docs/README.md), [docs/README.md](docs/README.md), [README.md](README.md): pointers to ecosystem index.
+- [docs/README.md](docs/README.md), [docs/README.md](docs/README.md): pointers to ecosystem index.
 
 ---
 

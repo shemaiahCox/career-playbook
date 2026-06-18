@@ -28,13 +28,13 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 |-----|----------|
 | [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Boundaries, sync vs async, reference architecture |
 | [concepts/software-engineering.md § Architectural patterns](concepts/software-engineering.md#architectural-patterns) | Monolith, hexagonal, clean/onion, event-driven, microservices |
-| [concepts/software-engineering.md § Domain-Driven Design](concepts/software-engineering.md#domain-driven-design-ddd) | Bounded contexts, aggregates, CQRS + event sourcing |
+| [concepts/software-engineering.md § Domain-Driven Design](concepts/software-engineering.md#domain-driven-design-ddd) | Bounded contexts, aggregates, Command Query Responsibility Segregation (CQRS) + event sourcing |
 
 ### Pillar 2 — Integration and messaging
 
 | Doc | Use when |
 |-----|----------|
-| [concepts/messaging-and-rpc.md](concepts/messaging-and-rpc.md) | Kafka vs Redis/NATS; REST vs gRPC; broker ADRs |
+| [concepts/messaging-and-rpc.md](concepts/messaging-and-rpc.md) | Apache Kafka vs Redis/NATS; REST vs gRPC; broker ADRs |
 | [concepts/software-engineering.md § Integration](concepts/software-engineering.md#integration-sync-async-and-messaging) | Sync HTTP, queues, delivery semantics |
 | [concepts/integration-automation.md](concepts/integration-automation.md) | Boomi / n8n workflow patterns |
 | [../checklists/integration-hardening.md](../checklists/integration-hardening.md) | Webhook and partner HTTP hardening |
@@ -94,7 +94,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | [career/target-alignment.md](career/target-alignment.md) | UK Backend & Systems — £80k milestones by pillar coverage |
 | [career/big-tech-benchmark.md](career/big-tech-benchmark.md) | Google/Meta bar — pillar tradeoffs at scale + DSA/SD drills |
 | [career/dsa-interview-track.md](career/dsa-interview-track.md) | Parallel LeetCode prep |
-| [career/system-design-interview-map.md](career/system-design-interview-map.md) | Classic SD problems ↔ labs (whiteboard layer on pillars) |
+| [career/system-design-interview-map.md](career/system-design-interview-map.md) | Classic system design problems ↔ labs (whiteboard layer on pillars) |
 
 ---
 

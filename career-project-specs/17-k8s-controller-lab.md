@@ -36,24 +36,41 @@ Build a **minimal Kubernetes controller or operator pattern** in Go: watch a res
 
 ## Career relevance
 
-**Summary:** K8s operators are Go/Rust territory—this lab proves you understand **reconcile loops**, not only `kubectl apply`.
+**Summary:** Kubernetes operators are Go/Rust territory—this lab proves you understand **reconcile loops**, not only `kubectl apply`.
 
 ### In depth
 
-**Wave 3 — advanced.** Complete [Project 16](16-cloud-deploy-lab.md) first. Start with **controller-lite** (informers + sync loop) before a full CRD operator if time-boxed.
+**Wave 3 — advanced.** Complete [Project 16](16-cloud-deploy-lab.md) first. Start with **controller-lite** (informers + sync loop) before a full custom resource definition (CRD) operator if time-boxed.
+
+**Why learning this moves the needle**
+
+- **Platform engineering signal:** Controllers are how teams automate cluster state; understanding reconcile beats memorizing kubectl recipes.
+- **Idempotency at scale:** The same “apply twice → stable outcome” habit from [Project 6](06-async-worker-stretch.md) workers applies to cluster operations.
+- **Failure modes:** Role-based access control (RBAC) denial and API server outages are real; logging and backoff separate junior from senior answers.
+
+**Real-world situations this project mirrors**
+
+- **Replica drift:** someone hand-edits a Deployment; your controller reconciles desired vs actual or logs a conflict policy.
+- **Missed events:** level-triggered resync catches watch gaps that edge-only handlers miss.
+- **Deploy hooks:** `scripts/kubectl-wait-ready.sh` polls readiness with timeout for CI/CD pipelines.
+
+### How to talk about this
+
+Your controller reconciles desired replicas idempotently—level-triggered sync, not one-shot edge handlers. When interviewers ask about the reconcile loop, describe observe → diff → act → requeue with backoff. When they ask about duplicates, explain that repeated reconcile without drift should not spam side effects.
 
 ## Important concepts
 
-### Concept spotlight
+### Reconcile loop
 
-| **Reconcile loop** | Observe → diff → act → requeue; no infinite hot loops |
-| **Idempotent apply** | Same spec applied twice → stable cluster state |
-| **Level-triggered, not edge-only** | Handle missed events; periodic resync |
+Watch desired state, compare to actual cluster state, apply changes, and requeue on error or periodic resync. Avoid infinite hot loops: backoff on failures and exit early when already converged.
 
-**Interview line:** *“Our controller reconciles desired replicas idempotently—level-triggered sync, not one-shot edge handlers.”*
+### Idempotent apply
 
+Applying the same spec twice yields stable cluster state—no duplicate resources, no runaway side effects. This mirrors idempotent worker handlers from earlier labs.
 
-**Interview line:** *“Our controller reconciles desired replicas idempotently—level-triggered sync, not one-shot edge handlers.”*
+### Level-triggered, not edge-only
+
+Handle missed watch events with periodic full resync. Edge-triggered handlers alone fail when the API server drops events or the controller restarts mid-stream.
 
 ## Code repo
 

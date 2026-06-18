@@ -10,6 +10,8 @@ Use this outline for every file in [`docs/languages/`](../languages/). Readers g
 
 Copy these H2 titles in order. Keep **`#plain-language-terms-used-on-this-page`** anchor on section 9 for [`glossary.md`](../languages/glossary.md) links.
 
+Each section below tells you what belongs in that part of a stack map — practical depth, not a full tutorial.
+
 ### 1. Use this
 
 - One sentence: who should read this and when (playbook project context).
@@ -23,7 +25,7 @@ Single table:
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
 
-Merge any old “When X vs Y” / “What to practice” content here—no duplicate comparison sections later.
+Merge any old “When X vs Y” / “What to practice” content here — no duplicate comparison sections later.
 
 ### 3. How it runs
 
@@ -32,7 +34,7 @@ Short table:
 | Execution | Typing | Memory / concurrency |
 |-----------|--------|----------------------|
 
-One line each: compiled vs interpreted, static vs dynamic, GC vs ownership, threads vs event loop, etc.
+One line each: compiled vs interpreted, static vs dynamic, garbage collection (GC) vs ownership, threads vs event loop, etc.
 
 ### 4. Environment setup
 
@@ -57,7 +59,7 @@ ASCII tree (8–12 lines max) with one-line role per folder/file.
 
 ### 7. How concepts show up
 
-Playbook-specific: HTTP, queues, observability, security, ORM, LLM boundaries—keep existing depth from prior map versions.
+Playbook-specific: HTTP, queues, observability, security, object-relational mapping (ORM), large language model (LLM) boundaries — keep existing depth from prior map versions.
 
 ### 8. Footguns
 

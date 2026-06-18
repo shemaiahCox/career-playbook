@@ -4,7 +4,7 @@ Copy to your lab repo as `docs/portfolio/performance.md` and fill in measured va
 
 ## Context
 
-Data-layer performance evidence for Go-first backend/systems positioning (replaces Rust hot-path SQL angle).
+This file captures data-layer performance evidence for Go-first backend/systems positioning (replaces Rust hot-path SQL angle).
 
 ## Measurements
 
@@ -26,6 +26,6 @@ Data-layer performance evidence for Go-first backend/systems positioning (replac
 (paste EXPLAIN ANALYZE excerpt)
 ```
 
-## Interview line
+## How to explain this in an interview
 
-_“We added a composite index aligned to tenant_id + created_at; seq scan became index scan and p95 dropped from X to Y — documented write amplification in the ADR.”_
+Describe the index change in plain terms: you added a composite index aligned to `tenant_id` and `created_at`, the plan moved from sequential scan to index scan, and p95 latency dropped from X to Y — with write amplification noted in the ADR (Architecture Decision Record).

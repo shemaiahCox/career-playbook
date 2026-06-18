@@ -47,19 +47,39 @@ After [Project 8](08-go-retrieval-worker-lab.md) Go core is green, **reimplement
 
 **Advanced tier.** Mandatory prerequisite: Project 8 success criteria complete in Go.
 
+**Why learning this moves the needle**
+
+- **Evidence-based language choice:** An architecture decision record (ADR) with p95 latency **and** peak resident set size (RSS) beats language advocacy.
+- **Contract stability:** Same HTTP/queue contract means Python [Project 2](02-rag-llm-service.md) needs no changes—swap or parallel deploy only.
+- **Safety story:** `Result` propagation and no panic in the hot path are interview-ready reliability talking points.
+
+**Real-world situations this project mirrors**
+
+- **Gradual migration:** Go producer enqueues while Rust consumer drains during a bounded window.
+- **Performance regression gate:** benchmark 1k chunk fan-out; document when Rust wins vs Go ops cost.
+- **Optional WASM extract:** hot filter to [Project 20](20-wasm-secure-component-lab.md) after Rust path is green.
+
+### How to talk about this
+
+You reimplemented the retrieval gateway in Rust behind the same contract—your ADR covers p95 gain vs build complexity and on-call familiarity. When interviewers ask why Rust, point to measured latency and memory evidence, not syntax preferences. When they ask about dual-stack risk, describe contract versioning, shared queue semantics, and a rollback path to Go.
+
 ## Important concepts
 
-### Concept spotlight
+### Contract stability
 
-| **Contract stability** | OpenAPI/JSON unchanged from Go Project 8; Python Project 2 needs no changes |
-| **Ownership + errors** | `Result` propagation; no `unwrap` in worker hot path |
-| **Performance ADR** | Benchmark p95 **and** peak RSS (or alloc/op); document when Rust wins vs Go ops cost |
-| **Clone vs borrow** | Avoid unnecessary `.clone()` in fan-out hot path; justify copies in ADR |
+Keep OpenAPI/JSON unchanged from Go Project 8; Python Project 2 and downstream clients need no changes when you swap or run services in parallel.
 
-**Interview line:** *“We reimplemented the retrieval gateway in Rust behind the same contract—ADR covers p95 gain vs build complexity and on-call familiarity.”*
+### Ownership and errors
 
+Propagate `Result` through the hot path; no `unwrap` in production worker or gateway handlers. Document error mapping to HTTP status and structured logs.
 
-**Interview line:** *“We reimplemented the retrieval gateway in Rust behind the same contract—ADR covers p95 gain vs build complexity and on-call familiarity.”*
+### Performance ADR
+
+Benchmark p95 **and** peak RSS (or allocations per operation). Document when Rust wins on latency or memory vs when Go ops cost (build, hiring, dual-stack) dominates.
+
+### Clone vs borrow
+
+Avoid unnecessary `.clone()` in fan-out hot paths; justify copies in the ADR when borrowing lifetimes block the design.
 
 ## Code repo
 

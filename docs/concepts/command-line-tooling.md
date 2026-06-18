@@ -1,12 +1,12 @@
 # Command-line tooling playbook
 
-Study and reference material for shells, streams, Git, packages, HTTP, scheduling, compilers, SSH, Docker, and cheatsheets—in **one file** with a table of contents. See also [Software engineering](software-engineering.md), [Servers and networking](servers-and-networking.md), [Database design](database-design.md).
+Study and reference material for shells, streams, Git, packages, HTTP (Hypertext Transfer Protocol), scheduling, compilers, SSH (Secure Shell), Docker, and cheatsheets—in **one file** with a table of contents. See also [Software engineering](software-engineering.md), [Servers and networking](servers-and-networking.md), [Database design](database-design.md).
 
 ## Table of contents
 
 - [Agent workflow: setup and troubleshooting commands](#agent-workflow-setup-and-troubleshooting-commands)
 - [Standard streams: stdin, stdout, stderr (and why they matter)](#standard-streams-stdin-stdout-stderr-and-why-they-matter)
-- [Shells: bash and Unix-style CLIs](#shells-bash-and-unix-cli)
+- [Shells: bash and Unix-style CLIs](#shells-bash-and-unix-style-clis)
 - [Environment variables and PATH](#environment-variables-and-path)
 - [Permissions: Unix and Windows](#permissions-unix-and-windows)
 - [Git: workflow and troubleshooting](#git-workflow-and-troubleshooting)
@@ -22,17 +22,17 @@ Study and reference material for shells, streams, Git, packages, HTTP, schedulin
 
 ## Agent workflow: setup and troubleshooting commands
 
-When people say **“agent workflow”** in a coding context, they often mean **the concrete commands an automated assistant runs** to **stand up** a project and **unblock** failures. This page lists those patterns so you can read a proposed command and know **what phase** it is in, **what it mutates**, and **what to try next** when something breaks.
+When people say **"agent workflow"** in a coding context, they usually mean **the actual commands an automated assistant runs** to **set up** a project and **fix** failures. This page lists those patterns so you can read a proposed command and know **which step** it belongs to, **what it changes**, and **what to try next** when something breaks.
 
-It is not about the agent’s prose—it is about the **CLI vocabulary** agents reuse across repos.
+It is not about the agent's wording—it is about the **command-line vocabulary** that agents reuse across repositories.
 
-**Beginner foundation:** When a log says “writing to stdout” or you see `2>&1`, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) (**bash** examples throughout).
+**If streams confuse you:** When a log says "writing to stdout" (standard output) or you see `2>&1`, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first. **bash** examples appear throughout this page.
 
 ---
 
 ### Phase map (typical order)
 
-Agents and humans usually work in this rough sequence. Troubleshooting often **loops back** to an earlier phase (for example, fix Node version → reinstall deps → rerun build).
+Agents and humans usually work in this rough sequence. Troubleshooting often **loops back** to an earlier phase (for example, fix Node version → reinstall dependencies → rerun build).
 
 ```mermaid
 flowchart LR
@@ -53,7 +53,9 @@ flowchart LR
 
 ### 1. Repository and workspace setup
 
-**Goal:** Get source on disk and know **where** you are working.
+**Purpose:** Get source code on disk and confirm you are working in the right folder.
+
+**When it fails:** You see "not a git repository," missing files after clone, or submodule folders that are empty—usually wrong directory, incomplete clone, or forgotten `git submodule update`.
 
 | Intent | Typical commands |
 |--------|-------------------|
@@ -62,14 +64,22 @@ flowchart LR
 | Inspect repo | `ls`, `git log -5 --oneline` |
 | Submodules (if used) | `git submodule update --init --recursive` |
 
-**Watch for:** wrong directory (`cwd`), detached HEAD, diverged branch, missing remote.
+**Watch for:** wrong directory (current working directory, often called **cwd**), detached HEAD, diverged branch, missing remote.
 
 #### Clone
+
+**Purpose:** Copy a remote repository to your machine and enter it.
+
+**When it fails:** Authentication errors or empty folder—check SSH (Secure Shell) keys, HTTPS credentials, or URL typos.
 
 - **`git clone <url>`** — Copies the remote repository into a new directory (often named after the repo), sets `origin`, and checks out the default branch. Use SSH or HTTPS depending on how your host authenticates.
 - **`cd <repo>`** — Enter that directory so every later command runs in the project root (where `.git` lives).
 
 #### Current branch / sync
+
+**Purpose:** See local changes and update from the remote without surprises.
+
+**When it fails:** Merge conflicts, "diverged" messages, or unexpected file changes—usually pulling without fetching first, or local commits that conflict with remote history.
 
 - **`git status`** — Shows staged/unstaged changes, untracked files, and whether you are ahead/behind the tracked remote branch.
 - **`git branch -vv`** — Lists local branches with upstream tracking (`origin/...`) and ahead/behind hints.
@@ -80,18 +90,28 @@ flowchart LR
 
 #### Inspect repo
 
+**Purpose:** Confirm you are in the right project before changing anything.
+
+**When it fails:** Expected files missing—wrong branch, shallow clone, or not in project root.
+
 - **`ls`** — See top-level layout (`README`, `package.json`, `src`, etc.). Use **`ls -la`** when you want details and hidden entries.
 - **`git log -5 --oneline`** — Last five commits in one line each; confirms you are on the expected history before you change things.
 
 #### Submodules (if the repo uses them)
 
+**Purpose:** Pull nested repositories pinned to specific commits.
+
+**When it fails:** Empty submodule directories after clone—run submodule init/update.
+
 - **`git submodule update --init --recursive`** — Initializes submodule metadata, clones missing submodule repos, checks out the commits pinned by the parent repo, and recurses into nested submodules. Run after `clone` or after pulling commits that move submodule pointers.
 
 ---
 
-### 2. “What machine is this?” context checks
+### 2. "What machine is this?" context checks
 
-**Goal:** Match the toolchain to **what the project expects** (README, `.nvmrc`, `engines` in `package.json`, `Dockerfile`, CI YAML).
+**Purpose:** Match your installed tools to what the project expects before you install or build anything.
+
+**When it fails:** Builds pass locally but fail in Continuous Integration (CI), or you get "command not found"—usually wrong Node/Python version, wrong CPU architecture (for example arm64 vs x86_64), or **PATH** (the ordered list of folders the shell searches for programs) pointing at the wrong binary.
 
 | Intent | Typical commands |
 |--------|-------------------|
@@ -118,7 +138,7 @@ flowchart LR
 
 #### Current path
 
-- **`pwd`** — Confirm **cwd**; many failures are “run from wrong folder.”
+- **`pwd`** — Confirm **cwd**; many failures are "run from wrong folder."
 
 #### Tool versions
 
@@ -132,7 +152,9 @@ flowchart LR
 
 ### 3. Dependency installation (language-specific)
 
-**Goal:** Install libraries and tools the project lists—**locally** unless docs say global.
+**Purpose:** Install the libraries and tools the project declares so compile, test, and run steps can succeed.
+
+**When it fails:** Version mismatch errors, missing modules, or permission denied during install—usually wrong language version, lockfile ignored when one exists, or installing globally when the project expects a virtual environment.
 
 | Stack | Typical commands | Signals in repo |
 |-------|------------------|-----------------|
@@ -179,7 +201,9 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 ### 4. Environment and configuration
 
-**Goal:** Non-secret and secret config loaded the way the app expects.
+**Purpose:** Load configuration (API URLs, database connection strings, feature flags) the way the application expects.
+
+**When it fails:** "Connection refused," missing variable errors, or features silently disabled—usually `.env` not copied from `.env.example`, wrong `NODE_ENV`, or secrets set in the wrong shell session.
 
 | Intent | Typical commands / locations |
 |--------|-----------------------------|
@@ -205,7 +229,9 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 ### 5. Build, code generation, bundles
 
-**Goal:** Produce runnable artifacts or type-checked output.
+**Purpose:** Turn source code into runnable artifacts, bundles, or generated files the app needs.
+
+**When it fails:** Compiler errors, out-of-memory kills, or missing generated files—usually wrong toolchain version, running from the wrong folder, or a prior step (code generation) that was skipped.
 
 | Intent | Typical commands |
 |--------|-------------------|
@@ -236,7 +262,9 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 ### 6. Tests, lint, typecheck (quality gates)
 
-**Goal:** Fail fast with **actionable** output.
+**Purpose:** Catch bugs, style problems, and type errors before code ships.
+
+**When it fails:** Tests pass locally but fail in CI, or output is too terse to debug—usually environment differences, flaky tests, or missing verbose flags (`pytest -vv`, `npm test -- --verbose`).
 
 | Intent | Typical commands |
 |--------|-------------------|
@@ -248,7 +276,7 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 #### Tests
 
-- **`npm test`**, **`pytest`**, **`cargo test`**, **`dotnet test`**, **`go test ./...`** — Run the project’s test suite; pass **verbose** flags through when output is truncated (`npm test -- --verbose`, etc.).
+- **`npm test`**, **`pytest`**, **`cargo test`**, **`dotnet test`**, **`go test ./...`** — Run the project's test suite; pass **verbose** flags through when output is truncated (`npm test -- --verbose`, etc.).
 
 #### Lint
 
@@ -262,7 +290,9 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 ### 7. Run the application or script
 
-**Goal:** Start the thing you are trying to fix.
+**Purpose:** Start the app or script so you can reproduce and fix the reported problem.
+
+**When it fails:** "Address already in use," immediate crash, or blank output—usually a port conflict, missing environment variables, or wrong working directory.
 
 | Intent | Typical commands |
 |--------|-------------------|
@@ -283,7 +313,7 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 #### Containers
 
-- **`docker compose up --build`**, **`docker run ...`** — Reproducible environment; logs often explain “works on my machine” gaps. More: [Extras: SSH, jq, processes, disks, Docker CLI, security](#extras-ssh-jq-processes-disks-docker-cli-security).
+- **`docker compose up --build`**, **`docker run ...`** — Reproducible environment; logs often explain "works on my machine" gaps. More: [Extras: SSH, jq, processes, disks, Docker CLI, security](#extras-ssh-jq-processes-disks-docker-cli-security).
 
 #### Background
 
@@ -293,9 +323,17 @@ More patterns: [Package managers and language ecosystems](#package-managers-and-
 
 ### 8. Troubleshooting commands agents reach for first
 
-These do not “fix” everything—they **narrow** the problem.
+**Purpose:** Narrow a vague failure down to a specific cause (logs, permissions, network, Git state).
+
+**When it fails:** Commands themselves error out or return empty output—usually wrong container name, log file path, or running diagnostic tools outside the environment where the failure happened.
+
+These do not "fix" everything—they **narrow** the problem.
 
 #### A. Re-run with more visibility
+
+**Purpose:** Get enough detail in logs to see the real error.
+
+**When it fails:** Still no useful output—tool may swallow errors unless you also check exit codes (`echo $?`) or use `-S` with curl.
 
 | Situation | Command pattern |
 |-----------|-------------------|
@@ -304,9 +342,13 @@ These do not “fix” everything—they **narrow** the problem.
 | curl API | `curl -v` or `curl -i` |
 | Build steps | add `--verbose` / `--debug` per tool (`cargo build -vv`, etc.) |
 
-**Going deeper:** npm passes args after `--` to the underlying script; `npm_config_*` env vars can set log level without editing files. `curl -v` shows DNS, TLS, and headers—use `-i` when you only need response headers plus body. For native builds, the first failing command’s **full** log (not the summary line) usually names the missing library or flag.
+**Going deeper:** npm passes args after `--` to the underlying script; `npm_config_*` env vars can set log level without editing files. `curl -v` shows DNS (Domain Name System), TLS (Transport Layer Security), and headers—use `-i` when you only need response headers plus body. For native builds, the first failing command's **full** log (not the summary line) usually names the missing library or flag.
 
-#### B. “What failed?” logs
+#### B. "What failed?" logs
+
+**Purpose:** Read the right log for the layer that failed (Git, container, systemd, app file).
+
+**When it fails:** Log file empty or rotated away—check timestamps, log level config, or whether the process writes to stderr instead of a file.
 
 | Situation | Command / location |
 |-----------|---------------------|
@@ -319,6 +361,10 @@ These do not “fix” everything—they **narrow** the problem.
 
 #### C. Resource and permission errors
 
+**Purpose:** Rule out disk, memory, ports, and file permissions before blaming application logic.
+
+**When it fails:** Symptom persists after fixing permissions—look for SELinux, AppArmor, or container user mismatches.
+
 | Symptom | Checks |
 |---------|--------|
 | EACCES / Permission denied | file mode `ls -l`, directory must be writable for install |
@@ -326,9 +372,13 @@ These do not “fix” everything—they **narrow** the problem.
 | Disk full | `df -h` |
 | OOM / killed | `dmesg` / host logs, CI job memory limits |
 
-**Going deeper:** **EACCES** on install often means the target directory is not writable by your user (global npm without prefix, or system Python). **Port in use:** find the PID, then stop that process or change your app’s port. **Disk full:** clean package caches and old artifacts before blaming the compiler. **OOM in CI:** raise memory limit or reduce parallelism (`NODE_OPTIONS=--max-old-space-size`, `cargo build -j 1`).
+**Going deeper:** **EACCES** on install often means the target directory is not writable by your user (global npm without prefix, or system Python). **Port in use:** find the PID, then stop that process or change your app's port. **Disk full:** clean package caches and old artifacts before blaming the compiler. **OOM in CI:** raise memory limit or reduce parallelism (`NODE_OPTIONS=--max-old-space-size`, `cargo build -j 1`).
 
 #### D. Network and TLS
+
+**Purpose:** Confirm reachability, DNS resolution, and certificate trust.
+
+**When it fails:** Works in browser but not CLI—proxy env vars or missing corporate CA bundle.
 
 | Symptom | Checks |
 |---------|--------|
@@ -340,6 +390,10 @@ These do not “fix” everything—they **narrow** the problem.
 
 #### E. Git recovery (agent-safe habits)
 
+**Purpose:** Undo bad local Git state without destroying shared remote history.
+
+**When it fails:** Recovery commands refuse—often because you have uncommitted changes; stash or commit first.
+
 | Problem | Safer move |
 |---------|------------|
 | Bad merge state | `git status`, resolve files, `git merge --continue` / `git rebase --abort` |
@@ -348,11 +402,11 @@ These do not “fix” everything—they **narrow** the problem.
 
 Avoid **`git push --force`** unless you understand shared-branch rules; prefer `git push --force-with-lease`.
 
-**Going deeper:** **`git reflog`** is the first tool when you “lost” a commit locally—it shows where `HEAD` moved; you can `git checkout` or `git cherry-pick` from a reflog entry. **`git merge --abort`** / **`git rebase --abort`** backs out of a conflicted operation when you have not pushed the result. For anything stranger (auth, remote, history cleanup), use [Git: workflow and troubleshooting](#git-workflow-and-troubleshooting).
+**Going deeper:** **`git reflog`** is the first tool when you "lost" a commit locally—it shows where `HEAD` moved; you can `git checkout` or `git cherry-pick` from a reflog entry. **`git merge --abort`** / **`git rebase --abort`** backs out of a conflicted operation when you have not pushed the result. For anything stranger (auth, remote, history cleanup), use [Git: workflow and troubleshooting](#git-workflow-and-troubleshooting).
 
 ---
 
-### 9. How to read an agent’s “next command”
+### 9. How to read an agent's "next command"
 
 Use this quick parse:
 
@@ -360,7 +414,7 @@ Use this quick parse:
 2. **Mutates remote?** (`git push`, cloud CLI)
 3. **Needs secrets?** (tokens in env—confirm scope)
 4. **Needs elevation?** (`sudo` / root)
-5. **Irreversible?** ( destructive deletes, production DB)
+5. **Irreversible?** (destructive deletes, production DB)
 
 If any **yes** is uncomfortable, pause and narrow scope (dry-run flags, staging environment, backup).
 
@@ -374,18 +428,17 @@ If any **yes** is uncomfortable, pause and narrow scope (dry-run flags, staging 
 - Quick command list: [command-reference-cheatsheet.md](#dense-command-reference-cheatsheet)
 
 ---
-
 ## Standard streams: stdin, stdout, stderr (and why they matter)
 
-This page explains **standard input and output** in plain language, with **bash** examples only. Read this once and every mention of “pipe to stdout” or “redirect stderr” will make sense.
+This section explains **standard input and output** in plain language, with **bash** examples only. Read it once and every mention of "pipe to stdout" or "redirect stderr" will make sense.
 
-**Related:** [Shells: bash and Unix-style CLIs](#shells-bash-and-unix-cli) · [Dense command reference (cheatsheet)](#dense-command-reference-cheatsheet)
+**Related:** [Shells: bash and Unix-style CLIs](#shells-bash-and-unix-style-clis) · [Dense command reference (cheatsheet)](#dense-command-reference-cheatsheet)
 
 ---
 
 ### The idea in one sentence
 
-Almost every command-line program is designed to read **text in**, do something, and write **text out**. The operating system wires three default “pipes” for that—**stdin**, **stdout**, and **stderr**—so programs can be **chained** and **logged** without each program knowing about your terminal or files.
+Almost every command-line program is designed to read **text in**, do something, and write **text out**. The operating system wires three default "pipes" for that—**stdin** (standard input), **stdout** (standard output), and **stderr** (standard error)—so programs can be **chained** and **logged** without each program knowing about your terminal or files.
 
 ---
 
@@ -393,24 +446,24 @@ Almost every command-line program is designed to read **text in**, do something,
 
 | Stream | Name | Number (Unix) | Typical content |
 |--------|------|----------------|-----------------|
-| **Standard input** | **stdin** | 0 | Data the program **reads** (keyboard, file, or another program’s output) |
-| **Standard output** | **stdout** | 1 | Normal, “successful” **print** output (results, text, JSON bodies) |
+| **Standard input** | **stdin** | 0 | Data the program **reads** (keyboard, file, or another program's output) |
+| **Standard output** | **stdout** | 1 | Normal, "successful" **print** output (results, text, JSON bodies) |
 | **Standard error** | **stderr** | 2 | **Errors, warnings, debug traces**—meant to be separate from normal output |
 
 **Why separate stdout and stderr?**
 
-- You can **save a clean result** to a file (`program > out.txt`) while **errors still appear on screen** (stderr), so you don’t mix “good data” with “something went wrong.”
+- You can **save a clean result** to a file (`program > out.txt`) while **errors still appear on screen** (stderr), so you don't mix "good data" with "something went wrong."
 - In scripts, you can **detect failure** (non-zero exit code + stderr) while still capturing stdout for parsing.
 - Tools like **`curl`** send the **downloaded body** to stdout but **progress or TLS chatter** to stderr—so piping `curl … | jq` works without junk in the pipe.
 
-**stdin** is “where typing goes” when a program waits for input, or “the upstream pipe” when you use `|` .
+**stdin** is "where typing goes" when a program waits for input, or "the upstream pipe" when you use `|` .
 
 ---
 
-### Mental model: your terminal is not “the program”
+### Mental model: your terminal is not "the program"
 
 - The **terminal window** displays what programs write to stdout/stderr and sends your keystrokes to stdin when a program asks for input.
-- **Redirection** (`>`, `2>`) and **pipes** (`|`) change **where** those streams go—file, another program, or nowhere—without changing the program’s logic.
+- **Redirection** (`>`, `2>`) and **pipes** (`|`) change **where** those streams go—file, another program, or nowhere—without changing the program's logic.
 
 ```text
 You type keys ──────────► stdin  ──►  program  ──► stdout ──► terminal (or file, or next command)
@@ -422,6 +475,16 @@ You type keys ──────────► stdin  ──►  program  ─�
 
 ### Examples: stdout (stream 1)
 
+**Purpose:** Capture or display normal program output.
+
+**When it fails:** File is empty but command seemed to run—output may have gone to stderr instead, or the command failed silently.
+
+**What:** Write text to the terminal or a file.
+
+**Why:** Save results, build logs, or feed the next command in a pipeline.
+
+**When:** After any command whose output you need to keep or inspect.
+
 ```bash
 echo "hello"              # writes "hello\n" to stdout
 echo "hello" > greeting.txt   # redirect stdout to file (overwrite)
@@ -429,35 +492,51 @@ echo "world" >> greeting.txt  # append to file
 cat greeting.txt          # reads file, writes contents to stdout
 ```
 
-**Why use `>`?** To capture build logs, save API responses, or silence output: `npm run build > build.log`.
-
 ---
 
 ### Examples: stderr (stream 2)
 
-Many programs print errors to stderr so they don’t corrupt data meant for piping.
+**Purpose:** Keep errors and diagnostics separate from data you want to parse or save.
+
+**When it fails:** Log file has no errors but the command failed—stderr may still be on the terminal; use `2>&1` to merge into one log.
+
+Many programs print errors to stderr so they don't corrupt data meant for piping.
+
+**What:** Send only error output to a file, or merge stderr with stdout.
+
+**Why:** See errors on screen while saving clean stdout to a file; or capture everything in one log for CI.
+
+**When:** Builds, installs, or scripts where you need both a result file and visible errors.
 
 ```bash
-## Run a command and send only stderr to a file, keep stdout on screen
+# Run a command and send only stderr to a file, keep stdout on screen
 some-command 2> errors.log
 
-## Merge stderr into stdout so both go to the same pipe/file
+# Merge stderr into stdout so both go to the same pipe/file
 some-command 2>&1
 
-## Send both to a file (bash)
+# Send both to a file (bash)
 some-command &> all.log
 
-## Equivalent without &>
+# Equivalent without &>
 some-command > all.log 2>&1
 ```
 
-**Why `2>`?** In bash, **`2`** is the file descriptor for stderr; **`1`** is stdout. **`2>&1`** means “make stderr go wherever stdout goes.” When merging into **one file**, putting **`> file 2>&1`** captures both streams reliably.
+In bash, **`2`** is the file descriptor for stderr; **`1`** is stdout. **`2>&1`** means "make stderr go wherever stdout goes." When merging into **one file**, putting **`> file 2>&1`** captures both streams reliably.
 
 ---
 
 ### Examples: pipes (stdout → stdin)
 
-**Why use a pipe?** So the **output of program A** becomes the **input of program B** without a temporary file.
+**Purpose:** Chain commands without temporary files.
+
+**When it fails:** Right-hand command gets nothing—left command wrote to stderr only, or failed before producing output.
+
+**What:** Connect one command's stdout to the next command's stdin.
+
+**Why:** Filter, count, or transform output on the fly (grep, jq, wc).
+
+**When:** Processing logs, API JSON, or command output in one line.
 
 ```bash
 cat data.txt | wc -l           # line count of file via stdin
@@ -471,11 +550,17 @@ Here **`|`** connects **stdout of left** to **stdin of right**.
 
 ### Examples: stdin explicitly
 
+**What:** Feed data from a string or file into a command's standard input.
+
+**Why:** Some tools read only from stdin unless given a filename argument.
+
+**When:** `wc`, `sort`, or filters that expect piped or redirected input.
+
 ```bash
-## Feed a string as stdin to `wc`
+# Feed a string as stdin to `wc`
 echo "hello world" | wc -w
 
-## File as stdin
+# File as stdin
 wc -l < bigfile.txt
 ```
 
@@ -492,6 +577,10 @@ From [curl and HTTP from the command line](#curl-and-http-from-the-command-line)
 
 ### Quick reference (bash)
 
+**Purpose:** One-page reminder for redirection and pipes.
+
+**When it fails:** Wrong order in `> file 2>&1` (use redirect stdout first, then merge stderr)—or pipe breaks because errors went to stderr, not stdout.
+
 | Goal | Typical bash |
 |------|----------------|
 | Print to stdout | `echo`, `printf` |
@@ -505,35 +594,35 @@ From [curl and HTTP from the command line](#curl-and-http-from-the-command-line)
 
 ---
 
-### Why master this as a beginner?
+### Why learn this?
 
-1. **Reading tutorials** that say “prints to stdout” or “merge stderr” will be clear.
-2. **Debugging:** you’ll know whether to log a file, run with `-v`, or grep stderr.
-3. **CI/CD:** logs are often **stdout/stderr capture**; exit codes + stderr explain failures.
+1. **Reading tutorials** that say "prints to stdout" or "merge stderr" will be clear.
+2. **Debugging:** you'll know whether to log a file, run with `-v`, or grep stderr.
+3. **CI/CD (Continuous Integration / Continuous Delivery):** logs are often **stdout/stderr capture**; exit codes + stderr explain failures.
 4. **Agents** often chain commands; knowing streams prevents accidental **empty pipes** (silently wrong) or **mixed error+data** files.
 
 ---
 
 ### Further reading
 
-- Your platform’s **`bash`** manual page (`man bash`), section **REDIRECTION**.
+- Your platform's **`bash`** manual page (`man bash`), section **REDIRECTION**.
 
 ---
 
 ## Shells: bash and Unix-style CLIs
 
-**Beginner deep-dive:** If terms like **stdout** or **stderr** are new, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first—it explains *what* those streams are, *why* programs use them, and gives **bash** examples (pipes, `>`, `2>`).
+**Read this first:** If terms like **stdout** or **stderr** are new, read [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first—it explains *what* those streams are, *why* programs use them, and gives **bash** examples (pipes, `>`, `2>`).
 
 ### What is a shell?
 
-A **shell** reads your typed commands, expands variables, finds programs, runs them, and wires **stdin** (standard input), **stdout** (standard output), and **stderr** (standard error). In short: **text flows in**, the program runs, **normal results print on stdout**, and **problems/warnings print on stderr** so you can separate “clean output” from “errors.” Your **terminal** is only the UI that displays those streams; the **shell** is the interpreter that parses what you type.
+A **shell** reads your typed commands, expands variables, finds programs, runs them, and wires **stdin** (standard input), **stdout** (standard output), and **stderr** (standard error). In short: **text flows in**, the program runs, **normal results print on stdout**, and **problems/warnings print on stderr** so you can separate "clean output" from "errors." Your **terminal** is only the UI that displays those streams; the **shell** is the interpreter that parses what you type.
 
 | Shell | Typical OS | Script extension | Notes |
 |--------|------------|------------------|-------|
 | **bash** | Linux, macOS, Git Bash on Windows | `.sh` | Ubiquitous in docs and CI—the default for fenced examples below |
 | **zsh** | macOS default in many setups | `.sh`/`.zsh` | Similar to bash for everyday commands (paths, redirection, piping) |
 
-**Windows note:** Prefer **Git Bash** or **WSL** when you want to run **the same bash commands as written**; path roots look like **`/c/Users/...`** (Git Bash) or **`/mnt/c/...`** (WSL). Check with **`echo $SHELL`** that you’re in bash (or a close compatible shell) before pasting snippets from this playbook.
+**Windows note:** Prefer **Git Bash** or **WSL** (Windows Subsystem for Linux) when you want to run **the same bash commands as written**; path roots look like **`/c/Users/...`** (Git Bash) or **`/mnt/c/...`** (WSL). Check with **`echo $SHELL`** that you're in bash (or a close compatible shell) before pasting snippets from this playbook.
 
 ---
 
@@ -547,6 +636,10 @@ A **shell** reads your typed commands, expands variables, finds programs, runs t
 
 ### Bash essentials
 
+**Purpose:** Navigate the filesystem, run programs, and configure your interactive session.
+
+**When it fails:** "Command not found," wrong expansion, or deleted files—usually PATH issues, unquoted spaces in paths, or **`rm -rf`** used carelessly.
+
 #### Session vs persistent config
 
 | File | When it runs |
@@ -559,6 +652,12 @@ After editing: `source ~/.bashrc` or open a new terminal.
 
 #### Quoting (bash)
 
+**What:** Control whether the shell expands variables and special characters.
+
+**Why:** Prevent word-splitting and accidental glob expansion.
+
+**When:** Any path or argument that might contain spaces or `$`.
+
 ```bash
 echo $HOME           # expands
 echo "$HOME"         # expands
@@ -567,6 +666,10 @@ echo "It's fine"     # double quotes allow apostrophe inside
 ```
 
 #### Useful bash one-liners
+
+**Purpose:** Daily file and directory operations.
+
+**When it fails:** `rm -rf` deletes irreversibly; `which` may lie on some systems—prefer `command -v`.
 
 ```bash
 pwd                  # current directory
@@ -593,9 +696,13 @@ The one-liners above cover most navigation (**`pwd`**, **`ls -la`**, **`cd`**, *
 
 ### Pipelines and redirection (bash recap)
 
-**Full tutorial with beginner explanations:** [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
+**Full tutorial:** [stdin, stdout, stderr, and redirection](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
 
-**Summary:** **stdout** is “normal program output”; **stderr** is “errors/diagnostics.” **Pipes** send one command’s **stdout** to the next command’s **stdin**. **Redirection** sends stdout or stderr to a file—or discards it (`/dev/null`).
+**Purpose:** Chain commands and capture or discard output.
+
+**When it fails:** Empty pipe, partial log files, or errors hidden in `/dev/null`—check which stream each program uses.
+
+**Summary:** **stdout** is "normal program output"; **stderr** is "errors/diagnostics." **Pipes** send one command's **stdout** to the next command's **stdin**. **Redirection** sends stdout or stderr to a file—or discards it (`/dev/null`).
 
 | Concept | Typical bash pattern |
 |---------|-----------------------|
@@ -605,6 +712,12 @@ The one-liners above cover most navigation (**`pwd`**, **`ls -la`**, **`cd`**, *
 | Merge stderr into stdout | `2>&1` (often after assigning stdout destination) |
 | Tee to file and terminal | `2>&1 \| tee out.log` |
 | Capture both streams in one file | `npm run build > build.log 2>&1` or `some-command &> all.log` |
+
+**What:** Save build output and errors to one log.
+
+**Why:** CI and local debugging need the full story in one file.
+
+**When:** Long builds or installs where the terminal scrollback is not enough.
 
 ```bash
 npm run build > build.log 2>&1    # stdout+stderr in one log
@@ -623,7 +736,6 @@ Programs you invoke from bash—**`curl`**, **`git`**, **`node`**, compilers—n
 
 Use Git Bash/WSL whenever you paste commands from Unix-oriented docs (including this file).
 
-
 ### Agent-mode checklist (before running a proposed command)
 
 1. Commands target **bash** (Git Bash / WSL on Windows).
@@ -640,15 +752,19 @@ This section uses **bash** patterns (`export`, `printenv`). On Windows native sh
 
 **Related:** [stdin, stdout, stderr](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
 
+**Purpose:** Configure how programs find tools and read settings without editing source code.
+
+**When it fails:** "command not found," wrong API URL, or secrets missing—usually PATH order, unset variables, or `.env` not loaded by the app.
+
 ### What is an environment variable?
 
-A **name=value** pair that the operating system passes into every **child process** when a program starts. Think of it as **context your programs inherit** without reading a file first: *where is home?*, *which language?*, *which API URL?*
+A **name=value** pair that the operating system passes into every **child process** when a program starts. Think of it as **context your programs inherit** without reading a file first: *where is home?*, *which language?*, *which API (Application Programming Interface) URL?*
 
 **Why it matters:**
 
 - **Scripts and apps** read env vars to configure behavior (`NODE_ENV=production`).
 - **The shell** reads **`PATH`** to know **which folders to search** when you type `node` instead of a fully qualified filesystem path (for example **`/usr/local/bin/node`**).
-- **Security:** secrets are often env vars in development—never treat them as “private” in logs or screenshots.
+- **Security:** secrets are often env vars in development—never treat them as "private" in logs or screenshots.
 
 Operating systems copy the environment when a program starts; shells let you read and set values for the **current session**—and persist them (**`~/.bashrc`**, **`~/.profile`**, OS-level settings on Windows/macOS/Linux).
 
@@ -667,14 +783,24 @@ Common examples:
 
 ### Inspecting variables (bash)
 
+**Purpose:** See what the shell will pass to child processes.
+
+**When it fails:** Variable looks set in one terminal but not another—different shell session or IDE not inheriting your profile.
+
 | Goal | Typical bash |
 |------|----------------|
 | Show **most** exported variables | **`printenv`** or **`env`** |
 | Show **one** variable | **`printenv PATH`**, **`echo "$PATH"`** |
 | Hunt for substring | **`env \| grep NODE`** |
 
+**What:** List or filter environment variables.
+
+**Why:** Debug wrong Node version, missing API keys, or proxy settings.
+
+**When:** Before blaming application code for config errors.
+
 ```bash
-printenv              # all exported variables via printenv’s view
+printenv              # all exported variables via printenv's view
 printenv PATH
 echo "$PATH"
 env | grep NODE       # coarse filter across names/values
@@ -696,11 +822,15 @@ When you type `node` (no slash), the runtime **does not** search the entire disk
 - You can run **`git`**, **`python`**, **`node`** from any working directory once their directories are indexed.
 - Version managers prepend shims (`fnm`, `nvm`, etc.) so the **right binary** floats to the front.
 
-**First match wins.** Two **`node`** installs on **`PATH`** means the **leftmost** wins—classic “wrong Node version.”
+**First match wins.** Two **`node`** installs on **`PATH`** means the **leftmost** wins—classic "wrong Node version."
 
 ---
 
 ### How executables are found (bash viewpoint)
+
+**Purpose:** Identify which binary actually runs for a given command name.
+
+**When it fails:** `command -v` shows unexpected path—fix PATH or activate the right version manager.
 
 Most automation targets Linux—or Windows users running Git Bash/WSL—so **`command`** is portable:
 
@@ -715,6 +845,10 @@ On purely native Windows hosts you may additionally need **`where.exe node`** an
 ---
 
 ### Changing PATH for one session (bash)
+
+**Purpose:** Temporarily prefer one toolchain directory over another.
+
+**When it fails:** Change lost after closing terminal—use profile files or a version manager for persistence.
 
 ```bash
 export PATH="/usr/local/bin:$PATH"   # prepend
@@ -737,11 +871,15 @@ Many frameworks load **`.env`** at runtime **for apps**, not for the whole OS.
 - Commit **`.env.example`** with dummy keys describing required variables.
 - Shells do **not** load `.env` automatically unless you **`set -a; source .env; set +a`** (careful!) or rely on tooling.
 
-Example workflow:
+**What:** Copy the example env file and fill in local secrets.
+
+**Why:** Apps expect variables that are not in the repo for security.
+
+**When:** First run of a new project clone.
 
 ```bash
 cp .env.example .env
-## edit .env locally with your secrets
+# edit .env locally with your secrets
 ```
 
 ---
@@ -777,15 +915,24 @@ If you set a variable in a bash session, **child processes** see it unless strip
 
 Environment variables can leak via crash dumps, CI logs, and casual **`printenv`** pastes. Prefer secret managers rather than immortal tokens in plaintext env exports.
 
+---
 ## Permissions: Unix and Windows
+
+**Purpose:** Control who can read, write, or run files and enter directories.
+
+**When it fails:** "Permission denied" on install, SSH, or deploy—usually wrong owner, missing execute on a directory, or overly broad `chmod 777` masking the real issue.
 
 ### Why permissions exist
 
-Operating systems restrict **who can read, write, or execute** files and traverse directories. This limits blast radius when accounts are compromised.
+Operating systems restrict **who can read, write, or execute** files and traverse directories. This limits damage when accounts are compromised.
 
 ---
 
 ### Unix-style permissions (Linux, macOS, WSL)
+
+**Purpose:** Set owner, group, and world access with `chmod` and `chown`.
+
+**When it fails:** SSH refuses keys, web server cannot read files, or install cannot write—check `ls -l` and parent directory permissions.
 
 #### Subjects and objects
 
@@ -821,6 +968,12 @@ Examples:
 
 #### Core commands
 
+**What:** Change file modes and ownership.
+
+**Why:** Scripts must be executable; secrets must not be world-readable.
+
+**When:** After creating SSH keys, deploy scripts, or when install fails with EACCES.
+
 ```bash
 chmod u+x script.sh        # add execute for user
 chmod 755 bin/tool         # set exact mode
@@ -835,9 +988,13 @@ umask                      # default mask for new files (shell setting)
 **`sudo`** runs a command as another user (often root).
 
 - Prefer **specific** privilege: installing packages, binding low ports, editing system files.
-- **Avoid** `chmod 777` “to make it work”—that rarely fixes root causes and invites abuse.
+- **Avoid** `chmod 777` "to make it work"—that rarely fixes root causes and invites abuse.
 
 #### SSH keys (quick sanity)
+
+**Purpose:** SSH (Secure Shell) requires strict permissions on key files.
+
+**When it fails:** "Permissions too open" or auth rejected—fix modes below.
 
 ```bash
 chmod 700 ~/.ssh
@@ -851,9 +1008,13 @@ chmod 644 ~/.ssh/id_ed25519.pub
 
 Windows uses **Access Control Lists (ACLs)** with **users and groups** and granular rights (read, write, execute, delete, etc.), not the compact `rwx` model.
 
+**Purpose:** Grant or deny access per user/group on files and folders.
+
+**When it fails:** "Access denied" on system paths—often needs elevation or correct ACL entry.
+
 #### Built-in tools
 
-- **GUI:** File → Properties → Security.
+- **GUI (Graphical User Interface):** File → Properties → Security.
 - **CLI:** `icacls` is the modern replacement for many `cacls` scenarios.
 
 **Windows CLI note:** Administrators often use **`icacls`** to inspect/grant ACLs (not bash—refer to **`icacls /?`** for syntax). Prefer the GUI for one-off tweaks unless you automate policy.
@@ -889,6 +1050,10 @@ Before a command changes permissions widely:
 
 ## Git: workflow and troubleshooting
 
+**Purpose:** Track code history, collaborate via remotes, and recover from common mistakes.
+
+**When it fails:** Conflicts, auth errors, lost commits, or "not a git repository"—usually wrong directory, diverged branches, or force-push without coordination.
+
 ### Mental model
 
 Git tracks **snapshots** of a directory over time as **commits** on **branches**. Remotes (like GitHub) are **other copies** you sync with `fetch`, `pull`, `push`.
@@ -903,6 +1068,16 @@ Core areas:
 ---
 
 ### Identity and first-time config
+
+**Purpose:** Set author name and email on commits; configure line endings on Windows.
+
+**When it fails:** Commits rejected by host policy—wrong email or missing GPG/signing if required.
+
+**What:** Configure global Git identity and line-ending behavior.
+
+**Why:** Every commit is attributed; cross-OS teams need consistent line endings.
+
+**When:** First machine setup or new Git install.
 
 ```bash
 git config --global user.name "Your Name"
@@ -925,6 +1100,10 @@ git config --list --show-origin
 
 ### Daily commands (cheat sheet level)
 
+**Purpose:** Day-to-day save, sync, and inspect work.
+
+**When it fails:** Push rejected (pull first), merge conflicts, or empty commit—check `git status` and remote tracking.
+
 | Task | Command |
 |------|---------|
 | Status | `git status` |
@@ -937,11 +1116,15 @@ git config --list --show-origin
 | Push | `git push -u origin branch-name` |
 | Stash work in progress | `git stash push -m "wip"`, `git stash pop` |
 
-**Write good commit messages:** imperative mood (“Add login validation”), explain *why* when non-obvious.
+**Write good commit messages:** imperative mood ("Add login validation"), explain *why* when non-obvious.
 
 ---
 
 ### Understanding `fetch` vs `pull`
+
+**Purpose:** Update your view of the remote without surprise merges.
+
+**When it fails:** `pull` creates conflicts you did not expect—fetch and inspect first.
 
 - **`git fetch origin`**: downloads remote updates **without** merging into your branch. Safe and predictable.
 - **`git pull`**: usually `fetch` + `merge` (or `rebase` depending on config). Faster, but you should know your merge/rebase defaults.
@@ -959,7 +1142,7 @@ Recommended habit: `git fetch` → inspect (`git log origin/main`) → `git merg
 
 ### Troubleshooting playbook
 
-#### “Not a git repository”
+#### "Not a git repository"
 
 You are not inside a repo or `.git` is missing. `cd` to the project root or `git init`.
 
@@ -999,7 +1182,7 @@ git reset --soft HEAD~1
 
 ```bash
 git restore path/to/file    # modern
-## or: git checkout -- path   # older style
+# or: git checkout -- path   # older style
 ```
 
 #### Remote auth failures
@@ -1012,7 +1195,7 @@ git restore path/to/file    # modern
 1. **Rotate/revoke the secret immediately** (API keys, tokens).
 2. Remove from history is hard; assume clones may still have it. Use `git filter-repo` or BFG with guidance from your org; for GitHub, also check **secret scanning**.
 
-#### “Why is my branch behind?”
+#### "Why is my branch behind?"
 
 ```bash
 git fetch origin
@@ -1048,6 +1231,10 @@ Use root `.gitignore` plus optional `.git/info/exclude` for local-only patterns.
 
 ### Helpful diagnostics
 
+**Purpose:** Inspect remotes, branches, and recent HEAD moves.
+
+**When it fails:** `reflog` entries expire after default retention—act soon after a mistake.
+
 ```bash
 git remote -v
 git branch -vv
@@ -1057,17 +1244,25 @@ git diff
 git diff --staged
 ```
 
-When something “mysterious” happens, **reflog** plus a calm `fetch` usually explains it.
+When something "mysterious" happens, **reflog** plus a calm `fetch` usually explains it.
 
 ---
 
 ## Package managers and language ecosystems
 
-Package managers install **libraries, binaries, and tools**, record **versions**, and replay installs on another machine. They are not interchangeable across ecosystems—learn each ecosystem’s primary tool first.
+**Purpose:** Install libraries and tools per language, record versions, and reproduce installs elsewhere.
+
+**When it fails:** Version conflicts, lockfile drift, or global pollution—use project-local installs and committed lockfiles for apps.
+
+Package managers install **libraries, binaries, and tools**, record **versions**, and replay installs on another machine. They are not interchangeable across ecosystems—learn each ecosystem's primary tool first.
 
 ---
 
 ### Node.js / JavaScript
+
+**Purpose:** Manage npm/yarn/pnpm dependencies for JavaScript projects.
+
+**When it fails:** `npm ci` fails on lock mismatch; wrong lockfile type for the manager in use.
 
 #### npm (bundled with Node)
 
@@ -1094,11 +1289,15 @@ Install specific Node versions per project:
 
 - **nvm** (Unix/macOS), **nvm-windows**, **fnm**, **asdf** (multi-language).
 
-Why: avoid “works on my machine” when CI uses Node 20 and you use 18.
+Why: avoid "works on my machine" when CI uses Node 20 and you use 18.
 
 ---
 
 ### PHP: Composer
+
+**Purpose:** Install PHP packages and autoload classes.
+
+**When it fails:** Missing PHP extensions or `composer.lock` out of sync with `composer.json`.
 
 | Command | Meaning |
 |---------|---------|
@@ -1114,6 +1313,10 @@ Files: `composer.json` (constraints), `composer.lock` (pinned versions—commit 
 
 ### Python: pip, pipx, poetry, conda, uv
 
+**Purpose:** Install Python packages in isolated or project-scoped environments.
+
+**When it fails:** Installing into system Python; forgot to activate venv; wrong Python on PATH.
+
 | Tool | Role |
 |------|------|
 | **pip** | Install packages from PyPI into current env |
@@ -1123,7 +1326,11 @@ Files: `composer.json` (constraints), `composer.lock` (pinned versions—commit 
 | **conda** | Broader scientific packaging (binaries beyond pure Python) |
 | **uv** | Fast resolver/installer (emerging Astral toolchain) |
 
-Typical venv workflow:
+**What:** Create a virtual environment and install requirements.
+
+**Why:** Keeps project deps separate from the system interpreter.
+
+**When:** Any Python project with `requirements.txt` or `pyproject.toml`.
 
 ```bash
 python -m venv .venv
@@ -1135,11 +1342,19 @@ pip install -r requirements.txt
 
 ### Ruby: Bundler (`bundle`)
 
+**Purpose:** Install gems pinned in `Gemfile.lock`.
+
+**When it fails:** Native extension build failures—missing dev headers or wrong Ruby version.
+
 - `Gemfile` + `Gemfile.lock`.
 
 ---
 
 ### Rust: Cargo
+
+**Purpose:** Fetch crates, build, test, and run Rust projects.
+
+**When it fails:** Linker errors or missing system libraries—install build deps per platform docs.
 
 - `cargo new`, `cargo build`, `cargo run`, `cargo test`.
 - `Cargo.toml` manifests; `Cargo.lock` for apps (commit); libraries may vary.
@@ -1148,6 +1363,10 @@ pip install -r requirements.txt
 
 ### Java: Maven / Gradle
 
+**Purpose:** Resolve JVM dependencies and build JARs.
+
+**When it fails:** Wrong JDK version or corrupt local Maven cache.
+
 - **Maven:** `pom.xml`, `mvn clean install`.
 - **Gradle:** `build.gradle` / Kotlin DSL, `./gradlew`.
 
@@ -1155,12 +1374,20 @@ pip install -r requirements.txt
 
 ### .NET: NuGet
 
+**Purpose:** Restore and add NuGet packages for .NET projects.
+
+**When it fails:** Package source unreachable or SDK version mismatch.
+
 - `dotnet restore`, `dotnet add package Name`.
 - `PackageReference` in `.csproj`.
 
 ---
 
 ### System / OS package managers
+
+**Purpose:** Install system-wide tools (git, ffmpeg, compilers).
+
+**When it fails:** Conflicts with language-specific installs—prefer language managers for project libs.
 
 | OS | Examples |
 |----|----------|
@@ -1175,7 +1402,7 @@ Use OS packages for **tools you want globally** (git, ffmpeg). Use language pack
 
 ### Containers vs package managers
 
-- **Docker/OCI images** ship a filesystem snapshot. **Still** often use `apt`, `apk`, etc. inside the Dockerfile to build layers.
+- **Docker/OCI (Open Container Initiative) images** ship a filesystem snapshot. **Still** often use `apt`, `apk`, etc. inside the Dockerfile to build layers.
 - Prefer **multi-stage builds** to keep runtime images small.
 
 ---
@@ -1190,15 +1417,18 @@ Use OS packages for **tools you want globally** (git, ffmpeg). Use language pack
 
 ### Quick decision tree
 
-1. **Is this dep for one project?** Use that language’s project-local install (venv, `node_modules`, Composer in project).
+1. **Is this dep for one project?** Use that language's project-local install (venv, `node_modules`, Composer in project).
 2. **CLI tool you use everywhere?** Consider global install or `pipx`/`npx` style isolation.
 3. **Reproducible servers?** Lockfiles + pinned base image + documented build steps.
 
 ---
-
 ## Compilers, transpilers, interpreters, and runtimes
 
-This section builds a **mental model** so phrases like “build”, “bundle”, “compile”, and “target ES2019” map to real steps. Use it when you read CI logs or agent-proposed toolchain commands.
+**Purpose:** Understand how source code becomes something that runs—so CI logs and agent commands make sense.
+
+**When it fails:** "Undefined reference," type errors, or wrong runtime—usually wrong compiler version, missing link library, or mixing compile vs install steps.
+
+This section builds a **mental model** so phrases like "build", "bundle", "compile", and "target ES2019" map to real steps. Use it when you read CI (Continuous Integration) logs or agent-proposed toolchain commands.
 
 ---
 
@@ -1217,7 +1447,7 @@ Nothing stops a toolchain from combining all three (e.g. compile → bytecode �
 #### Interpreter (typical)
 
 - Reads source or bytecode when the program runs.
-- **Startup** may be fast; **peak** performance may lag compiled code unless a JIT exists.
+- **Startup** may be fast; **peak** performance may lag compiled code unless a JIT (Just-In-Time compiler) exists.
 - Examples: **CPython** (Python reference implementation), **Ruby MRI**, **bash** itself.
 
 #### Compiler (typical)
@@ -1228,19 +1458,19 @@ Nothing stops a toolchain from combining all three (e.g. compile → bytecode �
 
 #### Transpiler
 
-- Input and output are both “language-level” source (or very near).
+- Input and output are both "language-level" source (or very near).
 - Example: **TypeScript → JavaScript**, **Svelte → JS**, historical **CoffeeScript → JS**, some **CSS preprocessors**.
 - Motivations: **new syntax on old runtimes**, gradual adoption, types (TypeScript) erased at emit time.
 
 #### JIT (just-in-time compilation)
 
-- VM starts with interpretation, **hot code paths** get compiled at runtime.
-- Examples: **V8** (Chrome/Node JavaScript), **JVM HotSpot**, **.NET CLR**.
+- VM (Virtual Machine) starts with interpretation, **hot code paths** get compiled at runtime.
+- Examples: **V8** (Chrome/Node JavaScript), **JVM HotSpot**, **.NET CLR (Common Language Runtime)**.
 
 #### Bytecode + VM
 
 - Compiler front end lowers source to **bytecode**; a **virtual machine** executes it.
-- Examples: **Python `.pyc`** (implementation detail), **Java `.class` files**, **.NET IL** (Common Intermediate Language, stored in assemblies), **Ethereum EVM** (different domain).
+- Examples: **Python `.pyc`** (implementation detail), **Java `.class` files**, **.NET IL (Intermediate Language)**, stored in assemblies, **Ethereum EVM** (different domain).
 
 ---
 
@@ -1248,14 +1478,14 @@ Nothing stops a toolchain from combining all three (e.g. compile → bytecode �
 
 | Term | Meaning |
 |------|---------|
-| **AST** | Abstract syntax tree produced by parsing source |
+| **AST** (Abstract Syntax Tree) | Tree produced by parsing source |
 | **IR / IL** | Intermediate language between front end and optimizer/back end |
 | **Object file** | Compiled translation unit (`.o`/`.obj`) not yet linked |
 | **Linker** | Combines objects + libraries, resolves symbols → final binary |
 | **Static library** | Archive of objects (`.a`, `.lib`) linked at build time |
 | **Dynamic/shared library** | Loaded at runtime (`.so`, `.dll`, `.dylib`) |
-| **Symbol** | Named function/global; link errors mean “symbol missing/duplicate” |
-| **ABI** | Binary interface between compiled units (calling conventions, struct layout) |
+| **Symbol** | Named function/global; link errors mean "symbol missing/duplicate" |
+| **ABI** (Application Binary Interface) | Binary interface between compiled units (calling conventions, struct layout) |
 
 When builds fail with **undefined reference** / **unresolved external symbol**, think **linker** + missing `-l` library or wrong link order.
 
@@ -1276,7 +1506,11 @@ When builds fail with **undefined reference** / **unresolved external symbol**, 
 | **Fortran** | `gfortran` | numeric HPC legacy and present |
 | **Haskell** | `ghc` | lazy functional; native codegen |
 
-Minimal C example mental model:
+**What:** Compile a C file to an executable.
+
+**Why:** See the compile-then-run pattern for native code.
+
+**When:** Learning how AOT (ahead-of-time) builds differ from interpreted scripts.
 
 ```bash
 clang -O2 -Wall main.c -o app
@@ -1291,7 +1525,7 @@ clang -O2 -Wall main.c -o app
 | **Kotlin** | `kotlinc`, Gradle `compileKotlin` | targets JVM, JS, Native (different backends) |
 | **Scala** | `scalac`, sbt | JVM + other backends depending on project |
 
-Bytecode is **not OS machine code**; it needs a **JVM**.
+Bytecode is **not OS machine code**; it needs a **JVM (Java Virtual Machine)**.
 
 #### .NET languages (compile to IL; JIT with CLR)
 
@@ -1309,9 +1543,9 @@ Bytecode is **not OS machine code**; it needs a **JVM**.
 
 ---
 
-### Transpiled / “compile to JS” (examples)
+### Transpiled / "compile to JS" (examples)
 
-These usually target **JavaScript** (or WASM) for browsers/Node:
+These usually target **JavaScript** (or WASM—WebAssembly) for browsers/Node:
 
 | Source | Tool | Target |
 |--------|------|--------|
@@ -1333,7 +1567,7 @@ These usually target **JavaScript** (or WASM) for browsers/Node:
 | **Ruby** | `ruby script.rb` |
 | **PHP** | interpreted per request historically; **Opcache** in production |
 
-**Important:** “Interpreted” does not mean “no compilation”—CPython compiles to bytecode internally; PHP may opcode-cache.
+**Important:** "Interpreted" does not mean "no compilation"—CPython compiles to bytecode internally; PHP may opcode-cache.
 
 ---
 
@@ -1372,32 +1606,46 @@ Understanding **compile** vs **install** vs **publish** helps you read CI jobs:
 
 - **LLVM** as shared optimizer/backend (Clang, Rust, Swift overlap).
 - **WASM** as portable compile target (Rust, Go, C++ → browsers/edge).
-- **Profile-guided optimization (PGO)**, **LTO** (link-time optimization).
+- **PGO** (Profile-Guided Optimization), **LTO** (Link-Time Optimization).
 - **Sanitizers** (`-fsanitize=address`) for native memory bugs—CI integration patterns.
 
 ---
 
 ## curl and HTTP from the command line
 
+**Purpose:** Script HTTP(S) requests, debug APIs, and download files from the terminal.
+
+**When it fails:** Empty body, TLS errors, or wrong status treated as success—use `-v`, `-f`, and check stdout vs stderr.
+
 `curl` transfers data with URLs. It is the **de facto** way to script HTTP in docs and CI. Learn flags once; reuse forever.
 
-**Streams reminder:** **stdout** is “normal output” (here: the response body); **stderr** is “extra messages” (here: progress, sometimes TLS debug). See [stdin, stdout, stderr](#standard-streams-stdin-stdout-stderr-and-why-they-matter) if those terms are new.
+**Streams reminder:** **stdout** is "normal output" (here: the response body); **stderr** is "extra messages" (here: progress, sometimes TLS debug). See [stdin, stdout, stderr](#standard-streams-stdin-stdout-stderr-and-why-they-matter) if those terms are new.
 
 ---
 
-### Basic usage
+### First requests
+
+**What:** Fetch a URL and print the response body.
+
+**Why:** Quick health checks and API smoke tests.
+
+**When:** Verifying a server is up or inspecting raw JSON.
 
 ```bash
 curl https://api.example.com/health
 ```
 
-By default, **`curl`** prints the **response body** to **stdout** (so you can pipe it to `jq` or save with `>`). Progress and some diagnostics go to **stderr**, which is why tutorials use **`curl -s`** (“silent”)—it quiets stderr so your terminal stays clean when piping.
+By default, **`curl`** prints the **response body** to **stdout** (so you can pipe it to `jq` or save with `>`). Progress and some diagnostics go to **stderr**, which is why tutorials use **`curl -s`** ("silent")—it quiets stderr so your terminal stays clean when piping.
 
 **Why care?** If you run `curl … > out.json` and see errors on screen but a clean file, that is **stderr** still attached to the terminal while **stdout** went to the file.
 
 ---
 
 ### Useful flags
+
+**Purpose:** Control headers, methods, redirects, and failure behavior.
+
+**When it fails:** Redirect loop without `-L`; silent failure without `-f` or `-S`.
 
 | Flag | Meaning |
 |------|---------|
@@ -1415,7 +1663,11 @@ By default, **`curl`** prints the **response body** to **stdout** (so you can pi
 | `-f` | Fail on HTTP error status (no body treated as success) |
 | `--fail-with-body` | Newer curl: fail but still print body |
 
-Combine common debugging:
+**What:** Verbose request with headers and redirect following.
+
+**Why:** Debug TLS, proxies, and status codes in one run.
+
+**When:** API returns unexpected empty body or wrong status.
 
 ```bash
 curl -sS -i -L https://example.com
@@ -1424,6 +1676,12 @@ curl -sS -i -L https://example.com
 ---
 
 ### POST JSON (common API pattern)
+
+**What:** Send JSON in the request body with correct Content-Type.
+
+**Why:** Most REST APIs expect JSON POST/PUT bodies.
+
+**When:** Creating or updating resources via API.
 
 ```bash
 curl -sS -X POST https://api.example.com/items \
@@ -1453,7 +1711,7 @@ curl -F "file=@./photo.jpg" https://example.com/upload
 
 ### TLS / certificates
 
-Corporate proxies may require custom CA bundles:
+Corporate proxies may require custom CA (Certificate Authority) bundles:
 
 ```bash
 curl --cacert corp-ca.pem https://internal/
@@ -1464,6 +1722,12 @@ curl --cacert corp-ca.pem https://internal/
 ---
 
 ### Timeouts and retries
+
+**What:** Limit wait time and retry transient failures.
+
+**Why:** Scripts should not hang forever on dead hosts.
+
+**When:** CI smoke tests or cron health checks.
 
 ```bash
 curl --connect-timeout 5 --max-time 30 --retry 2 https://example.com
@@ -1477,7 +1741,7 @@ Pipe JSON APIs to `jq` to extract fields—see [extras](#extras-ssh-jq-processes
 
 ---
 
-### Safety when an agent “tests” endpoints
+### Safety when an agent "tests" endpoints
 
 - Confirm **environment** (staging vs production).
 - Avoid destructive verbs without explicit approval.
@@ -1487,11 +1751,19 @@ Pipe JSON APIs to `jq` to extract fields—see [extras](#extras-ssh-jq-processes
 
 ## Scheduling: cron (Linux/macOS servers) and Windows Task Scheduler
 
+**Purpose:** Run commands on a timetable without someone logged in.
+
+**When it fails:** Job never runs, wrong timezone, or empty PATH in cron—use absolute paths and log redirection.
+
 Scheduled jobs run commands **without an interactive login**: backups, cleanup, report emails, queue workers, cert renewals.
 
 ---
 
 ### Linux cron
+
+**Purpose:** Schedule recurring shell commands on Linux/macOS servers.
+
+**When it fails:** Silent failure—cron emails discarded; always redirect stdout/stderr to a log.
 
 #### Crontab files
 
@@ -1547,7 +1819,7 @@ SHELL=/bin/bash
 
 #### Timezones
 
-`cron` typically uses the **server’s local timezone** unless configured otherwise. For UTC-only ops, set TZ explicitly or use `systemd` timers with documented behavior.
+`cron` typically uses the **server's local timezone** unless configured otherwise. For UTC-only ops, set TZ explicitly or use `systemd` timers with documented behavior.
 
 #### systemd timers (alternative)
 
@@ -1556,6 +1828,10 @@ Many distros prefer **`systemd` timers** over cron for service integration, logg
 ---
 
 ### Windows Task Scheduler
+
+**Purpose:** Run programs on a schedule under Windows.
+
+**When it fails:** Task runs but script fails—wrong "Start in" directory or account lacks permission.
 
 #### GUI path
 
@@ -1567,7 +1843,7 @@ Many distros prefer **`systemd` timers** over cron for service integration, logg
 
 #### PATH and working directory
 
-Set **“Start in”** (working directory) for tasks that assume relative paths.
+Set **"Start in"** (working directory) for tasks that assume relative paths.
 
 ---
 
@@ -1598,16 +1874,23 @@ Provisioning cron/Task Scheduler remotely can affect production. Confirm:
 - rollback if the job misbehaves.
 
 ---
-
 ## CLI text editors: Vim and Nano
 
-Graphical editors are fine. On servers and in minimal environments you often have only a terminal—knowing **Nano** (easy) and **Vim** (ubiquitous) pays off.
+**Purpose:** Edit files when no graphical editor is available (servers, SSH sessions, Git commit messages).
+
+**When it fails:** Stuck in Vim or accidental saves—know exit commands; set `EDITOR` for automation.
+
+Graphical editors are fine. On servers and in minimal environments you often have only a terminal—knowing **Nano** (easy to learn) and **Vim** (ubiquitous) pays off.
 
 ---
 
 ### Nano
 
-Beginner-friendly; shortcuts shown at bottom of screen.
+Easy to learn; shortcuts shown at bottom of screen.
+
+**Purpose:** Quick file edits without learning modal editing.
+
+**When it fails:** File read-only—check permissions or use `sudoedit` instead of `sudo nano` when possible.
 
 | Action | Keys |
 |--------|------|
@@ -1618,7 +1901,11 @@ Beginner-friendly; shortcuts shown at bottom of screen.
 | Uncut/paste | `Ctrl+U` |
 | Where am I | `Ctrl+C` (cursor position) |
 
-Open file:
+**What:** Open a file in Nano.
+
+**Why:** Default-friendly editor on many systems.
+
+**When:** Quick config edits over SSH.
 
 ```bash
 nano /path/to/file.txt
@@ -1627,6 +1914,10 @@ nano /path/to/file.txt
 ---
 
 ### Vim: modes
+
+**Purpose:** Fast navigation and editing once you know Normal vs Insert mode.
+
+**When it fails:** Cannot type letters in Normal mode; cannot exit—use `Esc` then `:wq` or `:q!`.
 
 Vim is **modal**:
 
@@ -1667,7 +1958,7 @@ Press **`Esc`** to return to Normal.
 - Often the **default** editor on servers (`git rebase -i`, emergency `kubectl edit`, etc.).
 - Once muscle memory exists, very fast for navigation.
 
-#### Exiting Vim jokes exist because
+#### Exiting Vim
 
 People land in Normal mode and type literal characters. Remember: **`Esc`**, then **`:wq`** to save, **`:q!`** to bail out.
 
@@ -1675,9 +1966,15 @@ People land in Normal mode and type literal characters. Remember: **`Esc`**, the
 
 ### Choosing an editor for Git
 
+**What:** Tell Git which editor to open for commit messages and interactive rebase.
+
+**Why:** Avoid surprise Vim if you prefer Nano or VS Code.
+
+**When:** First Git setup on a machine.
+
 ```bash
 git config --global core.editor "nano"
-## or: vim, code --wait, etc.
+# or: vim, code --wait, etc.
 ```
 
 `--wait` is important for GUI editors so Git blocks until you close the file.
@@ -1705,6 +2002,10 @@ Set `EDITOR`/`VISUAL` to a non-interactive flow in automation where appropriate,
 
 ## Bash scripting: patterns and safety
 
+**Purpose:** Glue CLI tools into repeatable automation with clear failure behavior.
+
+**When it fails:** Script continues after errors, word-splitting breaks paths, or `set -e` exits on expected non-zero—tune strict mode and quoting.
+
 **Practice path:** [Project 14 shell automation lab](../../career-project-specs/14-shell-automation-lab.md) plus per-project [Bash scripting milestone](../../career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections in earlier specs. Stack map: [Bash / shell automation](../languages/bash.md).
 
 Shell scripts glue together CLI tools. Weak scripts become fragile automation—apply structure early.
@@ -1713,7 +2014,17 @@ Shell scripts glue together CLI tools. Weak scripts become fragile automation—
 
 ### Shebang and strict mode
 
+**Purpose:** Declare bash as interpreter and fail fast on errors.
+
+**When it fails:** Pipeline middle command fails but script continues—add `set -o pipefail`.
+
 Start scripts with an interpreter path and enable common safeguards:
+
+**What:** Standard script header with error handling.
+
+**Why:** Catch unset variables and pipeline failures early.
+
+**When:** Any script meant for CI or cron.
 
 ```bash
 #!/usr/bin/env bash
@@ -1743,6 +2054,12 @@ fi
 ---
 
 ### Variables and quoting
+
+**What:** Store values and pass them safely to commands.
+
+**Why:** Unquoted `$var` splits on spaces and expands globs.
+
+**When:** Every script that uses paths or user input.
 
 ```bash
 name="Alice"
@@ -1807,7 +2124,7 @@ while read -r line; do
   echo "$line"
 done < input.txt
 
-## C-style
+# C-style
 for ((i=0; i<5; i++)); do echo "$i"; done
 ```
 
@@ -1849,6 +2166,12 @@ Callers (`cron`, CI) use exit codes for success/failure.
 
 ### Debugging
 
+**What:** Trace which lines run and with what expansion.
+
+**Why:** Find where a script diverges from expectations.
+
+**When:** Intermittent failures or complex pipelines.
+
 ```bash
 bash -x script.sh    # trace lines as executed
 set -x               # enable trace mid-script
@@ -1884,9 +2207,13 @@ Supporting skills that appear constantly next to core CLI work.
 
 ---
 
-### SSH (secure shell)
+### SSH (Secure Shell)
 
-**Purpose:** Encrypted remote shell and file copy. **Identity** is usually **public/private key pairs**.
+**Purpose:** Log into remote machines and copy files over an encrypted connection.
+
+**When it fails:** "Permission denied (publickey)," host key changed, or connection timeout—check keys, `~/.ssh/config`, firewall, and `known_hosts`.
+
+**Identity** is usually **public/private key pairs**.
 
 #### Key concepts
 
@@ -1898,6 +2225,12 @@ Supporting skills that appear constantly next to core CLI work.
 | `~/.ssh/known_hosts` | Server host key fingerprints |
 
 #### Common commands
+
+**What:** Connect, copy files, or open SFTP (SSH File Transfer Protocol).
+
+**Why:** Remote admin and Git-over-SSH without HTTPS tokens.
+
+**When:** Deploying, debugging servers, or cloning private repos.
 
 ```bash
 ssh user@host
@@ -1936,9 +2269,19 @@ ssh -T git@github.com
 
 ---
 
-### `jq` (JSON in the shell)
+### `jq` (JSON query tool)
+
+**Purpose:** Parse and filter JSON on the command line.
+
+**When it fails:** Invalid JSON input or wrong path—validate with `jq .` first.
 
 Parse/filter JSON without custom scripts.
+
+**What:** Pretty-print and extract fields from JSON.
+
+**Why:** APIs return JSON; shell needs structured extraction without Python.
+
+**When:** Piping `curl` output or log lines.
 
 ```bash
 curl -s https://api.github.com/repos/octocat/Hello-World | jq .
@@ -1956,6 +2299,10 @@ Install: `apt install jq`, `brew install jq`, Windows `winget install jqlang.jq`
 
 ### Processes and signals (Unix)
 
+**Purpose:** See what is running and stop misbehaving processes.
+
+**When it fails:** `kill -9` leaves orphans or data corruption—try SIGTERM first.
+
 | Command | Purpose |
 |---------|---------|
 | `ps aux` / `ps -ef` | Process list |
@@ -1971,6 +2318,10 @@ Install: `apt install jq`, `brew install jq`, Windows `winget install jqlang.jq`
 POSIX-style **`SIGTERM`** / **`SIGKILL`** metaphors translate to graphical tools plus Windows services—not bash builtins. Prefer the Unix tables above whenever you operate inside bash/Git Bash/WSL.
 
 ### Disk and space
+
+**Purpose:** Check free disk and find what is using space.
+
+**When it fails:** `df` shows full disk but `du` is slow—scope `du` to one directory or use `ncdu`.
 
 | Goal | Typical bash tooling |
 |------|----------------------|
@@ -1988,6 +2339,10 @@ Interactives like **`ncdu`** or **`dust`** help when recursion is exploratory.
 
 ### Find files quickly
 
+**Purpose:** Search code and filenames faster than `grep`/`find` alone.
+
+**When it fails:** Wrong cwd or ignored paths—`rg` respects `.gitignore` by default.
+
 - **ripgrep** `rg` — fast recursive search respecting `.gitignore`.
 - **`fd`** — ergonomic `find` alternative.
 
@@ -1999,6 +2354,10 @@ fd netlify.toml
 ---
 
 ### Docker CLI (essentials)
+
+**Purpose:** Run and build containerized apps for consistent environments.
+
+**When it fails:** Port bind conflicts, image not found, or daemon not running—check `docker ps`, logs, and `docker compose` service names.
 
 Containers package **apps plus dependencies** as immutable-ish filesystem snapshots.
 
@@ -2039,6 +2398,10 @@ Security: **root inside container ≠ secure by default**; follow least privileg
 
 ### `tar` / archives (frequent in ops)
 
+**Purpose:** Pack and unpack directories for backup or transfer.
+
+**When it fails:** Wrong flags (`x` vs `c`) or path traversal in untrusted archives—extract carefully.
+
 ```bash
 tar czf backup.tgz folder/      # gzip compress
 tar xzf backup.tgz              # extract
@@ -2054,20 +2417,25 @@ zip -r archive.zip dir/
 - Renewal jobs often run via **cron** or **systemd timers**.
 
 ---
-
 ## Dense command reference (cheatsheet)
 
 Portable reminders. Prefer `man`, `tldr`, and `--help` on your machine for exact flags.
 
-This section is **reference-first**: tables list equivalents and common flags; **explanations and safety context** live in the linked sections above (streams, shells, Git, packages, Docker, etc.)—same **two-layer** idea as the rest of the playbook.
+This section is **reference-first**: tables list equivalents and common flags. The sections above explain *why* and *when* to use them—read those when a command fails or surprises you.
 
-For **how these commands fit agent-style setup and troubleshooting** (clone → install → build → debug), see [agent-setup-and-troubleshooting-commands.md](#agent-workflow-setup-and-troubleshooting-commands).
+For **how these commands fit agent-style setup and troubleshooting** (clone → install → build → debug), see [Agent workflow](#agent-workflow-setup-and-troubleshooting-commands).
 
-For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-stdout-stderr-and-redirection.md](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
+For **stdin / stdout / stderr** (what they are and why pipes exist), see [Standard streams](#standard-streams-stdin-stdout-stderr-and-why-they-matter).
 
 ---
 
 ### Navigation and files (Unix)
+
+**Purpose:** Move around the filesystem and inspect or change files.
+
+**When it fails:** Wrong cwd, accidental `rm -rf`, or copy without `-r` on directories—always `pwd` and `ls` before destructive ops.
+
+Use these when you need to see where you are, list contents, copy, move, or delete. **`rm -rf`** has no undo—double-check the path.
 
 | Command | Purpose |
 |---------|---------|
@@ -2086,7 +2454,13 @@ For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-
 
 ---
 
-### Redirection (bash) — read [stdin/stdout primer](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first
+### Redirection (bash)
+
+**Purpose:** Send program output to files, pipes, or nowhere.
+
+**When it fails:** Empty pipe or partial log—remember stderr is separate unless you merge with `2>&1`.
+
+Read [stdin/stdout primer](#standard-streams-stdin-stdout-stderr-and-why-they-matter) first if redirection syntax is unfamiliar.
 
 | Pattern | Effect |
 |---------|--------|
@@ -2100,6 +2474,10 @@ For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-
 ---
 
 ### Text search and transform (Unix)
+
+**Purpose:** Find text, edit streams, and summarize columns.
+
+**When it fails:** `grep -R` on binaries spews noise—exclude dirs or use `rg`; `sed` in-place edits need backup on macOS (`sed -i ''`).
 
 | Command | Purpose |
 |---------|---------|
@@ -2116,6 +2494,12 @@ For **stdin / stdout / stderr** (what they are and why pipes exist), see [stdin-
 
 ### Everyday tasks (bash)
 
+**What:** Common one-liners for inspection and finding processes.
+
+**Why:** Quick repo survey and "is Node running?" checks.
+
+**When:** Starting troubleshooting in an unfamiliar project.
+
 ```bash
 ls -la
 cat README.md
@@ -2125,6 +2509,10 @@ pgrep -fl node || ps aux | grep '[n]ode'
 ```
 
 ### Git (ultra-short)
+
+**Purpose:** Minimal daily Git workflow.
+
+**When it fails:** Push rejected—`git pull --rebase` then push; conflicts need manual resolution.
 
 ```bash
 git status
@@ -2142,6 +2530,10 @@ git branch -vv
 
 ### Compression
 
+**Purpose:** Shrink files and archives for storage or transfer.
+
+**When it fails:** Wrong `tar` flags (`z` for gzip)—match compress vs extract (`c` vs `x`).
+
 ```bash
 gzip file            # → file.gz
 gunzip file.gz
@@ -2153,17 +2545,25 @@ tar xzf a.tgz
 
 ### Network (Unix)
 
+**Purpose:** Test connectivity, DNS, HTTP, and listening ports.
+
+**When it fails:** `ping` blocked by firewall but HTTP works—use `curl`; `ss` vs `netstat` varies by OS.
+
 | Command | Purpose |
 |---------|---------|
 | `ping host` | ICMP echo (may be blocked) |
 | `curl` | HTTP(S) and more |
 | `nc -vz host 443` | Probe TCP port (if netcat available) |
-| `dig`, `nslookup` | DNS |
+| `dig`, `nslookup` | DNS (Domain Name System) |
 | `ss -lntp` / `netstat` | Listening sockets (tool varies) |
 
 ---
 
 ### `chmod` quick map (octal)
+
+**Purpose:** Set Unix file permissions numerically.
+
+**When it fails:** Too open (`777`) or too tight (no `x` on directory)—match least privilege.
 
 - `7` `rwx` — read+write+execute  
 - `6` `rw-`  
@@ -2176,6 +2576,10 @@ Example: `chmod 640 file` = `rw-r-----`.
 ---
 
 ### Node / npm (short)
+
+**Purpose:** Check versions, install deps, run scripts.
+
+**When it fails:** Use `npm ci` when lockfile exists; `npx` downloads if CLI missing.
 
 ```bash
 node -v
@@ -2190,6 +2594,10 @@ npx eslint .
 
 ### Python venv (short)
 
+**Purpose:** Isolate Python dependencies per project.
+
+**When it fails:** `pip` installs globally—activate venv first (`source .venv/bin/activate`).
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate
@@ -2201,6 +2609,10 @@ Windows: `.\venv\Scripts\Activate.ps1`.
 ---
 
 ### Help systems
+
+**Purpose:** Learn flags for unfamiliar commands on your exact OS version.
+
+**When it fails:** `man` missing on minimal images—use `--help` or `tldr`.
 
 - `man git` — manual pages (Unix).
 - **`tldr command`** — simplified examples (install `tldr` / `tealdeer`).
@@ -2223,10 +2635,9 @@ Windows: `.\venv\Scripts\Activate.ps1`.
 Cross-cutting habits while using the shell (see also [Software engineering](software-engineering.md) for app security and [Servers and networking](servers-and-networking.md) for TLS and network edge).
 
 - **Secrets:** never commit `.env`; treat pasted tokens as compromised if they hit logs or tickets.
-- **SSH:** verify host keys on first connect; use `ForwardAgent` only when needed.
+- **SSH (Secure Shell):** verify host keys on first connect; use `ForwardAgent` only when needed.
 - **Piping installers:** avoid `curl … | bash` from unknown URLs; prefer checksums and pinned versions.
 - **Elevation:** understand scripts fully before escalating privilege (**`sudo`**, tooling-specific admin gates, …).
-- **Permissions:** narrow **`chmod`** to the directories you intend; avoid recursive chmod on **`$HOME`** or system roots by mistake—and treat Windows ACL changes with the same care.
+- **Permissions:** narrow **`chmod`** to the directories you intend; avoid recursive chmod on **`$HOME`** or system roots by mistake—and treat Windows ACL (Access Control List) changes with the same care.
 
 ---
-

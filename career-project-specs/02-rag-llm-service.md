@@ -10,7 +10,7 @@
 
 ## What you will learn
 
-- Ship grounded LLM features with eval JSONL regression
+- Ship grounded LLM (large language model) features with eval JSONL regression
 - Return citations and explicit guardrails / data boundaries
 - Keep a stable `POST /query` contract and structured observability
 - Split LLM logic (Python) from retrieval throughput (Go, later)
@@ -49,7 +49,7 @@ Employers are moving from “prompt in a notebook” to **production AI features
 
 **Why learning this moves the needle**
 
-- **Product reality:** Internal copilots, support assistants, and doc search all need **RAG or tools** plus guardrails; slide-deck demos rarely ship. Hiring managers want evidence you can own **latency, cost, and error budgets** for model calls.
+- **Product reality:** Internal copilots, support assistants, and doc search all need **RAG (retrieval-augmented generation) or tools** plus guardrails; slide-deck demos rarely ship. Hiring managers want evidence you can own **latency, cost, and error budgets** for model calls.
 - **Quality at scale:** **Eval JSONL + regression** is how teams catch regressions when prompts, models, or chunking change—similar to snapshot tests for prose. Without evals, every model bump is **uncontrolled drift**.
 - **Trust and compliance:** **Citations (`cited_chunk_ids`)** support “show your work” for legal, regulated, or enterprise procurement contexts. They also shorten **debugging**: wrong answer often traces to **wrong chunk**, not “the model felt wrong.”
 - **Role fit:** “AI engineer” listings often mean **FastAPI/services + retrieval or orchestration layer + observability**, not only prompt design. Thin HTTP boundaries and loggable **`request_id`** are how you stay employable when the framework du jour changes.
@@ -61,19 +61,27 @@ Employers are moving from “prompt in a notebook” to **production AI features
 - **Runaway spend:** unbounded context, infinite tool loops, or per-request retries cause **cost spikes**; **token counts + latency** in structured logs expose the bad pattern before finance pings you.
 - **Abuse and data boundaries:** users paste **prompt-injecting** text or upload hostile PDFs; security review expects an explicit **allowlist**, data-handling rules, and **what never** goes to the model. A short README section is how you practice that conversation.
 
+### How to talk about this
+
+You ship RAG (retrieval-augmented generation) with eval JSONL regression and citations so model bumps do not silently drift on domain facts. Point to `cited_chunk_ids` when someone asks how you debug a wrong answer—wrong chunk, not “the model felt wrong.” Mention guardrails and data boundaries explicitly: what never goes to the model, how you handle empty retrieval, and how evals gate prompt or model changes before release.
+
 ## Important concepts
 
-### Concept spotlight
+### RAG and eval regression
 
-| **RAG + eval regression** | Maintain eval JSONL; run before release; cite `cited_chunk_ids` in responses |
-| **Guardrails / boundaries** | Document what never goes to the model; handle bad retrieval explicitly |
-| **Contract to retrieval** | Stable `POST /query` JSON; optional Go `/retrieve` boundary ([Project 8](08-go-retrieval-worker-lab.md)) |
-| **Batch embed/index** | Index in batches with documented max size; profile Python path before moving fan-out to Go ([Memory and performance](../docs/concepts/memory-and-performance.md)) |
+Maintain eval JSONL cases in git, run them before release, and return `cited_chunk_ids` in responses so grounding is auditable. Eval regression catches “Paris → London” class failures when prompts, chunking, or models change.
 
-**Interview line:** *“We ship RAG with eval JSONL regression and citations so model bumps don’t silently drift on domain facts.”*
+### Guardrails and boundaries
 
+Document what never goes to the model, handle bad retrieval explicitly (refusal or “no evidence” paths), and keep tool or agent loops on an allowlist with hard caps. Security review expects this conversation in README, not only in slide decks.
 
-**Interview line:** *“We ship RAG with eval JSONL regression and citations so model bumps don’t silently drift on domain facts.”*
+### Contract to retrieval
+
+Keep a stable `POST /query` JSON contract on the Python side; optionally split hot-path retrieval to a Go `/retrieve` boundary ([Project 8](08-go-retrieval-worker-lab.md)). Stable contracts let you swap orchestration libraries without breaking eval tooling or clients.
+
+### Batch embed and index
+
+Index in batches with a documented max size; profile the Python path before moving fan-out to Go ([Memory and performance](../docs/concepts/memory-and-performance.md)). Batch sizing affects memory, cost, and reindex time—document tradeoffs rather than defaulting to “embed everything at once.”
 
 ## Code repo
 

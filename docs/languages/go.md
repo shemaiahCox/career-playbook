@@ -18,7 +18,7 @@
 
 | Go is used for (in scope) | Practice in | Defer (not playbook spine) |
 |---------------------------|-------------|----------------------------|
-| Queue workers, DLQ, ingest jobs | Project 6, Project 8 | Full e‑commerce/blog API in Go (use Project 5/7) |
+| Queue workers, dead-letter queue (DLQ), ingest jobs | Project 6, Project 8 | Full e‑commerce/blog API in Go (use Project 5/7) |
 | Retrieval gateway, chunk fan-out | Project 8 | LLM/evals in Go (use [Project 2](../../career-project-specs/02-rag-llm-service.md)) |
 | Small HTTP service boundaries | Project 8 `/retrieve`, health | Greenfield chat apps unless capstone stretch |
 | CLI / ops probes | Project 8, Project 15 | Backup utilities unrelated to labs |
@@ -35,7 +35,7 @@ Industry context: many **vector DBs**, **workflow engines**, and **K8s tooling**
 
 | Execution | Typing | Memory / concurrency |
 |-----------|--------|----------------------|
-| **AOT compiled** binary (`go build`) | Static typing; structs + methods + **implicit interfaces** | GC; **goroutines** + channels + **`context`** for cancel/timeouts—prefer explicit over shared mutable state |
+| **Ahead-of-time (AOT) compiled** binary (`go build`) | Static typing; structs + methods + **implicit interfaces** | Garbage collection (GC); **goroutines** + channels + **`context`** for cancel/timeouts—prefer explicit over shared mutable state |
 
 ---
 
@@ -87,7 +87,7 @@ myworker/
 **HTTP / workers**
 
 - **`net/http`** stdlib server/client; common pattern for Project 8 gateway and health checks.
-- Queue consumers: **idempotency**, **DLQ**, **max retries** aligned with [Project 6](../../career-project-specs/06-async-worker-stretch.md) semantics.
+- Queue consumers: **idempotency**, **dead-letter queue (DLQ)**, **max retries** aligned with [Project 6](../../career-project-specs/06-async-worker-stretch.md) semantics.
 
 **Observability**
 
@@ -127,4 +127,4 @@ myworker/
 
 - [Language fundamentals comparison — Go](language-fundamentals-comparison.md) — syntax side-by-side
 - [Python stack map](python.md) — LLM/RAG lane beside Go
-- [Rust stack map](rust.md) — Tier-2 after Project 8 Go
+- [Rust stack map](rust.md) — second growth lane after Project 8 Go

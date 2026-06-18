@@ -43,21 +43,41 @@ Ship a **small Rust component** compiled to **WASM** (or a hardened network micr
 
 ### In depth
 
-**Wave 3 — advanced.** Optional after [Project 19](19-rust-hot-path-lab.md). Scope small: one function (e.g. payload normalizer, HMAC verify helper) not a full service.
+**Wave 3 — advanced.** Optional after [Project 19](19-rust-hot-path-lab.md). Scope small: one function (e.g. payload normalizer, hash-based message authentication code (HMAC) verify helper) not a full service.
+
+**Why learning this moves the needle**
+
+- **Trust boundaries:** Sandboxed modules limit blast radius when parsing hostile or third-party payloads.
+- **Composition over rewrite:** One hot function in WebAssembly (WASM) beats re-platforming an entire service for a narrow security or latency win.
+- **Interview differentiation:** Explaining host ABI versioning and sandbox limits shows systems thinking beyond application CRUD.
+
+**Real-world situations this project mirrors**
+
+- **Payload normalization:** untrusted JSON or binary normalized in WASM before the host touches business logic.
+- **ABI evolution:** version field in the foreign function interface (FFI) contract so host and module stay compatible across releases.
+- **Latency tradeoff:** compare WASM invoke overhead vs native Rust for one hot function—document when sandbox cost is acceptable.
+
+### How to talk about this
+
+You isolate payload normalization in WASM with a versioned host application binary interface (ABI) so the module cannot escape the sandbox. When interviewers ask what WASM can do, explain explicit host imports for filesystem or network—default deny. When they ask about failures, describe `Result` to host with documented error codes and no panic in production paths.
 
 ## Important concepts
 
-### Concept spotlight
+### Sandbox boundary
 
-| **Sandbox boundary** | WASM module cannot access host FS/network unless explicit host imports |
-| **No panic in prod path** | `Result` to host; documented error codes |
-| **FFI contract** | Versioned ABI between host (Go/TS) and module |
-| **Linear memory + latency** | Hostile input bounded; compare WASM vs native latency in README ([Memory and performance](../docs/concepts/memory-and-performance.md)) |
+A WASM module cannot access host filesystem or network unless you expose explicit host imports. Default deny keeps untrusted logic contained.
 
-**Interview line:** *“We isolate payload normalization in WASM with a versioned host ABI so the module can’t escape the sandbox.”*
+### No panic in prod path
 
+Return `Result` to the host with documented error codes; never panic across the FFI boundary—a WASM trap should not take down the host process.
 
-**Interview line:** *“We isolate payload normalization in WASM with a versioned host ABI so the module can’t escape the sandbox.”*
+### FFI contract
+
+Version the ABI between host (Go/TypeScript) and module. Breaking changes require a new ABI version; hosts reject mismatched loads.
+
+### Linear memory and latency
+
+Bound hostile input size before copy into linear memory. Compare WASM vs native call latency for one hot function in README ([Memory and performance](../docs/concepts/memory-and-performance.md)).
 
 ## Code repo
 
