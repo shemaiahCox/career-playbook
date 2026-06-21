@@ -54,6 +54,8 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 
 | Doc | Use when |
 |-----|----------|
+| [concepts/concurrency-runtime-model.md](concepts/concurrency-runtime-model.md) | **Layers first** — CPU, OS thread, goroutine, event loop, concurrency vs parallelism |
+| [concepts/concurrency-deep-dives.md](concepts/concurrency-deep-dives.md) | Go M:N scheduler, Node at scale, CPU switching intuition |
 | [concepts/memory-and-performance.md](concepts/memory-and-performance.md) | Measure → profile → fix; latency, throughput, memory |
 | [templates/performance-p4-sql.md](templates/performance-p4-sql.md) · [performance-p8-go.md](templates/performance-p8-go.md) · [performance-p18-proxy.md](templates/performance-p18-proxy.md) | Copy into lab `docs/portfolio/performance.md` |
 

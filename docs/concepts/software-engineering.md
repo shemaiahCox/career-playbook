@@ -593,6 +593,8 @@ Complexity notation, core structures, pattern recognition, and interview flow li
 
 ## Concurrency basics
 
+**Foundational model:** If cores, threads, goroutines, and event loops blur together, read [Concurrency runtime model (Part 1)](concurrency-runtime-model.md) first, then [Concurrency deep dives (Part 2)](concurrency-deep-dives.md). This section covers **production mistakes** (blocking, unbounded pools) once the layers are clear.
+
 A **process** runs in **separate memory**. **Threads** inside one process share memory—without synchronization rules, **data races** (two writers or a writer and reader without coordination) corrupt state. Prefer **immutable data**, **message passing**, or **documented locking** over ad-hoc shared mutable heaps.
 
 ### UI threads and "don't block the main path"

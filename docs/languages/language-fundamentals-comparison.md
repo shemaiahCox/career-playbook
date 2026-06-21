@@ -14,7 +14,7 @@
 |---|---------|---------------|-----------|---------|
 | 1 | Immutability & value vs reference | [Immutability and value vs reference](#immutability-and-value-vs-reference) · [Variables and mutability](#variables-and-mutability) | [Memory and performance](../concepts/memory-and-performance.md) | → 5, 9 |
 | 2 | Closures & variable capture | [Closures and capture gotchas](#closures-and-capture-gotchas) · [Closures (fundamentals)](#closures-functions-that-capture-surroundings) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) | → 10 |
-| 3 | Concurrency models | [Async fundamentals](#async-and-concurrency-fundamentals) · [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency basics](../concepts/software-engineering.md#concurrency-basics) | → 7, 12 |
+| 3 | Concurrency models | [Async fundamentals](#async-and-concurrency-fundamentals) · [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) · [Concurrency basics](../concepts/software-engineering.md#concurrency-basics) | → 7, 12 |
 | 4 | Iterators, generators & lazy evaluation | [Lazy evaluation](#lazy-evaluation-generators-and-iterators) | [Algorithms study path](../concepts/algorithms-study-path.md) | → 9, 11 |
 | 5 | Memory models & lifetimes | [Ownership and memory models](#ownership-borrowing-and-memory-models) | [Memory and performance](../concepts/memory-and-performance.md) | → 1, 10 |
 | 6 | Error handling models | [Error handling](#error-handling) · [Error philosophy](#error-philosophy-and-control-flow) | [Cross-language concepts and gotchas](../concepts/software-engineering.md#cross-language-concepts-and-gotchas) | → 10 |
@@ -23,7 +23,7 @@
 | 9 | Data structures & their costs | [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Project 4](../../career-project-specs/04-sql-performance-lab.md) | → 1, 4 |
 | 10 | Gotchas interviewers love | [Cross-language gotchas](#cross-language-gotchas-interview-favorites) · [Equality gotchas](#equality-gotchas) · [Language gotchas deep dive](language-gotchas-deep-dive.md) (mentor depth, PHP · Python · TS/JS) | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) | → 2, 6, 8 |
 | 11 | Functional programming concepts | [Functional idioms](#functional-idioms-map-filter-reduce) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) | → 4 |
-| 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | → 3, 7 |
+| 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | → 3, 7 |
 | 13 | Design patterns | [Patterns across languages](../concepts/software-engineering.md#patterns-across-languages-go-vs-php-vs-ts-vs-python) | [Design patterns](../concepts/software-engineering.md#design-patterns-gof-style-survey) | — |
 | 14 | API & interface design | — (contract patterns in labs) | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) · [Project 5](../../career-project-specs/05-contract-first-api.md) · [Production readiness](../../checklists/production-readiness.md) | — |
 | 15 | Testing & quality | — (per-project test plans) | [Per-project testing](../concepts/per-project-testing.md) · [Software engineering — Testing](../concepts/software-engineering.md#testing) | — |
@@ -2456,6 +2456,8 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 **Why:** Unbounded goroutines or blocking the event loop fail under real load.
 
 **When:** Queue workers (Project 6/8), Node fan-out (Project 7), realtime labs.
+
+**Layers first:** [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md). **Deep dives:** [Go scheduler, Node scale, CPU pipeline (Part 2)](../concepts/concurrency-deep-dives.md).
 
 **Key takeaway:** Concurrency overlaps work; parallelism uses multiple CPUs—bound I/O with async and pools; never spawn unbounded goroutines on CPU-heavy loops.
 

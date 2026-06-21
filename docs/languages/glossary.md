@@ -17,6 +17,9 @@ Jump to **Plain language** sections at the bottom of each ecosystem map. Each ma
 | **RLS** | Postgres Row-Level Security—DB-enforced tenant row filters | [Glossary — RLS](../concepts/software-engineering-glossary.md#row-level-security-rls) |
 | **CDC** | Change Data Capture—stream DB row changes to downstream consumers | [Database design — CDC](../concepts/database-design.md#change-data-capture) |
 | **Reconcile loop** | Observe → diff → apply → requeue (K8s controllers) | [Project 17](../../career-project-specs/17-k8s-controller-lab.md) |
+| **Goroutine** | Go runtime lightweight task—not one OS thread each | [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) |
+| **Event loop** | Node's single thread scheduling I/O callbacks | [Part 1](../concepts/concurrency-runtime-model.md) · [Node at scale (Part 2)](../concepts/concurrency-deep-dives.md#node-event-loop-at-scale) |
+| **Concurrency vs parallelism** | Many tasks in progress vs many executing at once on multiple cores | [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) |
 
 | Map | Jump to definitions |
 |-----|---------------------|

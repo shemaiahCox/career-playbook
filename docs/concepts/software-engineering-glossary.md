@@ -236,11 +236,23 @@ Consistent hashing maps keys to nodes on a ring so adding or removing a shard on
 
 **See also:** [Database design — Sharding and partitioning](database-design.md#sharding-and-partitioning); [System design interview map — URL shortener](../career/system-design-interview-map.md)
 
+### Concurrency
+
+Concurrency means many tasks making progress at once—even on one CPU core, through time-slicing or interleaved I/O waits. It is a structuring idea: goroutines, async tasks, and event loops express concurrent programs. Concurrency does not require multiple cores; parallelism does.
+
+**See also:** [Concurrency runtime model (Part 1)](concurrency-runtime-model.md); [Parallelism](#parallelism)
+
 ### Conway's law
 
 Conway's law says system architecture tends to mirror communication structure—if three teams never talk, you get three services with awkward integration. Use it when deciding monolith versus split: one team often favors a modular monolith; many teams may need clearer service boundaries. It is a lens for org fit, not a rule to microservice everything.
 
 **See also:** [Architecture checklist — organizational fit](../../checklists/architecture-checklist.md); [Modular monolith](#modular-monolith)
+
+### Core (CPU)
+
+A core is an independent execution unit on a CPU chip—each core runs one instruction stream at a time at the hardware level you care about for system design. Parallelism at the machine level starts with core count: eight cores can execute eight streams simultaneously (hyper-threading adds logical streams but is not a full extra core). Runtime schedulers map goroutines or OS threads onto cores.
+
+**See also:** [Concurrency runtime model (Part 1)](concurrency-runtime-model.md)
 
 ---
 
@@ -328,6 +340,12 @@ An eval (evaluation) is a fixed test set—often JSONL—of prompts and expected
 
 **See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
 
+### Event loop
+
+An event loop is a runtime pattern where one thread schedules callbacks when I/O completes—used by Node.js, Python asyncio, and browser JavaScript. It gives concurrency for network-heavy work without one OS thread per connection. It does not parallelize CPU-heavy JavaScript on the main thread; offload that to worker threads or another service.
+
+**See also:** [Concurrency runtime model (Part 1)](concurrency-runtime-model.md); [Node event loop at scale (Part 2)](concurrency-deep-dives.md#node-event-loop-at-scale)
+
 ### Exactly-once (and why people say "effectively-once")
 
 Exactly-once delivery is often marketed as a messaging guarantee, but in distributed systems you usually implement at-least-once delivery plus idempotent handling. That way duplicates do not cause extra side effects—"effectively once" from the business perspective. True exactly-once end-to-end is extremely hard and usually delegated to transactional outbox patterns or idempotent consumers.
@@ -389,6 +407,18 @@ Graceful shutdown means that on deploy or SIGTERM, a process stops accepting new
 GraphQL is an API style where clients ask for specific fields in one query, reducing over-fetching and under-fetching compared to fixed REST responses. It is flexible for client teams but servers must watch performance—especially resolver N+1 issues where one query triggers a database round trip per row. Schema and resolvers are the server-side contract.
 
 **See also:** [GraphQL, gRPC, and webhooks](software-engineering.md#graphql-grpc-and-webhooks)
+
+### GOMAXPROCS
+
+GOMAXPROCS is a Go runtime setting that limits how many operating-system threads execute Go code simultaneously—defaulting to the number of logical CPUs. It controls how much **parallelism** Go uses on multi-core machines; it does not replace bounded worker pools or semaphores on I/O fan-out. Set to 1 when debugging single-core behavior.
+
+**See also:** [Go M:N scheduler (Part 2)](concurrency-deep-dives.md#go-mn-scheduler); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md)
+
+### Goroutine
+
+A goroutine is a lightweight concurrent task scheduled by the Go runtime—not one OS thread per goroutine. The runtime multiplexes many goroutines onto fewer threads (M:N scheduling). Goroutines are cheap to create but still need bounds, context cancellation, and channel or mutex discipline under load.
+
+**See also:** [Concurrency runtime model (Part 1)](concurrency-runtime-model.md); [Goroutines vs OS threads (Part 2)](concurrency-deep-dives.md#goroutines-vs-os-threads)
 
 ### gRPC
 
@@ -546,6 +576,12 @@ Metrics are numeric measurements over time—request rates, latency percentiles,
 
 **See also:** [Observability: logs, metrics, traces](software-engineering.md#observability-logs-metrics-traces)
 
+### M:N scheduling
+
+M:N scheduling maps many user-space tasks (M) onto fewer OS threads (N)—Go's goroutine scheduler is the classic example. The runtime parks blocked tasks and runs ready ones on available threads, so I/O-heavy programs need fewer OS threads than one-thread-per-task designs. Java virtual threads and Rust tokio use similar ideas with different implementations.
+
+**See also:** [Go M:N scheduler (Part 2)](concurrency-deep-dives.md#go-mn-scheduler); [Goroutine](#goroutine)
+
 ### Microservices
 
 Microservices means many small independently deployable services instead of one big application (a monolith). Teams gain autonomy and independent scaling but pay in operational and network complexity—distributed tracing, versioning, and failure modes multiply. It is a organizational and scaling tradeoff, not a default architecture.
@@ -665,6 +701,12 @@ A partition key is the field that decides which shard or database partition owns
 Latency percentiles describe the distribution of response times—if p95 latency is 300ms, 95% of requests finished within 300ms. The slow tail (p99 and above) is what SLOs (Service Level Objectives) and users often feel, while averages hide outliers. Always report percentiles alongside averages when discussing performance.
 
 **See also:** [Memory and performance](memory-and-performance.md); [Project 3 — Observability](../../career-project-specs/03-observability-lab.md)
+
+### Parallelism
+
+Parallelism means many tasks execute at the same instant—requiring multiple CPU cores or machines. It is a subset of concurrency: all parallel programs are concurrent, but a single-core event loop can be concurrent without being parallel. CPU-bound work needs parallelism; I/O-bound work often needs only concurrency.
+
+**See also:** [Concurrency](#concurrency); [Concurrency runtime model (Part 1)](concurrency-runtime-model.md)
 
 ### Poison message
 

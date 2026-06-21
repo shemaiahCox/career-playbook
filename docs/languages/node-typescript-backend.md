@@ -105,7 +105,7 @@ my-api/
 Read this **after** the tables if the jargon felt dense.
 
 - **Node.js** — JavaScript runtime built on V8, oriented to **non-blocking I/O** (network, filesystem callbacks).
-- **Event loop** — One thread schedules callbacks when I/O completes; it is **not** a free parallel CPU machine for heavy compute.
+- **Event loop** — One thread schedules callbacks when I/O completes; it is **not** a free parallel CPU machine for heavy compute. Layers: [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) · scale: [Node event loop at scale (Part 2)](../concepts/concurrency-deep-dives.md#node-event-loop-at-scale).
 - **npm / pnpm / yarn** — Package managers; **lockfile** pins transitive versions for reproducible builds.
 - **`package.json`** — Manifest: dependencies, scripts (`npm test`, `npm run dev`), sometimes `"type": "module"`.
 - **TypeScript** — Typed JavaScript; **`tsc`** emits JS; **`strict`** catches many null and shape bugs early.
@@ -121,6 +121,7 @@ Read this **after** the tables if the jargon felt dense.
 
 - **[Language gotchas deep dive](language-gotchas-deep-dive.md)** — JS/TS sections: truthiness, loop capture, floats, hoisting, `this`, ASI, NaN (#1, #3, #5, #8, #11, #14, #17, #20).
 - **[Concurrency basics](../concepts/software-engineering.md#concurrency-basics)** — event loop vs workers on your stack.
+- **[Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md)** · **[Deep dives (Part 2)](../concepts/concurrency-deep-dives.md)** — layers before operational patterns.
 - **[Example: idempotent webhook or job](../concepts/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — HTTP + retries at integration edges.
 - **[ORMs and the N+1 pattern](../concepts/database-design.md#orms-and-the-n1-query-pattern)** — ORM-shaped data access.
 - **[Observability: logs, metrics, traces](../concepts/software-engineering.md#observability-logs-metrics-traces)** — correlation across services.

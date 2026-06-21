@@ -31,10 +31,10 @@
 ## Before you start
 
 - **New to Go?** → [Go map](../docs/languages/go.md) · [Stacks glossary](../docs/languages/glossary.md)
-- **Cross-stack depth:** [Generators and iterators](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators) · [Concurrency beyond syntax](../docs/languages/language-fundamentals-comparison.md#concurrency-beyond-syntax)
+- **Cross-stack depth:** [Concurrency runtime model (Part 1)](../docs/concepts/concurrency-runtime-model.md) · [Concurrency deep dives — Go scheduler (Part 2)](../docs/concepts/concurrency-deep-dives.md#go-mn-scheduler) · [Concurrency beyond syntax](../docs/languages/language-fundamentals-comparison.md#concurrency-beyond-syntax)
 - **Brokers (career context):** [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
 - **Deep dive (optional):** [Architecture framework](../docs/concepts/architecture-framework.md) · [Systems integration architect — Pillar 1](../docs/concepts/systems-integration-architect.md)
-- **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency](../docs/concepts/software-engineering.md#concurrency-basics) · [Memory and performance](../docs/concepts/memory-and-performance.md)
+- **Handbook:** [Integration](../docs/concepts/software-engineering.md#integration-sync-async-and-messaging) · [Concurrency runtime model (Part 1)](../docs/concepts/concurrency-runtime-model.md) · [Concurrency](../docs/concepts/software-engineering.md#concurrency-basics) · [Memory and performance](../docs/concepts/memory-and-performance.md)
 
 ## Problem
 

@@ -109,13 +109,14 @@ myworker/
 
 | Term | Means |
 |------|--------|
-| **Goroutine** | Lightweight concurrent task scheduled by the Go runtime—not an OS thread per goroutine. |
+| **Goroutine** | Lightweight concurrent task scheduled by the Go runtime—not an OS thread per goroutine. See [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) and [Go M:N scheduler (Part 2)](../concepts/concurrency-deep-dives.md#go-mn-scheduler). |
 | **`context`** | Carries deadlines and cancellation through API calls—use in HTTP handlers and workers. |
 | **Module** | Your project’s import path root (`go.mod`). |
 | **Interface** | Set of methods; types satisfy interfaces **implicitly** (no `implements` keyword). |
 
 ### Read next (handbook)
 
+- [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) · [Deep dives (Part 2)](../concepts/concurrency-deep-dives.md)
 - [Concurrency basics](../concepts/software-engineering.md#concurrency-basics)
 - [Memory and performance](../concepts/memory-and-performance.md)
 - [Integration: sync, async, messaging](../concepts/software-engineering.md#integration-sync-async-and-messaging)

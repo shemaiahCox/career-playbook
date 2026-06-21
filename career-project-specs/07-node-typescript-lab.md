@@ -30,7 +30,7 @@
 
 - **New to TypeScript/Node?** → [Node + TS map](../docs/languages/node-typescript-backend.md) · [Stacks glossary](../docs/languages/glossary.md)
 - **Handbook:** [REST](../docs/concepts/software-engineering.md#rest) · [Language fundamentals](../docs/languages/language-fundamentals-comparison.md)
-- **Cross-stack depth:** [Generators and event-loop gotchas](../docs/languages/language-fundamentals-comparison.md#lazy-evaluation-generators-and-iterators) · [Concurrency beyond syntax](../docs/languages/language-fundamentals-comparison.md#concurrency-beyond-syntax)
+- **Cross-stack depth:** [Concurrency runtime model (Part 1)](../docs/concepts/concurrency-runtime-model.md) · [Node event loop at scale (Part 2)](../docs/concepts/concurrency-deep-dives.md#node-event-loop-at-scale) · [Concurrency beyond syntax](../docs/languages/language-fundamentals-comparison.md#concurrency-beyond-syntax)
 
 ## Problem
 
