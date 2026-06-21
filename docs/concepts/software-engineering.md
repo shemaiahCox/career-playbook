@@ -35,6 +35,7 @@ This handbook explains how to build maintainable systems, ship safely, and talk 
 - [Code review and documentation](#code-review-and-documentation)
 - [Observability: logs, metrics, traces](#observability-logs-metrics-traces)
 - [Security for applications](#security-for-applications)
+- [Auth and tenancy](#auth-and-tenancy)
 - [Cross-language concepts and gotchas](#cross-language-concepts-and-gotchas)
 - [Data structures and algorithms](#data-structures-and-algorithms)
 - [Concurrency basics](#concurrency-basics)
@@ -537,6 +538,45 @@ For the **measure → profile → fix → verify** workflow, see [Memory and per
 
 ---
 
+## Auth and tenancy
+
+Senior backend and B2B SaaS work expects you to separate **who** the caller is from **what tenant's data** they may touch.
+
+### Session cookie vs JWT bearer
+
+| Model | How it works | Revocation | Typical use |
+|-------|----------------|------------|-------------|
+| **Server session** | Opaque cookie → session row in Redis/DB | Delete session instantly | Traditional web apps, cookie auth |
+| **JWT bearer** | Signed token with claims (`sub`, `tenant_id`, roles) | Short TTL + refresh token or denylist | SPAs, mobile, service-to-service |
+
+Both can carry `tenant_id`. **Never** trust tenant or role from an unsigned request body—read it from the verified session or JWT after signature check. See [Illustrative snippets — JWT tenant middleware](illustrative-snippets.md).
+
+### OAuth 2.0 and OIDC roles
+
+**OAuth 2.0** delegates authorization ("this app may access my calendar"). **OpenID Connect (OIDC)** adds identity: after login the client receives an **ID token** (often a JWT) naming the user.
+
+| Role | Responsibility |
+|------|----------------|
+| **Client** | Your web or mobile app initiating login |
+| **Authorization server (IdP)** | Google, Auth0, Okta—issues tokens |
+| **Resource server** | Your API—validates token and enforces scopes |
+
+**Scopes** limit what the token may do (`read:orders`). **PKCE** protects public clients (browser, mobile) during authorization-code exchange. Your API still runs authorization on every request—OIDC proves identity at login, not per-endpoint access control.
+
+### Multi-tenant isolation patterns
+
+| Pattern | Isolation | Tradeoff |
+|---------|-----------|----------|
+| **App-layer `tenant_id`** | Every query includes `WHERE tenant_id = ?` | Simple; one missed filter leaks data |
+| **Postgres Row-Level Security (RLS)** | Database enforces row filter per session | Defense in depth; policy + connection setup |
+| **Database per tenant** | Hard boundary | Ops cost; enterprise tier only |
+
+**Interview line:** "JWT carries `tenant_id`; middleware sets request context; repository layer scopes every read and write—authorization, not just authentication."
+
+**Labs:** [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md) · Glossary: [JWT](software-engineering-glossary.md#jwt-json-web-token), [OAuth / OIDC](software-engineering-glossary.md#oauth--oidc), [Multi-tenancy](software-engineering-glossary.md#multi-tenancy--tenant-isolation), [RLS](software-engineering-glossary.md#row-level-security-rls)
+
+---
+
 ## Cross-language concepts and gotchas
 
 Syntax fundamentals—variables, functions, classes, collections, errors, nulls, async—live in [Language fundamentals comparison](../languages/language-fundamentals-comparison.md) with side-by-side snippets across JavaScript, TypeScript, PHP, Go, Rust, and others.
@@ -600,6 +640,8 @@ Use this as a self-test after reading the sections above:
 - **Idempotency** and HTTP methods.
 - **Testing pyramid**; difference **mock** vs **fake**.
 - **Microservices** vs **monolith** tradeoffs.
+- **Session vs JWT**; where `tenant_id` must come from ([Auth and tenancy](#auth-and-tenancy)).
+- **OAuth/OIDC** roles (client, IdP, resource server) in one sentence each.
 - **Observability** three pillars; **SLI vs SLO**.
 - **OWASP** top-level categories you have mitigated in code.
 - **Big-O** of a nested loop; when a **hash map** helps ([Algorithms and data structures](algorithms-and-data-structures.md)).

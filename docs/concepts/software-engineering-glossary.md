@@ -6,6 +6,8 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **Related:** stack-specific blurbs live in [Stacks glossary](../languages/glossary.md) (links into ecosystem maps).
 
+**Architecture checklist terms:** vocabulary from the [real-world architecture checklist](../../checklists/architecture-checklist.md)—[Conway's law](#conway's-law) (org fit), [strangler-fig](#strangler-fig-pattern) (legacy migration), [C4 model](#c4-model) (diagram levels), [NFR](#non-functional-requirements-nfr) (latency, scale, compliance), [error budget](#sla--slo--sli) (SLO tradeoffs with shipping).
+
 ---
 
 ## Jump to letter
@@ -27,6 +29,12 @@ ACID is a checklist for safe database transactions. **A**tomicity means all step
 An ADR (Architecture Decision Record) is a short write-up of an important technical choice: what you decided, why, and what you expect to trade off. It captures context that is easy to lose once the debate ends. Future you and your teammates can read it instead of re-litigating the same argument months later.
 
 **See also:** [Code review and documentation — ADRs](software-engineering.md#code-review-and-documentation)
+
+### AsyncAPI
+
+AsyncAPI is a machine-readable standard for describing event-driven APIs—topics, channels, payloads—similar to how OpenAPI describes HTTP endpoints. Teams use it for contract review between event producers and consumers. Pair AsyncAPI with schema registries or shared protobuf/JSON schemas when many services subscribe to the same events.
+
+**See also:** [OpenAPI](#openapi); [Event-driven architecture](#event-driven-architecture); [Architecture checklist — API/event contract](../../checklists/architecture-checklist.md)
 
 ### API (Application Programming Interface)
 
@@ -110,6 +118,12 @@ Bounded concurrency means putting a fixed cap on how many jobs or requests run a
 
 **See also:** [Concurrency basics](software-engineering.md#concurrency-basics); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md)
 
+### Bloom filter
+
+A Bloom filter is a compact probabilistic structure that answers "maybe in the set" or "definitely not in the set"—it never gives a false negative but may give false positives you tune away. It saves memory when you only need approximate membership at huge scale, such as CDN edge caches or deduplication hints. When a false positive is acceptable, Bloom filters beat storing every key in a hash set.
+
+**See also:** [Algorithms and data structures — Bloom filter](algorithms-and-data-structures.md#bloom-filter-and-bitmap-vocabulary)
+
 ---
 
 ## C
@@ -150,6 +164,12 @@ Connection pooling means reusing open database or HTTP connections instead of op
 
 **See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md); [Memory and performance](memory-and-performance.md)
 
+### Contract testing
+
+Contract testing verifies that an API provider and consumer still agree on request/response shapes without running the full system end to end. OpenAPI diff in CI is a lightweight form: fail the build when the spec changes without a version bump or consumer update. Consumer-driven contracts (Pact-style) go further by testing that each side honors the shared schema.
+
+**See also:** [OpenAPI](#openapi); [Project 5 — Contract-first API](../../career-project-specs/05-contract-first-api.md)
+
 ### Correlation ID / request_id
 
 A correlation ID (sometimes called request_id) is a unique identifier attached to one request or business event and copied into every log and downstream call. When something fails, you can grep or trace that single ID across services instead of guessing which log lines belong together. It is one of the cheapest wins in observability for distributed systems.
@@ -180,11 +200,47 @@ A CRD (Custom Resource Definition) is a Kubernetes extension that adds your own 
 
 **See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
 
+### C4 model
+
+The C4 model is a layered diagram vocabulary for software architecture: **C**ontext (system and users), **C**ontainers (apps and data stores), **C**omponents (modules inside a container), and optional **C**ode. Portfolio artifacts in this playbook expect at least context plus container views. It gives reviewers a shared zoom level without full Unified Modeling Language (UML) ceremony.
+
+**See also:** [Architecture checklist — documentation deliverables](../../checklists/architecture-checklist.md); [Systems integration architect](systems-integration-architect.md)
+
 ### CSRF (Cross-Site Request Forgery)
 
 CSRF (Cross-Site Request Forgery) is an attack that tricks a logged-in user's browser into submitting a request your site will accept—often using cookies the browser sends automatically. Defenses include anti-CSRF tokens, same-site cookies, and requiring re-authentication for sensitive actions. Any endpoint that mutates state via cookie-based auth needs CSRF protection.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
+
+### Cache stampede
+
+A cache stampede happens when many requests miss a hot cache key at once—often because it expired—and all hammer the database or origin at the same time. Defenses include singleflight (only one refresh in flight), probabilistic early expiration, and locking around rebuild. It is a classic failure mode when read-heavy APIs rely on TTL-based caching without coordination.
+
+**See also:** [Memory and performance — caching](memory-and-performance.md); [System design interview map — failure modes](../career/system-design-interview-map.md)
+
+### CDN (Content Delivery Network)
+
+A CDN (Content Delivery Network) is a geographically distributed cache of static or cacheable content—images, JavaScript bundles, short URL redirects—served from edge locations close to users. It reduces latency and origin load for read-heavy workloads. Pair a CDN with cache headers and invalidation strategy; do not treat it as a substitute for application-level authorization.
+
+**See also:** [Servers and networking](servers-and-networking.md); [System design interview map — URL shortener](../career/system-design-interview-map.md)
+
+### Change Data Capture (CDC)
+
+Change Data Capture (CDC) streams row-level changes from a primary database to downstream consumers—search indexes, warehouses, analytics pipelines. Consumers operate under eventual consistency: they lag the source by some interval. CDC decouples OLTP from read models without polling every table on a schedule, and often pairs with Kafka or an outbox publisher.
+
+**See also:** [Database design — Change data capture](database-design.md#change-data-capture); [Outbox pattern](#outbox-pattern)
+
+### Consistent hashing
+
+Consistent hashing maps keys to nodes on a ring so adding or removing a shard only remaps a fraction of keys—not the entire keyspace. Virtual nodes spread load more evenly across physical servers. You will hear it in URL shortener and sharding discussions when you need horizontal scale without rebalancing everything on every topology change.
+
+**See also:** [Database design — Sharding and partitioning](database-design.md#sharding-and-partitioning); [System design interview map — URL shortener](../career/system-design-interview-map.md)
+
+### Conway's law
+
+Conway's law says system architecture tends to mirror communication structure—if three teams never talk, you get three services with awkward integration. Use it when deciding monolith versus split: one team often favors a modular monolith; many teams may need clearer service boundaries. It is a lens for org fit, not a rule to microservice everything.
+
+**See also:** [Architecture checklist — organizational fit](../../checklists/architecture-checklist.md); [Modular monolith](#modular-monolith)
 
 ---
 
@@ -277,6 +333,12 @@ An eval (evaluation) is a fixed test set—often JSONL—of prompts and expected
 Exactly-once delivery is often marketed as a messaging guarantee, but in distributed systems you usually implement at-least-once delivery plus idempotent handling. That way duplicates do not cause extra side effects—"effectively once" from the business perspective. True exactly-once end-to-end is extremely hard and usually delegated to transactional outbox patterns or idempotent consumers.
 
 **See also:** [Message queues and delivery semantics](software-engineering.md#message-queues-and-delivery-semantics)
+
+### Expand/contract migration
+
+Expand/contract is a zero-downtime schema migration pattern: expand by adding a new nullable column or table, backfill data in the background, switch application code to read/write the new shape, then contract by dropping the old column. Rushing a breaking change in one deploy step locks tables or breaks running instances during rolling deploys. Laravel, SQL, and Postgres labs in this playbook reference the same discipline.
+
+**See also:** [Database design — Migrations](database-design.md#migrations); [SQL ecosystem map — migrations](../languages/sql.md)
 
 ---
 
@@ -378,6 +440,18 @@ Idempotency means doing the same operation twice has the same effect as doing it
 
 **See also:** [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer)
 
+### IaaS / PaaS / SaaS
+
+Cloud service models describe who manages what. **IaaS** (Infrastructure as a Service)—virtual machines, networks—you manage OS and apps. **PaaS** (Platform as a Service)—managed runtimes like Heroku or Cloud Run—you deploy code; the platform runs containers. **SaaS** (Software as a Service)—complete products like Salesforce—you configure and integrate. Pick based on control versus operational burden.
+
+**See also:** [Servers and networking — Cloud models](servers-and-networking.md)
+
+### Inverted index / BM25 (vocabulary)
+
+An inverted index maps terms to document IDs—the core of full-text search engines. **BM25** (Best Matching 25) is a ranking function that scores how well a document matches a query, balancing term frequency and document length. You do not implement BM25 from scratch in most apps; you need the vocabulary for search and autocomplete system design interviews.
+
+**See also:** [Algorithms and data structures — Trie](algorithms-and-data-structures.md); [Project 25 — Search autocomplete](../../career-project-specs/25-search-autocomplete-lab.md)
+
 ### Integration test
 
 An integration test uses real pieces working together—a database, HTTP server, or queue—rather than mocks for everything. It is usually slower than a unit test but catches wiring and configuration issues unit tests miss. Most teams run a subset on every commit and a larger set before release.
@@ -406,9 +480,21 @@ JSON (JavaScript Object Notation) is a common text format for APIs—structured 
 
 **See also:** [REST](software-engineering.md#rest)
 
+### JWT (JSON Web Token)
+
+A JWT (JSON Web Token) is a signed, often base64-encoded payload that carries claims such as user ID and tenant ID between services or from server to client. The server verifies the signature with a shared secret or public key before trusting claims—never trust tenant or role data from an unsigned client body. JWTs are stateless for the server but harder to revoke instantly than server-side sessions unless you add a blocklist or short expiry.
+
+**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Illustrative snippets — JWT tenant middleware](illustrative-snippets.md); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md)
+
 ---
 
 ## K
+
+### Kafka, Redis, and NATS (message brokers)
+
+These are common message brokers with different sweet spots. **Redis** lists/streams are fast and simple for local iteration and moderate durability. **Kafka** is a durable append-only log with replay and high fan-out—heavier ops, standard at scale. **NATS** is lightweight pub/sub with optional JetStream persistence. Same playbook skills—idempotency, DLQ, bounded workers—transfer across brokers; interviewers care that you know tradeoffs, not every broker API.
+
+**See also:** [Messaging and RPC](messaging-and-rpc.md); [Architecture framework — broker table](architecture-framework.md#pillar-2--integration-and-messaging)
 
 ### Keyset (cursor) pagination
 
@@ -478,6 +564,12 @@ A modular monolith is one deployable application with clean internal modules and
 
 **See also:** [Architectural patterns](software-engineering.md#architectural-patterns)
 
+### Multi-tenancy / tenant isolation
+
+Multi-tenancy means one application instance serves many customers (tenants) with data separated so tenant A never reads tenant B's rows. Isolation can live in application code (`WHERE tenant_id = ?` on every query), in Postgres Row-Level Security (RLS), or in separate databases per tier. Senior interview line: the JWT or session carries `tenant_id`; every data path scopes by it—authorization, not just authentication.
+
+**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md); [Database design — Data and access security](database-design.md#data-and-access-security)
+
 ---
 
 ## N
@@ -487,6 +579,18 @@ A modular monolith is one deployable application with clean internal modules and
 The N+1 query problem is a performance bug where code runs one query per row instead of fetching in bulk—for example loading 100 authors with 101 database round trips (one for the list plus one per author). ORMs make this easy to accidentally introduce through lazy loading. Fix it with eager loading, joins, or batch queries.
 
 **See also:** [Database design — N+1](database-design.md#orms-and-the-n1-query-pattern)
+
+### Noisy neighbor
+
+A noisy neighbor is one tenant or workload that consumes disproportionate CPU, memory, I/O, or connection pool slots and degrades others on shared infrastructure. Defenses include per-tenant rate limits, connection caps, separate queues, and isolating large customers to dedicated resources. Multi-tenant SaaS design interviews often ask how you prevent one customer from starving the rest.
+
+**See also:** [Multi-tenancy / tenant isolation](#multi-tenancy--tenant-isolation); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md); [Rate limiting (429)](#rate-limiting-429)
+
+### Non-functional requirements (NFR)
+
+Non-functional requirements (NFRs) describe how a system should behave—not feature lists but qualities: latency targets, availability, scale (queries per second, storage growth), security class, compliance, and operability. System design interviews start by separating functional requirements from NFRs because architecture follows constraints. Capture NFRs before irreversible stack choices.
+
+**See also:** [Architecture checklist — Phase 1 feasibility](../../checklists/architecture-checklist.md); [SLA / SLO / SLI](#sla--slo--sli); [System design interview map](../career/system-design-interview-map.md)
 
 ---
 
@@ -528,6 +632,18 @@ OWASP (Open Web Application Security Project) maintains a well-known catalogue o
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
+### OAuth / OIDC
+
+OAuth 2.0 is a framework for delegated authorization—"allow this app to act on my behalf"—without sharing your password. OpenID Connect (OIDC) adds identity on top: after login you get an ID token (often a JWT) with who the user is. Roles in conversation: client app, authorization server (IdP), and resource server (your API). B2B SaaS and "Sign in with Google" flows use OIDC; your API still enforces authorization on every request.
+
+**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [OAuth scopes and PKCE](#oauth-scopes-and-pkce); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md)
+
+### OAuth scopes and PKCE
+
+OAuth **scopes** limit what a token may do—`read:orders` versus `write:orders`—and should be checked on every protected endpoint. **PKCE** (Proof Key for Code Exchange) protects public clients (mobile, SPA) during authorization-code flows by binding the code exchange to a one-time verifier. Modern OIDC setups require PKCE for browser and native apps; server-side confidential clients use client secrets instead.
+
+**See also:** [OAuth / OIDC](#oauth--oidc); [Auth and tenancy](software-engineering.md#auth-and-tenancy)
+
 ---
 
 ## P
@@ -537,6 +653,12 @@ OWASP (Open Web Application Security Project) maintains a well-known catalogue o
 Pagination means returning large lists in chunks instead of all at once. Offset pagination (`page=2&size=20`) is simple but can skip or duplicate rows if data changes while the client pages. Cursor pagination is often more stable for live APIs and large datasets.
 
 **See also:** [REST](software-engineering.md#rest)
+
+### Partition key / sharding
+
+A partition key is the field that decides which shard or database partition owns a row—for example `tenant_id` or a hash of `short_code`. Sharding splits data across multiple databases or nodes when one instance cannot hold the load or storage. Choose keys that keep related queries co-located and avoid hot partitions where one key dominates traffic.
+
+**See also:** [Database design — Sharding and partitioning](database-design.md#sharding-and-partitioning); [Project 4 — SQL performance](../../career-project-specs/04-sql-performance-lab.md)
 
 ### p50 / p95 / p99 (latency percentiles)
 
@@ -600,6 +722,12 @@ A reconcile loop is a control pattern: observe current state, diff it against de
 
 **See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
 
+### Replication lag / read replica
+
+A read replica is a copy of the primary database that serves read queries to scale read traffic. Replication lag is the delay before a write on the primary appears on the replica—reads may be stale during that window. Under CAP vocabulary, favoring availability and partition tolerance often means accepting eventual consistency on replicas; do not route "must be fresh" reads to a lagging replica without checking.
+
+**See also:** [Database design — Replication and read scaling](database-design.md#replication-and-read-scaling); [Eventual consistency](#eventual-consistency)
+
 ### REST
 
 REST (Representational State Transfer) is a common style for HTTP APIs: resources at URLs, HTTP methods (GET, POST, PUT, PATCH, DELETE) with conventional meaning, and status codes that communicate outcome. It is often paired with JSON bodies and stateless servers. REST is a set of constraints and conventions, not a single RFC you can compliance-test against.
@@ -618,6 +746,12 @@ A reverse proxy sits in front of your application and terminates TLS, routes pat
 
 **See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md); [Servers and networking](servers-and-networking.md)
 
+### Row-Level Security (RLS)
+
+Row-Level Security (RLS) is a Postgres feature where the database enforces row filters per role or session— for example `tenant_id = current_setting('app.tenant_id')`. It adds defense in depth when application code forgets a `WHERE` clause. Tradeoffs include policy complexity, migration discipline, and connection/session setup to set tenant context on every request.
+
+**See also:** [Database design — Data and access security](database-design.md#data-and-access-security); [Multi-tenancy / tenant isolation](#multi-tenancy--tenant-isolation); [Architecture framework — Pillar 3](architecture-framework.md#pillar-3--data-architecture)
+
 ---
 
 ## S
@@ -627,6 +761,18 @@ A reverse proxy sits in front of your application and terminates TLS, routes pat
 SAST (Static Application Security Testing) scans source code—and sometimes configuration—without executing the application. It finds classes of bugs like injection sinks and hard-coded secrets early in CI (Continuous Integration), often called "shifting left." SAST produces false positives, so teams tune rules and triage findings rather than blocking on every warning.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
+
+### SOLID
+
+SOLID is five object-oriented design principles: **S**ingle responsibility (one reason to change), **O**pen/closed (extend without modifying), **L**iskov substitution (subtypes honor contracts), **I**nterface segregation (small focused interfaces), **D**ependency inversion (depend on abstractions). They guide maintainable modules—not rules to recite in every CRUD app, but vocabulary for why you inject dependencies or split god objects.
+
+**See also:** [SOLID](software-engineering.md#solid); [Dependency injection](#dependency-injection)
+
+### SSE and WebSocket
+
+SSE (Server-Sent Events) is one-way HTTP push from server to browser with automatic reconnect—good for live dashboards and LLM token streams. WebSockets are full-duplex persistent connections—better for chat, games, and high-frequency bidirectional updates. Both avoid polling; choose based on directionality, infrastructure support, and scale (WebSocket fan-out is harder than SSE behind standard HTTP proxies).
+
+**See also:** [Servers and networking — WebSockets](servers-and-networking.md); [Project 13 — Real-time dashboard](../../career-project-specs/13-realtime-dashboard-lab.md)
 
 ### Saga
 
@@ -644,7 +790,21 @@ SemVer (Semantic Versioning) uses version numbers like `MAJOR.MINOR.PATCH`. Bump
 
 An SLI (Service Level Indicator) is what you measure—latency, error rate, availability. An SLO (Service Level Objective) is an internal target built on SLIs, such as "99.9% of requests under 300ms." An SLA (Service Level Agreement) is a customer-facing promise with consequences if you miss it. SLOs drive engineering priorities; SLAs drive contracts.
 
-**See also:** [Observability — SLI / SLO / SLA](software-engineering.md#observability-logs-metrics-traces)
+An **error budget** is the allowed unreliability before you must stop shipping risky changes—if your SLO is 99.9% availability, you have roughly 0.1% downtime budget per window. When the budget is exhausted, teams focus on stability over new features until metrics recover. Error budgets connect product velocity to operational risk in a measurable way.
+
+**See also:** [Observability — SLI / SLO / SLA](software-engineering.md#observability-logs-metrics-traces); [Architecture checklist — success metrics](../../checklists/architecture-checklist.md)
+
+### Session vs JWT (tradeoffs)
+
+A **session** stores server-side state keyed by an opaque cookie—the server can revoke access instantly by deleting the session. A **JWT** carries signed claims in the token itself—stateless for the server but revocation requires short TTL, refresh tokens, or a denylist. Sessions suit traditional web apps with cookie auth; JWTs suit SPAs and service-to-service calls. Multi-tenant apps often put `tenant_id` in either model but must scope every query regardless.
+
+**See also:** [JWT (JSON Web Token)](#jwt-json-web-token); [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md)
+
+### Strangler-fig pattern
+
+The strangler-fig pattern gradually replaces a legacy system by routing slices of traffic to new services while the old system still runs. New features go to the new path; old paths shrink over time until you decommission the legacy stack. It reduces big-bang migration risk compared to a full rewrite.
+
+**See also:** [Architecture checklist — brownfield vs greenfield](../../checklists/architecture-checklist.md); [Systems integration architect](systems-integration-architect.md)
 
 ### Shift-left
 
@@ -668,7 +828,7 @@ SOAP (Simple Object Access Protocol) is an older XML-heavy style of web services
 
 A stateless service does not rely on in-memory session data tied to one machine between requests. Session state lives in a shared store or signed token so any instance can handle the next request. Statelessness simplifies horizontal scaling and rolling deploys—core to REST and twelve-factor apps.
 
-**See also:** [REST — stateless](software-engineering.md#rest); [12-factor](software-engineering.md#cicd-and-delivery)
+**See also:** [REST — stateless](software-engineering.md#rest); [Twelve-factor app (12-factor)](#twelve-factor-app-12-factor)
 
 ### Stub (test double)
 
@@ -679,6 +839,12 @@ A stub is a test double that returns canned answers without a full implementatio
 ---
 
 ## T
+
+### Twelve-factor app (12-factor)
+
+The twelve-factor app is a checklist for cloud-native services: config in environment, stateless processes, logs as event streams, disposability, dev/prod parity, and explicit dependency declaration among others. It aligns with horizontal scaling, CI/CD, and treating backing services as attached resources. "Stateless service" in this glossary is one slice of the same philosophy.
+
+**See also:** [CI/CD and delivery](software-engineering.md#cicd-and-delivery); [Stateless (service)](#stateless-service)
 
 ### Technical debt
 
@@ -751,6 +917,12 @@ API versioning is how you signal breaking changes to clients—for example `/v1/
 A webhook is an HTTP callback another system invokes on your URL when something happens—a payment succeeded, a commit was pushed, a form was submitted. Treat deliveries as at-least-once: verify signatures, respond quickly with a fast ack, and process idempotently in the background. Webhooks invert the usual polling model and push work to you.
 
 **See also:** [GraphQL, gRPC, and webhooks](software-engineering.md#graphql-grpc-and-webhooks)
+
+### WAF (Web Application Firewall)
+
+A WAF (Web Application Firewall) sits in front of HTTP traffic and blocks common attack patterns—SQL injection probes, scripted scans, oversized payloads—before they reach your app. Cloud providers and CDNs often offer managed WAF rules. A WAF complements secure coding; it does not replace authorization checks in application code.
+
+**See also:** [Servers and networking — WAF](servers-and-networking.md); [Security for applications](software-engineering.md#security-for-applications)
 
 ### Worker
 

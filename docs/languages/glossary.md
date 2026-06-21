@@ -10,7 +10,12 @@ Jump to **Plain language** sections at the bottom of each ecosystem map. Each ma
 | **RAG** | Retrieval-augmented generation—docs injected into LLM prompt | [LLMs](../concepts/llms.md) |
 | **OpenAPI** | Machine-readable HTTP contract checked into git | [Project 5](../../career-project-specs/05-contract-first-api.md) |
 | **SSE** | Server-Sent Events—one-way HTTP push with reconnect | [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) |
+| **WebSocket** | Full-duplex persistent connection for chat-scale bidirectional push | [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) |
+| **OAuth / OIDC** | Delegated login; IdP issues tokens your API verifies | [Auth and tenancy](../concepts/software-engineering.md#auth-and-tenancy) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) |
+| **JWT** | Signed token carrying claims such as `sub` and `tenant_id` | [Glossary — JWT](../concepts/software-engineering-glossary.md#jwt-json-web-token) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) |
 | **tenant_id** | Row scope for multi-tenant SaaS isolation | [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) |
+| **RLS** | Postgres Row-Level Security—DB-enforced tenant row filters | [Glossary — RLS](../concepts/software-engineering-glossary.md#row-level-security-rls) |
+| **CDC** | Change Data Capture—stream DB row changes to downstream consumers | [Database design — CDC](../concepts/database-design.md#change-data-capture) |
 | **Reconcile loop** | Observe → diff → apply → requeue (K8s controllers) | [Project 17](../../career-project-specs/17-k8s-controller-lab.md) |
 
 | Map | Jump to definitions |

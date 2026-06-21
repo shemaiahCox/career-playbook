@@ -63,6 +63,29 @@ sequenceDiagram
 | **Split by language boundary** | Python LLM + Go retrieval ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)) | Two deployables | Measured latency/team boundary |
 | **Many microservices** | Independent scale | Ops + contract overhead | Proven load or org boundaries |
 
+### When to split (decision checklist)
+
+Ask these before extracting a service—write an ADR if any answer is "yes" with evidence:
+
+| Signal | Example in playbook | Split candidate |
+|--------|---------------------|-----------------|
+| **Measured hot path** | Python retrieval p95 blocks webhook SLA | Go retrieval gateway (P8) |
+| **Different scaling shape** | Workers need 10× web tier | Queue + worker (P6/P8) |
+| **Team ownership boundary** | Platform team owns auth; product owns features | Optional later—not default in labs |
+| **Failure isolation** | LLM outage must not wedge ingress | Fast ack + async (P1/P6) |
+| **No signal yet** | "Microservices are modern" | **Stay monolith** |
+
+```mermaid
+flowchart TD
+  Start[New feature or scaling pain] --> Measure{Profiled or SLO breach?}
+  Measure -->|No| Monolith[Keep modular monolith]
+  Measure -->|Yes| Boundary{Clear process boundary?}
+  Boundary -->|No| Monolith
+  Boundary -->|Yes| Async{Can async queue suffice?}
+  Async -->|Yes| Queue[Queue plus worker same repo]
+  Async -->|No| Split[Extract service plus contract]
+```
+
 See [Architecture framework — Pillar 1](architecture-framework.md#pillar-1--system-shape-highest-leverage).
 
 ## Depth order (what to deepen first)

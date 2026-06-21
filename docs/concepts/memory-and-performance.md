@@ -99,7 +99,7 @@ Structured logs from [Project 3](../../career-project-specs/03-observability-lab
 
 **Batch and paginate** at scale. Keyset pagination beats offset pagination on large tables. Embed and index documents in batches rather than one at a time ([Projects 4](../../career-project-specs/04-sql-performance-lab.md), [2](../../career-project-specs/02-rag-llm-service.md)).
 
-**Cache deliberately** with Time To Live (TTL), maximum size, and explicit invalidation. Unbounded in-process maps become memory leaks dressed as optimizations.
+**Cache deliberately** with Time To Live (TTL), maximum size, and explicit invalidation. Unbounded in-process maps become memory leaks dressed as optimizations. Watch for **cache stampede**: when a hot key expires, many requests miss at once and hammer the origin—mitigate with singleflight (one refresh in flight), probabilistic early expiration, or locking around rebuild. See [Cache stampede](software-engineering-glossary.md#cache-stampede) in the glossary.
 
 **Connection pooling** reuses database and HTTP connections. Pool exhaustion looks like latency spikes, not slow SQL—the queries themselves are fine but requests queue waiting for a connection.
 

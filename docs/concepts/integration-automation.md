@@ -64,9 +64,19 @@ See [Project 10 — Automation bot](../../career-project-specs/10-automation-bot
 
 | Approach | Pros | Cons | Use when |
 |----------|------|------|----------|
-| **iPaaS (Boomi, n8n UI)** | Fast partner onboarding; visual ops | Export/secret hygiene risk | Enterprise glue, many connectors |
-| **Code-first (Project 1/6/7)** | Testable; versioned in git | Slower for non-engineers | Core product integrations |
-| **Hybrid** | UI for ops; custom nodes for hard paths | Two skill sets | Common in mid-size SaaS |
+| **iPaaS (Boomi, n8n UI)** | Fast partner onboarding; visual ops; non-engineers can tweak flows | Export/secret hygiene risk; harder to unit test graphs | Enterprise glue, many connectors, ops-owned tweaks |
+| **Code-first (Project 1/6/7)** | Testable; versioned in git; CI gates on contracts | Slower for non-engineers to change | Core product integrations, money paths |
+| **Hybrid** | UI for ops; custom nodes or microservices for hard paths | Two skill sets; split ownership | Common in mid-size SaaS |
+
+| Decision factor | Lean iPaaS | Lean code-first |
+|-----------------|------------|-----------------|
+| Change frequency | Ops adjusts mappings weekly | Engineers own release train |
+| Correctness bar | Idempotent replays + DLQ in platform | Idempotency keys + tests in repo ([P1](../../career-project-specs/01-integration-webhook-receiver.md)) |
+| Secrets | Platform vault; watch export leaks | Env + secret manager; never in workflow JSON |
+| Observability | Platform execution logs | Structured logs + `request_id` ([P3](../../career-project-specs/03-observability-lab.md)) |
+| Partner contract | Map/transform in UI | OpenAPI + CI drift gate ([P5](../../career-project-specs/05-contract-first-api.md)) |
+
+**Playbook stance:** prove code-first idempotency and DLQ on **one** broker, then say the same semantics apply in Boomi or n8n executions.
 
 ### Workflow retry diagram
 
