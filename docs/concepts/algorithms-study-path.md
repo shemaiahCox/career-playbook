@@ -1,6 +1,8 @@
 # Algorithms study path
 
-Guided **read and apply** path through [Algorithms and data structures](algorithms-and-data-structures.md). This is **not optional** when you are in [Project 4](../../career-project-specs/04-sql-performance-lab.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md), or building **chunk/retrieval pipelines** in [Project 2](../../career-project-specs/02-rag-llm-service.md).
+**Use this:** Guided **read and apply** path through [Algorithms and data structures](algorithms-and-data-structures.md)—required when you are in [Project 4](../../career-project-specs/04-sql-performance-lab.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md), or chunk/retrieval work in [Project 2](../../career-project-specs/02-rag-llm-service.md).
+
+**Reading order:** [Algorithms and data structures](algorithms-and-data-structures.md) (concepts) → **this path** (prompts) → your lab spec.
 
 **Rule:** After each section below, **stop and explain aloud** (or write in [PROGRESS.md](../../PROGRESS.md)) the answer to the prompt — one paragraph minimum.
 
@@ -85,3 +87,14 @@ Guided **read and apply** path through [Algorithms and data structures](algorith
 - [Language fundamentals — choosing structures](../languages/language-fundamentals-comparison.md#choosing-at-a-glance)
 - [Systems integration architect](systems-integration-architect.md)
 - [Software engineering — Concurrency](software-engineering.md#concurrency-basics)
+
+---
+
+## Technical reference
+
+| Topic | Doc anchor |
+|-------|------------|
+| Big-O | [algorithms-and-data-structures.md#big-o-is-scaling-not-seconds](algorithms-and-data-structures.md#big-o-is-scaling-not-seconds) |
+| Hash maps / idempotency | [algorithms-and-data-structures.md#hash-map-and-hash-set](algorithms-and-data-structures.md#hash-map-and-hash-set) |
+| SQL OFFSET cost | [database-design.md#pagination](database-design.md#pagination) |
+| Worker concurrency | [concurrency-runtime-model.md](concurrency-runtime-model.md) |

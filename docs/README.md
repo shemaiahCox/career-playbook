@@ -8,6 +8,19 @@ Entry point: [README.md](../README.md)
 
 ---
 
+## How concept docs are written
+
+Concept files under [`concepts/`](concepts/) follow the [learning-first concept template](templates/concept-doc-template.md):
+
+1. **Use this** — plain-English trigger for when to read
+2. **Reading order** — numbered path through related docs and labs
+3. **Learning body** — terms defined before jargon; tables over acronym dumps
+4. **Technical reference** — acronyms, commands, and glossary links at the **bottom**
+
+Start with [Concurrency runtime model (Part 1)](concepts/concurrency-runtime-model.md) as the format example.
+
+---
+
 ## Architecture framework
 
 | Doc | Use when |

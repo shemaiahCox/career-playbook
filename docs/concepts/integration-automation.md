@@ -2,9 +2,28 @@
 
 **Use this:** Vocabulary for **Boomi**, **n8n**, and similar **workflow/automation** tools — mapped to playbook labs (webhooks, queues, idempotency), not vendor certification prep.
 
-**Companion:** [integration hardening checklist](../../checklists/integration-hardening.md) · [Project 1 webhook](../../career-project-specs/01-integration-webhook-receiver.md) · [Project 6 worker](../../career-project-specs/06-async-worker-stretch.md)
+**Reading order:**
 
-**New here?** [Plain language (bottom)](#plain-language-terms-used-on-this-page) · [Stacks glossary](../languages/glossary.md)
+1. [Systems integration architect](systems-integration-architect.md) — sync vs async boundary
+2. **You are here** — Boomi/n8n terms ↔ code patterns
+3. [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../career-project-specs/06-async-worker-stretch.md) — same patterns in code
+
+**Companion:** [Integration hardening checklist](../../checklists/integration-hardening.md) · [Messaging and RPC](messaging-and-rpc.md) · [Stacks glossary](../languages/glossary.md)
+
+**New here?** [Plain language (bottom)](#plain-language-terms-used-on-this-page)
+
+---
+
+## Why this page exists
+
+Visual integration tools (Boomi, n8n) and your code labs solve the same problems with different surfaces:
+
+| Problem | Plain English | Code lab equivalent |
+|---------|---------------|---------------------|
+| Partner sends an event | **Trigger** fires | Webhook in [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) |
+| Steps run in order | **Process / workflow** | Queue chain [Project 6](../../career-project-specs/06-async-worker-stretch.md) |
+| Step fails and retries | Platform **retry** | Worker retry + [DLQ](software-engineering-glossary.md#dead-letter-queue-dlq) |
+| Same event delivered twice | Must not double-charge | [Idempotency key](software-engineering-glossary.md#idempotency) |
 
 ---
 
@@ -118,3 +137,28 @@ Process reporting plus document properties map to structured logs and correlatio
 | **At-least-once** | A step may run more than once; design idempotency. |
 | **DLQ** | Dead-letter queue — where poison/failed messages go for inspection. |
 | **Correlation ID** | Same ID across steps so you can trace one business event in logs. |
+
+---
+
+## Technical reference
+
+### Boomi vs code-first (summary)
+
+| Approach | Lean when |
+|----------|-----------|
+| **iPaaS (Boomi, n8n UI)** | Many connectors; ops-owned mapping changes |
+| **Code-first (P1/6/7)** | Money paths; git-reviewed contracts and tests |
+| **Hybrid** | UI for ops; custom services for hard paths |
+
+### n8n node skeleton
+
+See [n8n custom node skeleton (Illustrative)](#n8n-custom-node-skeleton-illustrative) above.
+
+### Glossary links
+
+- [Idempotency](software-engineering-glossary.md#idempotency) · [Fast ack](software-engineering-glossary.md#fast-ack)
+- [Correlation ID](software-engineering-glossary.md#correlation-id--request_id)
+
+### Interview one-liner
+
+- "Same idempotency and DLQ semantics in Boomi executions as in my webhook worker—I design steps to tolerate retries."

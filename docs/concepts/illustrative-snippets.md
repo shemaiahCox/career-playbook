@@ -1,8 +1,8 @@
 # Illustrative snippets (playbook patterns)
 
-Copy-paste **patterns** for lab specs and portfolio READMEs. Label **Illustrative** when no repo exists yet—adapt types, store, and broker to your stack.
+**Use this:** Copy-paste **starting patterns** for lab READMEs and portfolio docs—adapt types, store, and broker to your stack; label **Illustrative** when no repo exists yet.
 
-**Companion:** [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (reference implementation) · [Messaging and RPC](messaging-and-rpc.md) · [Integration hardening checklist](../../checklists/integration-hardening.md)
+**Companion:** [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) · [Messaging and RPC](messaging-and-rpc.md) · [Integration hardening checklist](../../checklists/integration-hardening.md)
 
 ---
 

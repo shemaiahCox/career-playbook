@@ -1,8 +1,43 @@
 # Pillar 1 deep dive — System shape
 
-**Part of:** [Architecture framework](architecture-framework.md) — **read the framework first.**
+**Use this:** Before drawing boundaries for [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) or the capstone—when you are unsure **where HTTP stops and background work begins**.
 
-**Goal:** Reason about **integration and event-driven system shape** — boundaries, sync versus durable work, data ownership — on **your core stack** (PHP, Node/TypeScript, Go, Python, Structured Query Language (SQL)), not as a tour of every programming language.
+**Reading order:**
+
+1. [Architecture framework](architecture-framework.md) — five pillars spine (**read first**)
+2. **You are here** — sync vs async, monolith vs split
+3. [Messaging and RPC](messaging-and-rpc.md) — queues and API styles
+4. [Integration automation](integration-automation.md) — Boomi/n8n vocabulary
+
+**Part of:** [Architecture framework](architecture-framework.md)
+
+**Goal:** Reason about **integration and event-driven system shape** — boundaries, sync versus durable work, data ownership — on **your core stack** (PHP, Node/TypeScript, Go, Python, SQL).
+
+---
+
+## Why sync vs async matters
+
+Partners and users hate **hanging HTTP requests**. If processing takes seconds (PDF generation, LLM call, fan-out to ten services), you should:
+
+1. **Verify and record** the request quickly (signature, idempotency key).
+2. **Return success** once the work is safely queued—not when all side effects finish.
+3. **Process in the background** with retries and a dead-letter path.
+
+That is the **sync vs async boundary**: the webhook handler is **sync** (short); the worker is **async** (durable).
+
+```mermaid
+sequenceDiagram
+  participant Partner
+  participant Sync as Sync HTTP edge
+  participant Async as Queue plus worker
+  Partner->>Sync: POST event
+  Sync->>Sync: verify plus idempotency record
+  Sync->>Async: enqueue
+  Sync-->>Partner: 2xx fast ack
+  Async->>Async: durable processing
+```
+
+**Rule of thumb:** return HTTP success when intent is **safely recorded** (idempotency row or enqueue)—not when all downstream side effects finish.
 
 ## What this means here
 
@@ -38,22 +73,6 @@ Practice mapping this shape through the project sequence: [Project 1 webhook](..
 | Python RAG | [Project 2](../../career-project-specs/02-rag-llm-service.md) | Evals, citations |
 | Postgres | [Project 4](../../career-project-specs/04-sql-performance-lab.md) | Indexes, vectors |
 | BFF / UI | [Project 11](../../career-project-specs/11-llm-web-app-lab.md), [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) | Product boundary, SSE |
-
-## Sync vs async boundary
-
-```mermaid
-sequenceDiagram
-  participant Partner
-  participant Sync as Sync HTTP edge
-  participant Async as Queue plus worker
-  Partner->>Sync: POST event
-  Sync->>Sync: verify plus idempotency record
-  Sync->>Async: enqueue
-  Sync-->>Partner: 2xx fast ack
-  Async->>Async: durable processing
-```
-
-**Rule of thumb:** return HTTP success when intent is **safely recorded** (idempotency row or enqueue)—not when all downstream side effects finish.
 
 ## Monolith vs split (when to defer microservices)
 
@@ -111,3 +130,28 @@ This order maps to the [five pillars](architecture-framework.md#the-five-pillars
 Phased specs: [career projects catalog](../../README.md#progression-step-1--22) · [architecture framework](architecture-framework.md) (learning order). Pair with [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) when AI accelerates a new corner of **your** stack.
 
 Handbook depth: [Software engineering](software-engineering.md) · [Database design](database-design.md) · [Messaging and RPC](messaging-and-rpc.md).
+
+---
+
+## Technical reference
+
+### Jargon quick lookup
+
+| Term | One line |
+|------|----------|
+| **Fast ack** | Return HTTP 2xx before slow work completes |
+| **Outbox** | Write business data + outbound message in one DB transaction |
+| **BFF** | Backend for frontend—API tailored to one UI |
+| **Modular monolith** | One deploy with clean internal modules |
+| **ADR** | Short write-up of an architecture decision |
+
+### Glossary links
+
+- [Fast ack](software-engineering-glossary.md#fast-ack) · [Outbox pattern](software-engineering-glossary.md#outbox-pattern)
+- [BFF](software-engineering-glossary.md#bff-backend-for-frontend) · [Modular monolith](software-engineering-glossary.md#modular-monolith)
+- [ADR](software-engineering-glossary.md#adr-architecture-decision-record) · [Strangler-fig](software-engineering-glossary.md#strangler-fig-pattern)
+
+### Interview one-liners
+
+- "HTTP ends where durable work begins—I ack when the job is recorded, not when the LLM finishes."
+- "Monolith first; split when profiling or team boundaries give evidence, not because microservices are fashionable."

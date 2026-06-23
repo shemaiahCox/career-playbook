@@ -1,10 +1,21 @@
 # Software engineering
 
-This handbook explains how to build maintainable systems, ship safely, and talk clearly about your work in interviews. It covers programming paradigms, design patterns, APIs (Application Programming Interfaces), testing, debugging, data structures and algorithms (DSA), and observability. Side-by-side language syntax lives in [Language fundamentals comparison](../languages/language-fundamentals-comparison.md).
+**Use this:** Broad handbook when a project spec points you to **integration, testing, security, or observability**—read sections as needed, not cover-to-cover in one sitting.
 
-**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md) · [Algorithms and data structures](algorithms-and-data-structures.md) · [Language fundamentals comparison](../languages/language-fundamentals-comparison.md) · [Software engineering glossary (A–Z)](software-engineering-glossary.md) · [SDLC ↔ playbook map](sdlc-playbook-map.md)
+**Reading order (typical lab path):**
 
-**If stack maps feel like jargon at first:** skim the [docs README — stack maps](../README.md#languages-new-to-a-stack) and the [language glossary](../languages/glossary.md), then return here for longer explanations and worked patterns (delivery semantics, idempotent handlers, the N+1 query problem). For ORM (Object-Relational Mapping) query shapes, see [Database design — N+1 pattern](database-design.md#orms-and-the-n1-query-pattern).
+1. [Architecture framework](architecture-framework.md) — spine first
+2. [Integration: sync, async, and messaging](#integration-sync-async-and-messaging) — [Project 1](../../career-project-specs/01-integration-webhook-receiver.md)
+3. [Concurrency basics](#concurrency-basics) — after [Concurrency runtime model (Part 1)](concurrency-runtime-model.md)
+4. [Observability](#observability-logs-metrics-traces) — [Project 3](../../career-project-specs/03-observability-lab.md)
+5. [Auth and tenancy](#auth-and-tenancy) — [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md)
+6. Browse other sections when your spec links them
+
+**Companion:** [Glossary (A–Z)](software-engineering-glossary.md) · [Language fundamentals](../languages/language-fundamentals-comparison.md) · [SDLC map](sdlc-playbook-map.md)
+
+This handbook explains how to build maintainable systems, ship safely, and talk clearly in interviews. Side-by-side language syntax lives in [Language fundamentals comparison](../languages/language-fundamentals-comparison.md).
+
+**If stack maps feel like jargon at first:** skim the [docs README — stack maps](../README.md#languages-new-to-a-stack) and the [language glossary](../languages/glossary.md), then return here for longer explanations.
 
 ---
 
@@ -42,6 +53,7 @@ This handbook explains how to build maintainable systems, ship safely, and talk 
 - [Internationalization and encoding](#internationalization-and-encoding)
 - [Licenses (developer awareness)](#licenses-developer-awareness)
 - [Interview checklist](#interview-checklist)
+- [Technical reference](#technical-reference)
 
 ---
 
@@ -648,3 +660,40 @@ Use this as a self-test after reading the sections above:
 - **OWASP** top-level categories you have mitigated in code.
 - **Big-O** of a nested loop; when a **hash map** helps ([Algorithms and data structures](algorithms-and-data-structures.md)).
 - One **cross-language** bug (e.g. `==` in PHP vs `===` — [comparison doc](../languages/language-fundamentals-comparison.md#null-optionals-equality-and-truthiness)).
+
+---
+
+## Technical reference
+
+Handbook-wide acronym and pattern index—section details stay in the body above.
+
+### Delivery and integration
+
+| Term | Section |
+|------|---------|
+| Idempotency, at-least-once, outbox, saga | [Integration](#integration-sync-async-and-messaging) |
+| REST, gRPC, webhooks | [GraphQL, gRPC, and webhooks](#graphql-grpc-and-webhooks) |
+
+### Quality and ops
+
+| Term | Section |
+|------|---------|
+| Unit / integration / E2E, mock vs fake | [Testing](#testing) |
+| Logs, metrics, traces, SLI/SLO | [Observability](#observability-logs-metrics-traces) |
+| Blue/green, canary, feature flags | [CI/CD and delivery](#cicd-and-delivery) |
+
+### Architecture vocabulary
+
+| Term | Section |
+|------|---------|
+| SOLID, DDD, CQRS, event sourcing | [SOLID](#solid) · [DDD](#domain-driven-design-ddd) · [CQRS](#cqrs-and-event-sourcing) |
+| Hexagonal, clean/onion, microservices | [Architectural patterns](#architectural-patterns) |
+
+### Glossary
+
+Full A–Z definitions: [Software engineering glossary](software-engineering-glossary.md)
+
+### Deeper concept docs (learning-first format)
+
+- [Concurrency runtime model](concurrency-runtime-model.md) · [Memory and performance](memory-and-performance.md)
+- [Messaging and RPC](messaging-and-rpc.md) · [Database design](database-design.md)

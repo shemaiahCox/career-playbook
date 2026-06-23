@@ -1,8 +1,32 @@
-# Messaging and RPC — career context
+# Messaging and RPC
 
-Recognize **Apache Kafka**, **Redis**, **NATS**, **Representational State Transfer (REST)/OpenAPI**, and **gRPC (Google Remote Procedure Call)** in job posts and interviews. The playbook labs default to **Redis** for local simplicity—the reliability patterns (idempotency, at-least-once delivery, Dead Letter Queues) transfer unchanged across brokers.
+**Use this:** When job posts mention **Kafka, Redis, queues, REST, or gRPC** and you need plain language before [Project 6](../../career-project-specs/06-async-worker-stretch.md) or [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md).
 
-**Companion:** [Integration sync/async/messaging](software-engineering.md#integration-sync-async-and-messaging) · [GraphQL, gRPC, webhooks](software-engineering.md#graphql-grpc-and-webhooks) · [Career targeting](../career/target-alignment.md)
+**Reading order:**
+
+1. **You are here** — what a queue is and how services talk
+2. [Software engineering — Integration](software-engineering.md#integration-sync-async-and-messaging) — idempotency, delivery semantics, webhooks
+3. [Project 6](../../career-project-specs/06-async-worker-stretch.md) → [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) — hands-on queue + worker
+
+**Companion:** [Glossary](software-engineering-glossary.md) · [Integration automation](integration-automation.md) · [Career targeting](../career/target-alignment.md)
+
+---
+
+## Why queues and APIs matter
+
+A **message queue** is a to-do list between services: one part of your app **drops off work**, another part **picks it up later**. That lets you answer HTTP quickly while slow work runs in the background ([Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../career-project-specs/06-async-worker-stretch.md)).
+
+The hard part is not picking Redis vs Kafka—it is **duplicate delivery**. Messages can arrive more than once. Your handler must stay correct anyway ([idempotency](software-engineering-glossary.md#idempotency), [dead letter queue](software-engineering-glossary.md#dead-letter-queue-dlq)).
+
+**API styles** are how services ask each other questions synchronously (while the caller waits):
+
+| Style | Plain English | Playbook default |
+|-------|---------------|------------------|
+| **REST + OpenAPI** | HTTP + JSON with a documented contract | [Project 5](../../career-project-specs/05-contract-first-api.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) boundary |
+| **gRPC** | Faster typed calls between internal services | Optional stretch on Project 8 |
+| **Webhooks** | Partner pushes events to your URL | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) |
+
+Playbook labs default to **Redis** for local simplicity—the reliability patterns transfer to Kafka and managed queues unchanged.
 
 ---
 
@@ -13,6 +37,7 @@ Recognize **Apache Kafka**, **Redis**, **NATS**, **Representational State Transf
 - [Choosing a broker for your lab](#choosing-a-broker-for-your-lab)
 - [Related projects](#related-projects)
 - [See also](#see-also)
+- [Technical reference](#technical-reference)
 
 ---
 
@@ -47,15 +72,6 @@ A **message broker** decouples producers from consumers: the producer publishes 
 | **NATS** | Lightweight pub/sub | Different ops model | Need SQL transactional outbox |
 | **SQS** | Managed; visibility timeout | AWS coupling | Multi-cloud local-only dev |
 | **RabbitMQ** | Mature routing | Older ops patterns | Greenfield without team skill |
-
-### Redis queue usage (Illustrative)
-
-```bash
-# Producer
-redis-cli LPUSH jobs:webhook '{"job_id":"abc","payload":{...}}'
-# Consumer (blocking pop)
-redis-cli BRPOP jobs:webhook 30
-```
 
 See [Illustrative snippets — queue consumer](illustrative-snippets.md#queue-consumer-redis-list) · [Project 6](../../career-project-specs/06-async-worker-stretch.md).
 
@@ -127,3 +143,36 @@ If local development speed matters, start with Redis (Projects 6 and 8). If the 
 - [Career targeting — UK job matrix](../career/target-alignment.md#what-uk-employers-ask-vs-playbook)
 - [Software engineering — integration](software-engineering.md#integration-sync-async-and-messaging)
 - [Integration automation](integration-automation.md)
+
+---
+
+## Technical reference
+
+### Jargon quick lookup
+
+| Term | One line |
+|------|----------|
+| **At-least-once delivery** | Message may arrive more than once—handler must be idempotent |
+| **DLQ** | Dead letter queue—poison messages after max retries |
+| **Consumer group** | Kafka workers sharing partition load |
+| **Visibility timeout** | SQS: message hidden while worker processes; redelivers if not acked |
+| **OpenAPI** | Machine-readable HTTP contract |
+| **protobuf** | Binary schema format used with gRPC |
+
+### Redis queue commands
+
+```bash
+redis-cli LPUSH jobs:webhook '{"job_id":"abc","payload":{...}}'
+redis-cli BRPOP jobs:webhook 30
+```
+
+### Glossary links
+
+- [Kafka, Redis, and NATS](software-engineering-glossary.md#kafka-redis-and-nats-message-brokers)
+- [Idempotency](software-engineering-glossary.md#idempotency) · [Message queue](software-engineering-glossary.md#message-queue)
+- [REST](software-engineering-glossary.md#rest) · [gRPC](software-engineering-glossary.md#grpc) · [Webhook](software-engineering-glossary.md#webhook)
+
+### Interview one-liners
+
+- "Same idempotency and DLQ semantics whether Redis or Kafka—I can ramp on your broker."
+- "REST at the edge for humans and browsers; gRPC inside when typing and latency matter."

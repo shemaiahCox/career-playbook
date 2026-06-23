@@ -1,6 +1,17 @@
 # Build product **A** in unfamiliar stack **B** (with AI)
 
-Use this when someone asks for **A** (mobile app, API, worker, Command-Line Interface (CLI), …) and you have **not** shipped production **B** before. AI is allowed to draft code; **you** remain accountable for boundaries, correctness, and platform footguns.
+**Use this:** Someone asks for **A** (mobile app, API, worker, CLI) and you have **not** shipped production **B** before—AI may draft code; **you** own boundaries and correctness.
+
+**Reading order:**
+
+1. [Architecture framework](architecture-framework.md) — non-negotiables by pillar
+2. **You are here** — intent lock + AI prompt shape
+3. [Unfamiliar stack ship checklist](../../checklists/unfamiliar-stack-ship.md) — before calling done
+4. Stack map under [docs README — languages](../README.md#languages-new-to-a-stack)
+
+**Companion:** [Systems integration architect](systems-integration-architect.md) · [Software engineering handbook](software-engineering.md)
+
+---
 
 ## 1. Lock intent before tools
 
@@ -96,3 +107,32 @@ Then: implement consumer loop + one integration test with duplicate delivery.
 - [Systems integration architect](systems-integration-architect.md) — Pillar 1 depth order for integration-shaped **design** literacy on your stack.
 - [docs README](../README.md) — definition + minimal example + failure mode; **[Stacks glossary (plain-language index)](../languages/glossary.md)** gathers links to newcomer-friendly blurbs under each ecosystem map.
 - [Ecosystem maps](../README.md#languages-new-to-a-stack) — stack-specific vocabulary (PHP/Laravel, Python, Node/TS, Go, Rust, SQL).
+
+---
+
+## Technical reference
+
+### Prompt skeleton
+
+```
+Product A: [user-visible outcome]
+Stack B: [runtime + packaging + test runner]
+Non-negotiables: [secrets, idempotency, observability, …]
+
+First: file list + text data-flow diagram.
+Then: implementation with explicit error paths.
+```
+
+### Anti-pattern index
+
+| Pattern | Fix |
+|---------|-----|
+| Happy-path-only | Error branches + tests |
+| Secrets in generated `.env` | `.env.example` only |
+| HMAC after parse | Raw body buffer first |
+| Unbounded concurrency | Worker pool / semaphore |
+| POST without idempotency | Durable idempotency key |
+
+### Checklist
+
+[unfamiliar-stack-ship.md](../../checklists/unfamiliar-stack-ship.md)

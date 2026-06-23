@@ -1,8 +1,28 @@
 # Servers and networking
 
-How traffic reaches software, how Transport Layer Security (TLS) and Domain Name System (DNS) fit together, and how cloud and edge components connect—written for job and interview prep.
+**Use this:** When you wonder **what happens when you open a URL** or why **TLS, DNS, and load balancers** appear in specs—before [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md).
 
-**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Database design](database-design.md) · [Software engineering](software-engineering.md)
+**Reading order:**
+
+1. **You are here** — request path from browser to app
+2. [Command-line tooling — curl](command-line-tooling.md) — reproduce requests from terminal
+3. [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md) — timeouts and health checks
+
+**Companion:** [Glossary](software-engineering-glossary.md) · [Database design](database-design.md) · [Software engineering — security](software-engineering.md#security-for-applications)
+
+How traffic reaches your software—in plain English first, technical detail in the footer.
+
+---
+
+## What happens when you open a URL
+
+1. Your device looks up the **hostname** (DNS)—“what IP address is `api.example.com`?”
+2. Your app opens a **connection** to that address on a **port** (443 for HTTPS).
+3. **TLS** encrypts the connection so nobody on the path can read passwords or tokens.
+4. Your app sends an **HTTP request** (GET, POST, …); the server sends a **response** with a status code.
+5. Middle boxes—**load balancers**, **reverse proxies**, **CDNs**—may sit in front of your server.
+
+That is the story every webhook, API, and browser call follows.
 
 ---
 
@@ -264,3 +284,30 @@ Email deliverability often requires **Sender Policy Framework (SPF)**—which IP
 - **Load balancer** vs **reverse proxy**; **health checks**.
 - **IaaS vs PaaS vs SaaS** with an example each.
 - **WAF vs network firewall** at a high level.
+
+---
+
+## Technical reference
+
+### Jargon quick lookup
+
+| Term | One line |
+|------|----------|
+| **DNS** | Name → IP address lookup |
+| **TLS / HTTPS** | Encrypted HTTP |
+| **TCP** | Reliable byte stream between client and server |
+| **Reverse proxy** | Server in front of your app (nginx, Envoy) |
+| **CDN** | Cached copies of static content close to users |
+| **WAF** | Filters malicious HTTP patterns at the edge |
+| **IaaS / PaaS / SaaS** | Infrastructure / platform / software as a service |
+
+### Glossary links
+
+- [CDN](software-engineering-glossary.md#cdn-content-delivery-network) · [WAF](software-engineering-glossary.md#waf-web-application-firewall)
+- [IaaS / PaaS / SaaS](software-engineering-glossary.md#iaas--paas--saas) · [Load balancer](software-engineering-glossary.md#load-balancer)
+- [SSE and WebSocket](software-engineering-glossary.md#sse-and-websocket)
+
+### Interview one-liners
+
+- "Connection refused = nothing listening; timeout = filtered or overloaded path."
+- "TLS terminates at the proxy or app—I know where certificates live in my stack."

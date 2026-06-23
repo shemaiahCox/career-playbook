@@ -158,3 +158,40 @@ async def bounded_fetch(url: str) -> bytes:
 - [Concurrency runtime model (Part 1)](concurrency-runtime-model.md)
 - [Memory and performance](memory-and-performance.md)
 - [Software engineering — Concurrency basics](software-engineering.md#concurrency-basics)
+
+---
+
+## Technical reference
+
+### Go scheduler (G / M / P)
+
+| Symbol | Role |
+|--------|------|
+| **G** | Goroutine |
+| **M** | OS thread (machine) |
+| **P** | Logical processor holding a run queue |
+
+### Node / libuv
+
+| Piece | Role |
+|-------|------|
+| **Event loop** | Runs JavaScript callbacks when I/O completes |
+| **libuv thread pool** | Some blocking syscalls off main thread |
+| **epoll / kqueue / IOCP** | OS APIs for watching many sockets |
+
+### Commands
+
+```bash
+# Go CPU profile (30s)
+go tool pprof http://localhost:6060/debug/pprof/profile?seconds=30
+```
+
+### Glossary links
+
+- [GOMAXPROCS](software-engineering-glossary.md#gomaxprocs) · [Goroutine](software-engineering-glossary.md#goroutine)
+- [Event loop](software-engineering-glossary.md#event-loop) · [Bounded concurrency](software-engineering-glossary.md#bounded-concurrency--worker-pool)
+
+### Interview one-liners
+
+- "Go parks blocked goroutines and runs others on the same M; GOMAXPROCS caps parallel P's."
+- "Node scales concurrent sockets on one loop; CPU work needs worker_threads or another service."

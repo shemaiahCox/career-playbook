@@ -155,3 +155,33 @@ This doc is **definitions and layers**. Production habits live elsewhere—read 
 - [Go stack map](../languages/go.md) · [Node + TypeScript stack map](../languages/node-typescript-backend.md)
 - [Stacks glossary](../languages/glossary.md)
 - [Architecture framework — Pillar 4](architecture-framework.md#pillar-4--performance-and-language-boundaries)
+
+---
+
+## Technical reference
+
+### Jargon quick lookup
+
+| Term | One line |
+|------|----------|
+| **Core** | Hardware execution unit; parallelism starts here |
+| **OS thread** | Kernel-scheduled execution inside a process |
+| **Goroutine** | Go runtime lightweight task (M:N mapped to OS threads) |
+| **Event loop** | Single thread scheduling I/O callbacks (Node, asyncio) |
+| **M:N scheduling** | Many runtime tasks → fewer OS threads |
+| **GOMAXPROCS** | Go setting for max OS threads running Go code simultaneously |
+| **GIL** | Python global interpreter lock—limits parallel CPU in one process |
+| **Concurrency** | Many tasks in progress (may time-slice on one core) |
+| **Parallelism** | Many tasks executing at once on multiple cores |
+
+### Glossary links
+
+- [Concurrency](software-engineering-glossary.md#concurrency) · [Parallelism](software-engineering-glossary.md#parallelism)
+- [Goroutine](software-engineering-glossary.md#goroutine) · [Event loop](software-engineering-glossary.md#event-loop)
+- [GOMAXPROCS](software-engineering-glossary.md#gomaxprocs) · [M:N scheduling](software-engineering-glossary.md#mn-scheduling)
+- [Process vs thread](software-engineering-glossary.md#process-vs-thread)
+
+### Interview one-liners
+
+- "Concurrency is structure; parallelism needs cores—Go gives both; Node gives I/O concurrency on one loop."
+- "Goroutines are not OS threads—the runtime multiplexes them; I still cap worker pools under load."

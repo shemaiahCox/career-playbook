@@ -1,8 +1,12 @@
 # Per-project testing (labs + AI)
 
-How to choose **test layers**, use **AI assistants** responsibly, and stay aligned with each [project spec](../../career-project-specs/). **General theory** (pyramid, doubles, flaky tests) lives in the handbook: [Testing](software-engineering.md#testing).
+**Use this:** When a lab spec’s **Testing approach** section asks what to write—and how to use AI without shipping fantasy tests.
 
-Using a Large Language Model (LLM) to draft tests is **optional**. These pages describe what to aim for and **example prompts** you can copy — whether you write tests by hand or with help.
+**Reading order:** [Software engineering § Testing](software-engineering.md#testing) (theory) → **this doc** (lab habits + prompts) → your project spec’s test section.
+
+**Companion:** [Debugging workflow](software-engineering.md#debugging-workflow) · [Glossary](software-engineering-glossary.md)
+
+General theory (pyramid, doubles, flaky tests) lives in the handbook. Using an LLM to draft tests is **optional**—you still review every assertion.
 
 ## Habits (realistic for teams + AI)
 
@@ -77,3 +81,27 @@ Skim the **Testing approach (lab)** section in each spec for stack-specific emph
 - Does this test fail for a **specific** wrong behavior (not "sync vs async noise")?
 - If AI wrote it, do assertions match **your** spec and README — not an invented API?
 - For integration tests, is the environment **reproducible** (compose, fixtures)?
+
+---
+
+## Technical reference
+
+### Test layers (one line each)
+
+| Layer | When |
+|-------|------|
+| **Unit** | Deterministic logic, parsers, validators |
+| **Integration** | HTTP + DB/queue wiring |
+| **Contract / schema** | OpenAPI or consumer expectations in CI |
+| **Eval / golden** | LLM/RAG answer drift (non-deterministic surface) |
+
+### Pre-merge checklist
+
+- [ ] Test fails for a **specific** wrong behavior
+- [ ] Assertions match **your** spec, not invented APIs
+- [ ] Integration env is **reproducible** (compose, fixtures)
+- [ ] AI-generated tests assert **public** behavior only
+
+### Glossary
+
+[Mock (test double)](software-engineering-glossary.md#mock-test-double) · [Idempotency](software-engineering-glossary.md#idempotency) · [Regression test](software-engineering-glossary.md#regression-test)

@@ -1,6 +1,20 @@
 # Command-line tooling playbook
 
-Study and reference material for shells, streams, Git, packages, HTTP (Hypertext Transfer Protocol), scheduling, compilers, SSH (Secure Shell), Docker, and cheatsheets—in **one file** with a table of contents. See also [Software engineering](software-engineering.md), [Servers and networking](servers-and-networking.md), [Database design](database-design.md).
+**Use this:** When a lab README says **“run this in the terminal”** and you need to understand what the command does—or fix a failed setup step.
+
+**Reading order (learn path):**
+
+1. [Standard streams](#standard-streams-stdin-stdout-stderr-and-why-they-matter) — how pipes and redirects work
+2. [Agent workflow](#agent-workflow-setup-and-troubleshooting-commands) — setup vs troubleshoot commands
+3. [Git workflow](#git-workflow-and-troubleshooting) — daily lab workflow
+4. Skim topic sections (HTTP, Docker, SSH) when your project needs them
+5. [Dense command reference](#dense-command-reference-cheatsheet) — lookup only (Technical reference)
+
+**Companion:** [Software engineering](software-engineering.md) · [Servers and networking](servers-and-networking.md) · [Database design](database-design.md)
+
+Study and reference material for shells, streams, Git, packages, HTTP, scheduling, compilers, SSH, Docker, and cheatsheets—in **one file** with a table of contents.
+
+---
 
 ## Table of contents
 
@@ -2417,7 +2431,12 @@ zip -r archive.zip dir/
 - Renewal jobs often run via **cron** or **systemd timers**.
 
 ---
-## Dense command reference (cheatsheet)
+
+## Technical reference
+
+From [Dense command reference](#dense-command-reference-cheatsheet) through [CLI security checklist](#cli-security-checklist-extra): **commands and lookup tables only**—use the reading order at the top for learning.
+
+### Dense command reference (cheatsheet)
 
 Portable reminders. Prefer `man`, `tldr`, and `--help` on your machine for exact flags.
 

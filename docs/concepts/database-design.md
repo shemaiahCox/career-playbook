@@ -1,8 +1,17 @@
 # Database design
 
-Relational modeling, storage tradeoffs, vector search, and operational topics—written for job and interview prep in plain English.
+**Use this:** When you need to **design tables, indexes, and migrations**—before [Project 4](../../career-project-specs/04-sql-performance-lab.md) or any lab with Postgres.
 
-**Companion docs:** [Command-line tooling](command-line-tooling.md) · [Servers and networking](servers-and-networking.md) · [Software engineering](software-engineering.md)
+**Reading order:**
+
+1. **You are here** — relational model, indexes, transactions
+2. [SQL ecosystem map](../languages/sql.md) — dialect and EXPLAIN in your stack
+3. [Project 4 — SQL performance](../../career-project-specs/04-sql-performance-lab.md) — measure query plans
+4. [Memory and performance](memory-and-performance.md) — when slowness is app vs database
+
+**Companion:** [Glossary](software-engineering-glossary.md) · [Software engineering](software-engineering.md) · [Command-line tooling](command-line-tooling.md)
+
+Relational modeling, storage tradeoffs, vector search, and operational topics—in plain English for learning and interviews.
 
 ---
 
@@ -295,3 +304,37 @@ Classify **Personally Identifiable Information (PII)**: mask it in non-productio
 - **Vector database** purpose; embeddings; RAG pipeline sketch.
 - **SQL injection** mitigation.
 - **CAP theorem** without false certainty.
+
+---
+
+## Technical reference
+
+### Jargon quick lookup
+
+| Term | One line |
+|------|----------|
+| **ACID** | Atomic, Consistent, Isolated, Durable transactions |
+| **1NF / 2NF / 3NF** | Normalization levels—reduce redundant columns |
+| **MVCC** | Multi-version concurrency—readers don't block writers |
+| **CAP** | Under partition, choose consistency vs availability tradeoffs |
+| **OLTP / OLAP** | Transaction processing vs analytics warehouses |
+| **CDC** | Stream row changes to downstream systems |
+| **RLS** | Postgres row-level security—DB-enforced tenant filters |
+| **RPO / RTO** | How much data loss / downtime is acceptable in disaster |
+
+### SQL commands
+
+```sql
+EXPLAIN (ANALYZE, BUFFERS) SELECT ...;
+```
+
+### Glossary links
+
+- [ACID](software-engineering-glossary.md#acid-databases) · [N+1](software-engineering-glossary.md#n1-query-problem)
+- [Expand/contract migration](software-engineering-glossary.md#expandcontract-migration) · [RLS](software-engineering-glossary.md#row-level-security-rls)
+- [Replication lag](software-engineering-glossary.md#replication-lag--read-replica) · [Sharding](software-engineering-glossary.md#partition-key--sharding)
+
+### Interview one-liners
+
+- "I'd index the hot WHERE/JOIN columns and EXPLAIN ANALYZE before guessing."
+- "Multi-tenant: tenant_id on every query—or Postgres RLS for defense in depth."

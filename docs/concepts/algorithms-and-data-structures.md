@@ -1,8 +1,16 @@
 # Algorithms and data structures
 
-Interview- and design-review-grade literacy: **how work and memory scale**, **which structure fits which access pattern**, and **how to talk about it** when libraries or AI supply the code. Companion to [Software engineering](software-engineering.md).
+**Use this:** When interviews or code reviews ask **“how does this scale?”**—companion to labs, not a LeetCode grind by itself.
 
-**See also:** [Database design — Indexes](database-design.md#indexes) for B-trees and index tradeoffs in storage engines.
+**Reading order:**
+
+1. **You are here** — Big-O and core structures
+2. [Algorithms study path](algorithms-study-path.md) — guided prompts for Projects 2, 4, 8
+3. [Database design — Indexes](database-design.md#indexes) — how trees show up in Postgres
+
+**Companion:** [Glossary](software-engineering-glossary.md) · [Memory and performance](memory-and-performance.md)
+
+Interview- and design-review literacy: **how work and memory scale** and **which structure fits which job**.
 
 ---
 
@@ -215,3 +223,34 @@ In **system design**, use the same vocabulary: "That's linear scan per request; 
 **Structures → access pattern:** random by index → array; by key → hash map; min/max repeatedly → heap; ordering/ranges → tree or sort+search; prefixes → trie; relationships → graph (usually list).
 
 **Patterns → shapes:** sorted + target → binary search; contiguous constraint → sliding window; unweighted shortest → BFS; exhaustive structures → DFS + pruning.
+
+---
+
+## Technical reference
+
+### Complexity shorthand
+
+| Symbol | Meaning |
+|--------|---------|
+| O(1) | Constant — size barely matters |
+| O(log n) | Logarithmic — halving search space |
+| O(n) | Linear — one pass |
+| O(n log n) | Typical good sort |
+| O(n²) | Nested loops — suspect at large n |
+
+### Structure → operation (typical)
+
+| Structure | Lookup | Insert | Notes |
+|-----------|--------|--------|-------|
+| Hash map | O(1) avg | O(1) avg | Worst case rare with good hash |
+| Dynamic array | O(1) index | O(1) amortized append | Insert middle O(n) |
+| Binary heap | O(1) min/max | O(log n) | Priority queues |
+| Balanced BST | O(log n) | O(log n) | Ordered iteration |
+
+### Glossary
+
+[Big-O notation](software-engineering-glossary.md#big-o-notation) · [Database design — Indexes](database-design.md#indexes)
+
+### Study path
+
+Guided exercises: [Algorithms study path](algorithms-study-path.md)

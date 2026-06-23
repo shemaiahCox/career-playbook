@@ -1,10 +1,14 @@
 # Software Development Lifecycle (SDLC) ↔ career playbook map
 
+**Use this:** When you want to see **which SDLC phase** a playbook project or concept doc covers—not as the day-one learning path.
+
+**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#progression-step-1--22) → **this map** for phase cross-reference.
+
 > **Not the learning path.** Follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
 
 This doc maps the **classic software development lifecycle** to playbook projects, concept docs, and checklists. The playbook teaches **technical delivery** (build, test, ship, operate) — not Agile/Scrum process, stakeholder workshops, or product discovery.
 
-**Companion:** [Engineering pillars](engineering-pillars.md) (topic index) · [Software engineering handbook](software-engineering.md) · [Software engineering glossary](software-engineering-glossary.md) (jargon from specs)
+**Companion:** [Engineering pillars](engineering-pillars.md) · [Software engineering handbook](software-engineering.md) · [Glossary](software-engineering-glossary.md)
 
 ---
 
@@ -211,3 +215,16 @@ The default path brings observability (Project 3) and contracts (Project 5) earl
 | Process (Agile, Scrum) | None | — |
 
 **Unfamiliar terms in specs?** → [Software engineering glossary](software-engineering-glossary.md)
+
+---
+
+## Technical reference
+
+| SDLC phase | Primary playbook anchors |
+|------------|-------------------------|
+| Planning | Project specs, [Project 5](../../career-project-specs/05-contract-first-api.md), [PROGRESS.md](../../PROGRESS.md) |
+| Design | [Software engineering](software-engineering.md), ADRs, [Database design](database-design.md) |
+| Build | Projects 1–22 |
+| Test | [Per-project testing](per-project-testing.md), spec test sections |
+| Deploy | Projects 14–16, [CI/CD handbook](software-engineering.md#cicd-and-delivery) |
+| Operate | [Project 3](../../career-project-specs/03-observability-lab.md), [production-readiness](../../checklists/production-readiness.md) |

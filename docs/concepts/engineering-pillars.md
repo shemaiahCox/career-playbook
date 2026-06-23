@@ -1,10 +1,14 @@
 # Engineering pillars — topic index (optional)
 
-> **Not the learning path.** Read [Architecture framework](architecture-framework.md) first, then follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
+**Use this:** Browse projects by **domain topic** (AI, full-stack, DevOps)—**not** the main learning path.
 
-Browse by **engineering pillar** (Artificial Intelligence (AI), Full-Stack, DevOps, etc.) when you want every project that touches a **domain topic**. For **architectural decision types** (shape, integration, data, performance, ops), use the [five-pillar framework](architecture-framework.md) instead.
+**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#progression-step-1--22) (Project 1 → 22) → return here to browse by topic.
 
-**Companion:** [Project catalog](../../README.md#progression-step-1--22) · [Concept matrix](#concept--project-matrix)
+> **Not the learning path.** Follow projects in order unless you are cross-indexing completed labs.
+
+Browse by **engineering pillar** when you want every project that touches a **domain topic**. For **architectural decision types** (shape, integration, data, performance, ops), use the [five-pillar framework](architecture-framework.md) instead.
+
+**Companion:** [Project catalog](../../README.md#progression-step-1--22) · [Concept matrix](#concept--project-matrix) · [SDLC map](sdlc-playbook-map.md)
 
 ---
 

@@ -1,8 +1,16 @@
 # Clean Architecture — mental model and folder layouts (reference)
 
-This doc explains **what each Clean Architecture layer is**, **how layers interact**, and **where code would live in folders** if you chose to express those layers explicitly. It is **reference material only** — not a mandate for playbook labs.
+**Use this:** When a spec or ADR mentions **layers, hexagonal ports, or “domain shouldn’t import SQL”**—reference for folder names, not a mandate for every lab.
 
-**Companion docs:** [Architectural patterns](software-engineering.md#architectural-patterns) · [Domain-Driven Design (DDD)](software-engineering.md#domain-driven-design-ddd) · [Software engineering glossary — Clean / Onion](software-engineering-glossary.md#clean--onion-architecture) · [Architecture checklist — Phase 5](../../checklists/architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent) · [Architecture framework](architecture-framework.md)
+**Reading order:**
+
+1. [Architectural patterns](software-engineering.md#architectural-patterns) — when clean/onion is worth the ceremony
+2. **You are here** — payment walkthrough + language layouts
+3. [Architecture framework](architecture-framework.md) — system-level pillars (orthogonal to folders)
+
+**Companion:** [DDD](software-engineering.md#domain-driven-design-ddd) · [Glossary — Clean / Onion](software-engineering-glossary.md#clean--onion-architecture) · [Architecture checklist Phase 5](../../checklists/architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent)
+
+This doc explains **what each layer is**, **how layers interact**, and **where code would live in folders** if you chose to express those layers explicitly.
 
 ---
 
@@ -666,3 +674,28 @@ This aligns with [Architectural patterns](software-engineering.md#architectural-
 | [architecture-checklist.md § Phase 5](../../checklists/architecture-checklist.md#phase-5--code-design--how-do-modules-stay-coherent) | Where invariants live, dependency rule questions |
 | [architecture-framework.md](architecture-framework.md) | Five pillars — system/integration/data/performance/ops |
 | [Language ecosystem maps](../languages/) | **Prescribed lab layouts** — unchanged by this doc |
+
+---
+
+## Technical reference
+
+### Layer vocabulary
+
+| Term | One line |
+|------|----------|
+| **Entity** | Core business object with identity |
+| **Value object** | Immutable, compared by value (Money, Email) |
+| **Use case / application service** | Orchestrates domain + ports for one user goal |
+| **Port** | Interface the domain defines; adapter implements |
+| **Adapter / infrastructure** | DB, HTTP, queue implementations |
+
+### Dependency rule
+
+**Source code dependencies point inward** — domain never imports framework or database drivers.
+
+### ADR terms
+
+| Term | Glossary |
+|------|----------|
+| Clean / Onion / Hexagonal | [software-engineering-glossary.md#clean--onion-architecture](software-engineering-glossary.md#clean--onion-architecture) |
+| Bounded context | [software-engineering-glossary.md#bounded-context](software-engineering-glossary.md#bounded-context) |

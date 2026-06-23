@@ -1,8 +1,21 @@
 # Architecture framework
 
-**Read this first.** Modern backend work is architectural work. Every lab in this playbook practices decisions under **five pillars**. Projects, languages, career docs, and checklists all map here — the framework is the spine; everything else is evidence and practice.
+**Use this:** **Read this first.** Every lab practices decisions under **five pillars**—the spine that maps projects, languages, and checklists.
 
-**Path:** [Architecture framework](architecture-framework.md) (you are here) → [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [PROGRESS.md](../../PROGRESS.md)
+**Reading order:**
+
+1. **You are here** — five pillars + reference architecture
+2. Pillar deep docs (learning-first: plain English + [Technical reference](#technical-reference) at bottom):
+   - Pillar 1 → [Systems integration architect](systems-integration-architect.md)
+   - Pillar 2 → [Messaging and RPC](messaging-and-rpc.md)
+   - Pillar 3 → [Database design](database-design.md)
+   - Pillar 4 → [Memory and performance](memory-and-performance.md) · [Concurrency runtime model](concurrency-runtime-model.md)
+   - Pillar 5 → [Software engineering § Observability](software-engineering.md#observability-logs-metrics-traces)
+3. [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [PROGRESS.md](../../PROGRESS.md)
+
+**Companion:** [Architecture checklist](../../checklists/architecture-checklist.md) · [Sample portfolio](../examples/sample-portfolio/)
+
+Modern backend work is architectural work. Projects, languages, career docs, and checklists all map here — the framework is the spine; everything else is evidence and practice.
 
 **Quality bar example:** [sample portfolio](../examples/sample-portfolio/) — filled diagram, Architecture Decision Record (ADR), and failure modes tagged by pillar.
 
@@ -53,7 +66,7 @@ System shape is about drawing boundaries before you write code. The central ques
 
 Draw system shape before opening an integrated development environment (IDE). One diagram per shipped lab beats none.
 
-**Deep docs:** [systems-integration-architect.md](systems-integration-architect.md) · [software-engineering.md § Architectural patterns](software-engineering.md#architectural-patterns)
+**Deep docs (learning-first):** [systems-integration-architect.md](systems-integration-architect.md) · [software-engineering.md § Architectural patterns](software-engineering.md#architectural-patterns)
 
 **Example ADR prompts:** SQLite versus Postgres for an idempotency store; why Go owns retrieval and not Python; compose-orchestrated capstone versus monorepo.
 
@@ -73,7 +86,7 @@ Design for duplicate delivery first; narrow the window where duplicates hurt. Ma
 | **DB outbox** | Same txn as business write | Polling/CDC complexity |
 | **Kafka** | Durable event log | Heavier ops for solo labs |
 
-**Deep docs:** [messaging-and-rpc.md](messaging-and-rpc.md) · [software-engineering.md § Integration](software-engineering.md#integration-sync-async-and-messaging) · [integration-hardening.md](../../checklists/integration-hardening.md)
+**Deep docs (learning-first):** [messaging-and-rpc.md](messaging-and-rpc.md) · [software-engineering.md § Integration](software-engineering.md#integration-sync-async-and-messaging) · [integration-hardening.md](../../checklists/integration-hardening.md)
 
 **Example ADR prompts:** Redis versus database outbox for the queue; acknowledge before versus after handler commit; REST versus gRPC for Python↔Go.
 
@@ -92,7 +105,7 @@ Prove data-layer choices with `EXPLAIN ANALYZE` and explicit transaction boundar
 | **App-layer `tenant_id` filter** | Simple; works everywhere | One missed WHERE leaks data |
 | **Postgres RLS** | DB-enforced isolation | Policy + migration complexity |
 
-**Deep docs:** [database-design.md](database-design.md) · [Project 12 spec](../../career-project-specs/12-multi-tenant-auth-lab.md)
+**Deep docs (learning-first):** [database-design.md](database-design.md) · [Project 12 spec](../../career-project-specs/12-multi-tenant-auth-lab.md)
 
 **Example ADR prompts:** Partial versus covering index for a hot query; JSON Web Token (JWT) claims versus session for tenant context; Postgres full-text search versus external search engine.
 
@@ -106,7 +119,7 @@ Performance decisions start with measurement. Profile before rewriting. When you
 
 The playbook stance is Go-first for throughput; Rust is optional with 95th percentile (p95) latency and Resident Set Size (RSS) evidence. No rewrite without a profile.
 
-**Deep docs:** [memory-and-performance.md](memory-and-performance.md) · [performance templates](../templates/)
+**Deep docs (learning-first):** [memory-and-performance.md](memory-and-performance.md) · [concurrency-runtime-model.md](concurrency-runtime-model.md) · [performance templates](../templates/)
 
 **Example ADR prompts:** Why Go owns the retrieval boundary; token bucket versus sliding window; trie in-memory versus database-backed prefix index.
 
@@ -120,7 +133,7 @@ Reliability covers observability (correlation identifiers, logs/metrics/traces, 
 
 Every lab documents **three failure modes** and their mitigations. Gate milestones with [production-readiness.md](../../checklists/production-readiness.md).
 
-**Deep docs:** [production-readiness.md](../../checklists/production-readiness.md) · [software-engineering.md § Observability](software-engineering.md#observability-logs-metrics-traces) · Projects 3, 9, 16
+**Deep docs (learning-first):** [production-readiness.md](../../checklists/production-readiness.md) · [software-engineering.md § Observability](software-engineering.md#observability-logs-metrics-traces) · [per-project-testing.md](per-project-testing.md) · Projects 3, 9, 16
 
 **Example ADR prompts:** JSON log schema; session versus token auth; cloud target and rollback strategy.
 
@@ -198,7 +211,13 @@ Log milestones in [PROGRESS.md](../../PROGRESS.md) with **Pillar(s)**, **Tradeof
 
 ---
 
-## Quick reference — pillar one-liners
+**Next:** [Project 1 — Integration webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md)
+
+---
+
+## Technical reference
+
+### Pillar one-liners
 
 | # | Pillar | One-line focus |
 |---|--------|----------------|
@@ -208,4 +227,16 @@ Log milestones in [PROGRESS.md](../../PROGRESS.md) with **Pillar(s)**, **Tradeof
 | 4 | Performance & language boundaries | Measure first; Python/Go/Rust splits |
 | 5 | Reliability, security, operations | Observability, failure modes, deploy |
 
-**Next:** [Project 1 — Integration webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md)
+### Learning docs by pillar
+
+| Pillar | Primary concept docs |
+|--------|---------------------|
+| 1 | [Systems integration architect](systems-integration-architect.md) |
+| 2 | [Messaging and RPC](messaging-and-rpc.md) · [Integration automation](integration-automation.md) |
+| 3 | [Database design](database-design.md) |
+| 4 | [Memory and performance](memory-and-performance.md) · [Concurrency runtime model](concurrency-runtime-model.md) |
+| 5 | [Software engineering handbook](software-engineering.md) · [Servers and networking](servers-and-networking.md) |
+
+### Interview
+
+[System design interview map](../career/system-design-interview-map.md) · [Big Tech benchmark](../career/big-tech-benchmark.md)

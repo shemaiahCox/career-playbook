@@ -1,8 +1,17 @@
 # Large language models (LLMs)
 
-How modern text models behave, how retrieval and grounding differ from "just prompting," and what shipping an LLM feature looks like next to ordinary backend practice—evaluations, observability, latency, cost, and abuse boundaries.
+**Use this:** Before [Project 2](../../career-project-specs/02-rag-llm-service.md) or [Project 11](../../career-project-specs/11-llm-web-app-lab.md)—when **tokens, RAG, and evals** need plain language first.
 
-**Companion docs:** [Software engineering](software-engineering.md) · [Database design](database-design.md) · [Per-project testing (evals + layering)](per-project-testing.md) · [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) · [Project 2: RAG / LLM service](../../career-project-specs/02-rag-llm-service.md) · [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
+**Reading order:**
+
+1. **You are here** — how LLMs behave and how RAG differs from “just prompting”
+2. [Project 2 spec](../../career-project-specs/02-rag-llm-service.md) — lab contract and eval JSONL
+3. [LLM feature ship checklist](../../checklists/llm-feature-ship.md) — production gate
+4. [Memory and performance](memory-and-performance.md) — latency and cost under load
+
+**Companion:** [Glossary — RAG](software-engineering-glossary.md#rag-retrieval-augmented-generation) · [Per-project testing](per-project-testing.md) · [Database design — vectors](database-design.md#vector-databases-and-embeddings)
+
+How modern text models behave, how retrieval grounds answers, and what shipping an LLM feature looks like next to ordinary backend work.
 
 ---
 
@@ -20,17 +29,13 @@ How modern text models behave, how retrieval and grounding differ from "just pro
 
 ## Tokens, context windows, and unpredictability
 
-Large language models consume text as **tokens**—subword pieces, not strictly whole words. Billing, rate limits, and context limits are all expressed in tokens, so token count directly affects cost and whether a request fits at all.
+**Tokens** are pieces of text the model reads—not always whole words. **Billing and limits** are counted in tokens.
 
-A **context window** is how much concurrent text fits in one request: system instructions, retrieved documents, conversation history, and the output budget combined. When the payload exceeds the window, behavior depends on the stack—truncation, summarization, rejection, or splitting across multiple calls. None of those are free; each changes what the model actually sees.
+The **context window** is how much text fits in one request: instructions + retrieved docs + chat history + room for the answer. If you exceed it, something gets cut or split—and quality suffers.
 
-Sampling controls like **temperature** and **top-p** change how stochastic completions are at the token level. Higher temperature produces more varied output; lower temperature is more deterministic. These are useful product knobs, not replacements for tests or grounding.
+**Temperature** controls randomness: higher = more varied answers; lower = more repeatable. Two runs with the same prompt can still differ—that is normal. Tests should check **behavior**, not exact strings, unless you control model and retrieval tightly.
 
-**Non-determinism** is normal: two runs with the same prompt can differ. Tests that assert exact string matches are a smell unless you freeze seed and provider settings—and even then, regressions slip through when prompts, models, or retrieval change. "Long context" models reduce some truncation pain but raise **latency and cost**; they do not fix bad retrieval or adversarial prompt injection.
-
-Do not confuse this page with release workflows: gate production changes with the **[LLM feature ship checklist](../../checklists/llm-feature-ship.md)** and the lab contract in **[Project 2](../../career-project-specs/02-rag-llm-service.md)**.
-
----
+Do not ship model changes without the **[LLM feature ship checklist](../../checklists/llm-feature-ship.md)** and **[Project 2](../../career-project-specs/02-rag-llm-service.md)** eval set.
 
 ## Inference, retrieval, specialization, and tools
 
@@ -146,3 +151,28 @@ Agents with powerful tools are a **privilege surface**. Default deny, explicit a
 - **Observability** on the model path: **request_id**, latency, tokens, model id; **PII** in logs.
 - **Prompt injection** at a high level and one **mitigation** you have actually reasoned about (not just "use a better prompt").
 - **Cost/latency** tradeoffs: streaming, timeouts, caps, caching.
+
+---
+
+## Technical reference
+
+### Jargon quick lookup
+
+| Term | One line |
+|------|----------|
+| **RAG** | Retrieve docs, inject into prompt, generate grounded answer |
+| **Embedding** | Vector representation of text for similarity search |
+| **Eval / eval regression** | Fixed prompt set re-run after model/prompt changes |
+| **top-p** | Nucleus sampling—alternative randomness knob to temperature |
+| **Prompt injection** | Untrusted text tricks model to ignore instructions |
+| **Guardrails** | Policy limits on model output (refusals, citations, filters) |
+
+### Glossary links
+
+- [RAG](software-engineering-glossary.md#rag-retrieval-augmented-generation) · [Eval](software-engineering-glossary.md#eval--eval-regression)
+- [Guardrails (LLM)](software-engineering-glossary.md#guardrails-llm)
+
+### Interview one-liners
+
+- "RAG grounds answers in retrieved chunks with citations; fine-tuning changes the model itself."
+- "I ship eval JSONL regression—exact string match tests are brittle for LLM output."
