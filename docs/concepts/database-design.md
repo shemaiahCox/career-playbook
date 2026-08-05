@@ -236,6 +236,8 @@ An **embedding model** maps text or images into high-dimensional **vectors**—a
 
 Tradeoffs include re-embedding cost when you change models, and **chunking** strategy—how you split documents before embedding—which materially affects RAG answer quality.
 
+**Azure (cert overlay):** [Azure Database for PostgreSQL](software-engineering-glossary.md#azure-database-for-postgresql) Flexible Server with **pgvector** runs the same vector patterns as local Postgres—see [Project 4 Azure stretch](../../career-project-specs/04-sql-performance-lab.md#azure-certification-stretch) and [Azure cloud and AI](azure-cloud-and-ai.md#data-for-ai-workloads).
+
 ```mermaid
 flowchart LR
   doc[Documents]

@@ -10,7 +10,7 @@
    - Pillar 2 → [Messaging and RPC](messaging-and-rpc.md)
    - Pillar 3 → [Database design](database-design.md)
    - Pillar 4 → [Memory and performance](memory-and-performance.md) · [Concurrency runtime model](concurrency-runtime-model.md)
-   - Pillar 5 → [Software engineering § Observability](software-engineering.md#observability-logs-metrics-traces)
+   - Pillar 5 → [Software engineering § Observability](software-engineering.md#observability-logs-metrics-traces) · [Azure cloud and AI](azure-cloud-and-ai.md) (cert overlay)
 3. [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [PROGRESS.md](../../PROGRESS.md)
 
 **Companion:** [Architecture checklist](../../checklists/architecture-checklist.md) · [Sample portfolio](../examples/sample-portfolio/)
@@ -133,7 +133,7 @@ Reliability covers observability (correlation identifiers, logs/metrics/traces, 
 
 Every lab documents **three failure modes** and their mitigations. Gate milestones with [production-readiness.md](../../checklists/production-readiness.md).
 
-**Deep docs (learning-first):** [production-readiness.md](../../checklists/production-readiness.md) · [software-engineering.md § Observability](software-engineering.md#observability-logs-metrics-traces) · [per-project-testing.md](per-project-testing.md) · Projects 3, 9, 16
+**Deep docs (learning-first):** [production-readiness.md](../../checklists/production-readiness.md) · [software-engineering.md § Observability](software-engineering.md#observability-logs-metrics-traces) · [per-project-testing.md](per-project-testing.md) · [Azure certification track](../career/azure-certification-track.md) · Projects 3, 9, 16
 
 **Example ADR prompts:** JSON log schema; session versus token auth; cloud target and rollback strategy.
 
@@ -235,7 +235,7 @@ Log milestones in [PROGRESS.md](../../PROGRESS.md) with **Pillar(s)**, **Tradeof
 | 2 | [Messaging and RPC](messaging-and-rpc.md) · [Integration automation](integration-automation.md) |
 | 3 | [Database design](database-design.md) |
 | 4 | [Memory and performance](memory-and-performance.md) · [Concurrency runtime model](concurrency-runtime-model.md) |
-| 5 | [Software engineering handbook](software-engineering.md) · [Servers and networking](servers-and-networking.md) |
+| 5 | [Software engineering handbook](software-engineering.md) · [Servers and networking](servers-and-networking.md) · [Azure cloud and AI](azure-cloud-and-ai.md) |
 
 ### Interview
 

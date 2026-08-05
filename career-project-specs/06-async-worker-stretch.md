@@ -238,6 +238,14 @@ These assume **producer + broker + worker + DLQ** (Redis/Laravel/BullMQ/SQS-styl
 - **Event bus (after DLQ is solid)** — Publish job lifecycle events (NATS / Redis Streams); subscribers must tolerate duplicates—see [Project 8 stretch](08-go-retrieval-worker-lab.md#stretch) and [integration-automation map](../docs/concepts/integration-automation.md).
 - **Cloud** — Document Redis local vs managed queue (SQS-compatible); optional `docker compose` for broker + worker.
 
+## Azure certification stretch
+
+Optional — [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00) / [Azure certification track](../docs/career/azure-certification-track.md). **Not required** for Step 6 success criteria.
+
+- Replace local Redis with **Azure Service Bus** queue + **dead-letter subqueue**—same idempotency keys and handler code paths.
+- ADR: Service Bus vs Redis — visibility timeout, duplicate delivery, cost; link [Messaging and RPC](../docs/concepts/messaging-and-rpc.md).
+- Optional: **Event Grid** subscription from webhook ingress ([Project 1](01-integration-webhook-receiver.md)) into the queue.
+
 ## Big Tech benchmark tier
 
 Optional ceiling — see [big-tech-benchmark.md](../docs/career/big-tech-benchmark.md). Complete after UK £80k success criteria are green.

@@ -78,12 +78,14 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 |-----|----------|
 | [concepts/software-engineering.md](concepts/software-engineering.md) | Testing, concurrency, security, observability |
 | [concepts/per-project-testing.md](concepts/per-project-testing.md) | How to test each lab |
+| [concepts/azure-cloud-and-ai.md](concepts/azure-cloud-and-ai.md) | AZ-900 / AI-200 vocabulary ↔ playbook patterns (cert overlay) |
+| [career/azure-certification-track.md](career/azure-certification-track.md) | Which project to open while studying Microsoft Learn |
 | [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate per step |
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Diagram, ADR, perf, failure modes per lab |
 
 ### Cross-cutting reference
 
-[concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
+[concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/azure-cloud-and-ai.md](concepts/azure-cloud-and-ai.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
 
 ---
 
@@ -114,6 +116,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | [career/big-tech-benchmark.md](career/big-tech-benchmark.md) | Google/Meta bar — pillar tradeoffs at scale + DSA/SD drills |
 | [career/dsa-interview-track.md](career/dsa-interview-track.md) | Parallel LeetCode prep |
 | [career/system-design-interview-map.md](career/system-design-interview-map.md) | Classic system design problems ↔ labs (whiteboard layer on pillars) |
+| [career/azure-certification-track.md](career/azure-certification-track.md) | AZ-900 + AI-200T00 overlay — cert ↔ project matrix (parallel to spine) |
 
 ---
 

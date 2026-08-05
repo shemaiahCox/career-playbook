@@ -38,6 +38,27 @@ For **architecture-style narration**, lean on **Pillar(s)**, **Tradeoff**, and *
 
 **Note:** Historical entries may reference removed `FOCUS.md`; the spine is now [Architecture framework](docs/concepts/architecture-framework.md).
 
+### External certifications — Azure
+
+Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) and [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00)—does **not** replace the 22-step path. Full matrix: [docs/career/azure-certification-track.md](docs/career/azure-certification-track.md).
+
+| Credential | Status | Exam / completion date | Notes |
+|------------|--------|------------------------|-------|
+| AZ-900 Azure Fundamentals | Planned | | |
+| AI-200T00 (course) | Planned | | |
+| Azure AI Cloud Developer Associate | Optional after AI-200 | | |
+
+**Azure services used per project (stretch log):**
+
+| Project | Azure services deployed | ADR link |
+|---------|---------------------------|----------|
+| 2 RAG | | |
+| 4 SQL | | |
+| 6 Worker | | |
+| 8 Go worker | | |
+| 16 Deploy | | |
+| 17 K8s | | |
+
 ---
 
 ---

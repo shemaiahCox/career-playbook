@@ -340,6 +340,15 @@ After you build the lab, commit **your own** interview packet under `docs/portfo
 - [ ] **Observability evidence** — structured log with `request_id`, latency, token usage if available.
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.
 
+## Azure certification stretch
+
+Optional — [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00) / [Azure certification track](../docs/career/azure-certification-track.md). **Not required** for Step 2 success criteria.
+
+- Point inference at **Azure OpenAI** (chat + embeddings)—keep `POST /query`, eval JSONL, and `cited_chunk_ids` unchanged.
+- Store chunks/embeddings on **Azure Database for PostgreSQL** (Flexible Server + pgvector) instead of local Postgres only.
+- Document env vars in `.env.example` (`AZURE_OPENAI_ENDPOINT`, etc.); secrets in **Key Vault** when deployed via [Project 16](16-cloud-deploy-lab.md).
+- ADR row: Azure OpenAI vs other providers — latency, cost, data residency.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)

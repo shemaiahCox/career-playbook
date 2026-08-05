@@ -107,6 +107,7 @@ services:
 | Platform | Pros | Cons | Use when |
 |----------|------|------|----------|
 | **Fly / Railway** | Fast hobby deploy | Vendor lock-in light | First managed deploy |
+| **Azure Container Apps** | AI-200 / AZ-900 path; Key Vault integration; scale rules | Azure-specific; cost learning curve | [Azure certification track](../docs/career/azure-certification-track.md) |
 | **ECS/Fargate** | AWS-native | More IAM surface | AWS-heavy employers |
 | **Compose only** | Zero cloud cost | Not production-shaped alone | Local dev baseline |
 
@@ -144,6 +145,17 @@ Smoke test script post-deploy: hit health + one API path.
 1. Bad deploy → rollback to previous tag documented.
 2. Missing secret → fail fast at startup with clear log.
 3. Queue URL switch local → managed documented.
+
+## Azure certification stretch
+
+Recommended if you are on [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) + [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00)—see [Azure certification track](../docs/career/azure-certification-track.md). **Optional** for Step 16 success criteria (any one managed platform counts).
+
+- Deploy Project 8/6 stack to **Azure Container Apps** (API + worker + health probes).
+- Secrets in **Azure Key Vault**; app uses **managed identity**—no credentials in git or plain env on host.
+- Optional: **Azure Service Bus** or **Managed Redis** URLs via Key Vault references.
+- **GitHub Actions** deploy workflow to Azure; document rollback (previous revision/tag).
+- ADR: Container Apps vs Fly/Railway/ECS — cold start, min replicas, RBAC for deploy identity.
+- Wire **Application Insights** for post-deploy smoke correlation with [Project 3](03-observability-lab.md) `request_id` pattern.
 
 ## Stretch
 

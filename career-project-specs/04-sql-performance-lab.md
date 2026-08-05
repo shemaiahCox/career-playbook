@@ -242,6 +242,14 @@ Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commi
 - [ ] **Observability evidence** — query timing log or plan excerpt (N/A for psql-only if noted).
 - [ ] Artifacts committed in lab repo `docs/portfolio/`.
 
+## Azure certification stretch
+
+Optional — [AI-200T00 PostgreSQL module](https://learn.microsoft.com/en-us/training/courses/ai-200t00) / [Azure certification track](../docs/career/azure-certification-track.md). **Not required** for Step 4 success criteria.
+
+- Run the **same** lab exercises against **Azure Database for PostgreSQL Flexible Server** with **pgvector** enabled.
+- Connection string via env only; compare local Docker Postgres vs Azure plans in one ADR (cost, latency, ops).
+- Vector exercise: same index/query patterns—document any extension or version differences.
+
 ## When you're done
 
 - Run tests: [Testing approach (lab)](#testing-approach-lab) · [per-project testing guide](../docs/concepts/per-project-testing.md)

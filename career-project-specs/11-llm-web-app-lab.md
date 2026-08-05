@@ -142,6 +142,14 @@ E2E or integration: mock Project 2 failure modes; assert UI messages.
 - Wire [Project 13](13-realtime-dashboard-lab.md) job-status events for long queries.
 - Auth gate before query ([Project 12](12-multi-tenant-auth-lab.md)).
 
+## Azure certification stretch
+
+Optional — [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00) / [Azure certification track](../docs/career/azure-certification-track.md). **Not required** for Step 11 success criteria.
+
+- BFF calls **Azure OpenAI** via Project 2 backend—no API keys in the browser.
+- Stream tokens through existing SSE/WebSocket patterns; map timeout/empty-retrieval errors to eval-aware UI copy.
+- Deploy BFF + Project 2 to **Container Apps** when [Project 16](16-cloud-deploy-lab.md) is green.
+
 ## Bash scripting milestone
 
 Ship `scripts/smoke.sh` — minimal happy path (health + one API call); strict mode for reviewers.

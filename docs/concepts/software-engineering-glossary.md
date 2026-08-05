@@ -6,6 +6,8 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **Related:** stack-specific blurbs live in [Stacks glossary](../languages/glossary.md) (links into ecosystem maps).
 
+**Azure certification overlay:** [Azure index](#azure-index) — AZ-900 / AI-200 terms mapped to playbook projects; depth in [Azure cloud and AI](azure-cloud-and-ai.md) and [certification track](../career/azure-certification-track.md).
+
 **Architecture checklist terms:** vocabulary from the [real-world architecture checklist](../../checklists/architecture-checklist.md)—[Conway's law](#conway's-law) (org fit), [strangler-fig](#strangler-fig-pattern) (legacy migration), [C4 model](#c4-model) (diagram levels), [NFR](#non-functional-requirements-nfr) (latency, scale, compliance), [error budget](#sla--slo--sli) (SLO tradeoffs with shipping).
 
 ---
@@ -42,6 +44,12 @@ An API (Application Programming Interface) is a contract for how software talks 
 
 **See also:** [REST](software-engineering.md#rest)
 
+### Application Insights
+
+Application Insights is Azure's application performance monitoring (APM) service—it collects request traces, dependencies, exceptions, and custom metrics from your running app. It is the Azure name for the same observability story you practice with structured logs and `request_id` in the playbook.
+
+**See also:** [Project 3 — Observability](../../career-project-specs/03-observability-lab.md); [Azure cloud and AI](azure-cloud-and-ai.md#observability)
+
 ### Adapter (pattern)
 
 An adapter is a small layer that translates one interface into another so two pieces of code can work together without rewriting either side. Think of it like a travel plug adapter: each device keeps its own plug shape, and the adapter bridges the gap. You reach for this pattern when integrating a third-party library or legacy module whose API does not match what your code expects.
@@ -71,6 +79,104 @@ At-most-once delivery is a messaging guarantee where a message is processed zero
 Authentication (Authn) answers "who are you?"—login flows, tokens, and identity checks. Authorization (Authz) answers "what are you allowed to do?"—roles, permissions, and access rules. Mixing them up is a common source of security bugs, because knowing someone's identity does not tell you what they may change or read.
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
+
+### Availability zone (Azure)
+
+An availability zone is an isolated datacenter within an Azure region—power, networking, and cooling are separate from other zones. Deploying across zones improves resilience when one facility fails. For labs, a single zone in one region is usually enough; AZ-900 asks when you would use multiple zones.
+
+**See also:** [Azure cloud and AI — hierarchy](azure-cloud-and-ai.md#subscription-and-resource-hierarchy)
+
+### Azure Blob Storage
+
+Azure Blob Storage is object storage for files, backups, and unstructured data—think S3-style buckets and blobs. Web apps store uploads and ML pipelines store datasets here. In the playbook spine you more often use Postgres rows and local files; Blob Storage is AZ-900 vocabulary and capstone-scale artifact storage.
+
+**See also:** [Servers and networking — storage](servers-and-networking.md)
+
+### Azure Container Apps
+
+Azure Container Apps runs containerized HTTP services and workers without you managing a Kubernetes control plane. It fits [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) deploy stretches—same Docker image as Compose, with scale rules and optional scale-to-zero.
+
+**See also:** [Project 16 — Cloud deploy](../../career-project-specs/16-cloud-deploy-lab.md); [Azure certification track](../career/azure-certification-track.md)
+
+### Azure Database for PostgreSQL
+
+Azure Database for PostgreSQL is managed Postgres—Microsoft patches, backs up, and hosts the server. The Flexible Server tier supports the **pgvector** extension for embedding search, mapping directly to [Project 4](../../career-project-specs/04-sql-performance-lab.md) and RAG storage in [Project 2](../../career-project-specs/02-rag-llm-service.md).
+
+**See also:** [Database design — vectors](database-design.md#vector-databases-and-embeddings); [Azure cloud and AI — data](azure-cloud-and-ai.md#data-for-ai-workloads)
+
+### Azure Event Grid
+
+Azure Event Grid routes events when something happens—a blob upload, a subscription change—to HTTP handlers or other Azure services. It is push notification for cloud resources; compare webhook ingress in [Project 1](../../career-project-specs/01-integration-webhook-receiver.md).
+
+**See also:** [Azure cloud and AI — messaging](azure-cloud-and-ai.md#messaging-and-events)
+
+### Azure Functions
+
+Azure Functions runs small pieces of code triggered by HTTP, queues, or timers—serverless with scale-to-zero. Use for one workflow step instead of a full container when [Project 10](../../career-project-specs/10-automation-bot-lab.md) stretch calls for minimal compute.
+
+**See also:** [Azure cloud and AI — compute](azure-cloud-and-ai.md#compute-choices-for-playbook-labs)
+
+### Azure Key Vault
+
+Azure Key Vault stores secrets, keys, and certificates outside your repo. Apps read values at runtime—often via managed identity—so git holds `.env.example` names only, matching [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) secrets hygiene.
+
+**See also:** [Azure cloud and AI — secrets](azure-cloud-and-ai.md#secrets-and-identity)
+
+### Azure Kubernetes Service (AKS)
+
+Azure Kubernetes Service (AKS) is managed Kubernetes—Microsoft runs the control plane; you deploy pods and services. Optional target for [Project 17](../../career-project-specs/17-k8s-controller-lab.md) when AI-200 covers AKS deploy and monitor.
+
+**See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
+
+### Azure Load Balancer
+
+Azure Load Balancer distributes traffic across VMs or virtual machine scale sets at Layer 4 (TCP/UDP). Application Gateway adds Layer 7 HTTP routing and WAF. Playbook [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md) teaches timeout and pooling concepts you can name on AZ-900.
+
+**See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md)
+
+### Azure Managed Redis
+
+Azure Managed Redis is a hosted Redis-compatible service—for cache, pub/sub, streams, and vector search helpers in AI-200. Same mental model as local Redis in [Project 6](../../career-project-specs/06-async-worker-stretch.md) and [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md); document an ADR when switching brokers.
+
+**See also:** [Messaging and RPC](messaging-and-rpc.md); [Azure cloud and AI — data](azure-cloud-and-ai.md#data-for-ai-workloads)
+
+### Azure OpenAI
+
+Azure OpenAI hosts OpenAI models (chat, embeddings) in your Azure subscription with enterprise controls and regional deployment. Swap the inference endpoint in [Project 2](../../career-project-specs/02-rag-llm-service.md) or [Project 11](../../career-project-specs/11-llm-web-app-lab.md)—keep eval JSONL and `POST /query` contract unchanged.
+
+**See also:** [LLMs handbook](llms.md); [Project 2](../../career-project-specs/02-rag-llm-service.md)
+
+### Azure Policy
+
+Azure Policy enforces organizational rules on resources—for example allowed regions, required tags, or banned SKUs. It complements RBAC: RBAC says who can act; Policy says what configurations are allowed. Mention both in deploy ADRs for [Project 16](../../career-project-specs/16-cloud-deploy-lab.md).
+
+**See also:** [Azure cloud and AI — hierarchy](azure-cloud-and-ai.md#subscription-and-resource-hierarchy)
+
+### Azure RBAC
+
+Azure RBAC (Role-Based Access Control) assigns roles like Owner, Contributor, or Reader on subscriptions, resource groups, or individual resources. Least privilege for CI deploy identities is a [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) portfolio talking point.
+
+**See also:** [AZ-900 study guide](https://aka.ms/AZ900-StudyGuide); [Azure certification track](../career/azure-certification-track.md)
+
+### Azure Service Bus
+
+Azure Service Bus is a managed message broker with queues, topics, sessions, and dead-letter subqueues. It implements the same at-least-once + poison-message story as Redis or SQS in [Project 6](../../career-project-specs/06-async-worker-stretch.md)—idempotent handlers still required.
+
+**See also:** [Messaging and RPC](messaging-and-rpc.md); [Project 6](../../career-project-specs/06-async-worker-stretch.md)
+
+### Azure index
+
+Quick jump to Azure overlay terms for [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) and [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00):
+
+| Term | Entry |
+|------|-------|
+| Fundamentals | [Subscription (Azure)](#subscription-azure) · [Resource group (Azure)](#resource-group-azure) · [Availability zone](#availability-zone-azure) · [Azure RBAC](#azure-rbac) · [Azure Policy](#azure-policy) |
+| Compute | [Azure Container Apps](#azure-container-apps) · [AKS](#azure-kubernetes-service-aks) · [Azure Functions](#azure-functions) |
+| Data / AI | [Azure Database for PostgreSQL](#azure-database-for-postgresql) · [Azure Managed Redis](#azure-managed-redis) · [Azure OpenAI](#azure-openai) |
+| Integration | [Azure Service Bus](#azure-service-bus) · [Azure Event Grid](#azure-event-grid) |
+| Ops | [Azure Key Vault](#azure-key-vault) · [Managed identity](#managed-identity) · [Application Insights](#application-insights) |
+
+Full learning path: [Azure cloud and AI](azure-cloud-and-ai.md) · [Certification track](../career/azure-certification-track.md)
 
 ---
 
@@ -564,6 +670,12 @@ Liveness asks "is the process alive?"—if not, the orchestrator restarts it. Re
 
 ## M
 
+### Managed identity (Azure)
+
+Managed identity gives an Azure resource (Container App, Function, VM) an automatic identity in Azure AD so it can read Key Vault or call other services without embedding passwords in config. It is how [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) Azure deploys avoid secrets in git.
+
+**See also:** [Azure Key Vault](#azure-key-vault); [Azure cloud and AI — secrets](azure-cloud-and-ai.md#secrets-and-identity)
+
 ### Message queue
 
 A message queue is a buffer that lets producers enqueue work and consumers process it later. It decouples "accept the request now" from "do the work when we have capacity." Queues also smooth spikes and survive brief consumer outages—at the cost of eventual processing and operational complexity.
@@ -764,6 +876,12 @@ A reconcile loop is a control pattern: observe current state, diff it against de
 
 **See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
 
+### Resource group (Azure)
+
+A resource group is a container for Azure resources that share a lifecycle—delete the group and its Postgres, Container App, and Key Vault go together. Create one per lab environment (e.g. `rg-playbook-dev`) for easy cleanup after AI-200 exercises.
+
+**See also:** [Azure cloud and AI — hierarchy](azure-cloud-and-ai.md#subscription-and-resource-hierarchy)
+
 ### Replication lag / read replica
 
 A read replica is a copy of the primary database that serves read queries to scale read traffic. Replication lag is the delay before a write on the primary appears on the replica—reads may be stale during that window. Under CAP vocabulary, favoring availability and partition tolerance often means accepting eventual consistency on replicas; do not route "must be fresh" reads to a lagging replica without checking.
@@ -821,6 +939,12 @@ SSE (Server-Sent Events) is one-way HTTP push from server to browser with automa
 A saga is a long business process split into local steps with compensating actions—refund if shipment fails, cancel reservation if payment fails. It implements distributed transactions without one giant two-phase commit across services. Sagas require explicit design for partial failure and human intervention on stuck states.
 
 **See also:** [Event-driven integration — saga](software-engineering.md#event-driven-integration)
+
+### Subscription (Azure)
+
+An Azure subscription is the billing and quota boundary under your tenant—where usage meters and cost reports roll up. Lab work often uses one subscription with a free tier or Visual Studio benefit; production orgs may have many subscriptions by team or environment.
+
+**See also:** [Azure certification track](../career/azure-certification-track.md); [Azure cloud and AI](azure-cloud-and-ai.md#subscription-and-resource-hierarchy)
 
 ### SemVer (semantic versioning)
 
@@ -943,6 +1067,12 @@ UTF-8 (Unicode Transformation Format, 8-bit) is the encoding you should usually 
 ---
 
 ## V
+
+### Virtual Network (VNet)
+
+A Virtual Network (VNet) is your private network slice in Azure—subnets, private IPs, and routing rules for resources that should not be public on the internet. Container Apps and Postgres often integrate with VNet endpoints for private connectivity; AZ-900 covers VNet basics with load balancers and NSGs.
+
+**See also:** [Servers and networking](servers-and-networking.md); [Azure Load Balancer](#azure-load-balancer)
 
 ### Versioning (API)
 

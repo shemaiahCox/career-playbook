@@ -215,6 +215,14 @@ No separate profiling lab spec is needed — the Go-first performance track abov
 - `docker compose` for Go service + Postgres + Redis/NATS; document local → managed queue (e.g. SQS) in README.
 - Small ops CLI: replay DLQ, drain queue (CLI flags, exit codes, bounded HTTP—see [Project 15](15-devops-cli-lab.md)).
 
+## Azure certification stretch
+
+Optional — [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00) / [Azure certification track](../docs/career/azure-certification-track.md). **Not required** for Step 8 success criteria.
+
+- Use **Azure Managed Redis** for queue/cache—document broker swap ADR vs local Redis.
+- Prepare container image and health endpoints for **Azure Container Apps** deploy in [Project 16](16-cloud-deploy-lab.md).
+- Optional: **Service Bus** instead of Redis for the worker queue (same semantics as [Project 6 stretch](06-async-worker-stretch.md#azure-certification-stretch)).
+
 **Rust Tier‑2 (after Go core green — not a parallel spine):**
 
 - Reimplement **retrieval gateway** or **worker** per [Project 19](19-rust-hot-path-lab.md); **same** OpenAPI/queue contract as Go; log Go-vs-Rust ADR in [PROGRESS.md](../PROGRESS.md).

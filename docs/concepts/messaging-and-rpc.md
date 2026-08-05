@@ -156,6 +156,7 @@ If local development speed matters, start with Redis (Projects 6 and 8). If the 
 | **DLQ** | Dead letter queue—poison messages after max retries |
 | **Consumer group** | Kafka workers sharing partition load |
 | **Visibility timeout** | SQS: message hidden while worker processes; redelivers if not acked |
+| **Azure Service Bus** | Managed queue + dead-letter—same idempotency story as Redis/SQS ([Project 6 stretch](../../career-project-specs/06-async-worker-stretch.md#azure-certification-stretch)) |
 | **OpenAPI** | Machine-readable HTTP contract |
 | **protobuf** | Binary schema format used with gRPC |
 
@@ -170,6 +171,7 @@ redis-cli BRPOP jobs:webhook 30
 
 - [Kafka, Redis, and NATS](software-engineering-glossary.md#kafka-redis-and-nats-message-brokers)
 - [Idempotency](software-engineering-glossary.md#idempotency) · [Message queue](software-engineering-glossary.md#message-queue)
+- [Azure Service Bus](software-engineering-glossary.md#azure-service-bus) · [Azure certification track](../career/azure-certification-track.md)
 - [REST](software-engineering-glossary.md#rest) · [gRPC](software-engineering-glossary.md#grpc) · [Webhook](software-engineering-glossary.md#webhook)
 
 ### Interview one-liners

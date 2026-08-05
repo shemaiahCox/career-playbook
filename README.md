@@ -75,6 +75,10 @@ After [Project 8](career-project-specs/08-go-retrieval-worker-lab.md) or [Projec
 | P24 | Notification fan-out service | [24-notification-fanout-lab.md](career-project-specs/24-notification-fanout-lab.md) |
 | P25 | Search / autocomplete microservice | [25-search-autocomplete-lab.md](career-project-specs/25-search-autocomplete-lab.md) |
 
+### Azure certification overlay (parallel track)
+
+Studying [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) and/or [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00)? Follow the **22-step spine** unchanged; use [azure-certification-track.md](docs/career/azure-certification-track.md) to map Microsoft Learn modules to project Azure stretches (Projects 2, 4, 6, 8, 11, 16, 17).
+
 ## Browse by systems skill
 
 Not the learning order — use when you want **evidence by capability** (how backend/systems roles evaluate you). Aim for **enough projects to solve real problems**, not a fixed count per bucket: usually one foundational lab, one production-shaped lab, and one integrated proof (capstone **22** covers the cross-category story).

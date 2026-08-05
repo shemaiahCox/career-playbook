@@ -171,6 +171,7 @@ Agents with powerful tools are a **privilege surface**. Default deny, explicit a
 
 - [RAG](software-engineering-glossary.md#rag-retrieval-augmented-generation) · [Eval](software-engineering-glossary.md#eval--eval-regression)
 - [Guardrails (LLM)](software-engineering-glossary.md#guardrails-llm)
+- [Azure OpenAI](software-engineering-glossary.md#azure-openai) · [Azure certification track](../career/azure-certification-track.md)
 
 ### Interview one-liners
 

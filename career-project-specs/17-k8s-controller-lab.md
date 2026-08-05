@@ -133,6 +133,15 @@ Envtest or fake client unit tests for reconcile function.
 - Full CRD + status subresource.
 - Prometheus metrics on reconcile duration/errors.
 
+## Azure certification stretch
+
+Optional — [AI-200T00 AKS module](https://learn.microsoft.com/en-us/training/courses/ai-200t00) / [Azure certification track](../docs/career/azure-certification-track.md). **Not required** for Step 17 success criteria.
+
+- Deploy controller target to **Azure Kubernetes Service (AKS)** instead of local kind/minikube only.
+- Document **Azure RBAC** + kubeconfig access for CI vs human admin.
+- Optional: **Application Insights** or Azure Monitor metrics for reconcile duration/errors.
+- ADR: AKS vs Container Apps vs local cluster—ops burden vs control plane ownership.
+
 ## Portfolio artifacts
 
 Template: [Portfolio artifacts](../docs/templates/portfolio-artifacts.md). Commit under `docs/portfolio/` in your lab repo.

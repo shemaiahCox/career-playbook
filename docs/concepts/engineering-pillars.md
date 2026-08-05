@@ -62,7 +62,7 @@ High-traffic API patterns combine Project 5, Project 7, and Project 8 — not a 
 | Project 3 | Observability foundations | [03](../career-project-specs/03-observability-lab.md) | Structured logs, request_id, latency |
 | Project 14 | Shell automation toolkit | [14](../career-project-specs/14-shell-automation-lab.md) | Strict mode, smoke scripts, shellcheck, bats |
 | Project 15 | CLI / ops tool | [15](../career-project-specs/15-devops-cli-lab.md) | Flags, exit codes, DLQ replay |
-| Project 16 | Infra automation + deploy | [16](../career-project-specs/16-cloud-deploy-lab.md) | Compose, secrets, health checks, managed queue |
+| Project 16 | Infra automation + deploy | [16](../career-project-specs/16-cloud-deploy-lab.md) | Compose, secrets, health checks; [Azure stretch](../career/azure-certification-track.md) optional |
 | Project 17 | K8s operator / controller-lite | [17](../career-project-specs/17-k8s-controller-lab.md) | Reconcile loop, idempotent apply |
 | Project 18 | Proxy / load-balancer lab | [18](../career-project-specs/18-proxy-load-balancer-lab.md) | Timeouts, pooling, graceful shutdown |
 
@@ -126,7 +126,7 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 | SQL plans / vectors | Project 4 | Project 2, Project 8, Project 12 |
 | Auth + tenant isolation | Project 12 | Project 11, Project 9 |
 | Real-time push | Project 13 | Project 8, Project 21 |
-| Cloud deploy / ops | Project 16 | Project 17 |
+| Cloud deploy / ops | Project 16 | Project 17 · [Azure certification track](../career/azure-certification-track.md) |
 | Rust safety / perf ADR | Project 19 | Project 18, Project 20 |
 | Edge / MQTT | Project 21 | Project 10 |
 
