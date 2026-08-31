@@ -2,15 +2,15 @@
 
 **Use this:** Browse projects by **domain topic** (AI, full-stack, DevOps)—**not** the main learning path.
 
-**Learning order is now the [7-phase path](../../README.md#progression-phase-1--7).** Tables below still mention v1 Project numbers — those specs live in [archive/v1-22-step](../../archive/v1-22-step/README.md).
+**Learning order is now the [7-phase path](../../README.md#roadmap).** Tables below still mention v1 Project numbers — those specs live in [archive/v1-22-step](../../archive/v1-22-step/README.md).
 
-**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#progression-phase-1--7) → return here only to browse old topic tags.
+**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#roadmap) → return here only to browse old topic tags.
 
 > **Not the learning path.** Follow projects in order unless you are cross-indexing completed labs.
 
 Browse by **engineering pillar** when you want every project that touches a **domain topic**. For **architectural decision types** (shape, integration, data, performance, ops), use the [five-pillar framework](architecture-framework.md) instead.
 
-**Companion:** [Phase catalog](../../README.md#progression-phase-1--7) · [Concept matrix](#concept--project-matrix) · [SDLC map](sdlc-playbook-map.md)
+**Companion:** [Phase catalog](../../README.md#roadmap) · [Concept matrix](#concept--project-matrix) · [SDLC map](sdlc-playbook-map.md)
 
 ---
 
@@ -136,7 +136,7 @@ Project 13 shares the real-time dashboard pillar with Full-Stack.
 
 ## Related
 
-- [Project catalog](../../README.md#progression-phase-1--7)
+- [Project catalog](../../README.md#roadmap)
 - [Bash ecosystem map](../languages/bash.md)
 - [Architecture framework](architecture-framework.md) — spine (read first)
 - [Systems integration architect](systems-integration-architect.md) — Pillar 1 deep dive

@@ -27,7 +27,7 @@
 | Event bus / streams (stretch) | Project 8 after Project 6 queues | Building a Boomi/n8n clone |
 | Cloud-native habits | Docker Compose, managed queue in README | K8s/AWS cert curriculum |
 
-**Easy follow path:** [Project catalog](../../README.md#progression-phase-1--7) · [Project 8 capstone stretch](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md#stretch-connect-your-labs) · [Project 19 Rust](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (after Project 8 Go is green—not parallel).
+**Easy follow path:** [Project catalog](../../README.md#roadmap) · [Project 8 capstone stretch](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md#stretch-connect-your-labs) · [Project 19 Rust](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (after Project 8 Go is green—not parallel).
 
 Industry context: many **vector DBs**, **workflow engines**, and **K8s tooling** are Go—useful reading fluency, not a requirement to memorize every project.
 

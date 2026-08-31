@@ -1,8 +1,8 @@
 # Career targeting — Backend & Systems Engineer (UK), Azure-first
 
-**Use this:** Map the [7-domain path plus competence labs 08–13](../../README.md#progression-phase-1--7) to UK **Backend & Systems** roles in the £70k–£100k band. Azure enterprise + agentic AI (Python + Go). Not a job board.
+**Use this:** Map the [README roadmap](../../README.md#roadmap) to UK **Backend & Systems** roles in the £70k–£100k band. Azure enterprise + agentic AI (Python + Go). Not a job board.
 
-**Architecture spine:** [Architecture framework](../concepts/architecture-framework.md) — minimum credible = domains **1 + 2 + 3 + 5** plus labs **08 + 09**.
+**Architecture spine:** [Architecture framework](../concepts/architecture-framework.md) — minimum credible = rows **1 + 2 + 3 + 5**.
 
 **Language split:** **Python and Go are primary (80%).** TypeScript/Node is complementary (20%) — MCP SDK and thin APIs, not the hiring headline. PHP stays commercial background only.
 
@@ -12,29 +12,27 @@
 
 ## Verdict
 
-The 7-phase spine matches **Azure platform + AI systems** roles better than a generic AWS/fintech Go-only story. Execution and **portfolio artifact quality** still matter more than adding extra phases.
+The 7-phase spine (with Phase 5–7 slices in the same table) matches **Azure platform + AI systems** roles. Execution and **portfolio artifact quality** still matter more than adding extra phases.
 
 Your target band is **not** HFT or blockchain core — those asks are out of scope.
 
 ---
 
-## Project ideas → phases
+## Project ideas → roadmap rows
 
-| # | Signal | Phase spec | Status |
-|---|--------|------------|--------|
-| 1 | Production-shaped **Deep Agent** (tools, checkpoints, evals) | [Phase 1](../../career-project-specs/01-agentic-orchestration.md) | Current focus |
-| 2 | Containerized agent | [Phase 2](../../career-project-specs/02-containerize-agent.md) | After 1 |
-| 3 | Azure **as code** (Terraform) | [Phase 3](../../career-project-specs/03-azure-terraform-stack.md) | After 2 |
-| 4 | Identity and governance (AZ-104) | [Phase 4](../../career-project-specs/04-azure-admin-governance.md) | Differentiation |
-| 5 | Go workers + Service Bus + Redis | [Phase 5](../../career-project-specs/05-azure-backends.md) | Minimum credible |
-| 08 | Ops CLI + DLQ replay | [Lab 08](../../career-project-specs/08-ops-cli.md) | Minimum credible |
-| 09 | Edge proxy (timeouts, drain) | [Lab 09](../../career-project-specs/09-edge-proxy.md) | Minimum credible |
-| 10 | Rate limiter (Redis) | [Lab 10](../../career-project-specs/10-rate-limiter.md) | Differentiation |
-| 11 | Notification fan-out | [Lab 11](../../career-project-specs/11-notification-fanout.md) | Differentiation |
-| 12 | Search / autocomplete | [Lab 12](../../career-project-specs/12-search-autocomplete.md) | Differentiation |
-| 6 | Pipelines into agent context | [Phase 6](../../career-project-specs/06-data-pipelines.md) | Differentiation |
-| 13 | K8s controller-lite | [Lab 13](../../career-project-specs/13-k8s-controller.md) | Differentiation |
-| 7 | AKS + Helm + CKA | [Phase 7](../../career-project-specs/07-aks-orchestration.md) | Capstone |
+Follow the [README table](../../README.md#roadmap). Highlights:
+
+| Row | Signal | Spec | Status |
+|-----|--------|------|--------|
+| 1 | Production-shaped Deep Agent | [01](../../career-project-specs/01-agentic-orchestration.md) | Current focus |
+| 2 | Containerized agent + CI | [02](../../career-project-specs/02-containerize-agent.md) | After 1 |
+| 3 | Azure as code | [03](../../career-project-specs/03-azure-terraform-stack.md) | After 2 |
+| 4 | Identity (AZ-104) | [04](../../career-project-specs/04-azure-admin-governance.md) | Differentiation |
+| 5 | Go workers, queue, observability | [05](../../career-project-specs/05-azure-backends.md) | Minimum credible |
+| 5.0–5.4 | Signed HTTP, proxy, limiter, fan-out, ops CLI | see README | After 5 |
+| 6 | Pipelines | [06](../../career-project-specs/06-data-pipelines.md) | Differentiation |
+| 6.1–6.2 | Search, RAG | [6.1](../../career-project-specs/06-1-search-autocomplete.md) · [6.2](../../career-project-specs/06-2-rag-retrieve.md) | Differentiation |
+| 7.1–7 | Controller then AKS + CKA | [7.1](../../career-project-specs/07-1-k8s-controller.md) · [07](../../career-project-specs/07-aks-orchestration.md) | Capstone |
 
 ### GitHub / interview bar (every pinned repo)
 
@@ -46,10 +44,10 @@ Runnable demo, tests, `docs/portfolio/` (diagram, ADR, failure modes, observabil
 
 | Category | Playbook fit | Notes |
 |----------|--------------|-------|
-| **Backend / platform (Python + Go) on Azure** | **Primary** | Domains 1, 5, 3, 7 + labs 08–13 |
-| **AI systems / agentic platforms** | **Primary** | Phase 1 + 6 |
+| **Backend / platform (Python + Go) on Azure** | **Primary** | 1, 5–5.4, 3, 7 |
+| **AI systems / agentic platforms** | **Primary** | Phase 1 + 6.2 |
 | **Azure administrator / cloud engineer** | Strong after 4 | AZ-104 is in-path |
-| **SRE-adjacent** | Partial | Phases 2, 5, 7 + labs 08, 09, 13 |
+| **SRE-adjacent** | Partial | 2, 5.4, 5.1, 7.1, 7 |
 | **TypeScript full-stack** | Secondary | Stretch MCP/API only |
 
 ---
@@ -59,21 +57,23 @@ Runnable demo, tests, `docs/portfolio/` (diagram, ADR, failure modes, observabil
 | Employer ask | Playbook | Gap |
 |--------------|----------|-----|
 | Agentic / tool-using LLM systems | Strong — Phase 1 | Ship evals |
+| RAG | Phase 6.2 | After pipelines |
 | Python services | Strong — 1, 6 | — |
 | Go microservices + queues | Strong — Phase 5 | — |
-| Ops CLI / DLQ replay | Strong — [lab 08](../../career-project-specs/08-ops-cli.md) | — |
-| Edge / timeouts / LB vocabulary | Strong — [lab 09](../../career-project-specs/09-edge-proxy.md) | — |
-| Rate limiting | Strong — [lab 10](../../career-project-specs/10-rate-limiter.md) | — |
-| Pub/sub fan-out | Strong — [lab 11](../../career-project-specs/11-notification-fanout.md) | — |
-| Search / autocomplete | Strong — [lab 12](../../career-project-specs/12-search-autocomplete.md) | — |
-| Docker | Strong — Phase 2 | — |
-| Terraform Azure | Strong — Phase 3 | — |
-| Entra / RBAC / Key Vault | Strong — Phase 4 | Sit AZ-104 |
+| Signed inbound HTTP | Phase 5.0 | — |
+| Ops CLI / DLQ replay | Phase 5.4 | — |
+| Edge / timeouts | Phase 5.1 | — |
+| Rate limiting | Phase 5.2 | — |
+| Pub/sub fan-out | Phase 5.3 | — |
+| Search / autocomplete | Phase 6.1 | — |
+| Docker + CI | Phase 2 | — |
+| Terraform Azure | Phase 3 | — |
+| Entra / RBAC / Key Vault | Phase 4 | Sit AZ-104 |
 | Kafka / Event Hubs | Phase 6 | Zoomcamp + lab |
-| Kubernetes reconcile / AKS | Lab 13 then Phase 7 | Sit CKA |
+| Kubernetes / AKS | 7.1 then 7 | Sit CKA |
 | TypeScript MCP / APIs | Stretch | Optional |
-| AWS-first / Monzo Kafka+Cassandra | Pattern transfer — [cloud portability](../concepts/cloud-portability.md) | Narrate “same semantics”; do not deploy AWS |
-| HFT / blockchain core | Out of spine | Skip |
+| AWS-first | [Cloud portability](../concepts/cloud-portability.md) | Names only |
+| HFT / blockchain | Out of spine | Skip |
 
 ---
 
@@ -81,23 +81,13 @@ Runnable demo, tests, `docs/portfolio/` (diagram, ADR, failure modes, observabil
 
 ### Minimum credible
 
-Ship with full portfolio artifacts:
+Ship with full portfolio artifacts: rows **1 + 2 + 3 + 5**.
 
-| Pillar | Minimum phase |
-|--------|----------------|
-| 1 System shape | Phase 1 |
-| 2 Integration & messaging | Phase 5 |
-| 3 Data architecture | Phase 6 *or* Phase 1 checkpoint/store + a serving query |
-| 4 Performance & language | Phase 5 (Go vs Python ADR) |
-| 5 Reliability, security, ops | Phases 2 + 3 |
-
-Practical list: **1 + 2 + 3 + 5 + 08 + 09** (operate the queue and edge-protect the worker).
-
-**Interview narrative:** *“Python Deep Agent with MCP tools and checkpoints; containerized; provisioned on Azure with Terraform; Go workers on Service Bus with idempotency and DLQ; ops CLI for replay; proxy with timeouts.”*
+**Interview narrative:** *“Python Deep Agent with MCP tools, checkpoints, and evals; containerized with CI; provisioned on Azure with Terraform; Go workers on a queue with idempotency, DLQ, and follow-the-id logs.”*
 
 ### Full differentiation
 
-Add labs **10–13** (rate limit, fan-out, search, controller) plus domains **4 (AZ-104)**, **6 (pipelines)**, **7 (AKS + CKA)**.
+Slices **5.0–5.4**, **6–6.2**, **4 (AZ-104)**, **7.1–7 (CKA / AKS)**.
 
 ---
 
@@ -106,7 +96,7 @@ Add labs **10–13** (rate limit, fan-out, search, controller) plus domains **4 
 1. Agentic orchestration (Phase 1)
 2. Azure Terraform (Phase 3)
 3. Azure backends / Go workers (Phase 5)
-4. Ops CLI + edge proxy (labs 08–09) when shipped
+4. Signed HTTP + edge proxy (5.0–5.1) when shipped
 5. AKS charts (Phase 7) when shipped
 
 ---
@@ -128,10 +118,10 @@ Add labs **10–13** (rate limit, fan-out, search, controller) plus domains **4 
 ## Suggested priority
 
 ```
-Now     → Phase 1 (Deep Agent + LangGraph + FastMCP)
-Then    → Phase 2 → Phase 3 → Phase 5
+Now     → Phase 1
+Then    → Phase 2 → Phase 3 → Phase 5 (then 5.0–5.4)
 Parallel → Phase 4 (AZ-104) when Terraform exists
-Later   → Phase 6 → Phase 7 (CKA)
+Later   → Phase 6 → 6.1 → 6.2 → 7.1 → Phase 7 (CKA)
 Stretch → TypeScript MCP SDK
 ```
 

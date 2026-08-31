@@ -2,7 +2,7 @@
 
 **Read first:** [Architecture framework](concepts/architecture-framework.md) — five pillars, reference shape, project matrix.
 
-**Your path:** [README.md](../README.md#progression-phase-1--7) (Phase 1 → 7). Each phase spec links what you need under **Architecture pillars**, **languages/**, or **concepts/**.
+**Your path:** [README.md](../README.md#roadmap). Each spec links what you need.
 
 Entry point: [README.md](../README.md)
 

@@ -26,7 +26,7 @@ Walk the sections **top to bottom** once with the repo and environment in front 
 Suggested shape for a **lab milestone** (keep it short):
 
 - **What shipped** — fact-level outcome.
-- **Pillar(s)** — which architecture pillar(s) this milestone primarily proves (1–5; see [architecture framework](docs/concepts/architecture-framework.md)).
+- **Label(s)** — Shape / Integration / Data / Performance / Security / Observability (see [architecture framework](docs/concepts/architecture-framework.md)).
 - **Tradeoff** *(optional, high signal for explaining decisions later)* — what you rejected and why.
 - **Failure mode** *(optional)* — what breaks in production without what you built.
 - **Portfolio** *(optional)* — link to lab `docs/portfolio/` or note deferred artifacts ([template](docs/templates/portfolio-artifacts.md)).
@@ -36,15 +36,15 @@ You do not need daily entries. Aim for **one section per slice** you would summa
 
 For **architecture-style narration**, lean on **Pillar(s)**, **Tradeoff**, and **Failure mode** when you can. See [Architecture framework](docs/concepts/architecture-framework.md).
 
-**Note:** Historical entries may reference the archived [v1 22-step path](archive/v1-22-step/README.md) or removed `FOCUS.md`. The spine is now the [7-domain path plus required competence labs 08–13](README.md) under the [architecture framework](docs/concepts/architecture-framework.md).
+**Note:** Historical entries may reference the archived [v1 22-step path](archive/v1-22-step/README.md) or removed `FOCUS.md`. The spine is the [README roadmap](README.md#roadmap) (Phase 1 → 7, including slices 5.0–5.4, 6.1–6.2, 7.1).
 
-### Active lab and courses
+### Active row and courses
 
-**One active lab at a time** — a domain (1–7) **or** a competence lab (08–13). Linear order: domains 1–5 → 08–12 → domain 6 → 13 → domain 7.
+**One active row at a time.** Next is always the next row in the README table.
 
 | Field | Value |
 |-------|--------|
-| **Active lab** | 1 — Agentic AI and orchestration |
+| **Active row** | 1 — Agentic AI and orchestration |
 | **Active spec** | [01-agentic-orchestration.md](career-project-specs/01-agentic-orchestration.md) |
 
 | Course / credential | Phase | Status | Date | Notes |

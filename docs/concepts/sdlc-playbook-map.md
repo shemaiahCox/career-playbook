@@ -2,9 +2,9 @@
 
 **Use this:** When you want to see **which SDLC phase** a playbook project or concept doc covers—not as the day-one learning path.
 
-**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#progression-phase-1--7) → **this map** for SDLC cross-reference.
+**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#roadmap) → **this map** for SDLC cross-reference.
 
-> **Not the learning path.** Follow [phases 1–7](../../README.md#progression-phase-1--7). Older “Project N” rows below point at [archive/v1-22-step](../../archive/v1-22-step/README.md).
+> **Not the learning path.** Follow [phases 1–7](../../README.md#roadmap). Older “Project N” rows below point at [archive/v1-22-step](../../archive/v1-22-step/README.md).
 
 This doc maps the **classic software development lifecycle** to playbook projects, concept docs, and checklists. The playbook teaches **technical delivery** (build, test, ship, operate) — not Agile/Scrum process, stakeholder workshops, or product discovery.
 

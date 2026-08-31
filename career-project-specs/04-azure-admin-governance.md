@@ -4,93 +4,88 @@
 
 | | |
 |---|---|
-| **Phase** | 4 of 7 |
-| **Previous** | [Phase 3 — Azure Terraform stack](03-azure-terraform-stack.md) |
-| **Next** | [Phase 5 — Azure backends](05-azure-backends.md) |
+| **Phase** | 4 |
+| **Previous** | [Phase 3](03-azure-terraform-stack.md) |
+| **Next** | [Phase 5](05-azure-backends.md) |
+| **Course** | [KodeKloud AZ-104](https://learn.kodekloud.com/) · [AZ-104 on Microsoft Learn](https://learn.microsoft.com/en-us/credentials/certifications/azure-administrator/) |
 
-## What you will learn
+You are here for **Security**: who may touch the lab, and how the app reads secrets without putting them in git.
 
-- Apply **AZ-104** habits to *your* stack: Entra ID, RBAC, Key Vault, Storage, NSGs
-- Separate **who you are** (Entra) from **what the app may do** (RBAC + managed identity)
-- Treat Policy and least privilege as part of the product, not a portal afterthought
+## Terms for this lab
 
-## Architecture pillars
+- **Entra ID** (formerly Azure Active Directory) — Azure’s login directory for people and many apps.
+- **RBAC** (role-based access control) — which identity may create, change, or delete which Azure resource.
+- **Key Vault** — Azure’s secret store. Apps read values at runtime.
+- **Managed identity** — the app logs into Azure as itself; no password copied onto your laptop.
+- **Storage Account** — blobs and files in Azure (state, uploads, or later agent files).
+- **NSG** (network security group) — firewall rules on a subnet.
 
-| Pillar | How this phase practices it |
-|--------|-------------------------------|
-| 5. Reliability, security, operations | Identity, secrets, network rules, resource lifecycle |
+On AWS the analogues are IAM + Secrets Manager; on GCP, Cloud IAM + Secret Manager. One ADR sentence. Do not deploy them.
 
-**Required ADR(s):** human RBAC vs managed identity for the app — **Pillar 5**. One sentence AWS/GCP analogue — [cloud portability](../docs/concepts/cloud-portability.md).
+When the agent calls **Azure OpenAI** (Microsoft’s hosted models) from the cloud, prefer managed identity over an API key in an env file.
 
-**Framework:** [Cloud identity and governance](../docs/concepts/software-engineering.md#cloud-identity-and-governance) · [Azure cloud and AI](../docs/concepts/azure-cloud-and-ai.md) · [Azure certification track](../docs/career/azure-certification-track.md) · [Cloud portability](../docs/concepts/cloud-portability.md)
+## The story
+
+Terraform without governance is a lab that anyone with Owner on the subscription can wreck. You will lock the Phase 3 resource group to **least privilege** (only the roles people actually need) and move secrets into Key Vault.
+
+Entra answers “who is this?” RBAC answers “what may they do to Azure?” Your agent’s end-user login, if you add one later, is a different problem — do not mash them together.
+
+## You are here for
+
+| Label | How this lab practices it |
+|-------|---------------------------|
+| **Security** | Entra vs app identity; Key Vault; NSG you can explain |
+
+**Required ADR:** human RBAC vs managed identity for the workload — tag **Security**. Portability sentence.
 
 ## Before you start
 
-- **Requires:** Phase 3 stack applied (or re-apply a small RG)
-- **Course:** [KodeKloud AZ-104](../docs/career/course-track.md#phase-4) — this is the **in-path** cert course
+- Phase 3 applied (or re-apply a small resource group).
+- Course: AZ-104 is **in-path**, not optional trivia.
 
 ## Problem
 
-IaC without governance is a lab that anyone with a subscription owner role can wreck. Lock the Phase 3 resources to least privilege and move secrets out of env files on the host.
+Secrets on the host and Owner-everywhere will not survive a real team.
 
-## System diagram
+## How work moves
 
 ```mermaid
 flowchart LR
-  Human[Entra_user] -->|"RBAC role"| RG[Resource_group]
+  Human[Entra_user] -->|"RBAC_role"| RG[Resource_group]
   App[App_or_Container] -->|"managed_identity"| KV[Key_Vault]
   App --> SA[Storage_Account]
   NSG[NSG] --> Subnet[VNet_subnet]
 ```
 
-## Stack and why
-
-- **Entra ID** — workforce identity
-- **Azure RBAC** — data-plane / control-plane permissions on the RG
-- **Key Vault + managed identity** — runtime secrets
-- **Storage Account** — state, artifacts, or agent filesystem backend later
-- **NSG** — subnet rules you can explain
-
-## Important concepts
-
-### Entra ID vs app auth
-
-**Entra ID** answers “which human or workload identity is this?” **RBAC** answers “what may they do to Azure resources?” Your agent’s end-user login (if any) is a different problem — do not mash them together.
-
-### Key Vault reference
-
-The app reads secrets at runtime. Git still has `.env.example` names only. Prefer managed identity over a copied connection string on your laptop.
-
 ## Code repo
 
-Extend Phase 3 Terraform (`azurerm_key_vault`, role assignments, storage, NSG) in `career-projects/03-azure-terraform-stack-lab` or `04-azure-admin-governance-lab`.
+Extend Phase 3 Terraform, or `career-projects/04-azure-admin-governance-lab`.
 
 ## Success criteria
 
-- [ ] At least one **custom RBAC assignment** (not just subscription Owner) documented: who, on what scope, why.
-- [ ] Key Vault holds at least one runtime secret; app or Function uses **managed identity** (or a documented local-dev exception).
-- [ ] Storage Account created and purpose named (state, blobs, or agent files).
-- [ ] NSG or subnet rules described in the README (even if lab-open on one port).
-- [ ] AZ-104 course **in progress or complete**; exam date optional in PROGRESS.
-- [ ] ADR: least privilege for deploy identity vs app identity.
+- [ ] One **custom RBAC assignment** (not just subscription Owner): who, on what scope, why.
+- [ ] Key Vault holds at least one runtime secret; app uses **managed identity** (or a documented local-dev exception).
+- [ ] Storage Account created; purpose named.
+- [ ] NSG or subnet rules described in the README.
+- [ ] ADR: deploy identity vs app identity; Azure OpenAI (or other model) auth when not on localhost.
+- [ ] AZ-104 course in progress or complete.
 
 ## Stretch
 
-- [ ] Azure Policy assignment (e.g. allowed locations = UK South) on the lab RG.
+- [ ] Azure Policy (for example allowed locations = UK South) on the lab resource group.
 
-## Testing approach (lab)
+## Testing
 
-- Prove a denied action (wrong role cannot delete the vault).
-- Prove the app identity can read the secret and a human without the role cannot.
+Prove a denied action (wrong role cannot delete the vault). Prove the app identity can read the secret.
 
-## Portfolio artifacts
+## Portfolio
 
 - [ ] Diagram — identities, vault, storage, NSG
 - [ ] ADR — RBAC scopes
-- [ ] Failure modes — Owner-everywhere; secrets in Terraform variables committed; open NSG `*`
+- [ ] Failure modes — Owner-everywhere; secrets in committed Terraform variables; NSG allow `*`
 
 ## When you're done
 
-- Checklist: [Production readiness](../checklists/production-readiness.md) (phase 4)
+- [Production readiness](../checklists/production-readiness.md) (phase 4)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Phase 5 — Azure backends](05-azure-backends.md)
+- **Next:** [Phase 5](05-azure-backends.md)

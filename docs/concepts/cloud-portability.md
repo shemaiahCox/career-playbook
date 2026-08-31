@@ -6,7 +6,7 @@
 
 1. [Architecture framework](architecture-framework.md) — vendor-neutral pillars
 2. **You are here** — pattern → Azure (what you build) → AWS → GCP
-3. Ship on Azure: [Phase 3+](../../career-project-specs/03-azure-terraform-stack.md) and competence labs 08–13
+3. Ship on Azure: [Phase 3+](../../career-project-specs/03-azure-terraform-stack.md) and later rows in the [README roadmap](../../README.md#roadmap)
 
 **Companion:** [Azure cloud and AI](azure-cloud-and-ai.md) · [Azure certification track](../career/azure-certification-track.md)
 
@@ -34,7 +34,7 @@ Every Azure ADR from Phase 3 onward includes **one sentence** naming the AWS and
 | Observability | Application Insights / Monitor | CloudWatch + X-Ray | Cloud Monitoring + Trace |
 | IaC | Terraform `azurerm` | Terraform `aws` | Terraform `google` |
 
-Kubernetes **API** (pods, Deployments, Services, reconcile) is the same on AKS, EKS, and GKE. CKA and [lab 13](../../career-project-specs/13-k8s-controller.md) are already portable.
+Kubernetes **API** (pods, Deployments, Services, reconcile) is the same on AKS, EKS, and GKE. CKA and [Phase 7.1](../../career-project-specs/07-1-k8s-controller.md) are already portable.
 
 ---
 
@@ -49,5 +49,5 @@ Kubernetes **API** (pods, Deployments, Services, reconcile) is the same on AKS, 
 
 ## Technical reference
 
-- Specs that must cite this map: Phases [3](../../career-project-specs/03-azure-terraform-stack.md)–[7](../../career-project-specs/07-aks-orchestration.md), labs [08](../../career-project-specs/08-ops-cli.md)–[13](../../career-project-specs/13-k8s-controller.md)
+- Specs that must cite this map: Phases [3](../../career-project-specs/03-azure-terraform-stack.md)–[7](../../career-project-specs/07-aks-orchestration.md) and slices 5.0–5.4, 6.1–6.2, 7.1
 - Handbook: [Azure-shaped backends](software-engineering.md#azure-shaped-backends) · [Infrastructure as Code](software-engineering.md#infrastructure-as-code)

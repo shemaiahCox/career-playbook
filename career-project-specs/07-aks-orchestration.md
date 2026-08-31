@@ -4,38 +4,47 @@
 
 | | |
 |---|---|
-| **Phase** | 7 of 7 |
-| **Previous** | [Lab 13 — Kubernetes controller-lite](13-k8s-controller.md) |
+| **Phase** | 7 |
+| **Previous** | [Phase 7.1](07-1-k8s-controller.md) |
 | **Next** | — (path complete; keep operating and tightening ADRs) |
+| **Course** | [KodeKloud CKA](https://learn.kodekloud.com/courses/certified-kubernetes-administrator-cka) |
 
-## What you will learn
+You are here for **Security** and **Observability** with Azure product names: the same agent and workers, scheduled on a cluster.
 
-- Run the **Python agent**, **Go workers**, and pipeline jobs on **Azure Kubernetes Service**
-- Package with **Helm**; ship with **CI/CD**; observe and lock down with network policies
-- Complete **CKA**-shaped habits (pods, deploys, services, probes, RBAC) on *your* stack
+## The story
 
-## Architecture pillars
+**AKS** (Azure Kubernetes Service) is Microsoft’s managed Kubernetes — they run the control plane; you run workloads. **Helm** packages Kubernetes YAML as **charts** (templates plus values). **CI/CD** (continuous integration and continuous delivery) is the pipeline that tests and deploys those charts.
 
-| Pillar | How this phase practices it |
-|--------|-------------------------------|
-| 1. System shape | Same system as Phases 1–6, now one cluster |
-| 4. Performance and language boundaries | HPA / replica math with evidence |
-| 5. Reliability, security, operations | Helm, CI, probes, network policies, rollback |
+This is the capstone: not a new product. Compose Phases 1–6. **App Insights** / **Azure Monitor** are Azure’s logs, metrics, and traces. You already learned correlation in Phase 5; here you query the same story with Azure names.
 
-**Required ADR(s):** AKS vs staying on App Service / Container Apps — **Pillar 5**. One sentence AWS/GCP analogue (EKS/GKE) — [cloud portability](../docs/concepts/cloud-portability.md).
+Secrets still do not live in `values-prod.yaml`. **CSI** (Container Storage Interface) or Key Vault references inject secrets at runtime.
 
-**Framework:** [Kubernetes delivery](../docs/concepts/software-engineering.md#kubernetes-delivery) · [Azure certification track](../docs/career/azure-certification-track.md) · [Cloud portability](../docs/concepts/cloud-portability.md)
+**HPA** (horizontal pod autoscaler) adds replicas when CPU (or a custom metric) is high. Write the threshold you chose.
+
+**Probes:** **liveness** (restart if dead) vs **readiness** (stop sending traffic until ready).
+
+EKS and GKE are the same Kubernetes API on AWS and GCP. One ADR sentence.
+
+## You are here for
+
+| Label | How this lab practices it |
+|-------|---------------------------|
+| **Shape** | One cluster for agent, workers, pipeline job |
+| **Performance** | HPA / replica math with a number |
+| **Security** | Network policy, secrets not in git, RBAC |
+| **Observability** | Probes; one Azure Monitor / App Insights query across agent and worker |
+
+**Required ADR:** AKS vs staying on App Service / Container Apps — **Shape**. Portability (EKS/GKE).
 
 ## Before you start
 
-- **Requires:** [Lab 13](13-k8s-controller.md) green (path order) plus Phase 2 images + Phase 5 workers (Phase 6 job as a CronJob or separate workload)
-- **Course:** [KodeKloud CKA](../docs/career/course-track.md#phase-7)
+Phase 7.1 green. Phase 2 images. Phase 5 workers. Phase 6 job as a CronJob or separate workload.
 
 ## Problem
 
-Compose and App Service got you to Azure. Enterprise teams ask for **schedule, scale, and policy** on Kubernetes. This phase is the capstone: one cluster story, not a greenfield product.
+Enterprise teams ask for schedule, scale, and policy on Kubernetes.
 
-## System diagram
+## How work moves
 
 ```mermaid
 flowchart TB
@@ -48,53 +57,33 @@ flowchart TB
   Go --> Bus
 ```
 
-## Stack and why
-
-- **AKS + Helm** — enterprise packaging
-- **CI/CD** (GitHub Actions) — lint, test, helm diff / deploy
-- Images from Phase 2/5
-
-## Important concepts
-
-### Helm values vs secrets
-
-Charts take **values**. Secrets stay in Key Vault / CSI / sealed secrets — not `values-prod.yaml` in git.
-
-### Probes and HPA
-
-Liveness vs readiness (glossary). **HPA** scales on CPU or custom metrics; write the threshold you chose.
-
 ## Code repo
 
-`career-projects/07-aks-orchestration-lab` (charts + pipeline). May wrap previous repos as subcharts.
+`career-projects/07-aks-orchestration-lab`
 
 ## Success criteria
 
-- [ ] Helm chart(s) install agent + at least one Go worker on AKS (or `kind` locally **plus** a documented AKS apply).
-- [ ] Liveness and readiness probes on the agent deploy.
+- [ ] Helm chart(s) install agent + at least one Go worker on AKS (or kind locally **plus** a documented AKS apply).
+- [ ] Liveness and readiness probes on the agent.
 - [ ] CI: lint + test + chart lint (and deploy to a non-prod namespace if you have AKS).
-- [ ] At least one **network policy** (or explicit ADR why the lab cluster is open).
-- [ ] Rollback: `helm rollback` (or previous revision) documented and tried once.
-- [ ] CKA course in progress or complete; notes in PROGRESS.
+- [ ] At least one network policy (or ADR why the lab is open).
+- [ ] `helm rollback` documented and tried once.
+- [ ] One log or trace query across agent and worker in Azure Monitor / App Insights (or kind + grep with an ADR to Azure).
+- [ ] CKA in progress or complete.
 
-## Stretch
+## Testing
 
-- [ ] Ingress + TLS; Pod Disruption Budget; HPA on a real metric.
+`helm template` / `helm lint`. Smoke: port-forward or ingress → health → one tool path.
 
-## Testing approach (lab)
+## Portfolio
 
-- `helm template` / `helm lint`
-- Smoke script: port-forward or ingress → health → one tool path
-
-## Portfolio artifacts
-
-- [ ] Diagram — cluster, namespaces, charts, bus, SQL
-- [ ] ADR — AKS vs Container Apps; how secrets enter the pod
-- [ ] Failure modes — crash loop without probes; chart that embeds secrets; no resource requests
-- [ ] Observability — one trace or log query across agent and worker
+- [ ] Diagram — cluster, namespaces, charts, bus
+- [ ] ADR — AKS vs Container Apps; secrets into the pod
+- [ ] Failure modes — crash loop without probes; secrets in values; no resource requests
+- [ ] Observability — Azure query or documented stand-in
 
 ## When you're done
 
-- Checklist: [Production readiness](../checklists/production-readiness.md) (phase 7)
+- [Production readiness](../checklists/production-readiness.md) (phase 7)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- Update [target-alignment](../docs/career/target-alignment.md) pin list when artifacts are public
+- Update [target alignment](../docs/career/target-alignment.md) pin list when artifacts are public

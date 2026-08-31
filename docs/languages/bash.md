@@ -23,7 +23,7 @@
 | Deploy and smoke glue | P16 `deploy.sh`, P22 `demo.sh` | Production dead-letter queue (DLQ) replay CLI (use [Project 15 Go CLI](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md)) |
 | CI lint of shell | P14 `shellcheck` + bats | Rewriting Go/Rust services in shell |
 
-**Easy follow path:** [Project catalog](../../README.md#progression-phase-1--7) · Per-project [Bash scripting milestone](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections · [Project 15 DevOps CLI](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md) after P14.
+**Easy follow path:** [Project catalog](../../README.md#roadmap) · Per-project [Bash scripting milestone](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections · [Project 15 DevOps CLI](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md) after P14.
 
 ---
 

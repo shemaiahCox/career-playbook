@@ -1,6 +1,6 @@
 # Messaging and RPC
 
-**Use this:** When job posts mention **Kafka, Redis, queues, REST, or gRPC** and you need plain language before [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) or [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md).
+**Use this:** When job posts mention **Kafka, Redis, queues, REST, or gRPC** and you need plain language before [Phase 5](../../career-project-specs/05-azure-backends.md) or [Phase 6](../../career-project-specs/06-data-pipelines.md).
 
 **Reading order:**
 

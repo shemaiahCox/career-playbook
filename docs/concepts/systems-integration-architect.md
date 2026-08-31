@@ -1,6 +1,6 @@
 # Pillar 1 deep dive — System shape
 
-**Use this:** Before drawing boundaries for [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) or the capstone—when you are unsure **where HTTP stops and background work begins**.
+**Use this:** Before drawing boundaries for [Phase 1](../../career-project-specs/01-agentic-orchestration.md) or [Phase 5](../../career-project-specs/05-azure-backends.md) — when you are unsure **where HTTP stops and background work begins**.
 
 **Reading order:**
 
@@ -127,7 +127,7 @@ This order maps to the [five pillars](architecture-framework.md#the-five-pillars
 
 ## Where this repo practices it
 
-Phase specs: [career projects catalog](../../README.md#progression-phase-1--7) · [architecture framework](architecture-framework.md) (learning order). Pair with [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) when AI accelerates a new corner of **your** stack.
+Phase specs: [README roadmap](../../README.md#roadmap) · [architecture framework](architecture-framework.md).
 
 Handbook depth: [Software engineering](software-engineering.md) · [Database design](database-design.md) · [Messaging and RPC](messaging-and-rpc.md).
 

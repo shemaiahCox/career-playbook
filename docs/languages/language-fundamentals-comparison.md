@@ -82,7 +82,7 @@
 0. **Browse the full list** — [Cross-stack study map](#cross-stack-study-map) links every high-value concept to examples here and depth elsewhere.
 1. **Read** the section for the concept you are translating (e.g. “how do maps work in Go?”).
 2. **Skim** the comparison table, then read the **multi-language snippet**.
-3. **Apply** in your active project lab from [README.md](../../README.md#progression-phase-1--7) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
+3. **Apply** in your active project lab from [README.md](../../README.md#roadmap) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
 4. **Depth on complexity and classic data structures and algorithms (DS&A)** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
 6. **Advanced language features** (generators, ownership, type-system edges) live in [Advanced concepts](#advanced-concepts-cross-stack)—read when translating between stacks during an active lab. Operational concurrency (thread pools, backpressure, queue workers) stays in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
@@ -1654,7 +1654,7 @@ dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM reques
 
 **Purpose:** Curated **translation reference** for advanced language features—generators, ownership, type-system edges, error philosophy, metaprogramming—when you move between stacks during an active lab. Not a parallel language course—each topic ties to a playbook project.
 
-**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-phase-1--7). data structures and algorithms (DS&A) theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
+**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#roadmap). data structures and algorithms (DS&A) theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
 
 ### Immutability and value vs reference
 
@@ -2651,4 +2651,4 @@ Stack map: [Python stack](python.md). Database queries: [SQL stack](sql.md).
 
 ---
 
-**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-phase-1--7).
+**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#roadmap).

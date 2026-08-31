@@ -4,7 +4,7 @@ Jump to **Plain language** sections at the bottom of each ecosystem map. Each ma
 
 **Primary stack:** Python · Go · SQL · Bash. **Secondary:** TypeScript/Node (MCP SDK, thin APIs). PHP and Rust maps stay as commercial / optional background.
 
-The learning order is the [7-phase path](../../README.md#progression-phase-1--7), not the archived 22-step labs.
+The learning order is the [README roadmap](../../README.md#roadmap), not the archived 22-step labs.
 
 | Term | One-line meaning | Deep dive |
 |------|------------------|-----------|

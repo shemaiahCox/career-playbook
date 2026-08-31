@@ -4,38 +4,44 @@
 
 | | |
 |---|---|
-| **Phase** | 3 of 7 |
-| **Previous** | [Phase 2 — Containerize the agent](02-containerize-agent.md) |
-| **Next** | [Phase 4 — Azure admin and governance](04-azure-admin-governance.md) |
+| **Phase** | 3 |
+| **Previous** | [Phase 2](02-containerize-agent.md) |
+| **Next** | [Phase 4](04-azure-admin-governance.md) |
+| **Course** | [KodeKloud Terraform for Beginners](https://learn.kodekloud.com/courses/terraform-for-beginners) |
 
-## What you will learn
+You are here for **Shape** (network and compute as a diagram you can apply twice) and **Security** (state files and secrets never belong in git).
 
-- Provision Azure with **Terraform** (`azurerm`) instead of clicking the portal
-- Create a resource group, **VNet**, and **App Service** (or Container Apps) that can run the Phase 2 image
-- Use **remote state**; destroy the lab when done
+## The story
 
-## Architecture pillars
+Clicking the Azure portal does not review well, does not repeat, and does not destroy cleanly. **IaC** (infrastructure as code) means the cloud is described in files. **Terraform** is the tool; **azurerm** is the provider plugin for Azure.
 
-| Pillar | How this phase practices it |
-|--------|-------------------------------|
-| 1. System shape | Network and compute topology as code |
-| 5. Reliability, security, operations | State as source of truth; blast radius of apply/destroy |
+You will create a **resource group** (a folder of Azure resources that die together), a **VNet** (virtual network — private address space in Azure), and compute that can run the Phase 2 image: **App Service** or **Container Apps** (two Azure products that host containers; pick one in an ADR).
 
-**Required ADR(s):** App Service vs Container Apps — **Pillar 5**. One sentence AWS/GCP analogue — [cloud portability](../docs/concepts/cloud-portability.md). Optional AZ-900 vocabulary before you name SKUs.
+**Remote state** means Terraform’s memory of what exists lives in Azure Storage, not only on your laptop. **Destroy** is how this lab should end unless you deliberately keep a cheap SKU.
 
-**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md) · [Infrastructure as Code](../docs/concepts/software-engineering.md#infrastructure-as-code) · [Azure cloud and AI](../docs/concepts/azure-cloud-and-ai.md) · [Cloud portability](../docs/concepts/cloud-portability.md)
+Optional vocabulary before naming SKUs: [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) (Azure fundamentals). Not required to exit.
+
+On AWS this shape is a VPC plus ECS or App Runner; on GCP a VPC plus Cloud Run. One sentence in the ADR is enough — do not deploy a second cloud. See [cloud portability](../docs/concepts/cloud-portability.md).
+
+## You are here for
+
+| Label | How this lab practices it |
+|-------|---------------------------|
+| **Shape** | RG, VNet, compute topology as code |
+| **Security** | State and secrets not in git; destroy is documented |
+
+**Required ADR:** App Service vs Container Apps — tag **Shape**. One sentence AWS/GCP analogue.
 
 ## Before you start
 
-- **Requires:** Phase 2 image builds
-- **Course:** [KodeKloud Terraform for Beginners](../docs/career/course-track.md#phase-3)
-- **Optional:** AZ-900 study guide for IaaS/PaaS/RBAC words — [cert track](../docs/career/azure-certification-track.md)
+- Phase 2 image builds.
+- Course: KodeKloud Terraform.
 
 ## Problem
 
-Portal clicks do not review, repeat, or destroy cleanly. Encode the Azure footprint that will host the agent.
+Encode the Azure footprint that will host the agent so you can apply, review, and destroy it.
 
-## System diagram
+## How work moves
 
 ```mermaid
 flowchart TB
@@ -46,32 +52,19 @@ flowchart TB
   App --> Image[Phase2_image]
 ```
 
-## Stack and why
-
-- **Terraform + azurerm** — industry default for Azure IaC
-- **Remote state** (Azure Storage) — so apply is not locked to one laptop
-- HCL is the language here; app code stays Python/Go
-
 ## Important concepts
 
 ### Plan then apply
 
+`terraform plan` is the review. `apply` makes it real. `destroy` should be in the README.
+
 ```hcl
-# Illustrative — azurerm
+# Illustrative
 resource "azurerm_resource_group" "lab" {
   name     = "rg-playbook-agent"
   location = "uksouth"
 }
-
-resource "azurerm_virtual_network" "lab" {
-  name                = "vnet-playbook"
-  resource_group_name = azurerm_resource_group.lab.name
-  location            = azurerm_resource_group.lab.location
-  address_space       = ["10.10.0.0/16"]
-}
 ```
-
-`terraform plan` is the review artifact. `destroy` is how labs die — document that you ran it.
 
 ## Code repo
 
@@ -79,29 +72,28 @@ resource "azurerm_virtual_network" "lab" {
 
 ## Success criteria
 
-- [ ] `terraform plan` / `apply` creates RG + VNet + compute that can run (or is ready to run) the Phase 2 image.
-- [ ] Remote state backend configured; local state is not the source of truth.
-- [ ] README: apply, output URLs, **destroy** steps.
-- [ ] One apply + one destroy logged in PROGRESS (or a note if you kept a cheap always-on SKU on purpose).
-- [ ] KodeKloud Terraform started/completed.
+- [ ] `plan` / `apply` creates RG + VNet + compute ready for the Phase 2 image.
+- [ ] Remote state configured.
+- [ ] README: apply, URLs, **destroy**.
+- [ ] One apply and one destroy logged (or a note if you kept a cheap always-on SKU on purpose).
+- [ ] KodeKloud Terraform started or completed.
 
 ## Stretch
 
-- [ ] Wire the container image from a registry (ACR) in the same Terraform.
+- [ ] Azure Container Registry (ACR) in the same Terraform; image pulled from there.
 
-## Testing approach (lab)
+## Testing
 
-- `terraform validate` + `fmt` in CI if the repo has Actions.
-- Manual: apply → hit health (if compute is live) → destroy.
+`terraform validate` and `fmt`. Prefer running them in CI. Manual: apply → health if live → destroy.
 
-## Portfolio artifacts
+## Portfolio
 
 - [ ] Diagram — RG, VNet, compute, state
-- [ ] ADR — App Service vs Container Apps; remote state location
-- [ ] Failure modes — state file in git; orphaned resources after failed destroy
+- [ ] ADR — compute choice + portability sentence
+- [ ] Failure modes — state in git; orphans after failed destroy
 
 ## When you're done
 
-- Checklist: [Production readiness](../checklists/production-readiness.md) (phase 3)
+- [Production readiness](../checklists/production-readiness.md) (phase 3)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Phase 4 — Azure admin and governance](04-azure-admin-governance.md)
+- **Next:** [Phase 4](04-azure-admin-governance.md)

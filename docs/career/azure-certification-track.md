@@ -7,7 +7,7 @@
 1. [Architecture framework](../concepts/architecture-framework.md)
 2. Optional **AZ-900** vocabulary before Phase 3 — [Azure cloud and AI](../concepts/azure-cloud-and-ai.md)
 3. [Phase 3 Terraform](../../career-project-specs/03-azure-terraform-stack.md) → [Phase 4 AZ-104](../../career-project-specs/04-azure-admin-governance.md)
-4. [Phase 7 CKA](../../career-project-specs/07-aks-orchestration.md)
+4. [Phase 7.1 controller](../../career-project-specs/07-1-k8s-controller.md) → [Phase 7 AKS](../../career-project-specs/07-aks-orchestration.md)
 
 **Companion:** [Course track](course-track.md) · [Target alignment](target-alignment.md) · [PROGRESS.md](../../PROGRESS.md)
 
@@ -19,7 +19,7 @@
 |------------|-------|------|
 | AZ-900 (optional) | Before 3 | Labels: RG, RBAC, IaaS/PaaS |
 | **AZ-104** | **4** | Required course — admin, identity, network, storage, governance on *your* Terraform stack |
-| **CKA** | **7** | Required course — schedule, observe, and secure the same workloads on AKS |
+| **CKA** | **7.1 then 7** | Required course — start with the controller-lite spec, finish on AKS |
 
 Azure OpenAI (or any LLM provider) is an **implementation choice** in Phase 1/5, not a separate organizing course.
 

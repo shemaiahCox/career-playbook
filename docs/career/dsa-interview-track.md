@@ -1,6 +1,6 @@
 # DSA interview track — parallel LeetCode prep
 
-**Use this:** Prepare for **Google/Meta coding screens** alongside the [7-phase path](../../README.md#progression-phase-1--7). This is a **parallel track** — not a replacement for shipping labs.
+**Use this:** Prepare for **Google/Meta coding screens** alongside the [7-phase path](../../README.md#roadmap). This is a **parallel track** — not a replacement for shipping labs.
 
 **Companion handbook:** [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Algorithms study path](../concepts/algorithms-study-path.md) (lab-applied literacy) · [Big Tech benchmark](big-tech-benchmark.md)
 

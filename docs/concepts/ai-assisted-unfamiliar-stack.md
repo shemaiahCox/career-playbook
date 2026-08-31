@@ -102,7 +102,7 @@ Then: implement consumer loop + one integration test with duplicate delivery.
 
 ## Related
 
-- [Career projects](../../README.md#progression-phase-1--7) — 7-phase path; each spec links handbook and stack maps.
+- [Career projects](../../README.md#roadmap) — 7-phase path; each spec links handbook and stack maps.
 - [Architecture framework](architecture-framework.md) — five pillars; read before generating large amounts of code.
 - [Systems integration architect](systems-integration-architect.md) — Pillar 1 depth order for integration-shaped **design** literacy on your stack.
 - [docs README](../README.md) — definition + minimal example + failure mode; **[Stacks glossary (plain-language index)](../languages/glossary.md)** gathers links to newcomer-friendly blurbs under each ecosystem map.

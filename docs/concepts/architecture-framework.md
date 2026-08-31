@@ -1,6 +1,6 @@
 # Architecture framework
 
-**Use this:** **Read this first.** Every lab practices decisions under **five pillars**. The **learning order** is the [7-domain path plus required competence labs 08–13](../../README.md#progression-phase-1--7).
+**Use this:** **Read this first.** Specs use six labels (Shape, Integration, Data, Performance, Security, Observability). The **learning order** is the [README roadmap](../../README.md#roadmap).
 
 **Reading order:**
 
@@ -67,7 +67,7 @@ Where HTTP ends and durable work begins; who owns the agent vs the tool vs the w
 
 **Example ADR prompts:** Deep Agents vs custom LangGraph; why a tool leaves the agent process.
 
-**Primary phases:** 1, 5, 7
+**Focus labs:** [Phase 1](../../career-project-specs/01-agentic-orchestration.md) (agent vs tools), [Phase 5](../../career-project-specs/05-azure-backends.md) (HTTP vs queue). Reuse: 5.0, 5.3, 7.1.
 
 ---
 
@@ -83,7 +83,7 @@ Delivery semantics, MCP as a tool protocol, Service Bus / Event Hubs, idempotenc
 
 **Deep docs:** [messaging-and-rpc.md](messaging-and-rpc.md) · [software-engineering.md § Integration](software-engineering.md#integration-sync-async-and-messaging)
 
-**Primary phases:** 5, 6
+**Focus labs:** [Phase 5](../../career-project-specs/05-azure-backends.md), [5.3](../../career-project-specs/05-3-notification-fanout.md). Reuse: 5.0, 5.4.
 
 ---
 
@@ -93,7 +93,7 @@ Checkpoints and agent filesystem; serving SQL; pipeline sinks; indexes for the q
 
 **Deep docs:** [database-design.md](database-design.md)
 
-**Primary phases:** 6 (and Phase 1 stores)
+**Focus labs:** [Phase 6](../../career-project-specs/06-data-pipelines.md), [6.1](../../career-project-specs/06-1-search-autocomplete.md), [6.2](../../career-project-specs/06-2-rag-retrieve.md). Reuse: Phase 1 checkpoints.
 
 ---
 
@@ -103,7 +103,7 @@ Measure first. Python for orchestration and data; Go for throughput. No rewrite 
 
 **Deep docs:** [memory-and-performance.md](memory-and-performance.md) · [concurrency-runtime-model.md](concurrency-runtime-model.md)
 
-**Primary phases:** 5
+**Focus labs:** [5.1](../../career-project-specs/05-1-edge-proxy.md), [5.2](../../career-project-specs/05-2-rate-limiter.md). Reuse: Phase 5 language ADR, 6.1 p95.
 
 ---
 
@@ -111,11 +111,13 @@ Measure first. Python for orchestration and data; Go for throughput. No rewrite 
 
 Evals, identity, Key Vault, healthchecks, Terraform state, Helm rollback, failure modes.
 
+Specs split this bucket in the roadmap: **Security** (Phases 2, 4, 5.0) vs **Observability** (Phase 5, then Azure names in Phase 7). Identity, Terraform, and Helm stay here as deploy/ops.
+
 Every lab documents **three failure modes**. Gate with [production-readiness.md](../../checklists/production-readiness.md).
 
 **Deep docs:** [production-readiness.md](../../checklists/production-readiness.md) · [azure-cloud-and-ai.md](azure-cloud-and-ai.md) · [azure-certification-track.md](../career/azure-certification-track.md)
 
-**Primary phases:** 2, 3, 4, 7
+**Focus labs — Security / deploy:** [2](../../career-project-specs/02-containerize-agent.md), [3](../../career-project-specs/03-azure-terraform-stack.md), [4](../../career-project-specs/04-azure-admin-governance.md), [7](../../career-project-specs/07-aks-orchestration.md). **Observability:** [Phase 5](../../career-project-specs/05-azure-backends.md) (learn), Phase 7 (Azure Monitor).
 
 ---
 
@@ -123,23 +125,25 @@ Every lab documents **three failure modes**. Gate with [production-readiness.md]
 
 ● = primary practice · ○ = secondary / touched
 
-| Phase / lab | Lab | P1 Shape | P2 Integration | P3 Data | P4 Performance | P5 Reliability |
-|-------------|-----|:--------:|:--------------:|:-------:|:--------------:|:--------------:|
+| Row | Lab | Shape | Integration | Data | Performance | Security / Observability |
+|-----|-----|:-----:|:-----------:|:----:|:-----------:|:------------------------:|
 | 1 | Agentic orchestration | ● | ○ | ○ | | ● |
-| 2 | Containerize agent | ○ | | | | ● |
-| 3 | Azure Terraform | ● | | | | ● |
+| 2 | Containerize | ○ | | | | ● |
+| 3 | Terraform | ● | | | | ● |
 | 4 | Azure admin | | | | | ● |
-| 5 | Azure backends | ● | ● | | ● | ● |
-| 08 | Ops CLI | | ● | | | ● |
-| 09 | Edge proxy | ● | | | ● | ● |
-| 10 | Rate limiter | | ○ | | ● | ● |
-| 11 | Notification fan-out | ● | ● | | | ● |
-| 12 | Search / autocomplete | | | ● | ● | ○ |
-| 6 | Data pipelines | ○ | ● | ● | | ○ |
-| 13 | K8s controller-lite | ● | ● | | | ● |
-| 7 | AKS capstone | ● | ○ | ○ | ○ | ● |
+| 5 | Backends | ● | ● | ○ | ● | ● |
+| 5.0 | Signed HTTP | ● | ● | | | ● |
+| 5.1 | Edge proxy | ● | | | ● | ● |
+| 5.2 | Rate limiter | | ○ | | ● | ● |
+| 5.3 | Fan-out | ● | ● | | | ● |
+| 5.4 | Ops CLI | | ● | | | ● |
+| 6 | Pipelines | ○ | ● | ● | | ○ |
+| 6.1 | Search | | | ● | ● | ○ |
+| 6.2 | RAG | ○ | | ● | | ○ |
+| 7.1 | Controller | ● | ● | | | ● |
+| 7 | AKS | ● | ○ | ○ | ○ | ● |
 
-**Minimum credible bar:** at least one **shipped** lab with ● in **each pillar** you claim — typically domains **1 + 2 + 3 + 5** plus labs **08 + 09**. Full differentiation: labs **10–13** plus domains **4 + 6 + 7**.
+**Minimum credible:** rows **1 + 2 + 3 + 5**. Full path: remaining rows in the [README table](../../README.md#roadmap).
 
 See [target-alignment.md](../career/target-alignment.md).
 

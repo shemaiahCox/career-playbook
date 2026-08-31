@@ -2,7 +2,7 @@
 
 Use this before calling **any** lab milestone **done**. It is the universal gate senior engineers expect — from rate limits through security notes — not a replacement for domain deep dives.
 
-**How to use:** Walk sections **top to bottom** for your active **lab** (domain 1–7 or competence lab 08–13). Skip rows marked **N/A** in the [applicability matrix](#applicability-by-phase-1-7) for that lab. If you defer a required row, note one line in [PROGRESS.md](../PROGRESS.md) (“Deferred: … because …”).
+**How to use:** Walk sections **top to bottom** for your active **row** (see [README roadmap](../README.md#roadmap)). Skip rows marked **N/A** in the [applicability matrix](#applicability-by-roadmap-row). If you defer a required row, note one line in [PROGRESS.md](../PROGRESS.md).
 
 **Also run when applicable:**
 
@@ -83,7 +83,7 @@ These items make production debugging possible without reproducing blindly.
 These items let you follow one request across the services you own.
 
 - [ ] **request_id** propagated across service boundaries you own (header or log field).
-- [ ] Optional: OpenTelemetry or vendor trace — required for multi-service labs (5, 09, 11, 7).
+- [ ] Optional: OpenTelemetry or vendor trace — required for multi-service rows (5, 5.0, 5.1, 5.3, 7).
 - [ ] One documented “follow this id across services” example in lab README.
 
 ## Health checks
@@ -112,22 +112,24 @@ These items cover secrets, input validation, and what threats you did and did no
 
 ---
 
-## Applicability by phase (1–7) and competence labs (08–13)
+## Applicability by roadmap row
 
 **Legend:** **Req** = required for milestone done · **Opt** = apply if the lab exposes that surface · **N/A** = skip unless you added that surface as stretch · **Logs** = request_id + structured logs sufficient (full tracing optional)
 
-| Lab | Rate limits | Retries | Idempotency | DLQ | Metrics | Logs | Tracing | Health | Versioning | Security |
+| Row | Rate limits | Retries | Idempotency | DLQ | Metrics | Logs | Tracing | Health | Versioning | Security |
 |-----|-------------|---------|-------------|-----|---------|------|---------|--------|------------|----------|
 | 1 Agentic orchestration | Opt | Req | Opt | Opt | Req | Req | Logs | Req | Opt | Req |
 | 2 Containerize agent | N/A | Opt | N/A | N/A | Opt | Req | Logs | Req | Opt | Req |
 | 3 Azure Terraform | N/A | N/A | N/A | N/A | Opt | Opt | N/A | Opt | Opt | Req |
 | 4 Azure admin | N/A | N/A | N/A | N/A | Opt | Opt | N/A | N/A | N/A | Req |
 | 5 Azure backends | Opt | Req | Req | Req | Req | Req | Req | Req | Req | Req |
-| 08 Ops CLI | N/A | Opt | Req | Req | Opt | Req | Logs | Req | Opt | Req |
-| 09 Edge proxy | Opt | Opt | N/A | N/A | Req | Req | Req | Req | Opt | Req |
-| 10 Rate limiter | Req | N/A | N/A | N/A | Req | Req | Logs | Req | Opt | Req |
-| 11 Notification fan-out | Opt | Req | Req | Req | Req | Req | Req | Req | Req | Req |
-| 12 Search / autocomplete | Opt | N/A | Opt | N/A | Req | Req | Logs | Req | Opt | Req |
+| 5.0 Signed HTTP | Opt | Opt | Req | N/A | Opt | Req | Logs | Req | Req | Req |
+| 5.1 Edge proxy | Opt | Opt | N/A | N/A | Req | Req | Req | Req | Opt | Req |
+| 5.2 Rate limiter | Req | N/A | N/A | N/A | Req | Req | Logs | Req | Opt | Req |
+| 5.3 Fan-out | Opt | Req | Req | Req | Req | Req | Req | Req | Req | Req |
+| 5.4 Ops CLI | N/A | Opt | Req | Req | Opt | Req | Logs | Req | Opt | Req |
 | 6 Data pipelines | N/A | Opt | Req | Opt | Opt | Req | Logs | Opt | Opt | Req |
-| 13 K8s controller-lite | N/A | Opt | Req | N/A | Opt | Req | Logs | Opt | Opt | Req |
+| 6.1 Search | Opt | N/A | Opt | N/A | Req | Req | Logs | Req | Opt | Req |
+| 6.2 RAG | Opt | Opt | Opt | N/A | Opt | Req | Logs | Opt | Opt | Req |
+| 7.1 K8s controller | N/A | Opt | Req | N/A | Opt | Req | Logs | Opt | Opt | Req |
 | 7 AKS capstone | Req | Req | Req | Req | Req | Req | Req | Req | Req | Req |

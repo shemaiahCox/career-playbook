@@ -8,7 +8,7 @@
 2. **You are here**
 3. [Azure certification track](../career/azure-certification-track.md) — AZ-104 = Phase 4, CKA = Phase 7
 4. [Cloud portability](cloud-portability.md) — AWS/GCP names only
-5. Provision in [Phase 3](../../career-project-specs/03-azure-terraform-stack.md); competence labs [08–13](../../career-project-specs/08-ops-cli.md) stay on Azure
+5. Provision in [Phase 3](../../career-project-specs/03-azure-terraform-stack.md). Later rows stay on Azure; AWS/GCP are names only.
 
 **Companion:** [Glossary — Azure index](software-engineering-glossary.md#azure-index) · [Cloud portability](cloud-portability.md) · [Messaging and RPC](messaging-and-rpc.md) · [LLMs](llms.md)
 

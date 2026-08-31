@@ -1,14 +1,8 @@
 # career-projects
 
-Numbered lab workspaces live here. **The two-digit folder prefix matches the spec** — same number as the spec file.
+Clone each lab into the folder named in the spec. **Folder prefix matches the spec file** (Phase 5.2 → `05-2-rate-limiter-lab`).
 
-## How to read this folder
-
-Clone the lab into the named folder under `career-projects/` when you start that spec. GitHub remote names may differ from folder names — see each spec's **Code repo** section.
-
-**One active lab at a time.** Linear order: domains **1–5** → labs **08–12** → domain **6** → lab **13** → domain **7**.
-
-### Domains (1–7)
+**One active row at a time.** Order is the [README roadmap table](../README.md#roadmap).
 
 | Phase | Clone into | Spec |
 |-------|------------|------|
@@ -17,27 +11,20 @@ Clone the lab into the named folder under `career-projects/` when you start that
 | 3 | `03-azure-terraform-stack-lab` | [03-azure-terraform-stack.md](../career-project-specs/03-azure-terraform-stack.md) |
 | 4 | `04-azure-admin-governance-lab` | [04-azure-admin-governance.md](../career-project-specs/04-azure-admin-governance.md) |
 | 5 | `05-azure-backends-lab` | [05-azure-backends.md](../career-project-specs/05-azure-backends.md) |
+| 5.0 | `05-0-signed-http-lab` | [05-0-signed-http.md](../career-project-specs/05-0-signed-http.md) |
+| 5.1 | `05-1-edge-proxy-lab` | [05-1-edge-proxy.md](../career-project-specs/05-1-edge-proxy.md) |
+| 5.2 | `05-2-rate-limiter-lab` | [05-2-rate-limiter.md](../career-project-specs/05-2-rate-limiter.md) |
+| 5.3 | `05-3-notification-fanout-lab` | [05-3-notification-fanout.md](../career-project-specs/05-3-notification-fanout.md) |
+| 5.4 | `05-4-ops-cli-lab` | [05-4-ops-cli.md](../career-project-specs/05-4-ops-cli.md) |
 | 6 | `06-data-pipelines-lab` | [06-data-pipelines.md](../career-project-specs/06-data-pipelines.md) |
+| 6.1 | `06-1-search-autocomplete-lab` | [06-1-search-autocomplete.md](../career-project-specs/06-1-search-autocomplete.md) |
+| 6.2 | `06-2-rag-retrieve-lab` | [06-2-rag-retrieve.md](../career-project-specs/06-2-rag-retrieve.md) |
+| 7.1 | `07-1-k8s-controller-lab` | [07-1-k8s-controller.md](../career-project-specs/07-1-k8s-controller.md) |
 | 7 | `07-aks-orchestration-lab` | [07-aks-orchestration.md](../career-project-specs/07-aks-orchestration.md) |
 
-### Required competence labs (08–13)
+Each folder is normally a **nested git clone**.
 
-Compose the Phase 5 worker. Do not start a greenfield product for each lab.
+- **Path:** [README.md](../README.md#roadmap)
+- **v1 labs** on disk are not this order — [archive/v1-22-step](../archive/v1-22-step/README.md)
 
-| Lab | Clone into | Spec |
-|-----|------------|------|
-| 08 | `08-ops-cli-lab` | [08-ops-cli.md](../career-project-specs/08-ops-cli.md) |
-| 09 | `09-edge-proxy-lab` | [09-edge-proxy.md](../career-project-specs/09-edge-proxy.md) |
-| 10 | `10-rate-limiter-lab` | [10-rate-limiter.md](../career-project-specs/10-rate-limiter.md) |
-| 11 | `11-notification-fanout-lab` | [11-notification-fanout.md](../career-project-specs/11-notification-fanout.md) |
-| 12 | `12-search-autocomplete-lab` | [12-search-autocomplete.md](../career-project-specs/12-search-autocomplete.md) |
-| 13 | `13-k8s-controller-lab` | [13-k8s-controller.md](../career-project-specs/13-k8s-controller.md) |
-
-Each folder is normally a **nested git clone** — not duplicated in this parent repo unless you consciously vendor.
-
-- **Path:** [README.md](../README.md#progression-phase-1--7)
-- **Specs:** [career-project-specs/](../career-project-specs/)
-- **Portability:** [cloud-portability.md](../docs/concepts/cloud-portability.md)
-- **v1 labs** (webhook, RAG, SQL) may still sit on disk from the old path — they are not the learning order. See [archive/v1-22-step](../archive/v1-22-step/README.md).
-
-Separate commercial repos may live under **`~/Documents/dev/business-projects/`** — unrelated to playbook numbering.
+Commercial work may live under `~/Documents/dev/business-projects/` — unrelated numbering.

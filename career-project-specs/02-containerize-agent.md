@@ -4,37 +4,41 @@
 
 | | |
 |---|---|
-| **Phase** | 2 of 7 |
-| **Previous** | [Phase 1 — Agentic orchestration](01-agentic-orchestration.md) |
-| **Next** | [Phase 3 — Azure Terraform stack](03-azure-terraform-stack.md) |
+| **Phase** | 2 |
+| **Previous** | [Phase 1](01-agentic-orchestration.md) |
+| **Next** | [Phase 3](03-azure-terraform-stack.md) |
+| **Course** | [KodeKloud Docker for the Absolute Beginner](https://learn.kodekloud.com/courses/docker-for-the-absolute-beginner) |
 
-## What you will learn
+You are here for **Security** (the image must not contain passwords) and **Observability** (a health endpoint so later Azure knows the process is alive). You also start **CI** (continuous integration — automated tests on every pull request).
 
-- Package the Phase 1 **Python** agent and its dependencies into an image
-- Run it with **Compose**, healthchecks, and no secrets in layers
-- Treat the image as the immutable unit you will later put on Azure
+## The story
 
-## Architecture pillars
+Phase 1 “works on my machine.” That is not how you give the same program to a teammate or to Azure. **Docker** packages the Python environment into an **image** (an immutable snapshot). A **container** is one running copy of that image.
 
-| Pillar | How this phase practices it |
-|--------|-------------------------------|
-| 1. System shape | Agent + optional sidecar services as a compose graph |
-| 5. Reliability, security, operations | Healthchecks, `.env.example`, image tags, rollback = previous tag |
+**Compose** is a file that says which containers start together (agent, maybe a volume for checkpoints). You will use this file again in Phase 5 when the Go worker appears — for now, package the **agent**.
 
-**Required ADR(s):** single-stage vs multi-stage image — **Pillar 5**.
+Never copy a `.env` file into the image. Runtime secrets come from the environment or, later, Key Vault (Phase 4).
 
-**Framework:** [Architecture framework](../docs/concepts/architecture-framework.md) · [Containers as the ship unit](../docs/concepts/software-engineering.md#containers-as-the-ship-unit)
+## You are here for
+
+| Label | How this lab practices it |
+|-------|---------------------------|
+| **Shape** | Agent as one Compose service; later rows add workers beside it |
+| **Security** | No secrets in layers; `.env.example` lists names only |
+| **Observability** | `/health` so orchestrators can probe the process |
+
+**Required ADR:** single-stage vs multi-stage image — tag **Security** (smaller attack surface, fewer leftover build tools).
 
 ## Before you start
 
-- **Requires:** Phase 1 agent runnable locally
-- **Course:** [KodeKloud Docker for the Absolute Beginner](../docs/career/course-track.md#phase-2)
+- Phase 1 agent runs locally.
+- Course: KodeKloud Docker (Progress table).
 
 ## Problem
 
-The Phase 1 agent “works on my machine.” Package the **Python environment** so anyone (and later Azure) can run the same artifact.
+Anyone else — and later Azure — must run the **same** artifact, not your laptop folder.
 
-## System diagram
+## How work moves
 
 ```mermaid
 flowchart LR
@@ -44,21 +48,18 @@ flowchart LR
   Agent --> Health["/health"]
 ```
 
-## Stack and why
-
-- **Docker / Dockerfile / Compose** — the ship unit for Phases 3–7
-- **Python image** — primary. Node BFF image only if you shipped the Phase 1 TypeScript stretch.
-
 ## Important concepts
 
 ### Image vs container
 
-An **image** is the immutable filesystem + metadata. A **container** is a running instance. You promote **tags**, not “the folder on my laptop.”
+You promote **tags** (for example `agent:2026-08-31`). Rollback means run the previous tag, not “git stash on the server.”
 
 ### Multi-stage build
 
+A first stage installs dependencies; the final stage copies only what you need to run. That keeps compilers and pip caches out of production.
+
 ```dockerfile
-# Illustrative — Python agent
+# Illustrative
 FROM python:3.12-slim AS deps
 WORKDIR /app
 COPY pyproject.toml .
@@ -73,35 +74,34 @@ HEALTHCHECK CMD python -c "import urllib.request; urllib.request.urlopen('http:/
 CMD ["python", "-m", "agent.serve"]
 ```
 
-Never `COPY .env` into the image. Runtime secrets come from Compose `env_file` or the platform.
+### CI
+
+Add a GitHub Action (or equivalent) that runs tests — including the Phase 1 eval command — and builds the image. You do not need to deploy yet. AKS (Phase 7) will assume this habit exists.
 
 ## Code repo
 
-Document in the Phase 1 lab repo **or** `career-projects/02-containerize-agent-lab` if you split.
+Phase 1 lab repo, or `career-projects/02-containerize-agent-lab` if you split.
 
 ## Success criteria
 
 - [ ] `docker compose up` starts the Phase 1 agent; `/health` returns 200.
 - [ ] Image builds without secrets; `.env.example` lists key names only.
-- [ ] README: how to build, tag, and roll back to a previous tag.
-- [ ] Course notes or PROGRESS line: KodeKloud Docker started/completed.
+- [ ] README: build, tag, roll back to a previous tag.
+- [ ] CI runs tests (and the image build) on pull request.
+- [ ] KodeKloud Docker started or completed; note in PROGRESS.
 
-## Stretch
+## Testing
 
-- [ ] Second Compose service for a TypeScript MCP/API front (only if Phase 1 stretch exists).
+Smoke: compose up → health → one eval path against the container.
 
-## Testing approach (lab)
+## Portfolio
 
-Smoke: compose up → health → one agent eval path against the container.
-
-## Portfolio artifacts
-
-- [ ] Diagram — compose services, volumes, health
-- [ ] ADR — base image and multi-stage choice
-- [ ] Failure modes — secret in layer; no healthcheck; untagged `:latest` only
+- [ ] Diagram — Compose, volumes, health
+- [ ] ADR — base image / multi-stage
+- [ ] Failure modes — secret in layer; no healthcheck; only `:latest`
 
 ## When you're done
 
-- Checklist: [Production readiness](../checklists/production-readiness.md) (phase 2)
+- [Production readiness](../checklists/production-readiness.md) (phase 2)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Phase 3 — Azure Terraform stack](03-azure-terraform-stack.md)
+- **Next:** [Phase 3](03-azure-terraform-stack.md)

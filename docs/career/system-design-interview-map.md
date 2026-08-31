@@ -2,7 +2,7 @@
 
 **Use this:** Prepare for **Google/Meta system design rounds** by mapping classic problems to labs you ship and gaps you study. Companion to [Big Tech benchmark](big-tech-benchmark.md).
 
-**Not the learning path** — follow [domains 1–7 plus competence labs 08–13](../../README.md#progression-phase-1--7) for hands-on depth. Older v1 names below live in [archive/v1-22-step](../../archive/v1-22-step/README.md). Use this doc for **weekend reading** and **mock system design practice**.
+**Not the learning path** — follow the [README roadmap](../../README.md#roadmap). Older v1 names below live in [archive/v1-22-step](../../archive/v1-22-step/README.md).
 
 ---
 
@@ -29,9 +29,9 @@ Use this 45–60 minute structure (say aloud or whiteboard):
 | **URL shortener** | [P1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) idempotency; [P4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) indexes | Base62 encoding, read-heavy cache, sharding by hash | — |
 | **News feed / timeline** | [P6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) queue; [P8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) worker | Fan-out on write vs read, ranking, celebrity problem | — |
 | **Chat / messaging** | [P13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md) SSE/WS | WebSocket scale, presence, message ordering | — |
-| **Notifications** | Phase 5 + lab 08 idempotency + DLQ | Multi-channel fan-out, priority, delivery guarantees | **[Lab 11](../../career-project-specs/11-notification-fanout.md)** |
-| **Rate limiter** | Phase 5 bounded workers | Token bucket, sliding window, Redis cluster, global vs per-user | **[Lab 10](../../career-project-specs/10-rate-limiter.md)** |
-| **Search / autocomplete** | Lab 12 + trie in [algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Inverted index, ranking, prefix cache | **[Lab 12](../../career-project-specs/12-search-autocomplete.md)** |
+| **Notifications** | Phase 5 + 5.4 DLQ | Multi-channel fan-out | **[5.3](../../career-project-specs/05-3-notification-fanout.md)** |
+| **Rate limiter** | Phase 5 bounded workers | Token bucket, sliding window | **[5.2](../../career-project-specs/05-2-rate-limiter.md)** |
+| **Search / autocomplete** | 6.1 + trie in [algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Inverted index, ranking | **[6.1](../../career-project-specs/06-1-search-autocomplete.md)** |
 | **Pastebin / file store** | [P5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md) contracts | Blob storage (S3/GCS), CDN, multipart upload | — |
 | **Distributed cache** | Redis in P6/P8 | Eviction (LRU), consistency, thundering herd | P23 overlap |
 | **Video / image upload** | P6 async worker | Chunked upload, transcoding queue, progress API | — |
@@ -73,7 +73,7 @@ A rate limiter must limit requests per user, IP, or API key — globally or per 
 
 Study gaps include **token bucket** versus **sliding window** versus fixed window, Redis `INCR` + Time To Live (TTL) versus a dedicated rate-limit service, **distributed** consistency and races on counters (Lua scripts), and returning HTTP 429 + `Retry-After`.
 
-**Build:** [Lab 10 — required](../../career-project-specs/10-rate-limiter.md) (v1 notes: [P23](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md))
+**Build:** [Phase 5.2](../../career-project-specs/05-2-rate-limiter.md) (v1 notes: [P23](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md))
 
 ---
 
@@ -83,7 +83,7 @@ A notification system sends email/push/SMS on events with user preferences and r
 
 Study gaps include **fan-out** from one event to N devices, priority queues (urgent vs digest), provider webhooks for delivery status (tie to P1), and a template service with idempotent `notification_id`.
 
-**Build:** [Lab 11 — required](../../career-project-specs/11-notification-fanout.md) (v1 notes: [P24](../../archive/v1-22-step/career-project-specs/24-notification-fanout-lab.md))
+**Build:** [Phase 5.3](../../career-project-specs/05-3-notification-fanout.md) (v1 notes: [P24](../../archive/v1-22-step/career-project-specs/24-notification-fanout-lab.md))
 
 ---
 
@@ -93,7 +93,7 @@ Typeahead suggestions and full-text search. Your proof is SQL indexes plus vecto
 
 Study gaps include **trie** in memory for prefix matching, inverted index for full search, ranking (Term Frequency-Inverse Document Frequency (TF-IDF), Best Matching 25 (BM25) — vocabulary level), and caching top prefixes with client debounce.
 
-**Build:** [Lab 12 — required](../../career-project-specs/12-search-autocomplete.md) (v1 notes: [P25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md))
+**Build:** [Phase 6.1](../../career-project-specs/06-1-search-autocomplete.md) (v1 notes: [P25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md))
 
 ---
 

@@ -4,63 +4,48 @@
 
 | | |
 |---|---|
-| **Phase** | 6 of 7 |
-| **Previous** | [Lab 12 — Search / autocomplete](12-search-autocomplete.md) |
-| **Next** | [Lab 13 — Kubernetes controller-lite](13-k8s-controller.md) |
+| **Phase** | 6 |
+| **Previous** | [Phase 5.4](05-4-ops-cli.md) |
+| **Next** | [Phase 6.1 — Search](06-1-search-autocomplete.md) |
+| **Course** | [Data Engineering Zoomcamp](https://github.com/DataTalksClub/data-engineering-zoomcamp) (DataTalks.Club, free) |
 
-## What you will learn
+You are here for **Data**: a repeatable path from events to a **serving table** the agent can read. **Event Hubs** is Azure’s event log; **Kafka** is the local default. One ADR.
 
-- Build a **batch or stream** path that lands **context the agent can retrieve**
-- Use **SQL** as the serving layer; **Event Hubs** (or local Kafka) as the log; **Spark/Pandas** (Python) to transform
-- Follow [Data Engineering Zoomcamp](../docs/career/course-track.md#phase-6) while you build
+## The story
 
-## Architecture pillars
+The agent’s context cannot be “whatever is on disk this week.” You ingest events, **transform** them (Spark or Pandas in Python), and land rows in **SQL**. The job must be **idempotent**: run twice, no duplicate business rows (or a documented overwrite).
 
-| Pillar | How this phase practices it |
-|--------|-------------------------------|
-| 2. Integration & messaging | Events as facts; consumers still idempotent |
-| 3. Data architecture | Schema, partitions/watermarks, serving tables |
-| 1. System shape | Pipeline is not the agent — it **feeds** the agent |
+**Migrations** are versioned schema changes (a tool like `golang-migrate`, Flyway, or Alembic). The serving table is the **system of record**. Redis stays a cache.
 
-**Required ADR(s):** Kafka locally vs Azure Event Hubs — **Pillar 2**. Batch vs stream for v1 — **Pillar 3**. One sentence AWS/GCP analogue — [cloud portability](../docs/concepts/cloud-portability.md).
+**Transactions** mean a group of writes that all succeed or all roll back. Use them when two tables must stay in sync.
 
-**Framework:** [Data pipelines that feed agents](../docs/concepts/software-engineering.md#data-pipelines-that-feed-agents) · [Database design](../docs/concepts/database-design.md) · [Cloud portability](../docs/concepts/cloud-portability.md)
+## You are here for
+
+| Label | How this lab practices it |
+|-------|---------------------------|
+| **Data** | Ingest → transform → serving SQL; migrations |
+| **Integration** | Event log; idempotent consumers |
+| **Shape** | Batch vs stream for v1 |
+
+**Required ADR:** Kafka locally vs Event Hubs — **Integration**. Batch vs stream — **Data**. Portability sentence.
 
 ## Before you start
 
-- **Requires:** [Lab 12](12-search-autocomplete.md) green (path order) plus a Phase 1 agent that can read *some* store (SQL, files, or MCP tool). Phase 6 can later feed the lab 12 index.
-- **Course:** [Data Engineering Zoomcamp](../docs/career/course-track.md#phase-6) (DataTalks.Club, free)
+Phase 1 agent can read *some* store (SQL, files, or an MCP tool). Zoomcamp in parallel.
 
 ## Problem
 
-The agent’s context cannot be “whatever is on disk this week.” Produce a repeatable pipeline: ingest → transform → serve.
+Produce a pipeline the agent can trust: ingest → transform → serve.
 
-## System diagram
+## How work moves
 
 ```mermaid
 flowchart LR
-  Src[Source_events] --> Hub[Event_Hubs_or_Kafka]
-  Hub --> Spark[Spark_or_Pandas_job]
-  Spark --> SQL[(Serving_SQL)]
-  SQL --> Tool[MCP_or_SQL_tool]
-  Tool --> Agent[Deep_Agent]
+  Src[Source_events] --> Hub[Kafka_or_Event_Hubs]
+  Hub --> Job[Spark_or_Pandas]
+  Job --> SQL[(Serving_SQL)]
+  Agent[Phase1_agent] --> SQL
 ```
-
-## Stack and why
-
-- **Python** — Spark/Pandas and Zoomcamp exercises
-- **SQL** — serving layer the tool queries
-- **Event Hubs or Kafka** — log; pick one and ADR the other
-
-## Important concepts
-
-### Batch vs stream
-
-**Batch** is “process last night’s files.” **Stream** is “process as events arrive.” Start batch if you have not operated a broker; add a stream when Zoomcamp week on streaming lands.
-
-### Watermark
-
-In streaming, a **watermark** is how late an event may be and still count. Without one, windows never close.
 
 ## Code repo
 
@@ -68,29 +53,24 @@ In streaming, a **watermark** is how late an event may be and still count. Witho
 
 ## Success criteria
 
-- [ ] At least one **transform job** (Spark or well-structured Pandas) writes a **serving table** the Phase 1 agent can query via a tool.
-- [ ] Event path: Event Hubs **or** local Kafka (Compose) with a documented mapping to Azure.
-- [ ] SQL schema + one `EXPLAIN` or “why this index” note for the agent’s hot query.
-- [ ] Job is rerunnable (idempotent sink or partition overwrite).
-- [ ] Zoomcamp progress logged in PROGRESS (which weeks).
+- [ ] At least one job lands rows in SQL the agent (or an MCP tool) can query.
+- [ ] Re-run does not duplicate business facts (or overwrite is documented).
+- [ ] Schema migrations exist; README how to apply them.
+- [ ] ADR: Kafka vs Event Hubs; batch vs stream.
+- [ ] Zoomcamp progress noted in PROGRESS.
 
-## Stretch
+## Testing
 
-- [ ] Change Data Capture (CDC) from Postgres into the hub.
+Fixture events → job → row counts. Re-run → still one logical row per key.
 
-## Testing approach (lab)
+## Portfolio
 
-- Fixture events → job → assert row counts / a golden query.
-- Re-run job → no duplicate business rows (or documented overwrite).
-
-## Portfolio artifacts
-
-- [ ] Diagram — source, hub, job, SQL, agent tool
-- [ ] ADR — batch vs stream; Event Hubs vs Kafka
+- [ ] Diagram — source, hub, job, SQL, agent
+- [ ] ADR — batch vs stream
 - [ ] Failure modes — late events; poison payload; agent reading a half-written partition
 
 ## When you're done
 
-- Checklist: [Production readiness](../checklists/production-readiness.md) (phase 6)
+- [Production readiness](../checklists/production-readiness.md) (phase 6)
 - Log in [PROGRESS.md](../PROGRESS.md)
-- **Next:** [Lab 13 — Kubernetes controller-lite](13-k8s-controller.md)
+- **Next:** [Phase 6.1](06-1-search-autocomplete.md)
