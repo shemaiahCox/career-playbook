@@ -769,9 +769,9 @@ Use `Number.isNaN(x)` for NaN checks. Never rely on `x === x` as a generic patte
 
 | Project | Gotchas to watch for |
 |---------|----------------------|
-| [Project 1 — Webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md) | PHP `==` / `===` on payload fields; `empty()` on `"0"`; array key coercion on partner IDs |
-| [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md) | Python mutable defaults in helpers; list `*` when batching chunks; `is` vs `==` on config singletons |
-| [Project 7 — Node / TypeScript lab](../../career-project-specs/07-node-typescript-lab.md) | `let` in async loops; `this` in route handlers; float metrics; ASI on multi-line returns |
+| [Project 1 — Webhook receiver](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) | PHP `==` / `===` on payload fields; `empty()` on `"0"`; array key coercion on partner IDs |
+| [Project 2 — RAG / LLM service](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) | Python mutable defaults in helpers; list `*` when batching chunks; `is` vs `==` on config singletons |
+| [Project 7 — Node / TypeScript lab](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) | `let` in async loops; `this` in route handlers; float metrics; ASI on multi-line returns |
 
 ```mermaid
 flowchart LR

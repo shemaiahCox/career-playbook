@@ -2,7 +2,7 @@
 
 **Use this:** **Bash** is your **ops glue** lane—CI smoke tests, deploy hooks, cron jobs, and reviewer demos—alongside **Go** (production CLIs) and application languages in the playbook.
 
-**Companion:** [docs README](../README.md) · [Project 14 shell automation lab](../../career-project-specs/14-shell-automation-lab.md) · [Command-line tooling — Bash scripting](../concepts/command-line-tooling.md#bash-scripting-patterns-and-safety)
+**Companion:** [docs README](../README.md) · [Project 14 shell automation lab](../../archive/v1-22-step/career-project-specs/14-shell-automation-lab.md) · [Command-line tooling — Bash scripting](../concepts/command-line-tooling.md#bash-scripting-patterns-and-safety)
 
 **New here?** [Plain language (bottom)](#plain-language-terms-used-on-this-page) · [Stacks glossary](glossary.md)
 
@@ -12,7 +12,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| CI smoke tests, deploy preflight, cron wrappers, log grep helpers, `demo.sh` orchestration | Subcommands, structured config, dead-letter queue (DLQ) replay CLI, long-lived ops tools | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md)–[4](../../career-project-specs/04-sql-performance-lab.md) milestones, **[Project 14](../../career-project-specs/14-shell-automation-lab.md)**, [Project 16](../../career-project-specs/16-cloud-deploy-lab.md), [Project 22 capstone](../../career-project-specs/22-integrated-platform-capstone.md) |
+| CI smoke tests, deploy preflight, cron wrappers, log grep helpers, `demo.sh` orchestration | Subcommands, structured config, dead-letter queue (DLQ) replay CLI, long-lived ops tools | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)–[4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) milestones, **[Project 14](../../archive/v1-22-step/career-project-specs/14-shell-automation-lab.md)**, [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md), [Project 22 capstone](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) |
 
 **In scope vs defer** (playbook filter):
 
@@ -20,10 +20,10 @@
 |-----------------------------|-------------|----------------------------|
 | Strict-mode scripts in `scripts/` | P1–P13 milestones, P14, P16, P22 | Full application logic in bash |
 | `curl`/`jq` API probes | P1 webhook smoke, P14 toolkit | Complex parsers—use Go/Python |
-| Deploy and smoke glue | P16 `deploy.sh`, P22 `demo.sh` | Production dead-letter queue (DLQ) replay CLI (use [Project 15 Go CLI](../../career-project-specs/15-devops-cli-lab.md)) |
+| Deploy and smoke glue | P16 `deploy.sh`, P22 `demo.sh` | Production dead-letter queue (DLQ) replay CLI (use [Project 15 Go CLI](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md)) |
 | CI lint of shell | P14 `shellcheck` + bats | Rewriting Go/Rust services in shell |
 
-**Easy follow path:** [Project catalog](../../README.md#progression-step-1--22) · Per-project [Bash scripting milestone](../../career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections · [Project 15 DevOps CLI](../../career-project-specs/15-devops-cli-lab.md) after P14.
+**Easy follow path:** [Project catalog](../../README.md#progression-phase-1--7) · Per-project [Bash scripting milestone](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections · [Project 15 DevOps CLI](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md) after P14.
 
 ---
 
@@ -95,7 +95,7 @@ set -euo pipefail
 
 **Idempotency**
 
-- Cron-safe scripts: check state before mutating; support `--dry-run` for destructive paths (same discipline as [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) webhooks).
+- Cron-safe scripts: check state before mutating; support `--dry-run` for destructive paths (same discipline as [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) webhooks).
 
 **Observability**
 
@@ -113,7 +113,7 @@ set -euo pipefail
 - **Missing `pipefail`** — pipeline succeeds if last stage succeeds while `curl` failed mid-pipe.
 - **Ignoring `grep` exit 1** — use `grep -q ... \|\| true` or `if grep ...; then` when no match is OK.
 - **Secrets in logs** — redact tokens in script output.
-- **Reimplementing CLIs in bash** — use Go ([Project 15](../../career-project-specs/15-devops-cli-lab.md)) for subcommands and dead-letter queue (DLQ) replay.
+- **Reimplementing CLIs in bash** — use Go ([Project 15](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md)) for subcommands and dead-letter queue (DLQ) replay.
 
 ---
 

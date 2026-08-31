@@ -2,7 +2,7 @@
 
 **Prerequisite:** [Concurrency runtime model (Part 1)](concurrency-runtime-model.md) — read the layered mental model first.
 
-**Use this:** Interview depth and "how it actually works" for Go workers ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)) and Node APIs ([Project 7](../../career-project-specs/07-node-typescript-lab.md), [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md)).
+**Use this:** Interview depth and "how it actually works" for Go workers ([Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)) and Node APIs ([Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md), [Project 13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md)).
 
 **Next after this:** [Concurrency beyond syntax](../languages/language-fundamentals-comparison.md#concurrency-beyond-syntax) → [Concurrency basics](software-engineering.md#concurrency-basics) → ship a lab.
 
@@ -34,7 +34,7 @@ When a goroutine **blocks** on I/O, the runtime can park it and run another goro
 
 **`GOMAXPROCS`** (default: number of logical CPUs) caps how many P's run Go code **simultaneously**. That is how Go gets **parallelism** on multi-core machines. Setting it to 1 forces single-core behavior for debugging.
 
-**Playbook tie-in:** [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) still needs a **bounded worker pool**—the scheduler makes goroutines cheap, not free. Unbounded `go handler()` per message exhausts memory and file descriptors under load.
+**Playbook tie-in:** [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) still needs a **bounded worker pool**—the scheduler makes goroutines cheap, not free. Unbounded `go handler()` per message exhausts memory and file descriptors under load.
 
 **Interview one-liner:** "Go multiplexes many goroutines onto fewer OS threads via M:N scheduling; `GOMAXPROCS` controls parallel P's, but I still cap fan-out with semaphores or worker pools."
 
@@ -81,7 +81,7 @@ Rough flow for 10,000 idle HTTP connections:
 | **`worker_threads`** | CPU-heavy JS (hashing, compression) off main loop |
 | **`cluster` module** | Multiple processes, one loop each—true multi-core for CPU |
 
-**Playbook tie-in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) BFF and [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) SSE—keep handlers async; never sync-read large files on the hot path.
+**Playbook tie-in:** [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) BFF and [Project 13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md) SSE—keep handlers async; never sync-read large files on the hot path.
 
 **Interview one-liner:** "Node scales concurrent I/O with one event loop and non-blocking sockets—not one thread per client; CPU work belongs in worker threads or another service."
 
@@ -149,7 +149,7 @@ async def bounded_fetch(url: str) -> bytes:
             return (await client.get(url)).content
 ```
 
-**See also:** [Project 8 spec — context and bounded fan-out](../../career-project-specs/08-go-retrieval-worker-lab.md) · [Illustrative snippets](illustrative-snippets.md)
+**See also:** [Project 8 spec — context and bounded fan-out](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) · [Illustrative snippets](illustrative-snippets.md)
 
 ---
 

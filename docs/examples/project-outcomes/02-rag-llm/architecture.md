@@ -1,6 +1,6 @@
 # Architecture — RAG / LLM service (reference)
 
-**Spec:** [Project 2](../../../career-project-specs/02-rag-llm-service.md)  
+**Spec:** [Project 2](../../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md)  
 **Framework:** [Architecture framework](../../concepts/architecture-framework.md)
 
 ## System context

@@ -2020,7 +2020,7 @@ Set `EDITOR`/`VISUAL` to a non-interactive flow in automation where appropriate,
 
 **When it fails:** Script continues after errors, word-splitting breaks paths, or `set -e` exits on expected non-zero—tune strict mode and quoting.
 
-**Practice path:** [Project 14 shell automation lab](../../career-project-specs/14-shell-automation-lab.md) plus per-project [Bash scripting milestone](../../career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections in earlier specs. Stack map: [Bash / shell automation](../languages/bash.md).
+**Practice path:** [Project 14 shell automation lab](../../archive/v1-22-step/career-project-specs/14-shell-automation-lab.md) plus per-project [Bash scripting milestone](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md#bash-scripting-milestone) sections in earlier specs. Stack map: [Bash / shell automation](../languages/bash.md).
 
 Shell scripts glue together CLI tools. Weak scripts become fragile automation—apply structure early.
 

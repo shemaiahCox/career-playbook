@@ -6,7 +6,7 @@ Use this for any user-facing model path (internal or external).
 
 **Why:** LLM features fail in production when scope and forbidden uses are undefined—support and legal need explicit boundaries.
 
-**Handbook:** [LLMs](../docs/concepts/llms.md) · [Project 2](../career-project-specs/02-rag-llm-service.md)
+**Handbook:** [LLMs](../docs/concepts/llms.md) · [Project 2](../archive/v1-22-step/career-project-specs/02-rag-llm-service.md)
 
 These items define what the feature is for and what it must not do.
 

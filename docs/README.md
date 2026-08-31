@@ -2,7 +2,7 @@
 
 **Read first:** [Architecture framework](concepts/architecture-framework.md) — five pillars, reference shape, project matrix.
 
-**Your path:** [README.md](../README.md#progression-step-1--22) (Project 1 → 22). Each project spec links what you need under **Architecture pillars**, **languages/**, or **concepts/**.
+**Your path:** [README.md](../README.md#progression-phase-1--7) (Phase 1 → 7). Each phase spec links what you need under **Architecture pillars**, **languages/**, or **concepts/**.
 
 Entry point: [README.md](../README.md)
 
@@ -78,14 +78,16 @@ Theory and patterns — stack-agnostic. Open when your active spec's **Architect
 |-----|----------|
 | [concepts/software-engineering.md](concepts/software-engineering.md) | Testing, concurrency, security, observability |
 | [concepts/per-project-testing.md](concepts/per-project-testing.md) | How to test each lab |
-| [concepts/azure-cloud-and-ai.md](concepts/azure-cloud-and-ai.md) | AZ-900 / AI-200 vocabulary ↔ playbook patterns (cert overlay) |
-| [career/azure-certification-track.md](career/azure-certification-track.md) | Which project to open while studying Microsoft Learn |
+| [concepts/azure-cloud-and-ai.md](concepts/azure-cloud-and-ai.md) | Azure names ↔ 7-phase patterns (AZ-104 / CKA in-path) |
+| [concepts/cloud-portability.md](concepts/cloud-portability.md) | Pattern → Azure (you build) → AWS → GCP names only |
+| [career/azure-certification-track.md](career/azure-certification-track.md) | AZ-104 = Phase 4; CKA = Phase 7 |
+| [concepts/agentic-orchestration.md](concepts/agentic-orchestration.md) | Deep Agents vs LangGraph vs LangChain |
 | [../checklists/production-readiness.md](../checklists/production-readiness.md) | Platform engineering gate per step |
 | [templates/portfolio-artifacts.md](templates/portfolio-artifacts.md) | Diagram, ADR, perf, failure modes per lab |
 
 ### Cross-cutting reference
 
-[concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/azure-cloud-and-ai.md](concepts/azure-cloud-and-ai.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
+[concepts/command-line-tooling.md](concepts/command-line-tooling.md) · [concepts/servers-and-networking.md](concepts/servers-and-networking.md) · [concepts/llms.md](concepts/llms.md) · [concepts/azure-cloud-and-ai.md](concepts/azure-cloud-and-ai.md) · [concepts/cloud-portability.md](concepts/cloud-portability.md) · [concepts/algorithms-and-data-structures.md](concepts/algorithms-and-data-structures.md) · [concepts/software-engineering-glossary.md](concepts/software-engineering-glossary.md) · [concepts/sdlc-playbook-map.md](concepts/sdlc-playbook-map.md) · [concepts/ai-assisted-unfamiliar-stack.md](concepts/ai-assisted-unfamiliar-stack.md) · [concepts/illustrative-snippets.md](concepts/illustrative-snippets.md) · [concepts/engineering-pillars.md](concepts/engineering-pillars.md) (optional topic browse — **superseded for learning order** by [architecture framework](concepts/architecture-framework.md))
 
 ---
 
@@ -100,10 +102,10 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 | [languages/language-fundamentals-comparison.md](languages/language-fundamentals-comparison.md) | Side-by-side syntax (PHP, Python, Go, TS, Rust, SQL) |
 | [languages/language-gotchas-deep-dive.md](languages/language-gotchas-deep-dive.md) | **20 gotchas** — mentor depth + interview prep |
 | [languages/php-laravel.md](languages/php-laravel.md) | PHP + Laravel |
-| [languages/python.md](languages/python.md) | Python / FastAPI |
-| [languages/node-typescript-backend.md](languages/node-typescript-backend.md) | Node + TypeScript |
-| [languages/go.md](languages/go.md) | Go workers / gateways |
-| [languages/rust.md](languages/rust.md) | Rust (optional after Project 8 Go) |
+| [languages/python.md](languages/python.md) | Python — primary (agents, data) |
+| [languages/node-typescript-backend.md](languages/node-typescript-backend.md) | TypeScript/Node — secondary (MCP/API) |
+| [languages/go.md](languages/go.md) | Go — primary (workers, Azure backends) |
+| [languages/rust.md](languages/rust.md) | Rust (off spine; v1 archive) |
 | [languages/sql.md](languages/sql.md) | SQL / Postgres |
 
 ---
@@ -112,11 +114,12 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 
 | Doc | Use when |
 |-----|----------|
-| [career/target-alignment.md](career/target-alignment.md) | UK Backend & Systems — £80k milestones by pillar coverage |
+| [career/target-alignment.md](career/target-alignment.md) | UK Backend & Systems — Azure-first, £80k, 80/20 languages |
+| [career/course-track.md](career/course-track.md) | Course URLs + which lab to open |
 | [career/big-tech-benchmark.md](career/big-tech-benchmark.md) | Google/Meta bar — pillar tradeoffs at scale + DSA/SD drills |
 | [career/dsa-interview-track.md](career/dsa-interview-track.md) | Parallel LeetCode prep |
 | [career/system-design-interview-map.md](career/system-design-interview-map.md) | Classic system design problems ↔ labs (whiteboard layer on pillars) |
-| [career/azure-certification-track.md](career/azure-certification-track.md) | AZ-900 + AI-200T00 overlay — cert ↔ project matrix (parallel to spine) |
+| [career/azure-certification-track.md](career/azure-certification-track.md) | AZ-104 + CKA in-path |
 
 ---
 
@@ -136,7 +139,7 @@ Syntax, ecosystem maps, and plain-language vocabulary. **Read each map top to bo
 
 ## Content quality {#content-quality}
 
-Every playbook page is scored against the **Content Quality Rubric (CQR)**: definitions (**What / Problem it solves**), examples, implementation detail, diagrams, **reference outcome snapshots** (logs, HTTP, DB), alternative comparisons, and pros/cons. **Gold standard:** [Project 1](../career-project-specs/01-integration-webhook-receiver.md) (System diagram + Reference outcomes) · [Illustrative snippets](concepts/illustrative-snippets.md).
+Every playbook page is scored against the **Content Quality Rubric (CQR)**: definitions (**What / Problem it solves**), examples, implementation detail, diagrams, **reference outcome snapshots** (logs, HTTP, DB), alternative comparisons, and pros/cons. **Gold standard (v1 examples still useful):** [archive webhook spec](../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) · [Illustrative snippets](concepts/illustrative-snippets.md) (Go/Python). Current path starts at [Phase 1](../career-project-specs/01-agentic-orchestration.md).
 
 | Tier | Action |
 |------|--------|
@@ -151,9 +154,9 @@ Every playbook page is scored against the **Content Quality Rubric (CQR)**: defi
 | [README.md](../README.md) | Amber | Nav + CQR pointer |
 | [PROGRESS.md](../PROGRESS.md) | Green | — |
 | [career-projects/README.md](../career-projects/README.md) | Green | — |
-| [career-project-specs/01–04](../career-project-specs/01-integration-webhook-receiver.md) | Green | P1–P2 reference outcomes; P3–4 phased per [project-spec-visuals](templates/project-spec-visuals.md) |
-| [career-project-specs/05–09](../career-project-specs/05-contract-first-api.md) | Amber | Diagrams, alternatives, more code |
-| [career-project-specs/10–25](../career-project-specs/10-automation-bot-lab.md) | Red | Full Key concepts + diagrams |
+| [career-project-specs/01–04](../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) | Green | P1–P2 reference outcomes; P3–4 phased per [project-spec-visuals](templates/project-spec-visuals.md) |
+| [career-project-specs/05–09](../archive/v1-22-step/career-project-specs/05-contract-first-api.md) | Amber | Diagrams, alternatives, more code |
+| [career-project-specs/10–25](../archive/v1-22-step/career-project-specs/10-automation-bot-lab.md) | Red | Full Key concepts + diagrams |
 | [checklists/*](../checklists/) (6) | Amber | Why + pass/fail examples |
 | [concepts/architecture-*](concepts/architecture-framework.md), software-engineering, command-line-tooling, database-design, servers-and-networking, memory-and-performance, algorithms-*, glossary | Green | — |
 | [concepts/systems-integration-architect.md](concepts/systems-integration-architect.md) | Red | Sync/async diagram, monolith vs split |

@@ -1,6 +1,6 @@
 # Pillar 1 deep dive — System shape
 
-**Use this:** Before drawing boundaries for [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) or the capstone—when you are unsure **where HTTP stops and background work begins**.
+**Use this:** Before drawing boundaries for [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) or the capstone—when you are unsure **where HTTP stops and background work begins**.
 
 **Reading order:**
 
@@ -61,25 +61,25 @@ Partner / Boomi / n8n trigger
 
 This is the canonical shape for the playbook. An external partner or integration platform sends a trigger. Your webhook layer validates and deduplicates, then returns HTTP 2xx quickly. Work continues asynchronously through a queue, a Go worker handles retries and fan-out, Python serves LLM needs, Go serves the retrieval hot path, and Postgres holds durable state. Each bracket tag shows which pillars that layer primarily exercises.
 
-Practice mapping this shape through the project sequence: [Project 1 webhook](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6 worker](../../career-project-specs/06-async-worker-stretch.md) → [Project 8 Go lab](../../career-project-specs/08-go-retrieval-worker-lab.md) → [Project 2 RAG](../../career-project-specs/02-rag-llm-service.md) → [Project 4 SQL](../../career-project-specs/04-sql-performance-lab.md) → … → [Project 22 capstone](../../career-project-specs/22-integrated-platform-capstone.md).
+Practice mapping this shape through the project sequence: [Project 1 webhook](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) → [Project 6 worker](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) → [Project 8 Go lab](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) → [Project 2 RAG](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) → [Project 4 SQL](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) → … → [Project 22 capstone](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md).
 
 ### Reference box → project map
 
 | Box in diagram | Primary project | What you prove |
 |----------------|-----------------|----------------|
-| Webhook ingress | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md), [Project 7](../../career-project-specs/07-node-typescript-lab.md) | HMAC, idempotency, fast 2xx |
-| Queue / outbox | [Project 6](../../career-project-specs/06-async-worker-stretch.md) | At-least-once, DLQ |
-| Go worker | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, retrieval gateway |
-| Python RAG | [Project 2](../../career-project-specs/02-rag-llm-service.md) | Evals, citations |
-| Postgres | [Project 4](../../career-project-specs/04-sql-performance-lab.md) | Indexes, vectors |
-| BFF / UI | [Project 11](../../career-project-specs/11-llm-web-app-lab.md), [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) | Product boundary, SSE |
+| Webhook ingress | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md), [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) | HMAC, idempotency, fast 2xx |
+| Queue / outbox | [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) | At-least-once, DLQ |
+| Go worker | [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, retrieval gateway |
+| Python RAG | [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) | Evals, citations |
+| Postgres | [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) | Indexes, vectors |
+| BFF / UI | [Project 11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md), [Project 13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md) | Product boundary, SSE |
 
 ## Monolith vs split (when to defer microservices)
 
 | Shape | Pros | Cons | Use when |
 |-------|------|------|----------|
 | **Modular monolith** | Simple deploy; easy refactors | Single scaling unit | Default until evidence says split |
-| **Split by language boundary** | Python LLM + Go retrieval ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)) | Two deployables | Measured latency/team boundary |
+| **Split by language boundary** | Python LLM + Go retrieval ([Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)) | Two deployables | Measured latency/team boundary |
 | **Many microservices** | Independent scale | Ops + contract overhead | Proven load or org boundaries |
 
 ### When to split (decision checklist)
@@ -113,7 +113,7 @@ This order maps to the [five pillars](architecture-framework.md#the-five-pillars
 
 1. **Pillar 1 — System shape** — Service boundaries, sync versus durable work, API evolution, data ownership, messaging, backpressure.
 2. **Pillar 2 — Integration** — Connectors, idempotent steps, error branches, replay; see [integration-automation](integration-automation.md).
-3. **Pillar 3 — Data** — SQL transactions, indexing, migrations, vector retrieval — [SQL lab](../../career-project-specs/04-sql-performance-lab.md).
+3. **Pillar 3 — Data** — SQL transactions, indexing, migrations, vector retrieval — [SQL lab](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md).
 4. **Pillar 4 — Performance** — Big-O and structure choice under load — [Algorithms study path](algorithms-study-path.md); Python versus Go splits.
 5. **Pillar 5 — Operations** — Observability, deploy/rollback, incident thinking, security at edges.
 
@@ -127,7 +127,7 @@ This order maps to the [five pillars](architecture-framework.md#the-five-pillars
 
 ## Where this repo practices it
 
-Phased specs: [career projects catalog](../../README.md#progression-step-1--22) · [architecture framework](architecture-framework.md) (learning order). Pair with [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) when AI accelerates a new corner of **your** stack.
+Phase specs: [career projects catalog](../../README.md#progression-phase-1--7) · [architecture framework](architecture-framework.md) (learning order). Pair with [AI-assisted unfamiliar stack](ai-assisted-unfamiliar-stack.md) when AI accelerates a new corner of **your** stack.
 
 Handbook depth: [Software engineering](software-engineering.md) · [Database design](database-design.md) · [Messaging and RPC](messaging-and-rpc.md).
 

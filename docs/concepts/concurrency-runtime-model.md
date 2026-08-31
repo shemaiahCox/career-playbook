@@ -1,6 +1,6 @@
 # Concurrency runtime model (Part 1)
 
-**Use this:** When **core, thread, goroutine, and event loop** sound interchangeable—before [Project 7](../../career-project-specs/07-node-typescript-lab.md) or [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md).
+**Use this:** When **core, thread, goroutine, and event loop** sound interchangeable—before [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) or [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md).
 
 **Reading order:**
 
@@ -8,7 +8,7 @@
 2. [Concurrency deep dives (Part 2)](concurrency-deep-dives.md) — Go M:N scheduler, Node at scale, CPU pipeline intuition
 3. [Language fundamentals — Concurrency beyond syntax](../languages/language-fundamentals-comparison.md#concurrency-beyond-syntax) — per-language I/O vs CPU split
 4. [Software engineering — Concurrency basics](software-engineering.md#concurrency-basics) — backpressure, worker pools, production mistakes
-5. Ship a lab — [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go) or [Project 7](../../career-project-specs/07-node-typescript-lab.md) (Node)
+5. Ship a lab — [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) (Go) or [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) (Node)
 
 **Companion:** [Software engineering glossary — concurrency terms](software-engineering-glossary.md) · [Memory and performance](memory-and-performance.md)
 
@@ -86,11 +86,11 @@ Languages add a **runtime layer** on top of OS threads. Runtimes multiplex many 
 
 | Runtime | Concurrency unit | Maps to OS threads | Playbook lab |
 |---------|------------------|-------------------|--------------|
-| **Go** | Goroutine | **M:N** — many goroutines → few OS threads | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) |
-| **Node / TypeScript** | Event loop + libuv thread pool | **1 main thread** for JS + pool for some I/O/crypto | [Project 7](../../career-project-specs/07-node-typescript-lab.md) |
-| **Python** | `asyncio` task or OS thread | Event loop; **GIL** limits parallel CPU bytecode in one process | [Project 2](../../career-project-specs/02-rag-llm-service.md), [Project 11](../../career-project-specs/11-llm-web-app-lab.md) |
-| **PHP (FPM)** | Request worker process | ~**one request per worker**; scale by adding workers | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) |
-| **Rust** | `tokio` task | Similar M:N model to Go | [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) stretch |
+| **Go** | Goroutine | **M:N** — many goroutines → few OS threads | [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) |
+| **Node / TypeScript** | Event loop + libuv thread pool | **1 main thread** for JS + pool for some I/O/crypto | [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) |
+| **Python** | `asyncio` task or OS thread | Event loop; **GIL** limits parallel CPU bytecode in one process | [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md), [Project 11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md) |
+| **PHP (FPM)** | Request worker process | ~**one request per worker**; scale by adding workers | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) |
+| **Rust** | `tokio` task | Similar M:N model to Go | [Project 19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) stretch |
 
 **Green threads / fibers** (Java virtual threads, Ruby fibers, Kotlin coroutines at the JVM level) are the same *idea* as goroutines—user-space tasks scheduled by a runtime—but differ in maturity and integration. This playbook does not deep-dive them; know they exist when reading other stacks.
 
@@ -122,7 +122,7 @@ Languages add a **runtime layer** on top of OS threads. Runtimes multiplex many 
 Go structures programs as **many goroutines** that communicate via channels and respect **`context`** cancellation. The **Go scheduler** maps goroutines onto OS threads and then onto cores (Part 2 explains M:N).
 
 - **Concurrency:** cheap—spawn goroutines for I/O fan-out, queue workers, HTTP handlers (with bounds).
-- **Parallelism:** automatic when multiple cores are available and `GOMAXPROCS` allows it; you still must **cap** goroutines on CPU-heavy work ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) worker pool).
+- **Parallelism:** automatic when multiple cores are available and `GOMAXPROCS` allows it; you still must **cap** goroutines on CPU-heavy work ([Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) worker pool).
 
 ---
 
@@ -130,7 +130,7 @@ Go structures programs as **many goroutines** that communicate via channels and 
 
 Node gives you **concurrency** through a **single-threaded JavaScript event loop**: while one request awaits I/O, the loop runs other callbacks. **libuv** uses a small thread pool for some blocking system calls.
 
-- **Concurrency:** default for network-heavy APIs and BFFs ([Project 7](../../career-project-specs/07-node-typescript-lab.md)).
+- **Concurrency:** default for network-heavy APIs and BFFs ([Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md)).
 - **Parallelism:** not on the main loop for CPU work—use **`worker_threads`**, **`cluster`**, or offload to Go/Python/Rust. Blocking sync file I/O or heavy JSON on the hot path **stalls all clients**.
 
 **See also:** [Node event loop at scale (Part 2)](concurrency-deep-dives.md#node-event-loop-at-scale)

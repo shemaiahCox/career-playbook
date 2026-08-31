@@ -1,6 +1,6 @@
 # DSA interview track — parallel LeetCode prep
 
-**Use this:** Prepare for **Google/Meta coding screens** alongside your [22-step spine](../../README.md#progression-step-1--22). This is a **parallel track** — not a replacement for shipping labs.
+**Use this:** Prepare for **Google/Meta coding screens** alongside the [7-phase path](../../README.md#progression-phase-1--7). This is a **parallel track** — not a replacement for shipping labs.
 
 **Companion handbook:** [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Algorithms study path](../concepts/algorithms-study-path.md) (lab-applied literacy) · [Big Tech benchmark](big-tech-benchmark.md)
 
@@ -22,9 +22,9 @@
 
 | Lab | Data structure / pattern | Spec enrichment |
 |-----|--------------------------|-----------------|
-| [Project 4](../../career-project-specs/04-sql-performance-lab.md) | B-tree indexes, query plans | Key concepts + EXPLAIN patterns |
-| [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, timeouts | Key concepts + pprof evidence |
-| [Project 25](../../career-project-specs/25-search-autocomplete-lab.md) | Trie, inverted index | Key concepts + keyword vs RAG ADR |
+| [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) | B-tree indexes, query plans | Key concepts + EXPLAIN patterns |
+| [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency, timeouts | Key concepts + pprof evidence |
+| [Project 25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md) | Trie, inverted index | Key concepts + keyword vs RAG ADR |
 
 ---
 
@@ -44,7 +44,7 @@
 | [Trie](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Word search, autocomplete | Week 10 |
 | [Interview flow](../concepts/algorithms-and-data-structures.md#interview-and-design-discussion-flow) | Clarify → brute → optimize → edge cases | Every session |
 
-**Lab tie-in:** When you hit hash maps (Week 1), relate to idempotency stores in [Project 1](../../career-project-specs/01-integration-webhook-receiver.md). When you hit BFS (Week 7), relate to dependency graphs in integration flows per [algorithms study path](../concepts/algorithms-study-path.md).
+**Lab tie-in:** When you hit hash maps (Week 1), relate to idempotency stores in [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md). When you hit BFS (Week 7), relate to dependency graphs in integration flows per [algorithms study path](../concepts/algorithms-study-path.md).
 
 ---
 
@@ -58,7 +58,7 @@ Read the handbook Big-O and hash table sections. Focus on frequency count, two s
 
 **Stop and explain:** Why hash map lookup is O(1) average; when nested loops become O(n²).
 
-**Lab link:** Idempotency key store = hash map / unique index ([Project 1](../../career-project-specs/01-integration-webhook-receiver.md)).
+**Lab link:** Idempotency key store = hash map / unique index ([Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)).
 
 ---
 
@@ -82,7 +82,7 @@ Patterns include binary search, search rotated array, find minimum in rotated, K
 
 **Stop and explain:** Monotonic predicate for "search on answer."
 
-**Lab link:** Keyset pagination vs OFFSET ([Project 4](../../career-project-specs/04-sql-performance-lab.md)).
+**Lab link:** Keyset pagination vs OFFSET ([Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)).
 
 ---
 
@@ -106,7 +106,7 @@ Patterns include number of islands, clone graph, Pacific Atlantic water flow, co
 
 **Stop and explain:** Adjacency list vs matrix; when BFS gives shortest unweighted path.
 
-**Lab link:** Job dependency DAG ([Project 6](../../career-project-specs/06-async-worker-stretch.md)).
+**Lab link:** Job dependency DAG ([Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)).
 
 ---
 
@@ -128,7 +128,7 @@ Patterns include climbing stairs, house robber, house robber II, longest palindr
 
 Patterns include unique paths, longest common subsequence, word break, palindromic substrings; implement trie, design add/search words; jump game, gas station (NeetCode 2-D DP first 5, Trie 2, Greedy 2–3).
 
-**Lab link:** Trie section complements [Project 25](../../career-project-specs/25-search-autocomplete-lab.md) if you build it.
+**Lab link:** Trie section complements [Project 25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md) if you build it.
 
 ---
 

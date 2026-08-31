@@ -1,6 +1,6 @@
 # Project 1 — reference outcomes (webhook receiver)
 
-Captured exemplars for [Project 1 spec](../../../career-project-specs/01-integration-webhook-receiver.md). Read these **without running** the lab; use [Exploration scenarios](../../../career-project-specs/01-integration-webhook-receiver.md#exploration-scenarios) to verify yourself.
+Captured exemplars for [Project 1 spec](../../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md). Read these **without running** the lab; use [Exploration scenarios](../../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md#exploration-scenarios) to verify yourself.
 
 **Source repo:** [webhook-receiver-lab](https://github.com/shemaiahCox/webhook-receiver-lab)  
 **Captured:** 2026-06-18 — PHP 8.5 built-in server on `127.0.0.1:18080`, fresh SQLite `capture-test.sqlite`

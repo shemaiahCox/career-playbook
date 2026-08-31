@@ -20,15 +20,15 @@
 | 6 | Error handling models | [Error handling](#error-handling) · [Error philosophy](#error-philosophy-and-control-flow) | [Cross-language concepts and gotchas](../concepts/software-engineering.md#cross-language-concepts-and-gotchas) | → 10 |
 | 7 | Asynchronous programming | [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals) | [Integration — sync vs async](../concepts/software-engineering.md#integration-sync-async-and-messaging) | → 3, 12 |
 | 8 | Type systems | [Generics](#generics-and-type-parameters) · [Type systems beyond annotations](#type-systems-beyond-annotations) | [Classes, structs, and interfaces](#classes-structs-and-interfaces) | → 10 |
-| 9 | Data structures & their costs | [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Project 4](../../career-project-specs/04-sql-performance-lab.md) | → 1, 4 |
+| 9 | Data structures & their costs | [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) | → 1, 4 |
 | 10 | Gotchas interviewers love | [Cross-language gotchas](#cross-language-gotchas-interview-favorites) · [Equality gotchas](#equality-gotchas) · [Language gotchas deep dive](language-gotchas-deep-dive.md) (mentor depth, PHP · Python · TS/JS) | [Null, optionals, equality, and truthiness](#null-optionals-equality-and-truthiness) | → 2, 6, 8 |
 | 11 | Functional programming concepts | [Functional idioms](#functional-idioms-map-filter-reduce) | [Programming paradigms](../concepts/software-engineering.md#programming-paradigms) | → 4 |
-| 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | → 3, 7 |
+| 12 | Parallelism vs concurrency | [Concurrency beyond syntax](#concurrency-beyond-syntax) | [Concurrency runtime model (Part 1)](../concepts/concurrency-runtime-model.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | → 3, 7 |
 | 13 | Design patterns | [Patterns across languages](../concepts/software-engineering.md#patterns-across-languages-go-vs-php-vs-ts-vs-python) | [Design patterns](../concepts/software-engineering.md#design-patterns-gof-style-survey) | — |
-| 14 | API & interface design | — (contract patterns in labs) | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) · [Project 5](../../career-project-specs/05-contract-first-api.md) · [Production readiness](../../checklists/production-readiness.md) | — |
+| 14 | API & interface design | — (contract patterns in labs) | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) · [Project 5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md) · [Production readiness](../../checklists/production-readiness.md) | — |
 | 15 | Testing & quality | — (per-project test plans) | [Per-project testing](../concepts/per-project-testing.md) · [Software engineering — Testing](../concepts/software-engineering.md#testing) | — |
-| 16 | Performance concepts | [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) | → 1, 5, 9 |
-| 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) | — |
+| 16 | Performance concepts | [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures) | [Algorithms and data structures](../concepts/algorithms-and-data-structures.md) · [Memory and performance](../concepts/memory-and-performance.md) · [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) | → 1, 5, 9 |
+| 17 | Security fundamentals | — (integration patterns in labs) | [Project 9](../../archive/v1-22-step/career-project-specs/09-application-security-lab.md) · [Security for applications](../concepts/software-engineering.md#security-for-applications) | — |
 | 18 | Build systems & tooling | [Modules, imports, and packages](#modules-imports-and-packages) | [Command-line tooling](../concepts/command-line-tooling.md) · per-language maps in [glossary](glossary.md) | — |
 | 19 | Networking & IO | — (HTTP/streaming in labs) | [Servers and networking](../concepts/servers-and-networking.md) · [Project 17](../../career-project-specs/17-proxy-load-balancer-lab.md) | — |
 | 20 | Architecture concepts | [domain-driven design (DDD)](../concepts/software-engineering.md#domain-driven-design-ddd) · [command query responsibility segregation (CQRS) & event sourcing](../concepts/software-engineering.md#cqrs-and-event-sourcing) | [Architecture framework](../concepts/architecture-framework.md) · [Architectural patterns](../concepts/software-engineering.md#architectural-patterns) · [Systems integration architect](../concepts/systems-integration-architect.md) | — |
@@ -82,7 +82,7 @@
 0. **Browse the full list** — [Cross-stack study map](#cross-stack-study-map) links every high-value concept to examples here and depth elsewhere.
 1. **Read** the section for the concept you are translating (e.g. “how do maps work in Go?”).
 2. **Skim** the comparison table, then read the **multi-language snippet**.
-3. **Apply** in your active project lab from [README.md](../../README.md#progression-step-1--22) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
+3. **Apply** in your active project lab from [README.md](../../README.md#progression-phase-1--7) when you want muscle memory—not a substitute for this page, but the best way to lock spelling in.
 4. **Depth on complexity and classic data structures and algorithms (DS&A)** stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md)—this file covers **literal syntax and everyday methods** (`push`, `len`, `get`, `has`) for lists, maps, and sets, not red-black tree theory.
 5. **SQL** (queries, joins, transactions) is not a general-purpose language in this comparison—see [SQL stack](sql.md) for database work next to these services.
 6. **Advanced language features** (generators, ownership, type-system edges) live in [Advanced concepts](#advanced-concepts-cross-stack)—read when translating between stacks during an active lab. Operational concurrency (thread pools, backpressure, queue workers) stays in [Software engineering — Concurrency basics](../concepts/software-engineering.md#concurrency-basics).
@@ -1350,7 +1350,7 @@ try {
 
 **TypeScript:** use `catch (e: unknown)` and narrow before reading `.message`.
 
-**PHP → Go hint:** Laravel exception handler maps to JSON; Go worker returns `(T, error)` up to the HTTP handler—same idempotency story, different spelling ([Project 6](../../career-project-specs/06-async-worker-stretch.md)).
+**PHP → Go hint:** Laravel exception handler maps to JSON; Go worker returns `(T, error)` up to the HTTP handler—same idempotency story, different spelling ([Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)).
 
 ### Comparison
 
@@ -1654,7 +1654,7 @@ dispatch(new ProcessWebhookJob($payload)); // async by queue, sync in FPM reques
 
 **Purpose:** Curated **translation reference** for advanced language features—generators, ownership, type-system edges, error philosophy, metaprogramming—when you move between stacks during an active lab. Not a parallel language course—each topic ties to a playbook project.
 
-**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-step-1--22). data structures and algorithms (DS&A) theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
+**How to use:** Skim the comparison table for the concept you need, read the gotchas, then **apply** in your active project from [README.md](../../README.md#progression-phase-1--7). data structures and algorithms (DS&A) theory stays in [Algorithms and data structures](../concepts/algorithms-and-data-structures.md); delivery patterns stay in [Software engineering](../concepts/software-engineering.md).
 
 ### Immutability and value vs reference
 
@@ -1706,7 +1706,7 @@ print_r($a); // [1, 2] — copy-on-write until mutate
 
 **TypeScript:** same reference semantics as JavaScript; `readonly` and `Readonly<T>` help at compile time.
 
-**PHP → Go hint:** Laravel passes arrays by copy-on-write; Go slices always share backing storage until you copy—plan for aliasing in [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md).
+**PHP → Go hint:** Laravel passes arrays by copy-on-write; Go slices always share backing storage until you copy—plan for aliasing in [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md).
 
 | Lang | Default for objects/collections | Copy vs move | Shared state gotcha |
 |------|--------------------------------|--------------|---------------------|
@@ -1727,7 +1727,7 @@ print_r($a); // [1, 2] — copy-on-write until mutate
 
 **Related:** [Ownership and memory models](#ownership-borrowing-and-memory-models) · [Built-in data structures](#built-in-data-structures)
 
-**Apply in:** [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (clone vs borrow) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (slice aliasing).
+**Apply in:** [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (clone vs borrow) · [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) (slice aliasing).
 
 ---
 
@@ -1798,7 +1798,7 @@ $fn();
 
 **Related:** [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
-**Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (goroutines in loops).
+**Apply in:** [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) · [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) (goroutines in loops).
 
 ---
 
@@ -1955,7 +1955,7 @@ function pageIds(callable $fetchPage, int $pageSize = 100): Generator {
 }
 ```
 
-**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python RAG chunk ingestion) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) (JS pagination) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go fan-out) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (Rust hot-path iterators).
+**Apply in:** [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) (Python RAG chunk ingestion) · [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) (JS pagination) · [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) (Go fan-out) · [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (Rust hot-path iterators).
 
 ---
 
@@ -2021,7 +2021,7 @@ func f() *int {
 
 **Related:** [Immutability and value vs reference](#immutability-and-value-vs-reference) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
-**Apply in:** [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (Go slice/alloc awareness) · [Projects 17–19](../../career-project-specs/17-proxy-load-balancer-lab.md) (Rust ownership) · [Memory and performance](../concepts/memory-and-performance.md) (measure before tuning).
+**Apply in:** [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) (Go slice/alloc awareness) · [Projects 17–19](../../career-project-specs/17-proxy-load-balancer-lab.md) (Rust ownership) · [Memory and performance](../concepts/memory-and-performance.md) (measure before tuning).
 
 ---
 
@@ -2099,7 +2099,7 @@ function loadConfig(?Config $raw): Config {
 }
 ```
 
-**Apply in:** [Project 7](../../career-project-specs/07-node-typescript-lab.md) (TS strict mode) · [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md) (typed DTOs) · [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python typing at scale) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (`Option`/`Result`).
+**Apply in:** [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) (TS strict mode) · [Project 12](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) (typed DTOs) · [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) (Python typing at scale) · [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (`Option`/`Result`).
 
 **Related:** [Generics and type parameters](#generics-and-type-parameters) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
@@ -2204,7 +2204,7 @@ function findUser(string $id): User {
 }
 ```
 
-**Apply in:** every project—especially [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (`Result` propagation, no `unwrap` in hot path).
+**Apply in:** every project—especially [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (`Result` propagation, no `unwrap` in hot path).
 
 **Related:** [Error handling](#error-handling) · [Cross-language gotchas](#cross-language-gotchas-interview-favorites)
 
@@ -2262,7 +2262,7 @@ var_dump("0" === 0); // false
 
 **Related:** [Closures and capture gotchas](#closures-and-capture-gotchas) · [Error handling](#error-handling) · [Type systems beyond annotations](#type-systems-beyond-annotations)
 
-**Apply in:** every project—especially [Project 7](../../career-project-specs/07-node-typescript-lab.md) and [Project 18](../../career-project-specs/19-rust-hot-path-lab.md).
+**Apply in:** every project—especially [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) and [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md).
 
 ---
 
@@ -2353,7 +2353,7 @@ $ids = array_map(
 );
 ```
 
-**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (Python pipelines) · [Project 7](../../career-project-specs/07-node-typescript-lab.md) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (iterator chains).
+**Apply in:** [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) (Python pipelines) · [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) · [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (iterator chains).
 
 ---
 
@@ -2445,7 +2445,7 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 }
 ```
 
-**Apply in:** [Project 2](../../career-project-specs/02-rag-llm-service.md) (FastAPI decorators) · [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (Laravel attributes) · [Project 18](../../career-project-specs/19-rust-hot-path-lab.md) (traits + derive).
+**Apply in:** [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) (FastAPI decorators) · [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) (Laravel attributes) · [Project 18](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (traits + derive).
 
 ---
 
@@ -2522,7 +2522,7 @@ function timed<T extends (...args: unknown[]) => unknown>(fn: T): T {
 
 **Related:** [Async and concurrency (fundamentals)](#async-and-concurrency-fundamentals)
 
-**Apply in:** [Project 6](../../career-project-specs/06-async-worker-stretch.md) · [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) · [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) (realtime) · [Project 16](../../career-project-specs/16-k8s-controller-lab.md).
+**Apply in:** [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) · [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) · [Project 13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md) (realtime) · [Project 16](../../career-project-specs/16-k8s-controller-lab.md).
 
 ---
 
@@ -2651,4 +2651,4 @@ Stack map: [Python stack](python.md). Database queries: [SQL stack](sql.md).
 
 ---
 
-**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-step-1--22).
+**Next:** Return to [Software engineering](../concepts/software-engineering.md) for delivery, testing, and observability patterns, or open your active project spec from [README.md](../../README.md#progression-phase-1--7).

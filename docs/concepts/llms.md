@@ -1,13 +1,14 @@
 # Large language models (LLMs)
 
-**Use this:** Before [Project 2](../../career-project-specs/02-rag-llm-service.md) or [Project 11](../../career-project-specs/11-llm-web-app-lab.md)—when **tokens, RAG, and evals** need plain language first.
+**Use this:** Before [Phase 1](../../career-project-specs/01-agentic-orchestration.md)—when **tokens, RAG, agents, and evals** need plain language first.
 
 **Reading order:**
 
 1. **You are here** — how LLMs behave and how RAG differs from “just prompting”
-2. [Project 2 spec](../../career-project-specs/02-rag-llm-service.md) — lab contract and eval JSONL
-3. [LLM feature ship checklist](../../checklists/llm-feature-ship.md) — production gate
-4. [Memory and performance](memory-and-performance.md) — latency and cost under load
+2. [Agentic orchestration](agentic-orchestration.md) — Deep Agents vs LangGraph vs LangChain
+3. [Phase 1 spec](../../career-project-specs/01-agentic-orchestration.md)
+4. [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
+5. [Memory and performance](memory-and-performance.md)
 
 **Companion:** [Glossary — RAG](software-engineering-glossary.md#rag-retrieval-augmented-generation) · [Per-project testing](per-project-testing.md) · [Database design — vectors](database-design.md#vector-databases-and-embeddings)
 
@@ -35,7 +36,7 @@ The **context window** is how much text fits in one request: instructions + retr
 
 **Temperature** controls randomness: higher = more varied answers; lower = more repeatable. Two runs with the same prompt can still differ—that is normal. Tests should check **behavior**, not exact strings, unless you control model and retrieval tightly.
 
-Do not ship model changes without the **[LLM feature ship checklist](../../checklists/llm-feature-ship.md)** and **[Project 2](../../career-project-specs/02-rag-llm-service.md)** eval set.
+Do not ship model changes without the **[LLM feature ship checklist](../../checklists/llm-feature-ship.md)** and a Phase 1 eval set.
 
 ## Inference, retrieval, specialization, and tools
 
@@ -67,9 +68,12 @@ The tradeoff among inference-only, RAG, fine-tuning, and tools is iteration spee
 | Approach | Pros | Cons | Use when |
 |----------|------|------|----------|
 | **Prompt-only** | Fastest iteration | Hallucination on domain facts | General assistant, low stakes |
-| **RAG** | Grounded answers; cite sources | Index freshness burden | Docs, support, internal knowledge ([Project 2](../../career-project-specs/02-rag-llm-service.md)) |
+| **RAG** | Grounded answers; cite sources | Index freshness burden | Docs, support, internal knowledge |
 | **Fine-tuning** | Consistent tone/format | Data + eval rigor; slow iteration | Style/format at scale |
-| **Tool use** | Deterministic facts/actions | Ops + abuse surface | Agents with allowlisted APIs |
+| **Tool use** | Deterministic facts/actions | Ops + abuse surface | [Phase 1](../../career-project-specs/01-agentic-orchestration.md) allowlisted MCP tools |
+| **Deep Agent** | Long-running plan / subagents / files | More moving parts | Default Phase 1 harness — [agentic-orchestration.md](agentic-orchestration.md) |
+
+A **single-shot RAG** call retrieves then generates once. A **Deep Agent** (or custom LangGraph) loops: plan, call tools, write files, spawn subagents, checkpoint. Use RAG *inside* a tool or node when the agent needs grounded docs. Canonical code is **Python**; TypeScript MCP is stretch.
 
 ---
 
@@ -83,7 +87,7 @@ The tradeoff among inference-only, RAG, fine-tuning, and tools is iteration spee
 
 **Staleness** is a common failure mode: if the corpus updates often, embeddings and filters must refresh on a schedule or on change. Stale answers often look plausible because the model generates fluent text regardless of whether the source data is current.
 
-Return **identifiers** alongside answers (see `cited_chunk_ids` in [Project 2](../../career-project-specs/02-rag-llm-service.md)) so support and debugging can trace "wrong answer" to "wrong retrieval" versus "generation drift."
+Return **identifiers** alongside answers so support and debugging can trace "wrong answer" to "wrong retrieval" versus "generation drift."
 
 Embeddings stores and hybrid search patterns touch database concepts—consistency, refresh semantics, index versioning—described in [Database design](database-design.md). Implementation varies by vendor; the engineering habit is versioning indexes and documenting refresh semantics.
 
@@ -109,7 +113,7 @@ Model calls stall, time out, and fail in ways HTTP clients do not always handle 
 
 | Transport | Pros | Cons | Use when |
 |-----------|------|------|----------|
-| **SSE** (`text/event-stream`) | Browser-native; reconnect | One-way | [Project 11](../../career-project-specs/11-llm-web-app-lab.md) BFF → UI |
+| **SSE** (`text/event-stream`) | Browser-native; reconnect | One-way | Optional TypeScript BFF stretch |
 | **Chunked HTTP** | Simple proxy pass-through | Client must parse chunks | Minimal BFF |
 | **WebSocket** | Bidirectional | More state | Chat with cancel/edit |
 

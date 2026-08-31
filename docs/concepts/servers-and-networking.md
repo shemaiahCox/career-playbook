@@ -1,12 +1,12 @@
 # Servers and networking
 
-**Use this:** When you wonder **what happens when you open a URL** or why **TLS, DNS, and load balancers** appear in specs—before [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md).
+**Use this:** When you wonder **what happens when you open a URL** or why **TLS, DNS, and load balancers** appear in specs—before [Project 18](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md).
 
 **Reading order:**
 
 1. **You are here** — request path from browser to app
 2. [Command-line tooling — curl](command-line-tooling.md) — reproduce requests from terminal
-3. [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md) — timeouts and health checks
+3. [Project 18 — Proxy / load balancer](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md) — timeouts and health checks
 
 **Companion:** [Glossary](software-engineering-glossary.md) · [Database design](database-design.md) · [Software engineering — security](software-engineering.md#security-for-applications)
 

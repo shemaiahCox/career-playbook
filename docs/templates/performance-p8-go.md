@@ -2,7 +2,7 @@
 
 Copy to your lab repo as `docs/portfolio/performance.md` and fill in measured values.
 
-**Go-first track:** This artifact replaces [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) Rust comparison — Python↔Go architecture decision record (ADR) + pprof evidence is enough.
+**Go-first track:** This artifact replaces [Project 19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) Rust comparison — Python↔Go architecture decision record (ADR) + pprof evidence is enough.
 
 ## Context
 

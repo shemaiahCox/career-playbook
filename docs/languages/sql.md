@@ -2,7 +2,7 @@
 
 **Use this:** You **design queries, migrations, or schema** and need a **shared vocabulary** across Postgres, MySQL, SQL Server, SQLite—**not** a duplicate of the full [database design](../concepts/database-design.md) reference.
 
-**Companion:** [docs README](../README.md) · [SQL performance lab](../../career-project-specs/04-sql-performance-lab.md) · [database design](../concepts/database-design.md)
+**Companion:** [docs README](../README.md) · [SQL performance lab](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) · [database design](../concepts/database-design.md)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -12,7 +12,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| Data correctness, query plans, migrations, transactional invariants | Application business logic in PHP/Python/Go—SQL owns persistence shape, not feature orchestration | [Project 4 — SQL performance lab](../../career-project-specs/04-sql-performance-lab.md); object-relational mapper (ORM)-backed apps in Projects 1–2, 5–7 |
+| Data correctness, query plans, migrations, transactional invariants | Application business logic in PHP/Python/Go—SQL owns persistence shape, not feature orchestration | [Project 4 — SQL performance lab](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md); object-relational mapper (ORM)-backed apps in Projects 1–2, 5–7 |
 
 ---
 
@@ -117,7 +117,7 @@ Skim slowly—you are **not** expected to memorize everything tonight.
 - **[ORMs and the N+1 query pattern](../concepts/database-design.md#orms-and-the-n1-query-pattern)** — how ORMs create round-trip explosions.
 - **[Indexes](../concepts/database-design.md#indexes)** — planner and covering indexes in depth.
 - **[Example: idempotent webhook or job](../concepts/software-engineering.md#example-idempotent-webhook-or-job-consumer)** — DB + messaging + retries in one narrative.
-- **[Memory and performance](../concepts/memory-and-performance.md)** — app + DB tuning workflow; [Project 4](../../career-project-specs/04-sql-performance-lab.md) for SQL depth.
+- **[Memory and performance](../concepts/memory-and-performance.md)** — app + DB tuning workflow; [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) for SQL depth.
 
 ---
 

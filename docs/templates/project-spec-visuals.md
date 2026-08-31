@@ -2,7 +2,7 @@
 
 Use this when enriching [career-project-specs/](../../career-project-specs/) so each spec works as **standalone learning material** — diagrams for intent, reference outcomes for what "done" looks like, without requiring you to run the lab first.
 
-**Pilot example:** [Project 1 spec](../../career-project-specs/01-integration-webhook-receiver.md) · [01-webhook](../examples/project-outcomes/01-webhook/) · [Project 2 spec](../../career-project-specs/02-rag-llm-service.md) · [02-rag-llm](../examples/project-outcomes/02-rag-llm/)  
+**Pilot example:** [Project 1 spec](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) · [01-webhook](../examples/project-outcomes/01-webhook/) · [Project 2 spec](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) · [02-rag-llm](../examples/project-outcomes/02-rag-llm/)  
 **Lab portfolio (your proof):** [Portfolio artifacts](portfolio-artifacts.md) — commit in **your** lab repo after you ship.
 
 ---

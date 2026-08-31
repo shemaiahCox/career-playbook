@@ -6,7 +6,7 @@
 
 1. [Systems integration architect](systems-integration-architect.md) — sync vs async boundary
 2. **You are here** — Boomi/n8n terms ↔ code patterns
-3. [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../career-project-specs/06-async-worker-stretch.md) — same patterns in code
+3. [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) — same patterns in code
 
 **Companion:** [Integration hardening checklist](../../checklists/integration-hardening.md) · [Messaging and RPC](messaging-and-rpc.md) · [Stacks glossary](../languages/glossary.md)
 
@@ -20,8 +20,8 @@ Visual integration tools (Boomi, n8n) and your code labs solve the same problems
 
 | Problem | Plain English | Code lab equivalent |
 |---------|---------------|---------------------|
-| Partner sends an event | **Trigger** fires | Webhook in [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) |
-| Steps run in order | **Process / workflow** | Queue chain [Project 6](../../career-project-specs/06-async-worker-stretch.md) |
+| Partner sends an event | **Trigger** fires | Webhook in [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) |
+| Steps run in order | **Process / workflow** | Queue chain [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) |
 | Step fails and retries | Platform **retry** | Worker retry + [DLQ](software-engineering-glossary.md#dead-letter-queue-dlq) |
 | Same event delivered twice | Must not double-charge | [Idempotency key](software-engineering-glossary.md#idempotency) |
 
@@ -46,7 +46,7 @@ Integration platforms use a consistent vocabulary. The table below maps each con
 
 ### Fast ack + durable work
 
-Boomi and n8n often **acknowledge** a trigger quickly while **downstream steps** run asynchronously. The same pattern appears in the playbook: a PHP webhook returns HTTP 200 after enqueue, and a **Go worker** completes processing ([Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../career-project-specs/06-async-worker-stretch.md)). The partner gets a fast response; your system finishes the work reliably in the background.
+Boomi and n8n often **acknowledge** a trigger quickly while **downstream steps** run asynchronously. The same pattern appears in the playbook: a PHP webhook returns HTTP 200 after enqueue, and a **Go worker** completes processing ([Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)). The partner gets a fast response; your system finishes the work reliably in the background.
 
 ### Idempotent steps
 
@@ -75,7 +75,7 @@ await this.helpers.requestWithAuthentication.call(this, "myApi", {
 });
 ```
 
-See [Project 10 — Automation bot](../../career-project-specs/10-automation-bot-lab.md) · [Illustrative snippets](illustrative-snippets.md).
+See [Project 10 — Automation bot](../../archive/v1-22-step/career-project-specs/10-automation-bot-lab.md) · [Illustrative snippets](illustrative-snippets.md).
 
 ---
 
@@ -90,10 +90,10 @@ See [Project 10 — Automation bot](../../career-project-specs/10-automation-bot
 | Decision factor | Lean iPaaS | Lean code-first |
 |-----------------|------------|-----------------|
 | Change frequency | Ops adjusts mappings weekly | Engineers own release train |
-| Correctness bar | Idempotent replays + DLQ in platform | Idempotency keys + tests in repo ([P1](../../career-project-specs/01-integration-webhook-receiver.md)) |
+| Correctness bar | Idempotent replays + DLQ in platform | Idempotency keys + tests in repo ([P1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)) |
 | Secrets | Platform vault; watch export leaks | Env + secret manager; never in workflow JSON |
-| Observability | Platform execution logs | Structured logs + `request_id` ([P3](../../career-project-specs/03-observability-lab.md)) |
-| Partner contract | Map/transform in UI | OpenAPI + CI drift gate ([P5](../../career-project-specs/05-contract-first-api.md)) |
+| Observability | Platform execution logs | Structured logs + `request_id` ([P3](../../archive/v1-22-step/career-project-specs/03-observability-lab.md)) |
+| Partner contract | Map/transform in UI | OpenAPI + CI drift gate ([P5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md)) |
 
 **Playbook stance:** prove code-first idempotency and DLQ on **one** broker, then say the same semantics apply in Boomi or n8n executions.
 
@@ -112,13 +112,13 @@ flowchart TD
 
 ## n8n (future lane)
 
-Custom nodes in n8n are often **TypeScript** — which aligns with [Project 7 Node/TS lab](../../career-project-specs/07-node-typescript-lab.md) as a stretch goal. The workflow JSON is the artifact; secrets live outside the graph; test **error workflows** explicitly.
+Custom nodes in n8n are often **TypeScript** — which aligns with [Project 7 Node/TS lab](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) as a stretch goal. The workflow JSON is the artifact; secrets live outside the graph; test **error workflows** explicitly.
 
 ---
 
 ## Boomi (your anchor)
 
-Process reporting plus document properties map to structured logs and correlation IDs ([Project 3 observability](../../career-project-specs/03-observability-lab.md)). Connector Software Development Kit (SDK) thinking maps to small **Go or PHP** services with strict contracts when a packaged connector is not enough.
+Process reporting plus document properties map to structured logs and correlation IDs ([Project 3 observability](../../archive/v1-22-step/career-project-specs/03-observability-lab.md)). Connector Software Development Kit (SDK) thinking maps to small **Go or PHP** services with strict contracts when a packaged connector is not enough.
 
 ---
 

@@ -2,9 +2,9 @@
 
 **Use this:** When you want to see **which SDLC phase** a playbook project or concept doc covers—not as the day-one learning path.
 
-**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#progression-step-1--22) → **this map** for phase cross-reference.
+**Reading order:** [Architecture framework](architecture-framework.md) → [README progression](../../README.md#progression-phase-1--7) → **this map** for SDLC cross-reference.
 
-> **Not the learning path.** Follow projects in order: [README.md](../../README.md#progression-step-1--22) (Project 1 → 22).
+> **Not the learning path.** Follow [phases 1–7](../../README.md#progression-phase-1--7). Older “Project N” rows below point at [archive/v1-22-step](../../archive/v1-22-step/README.md).
 
 This doc maps the **classic software development lifecycle** to playbook projects, concept docs, and checklists. The playbook teaches **technical delivery** (build, test, ship, operate) — not Agile/Scrum process, stakeholder workshops, or product discovery.
 
@@ -64,8 +64,8 @@ Define scope, constraints, and acceptance criteria before code.
 |-----------------|------|
 | [career-project-specs/](../../career-project-specs/) | **Problem**, success criteria, **Before you start** |
 | [README — How to work through a project](../../README.md) | Read spec before building |
-| [Project 5 — Contract-first API](../../career-project-specs/05-contract-first-api.md) | OpenAPI as shared truth; CI drift gates |
-| [Project 22 — Capstone](../../career-project-specs/22-integrated-platform-capstone.md) | Integration boundaries across labs |
+| [Project 5 — Contract-first API](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md) | OpenAPI as shared truth; CI drift gates |
+| [Project 22 — Capstone](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) | Integration boundaries across labs |
 | [PROGRESS.md](../../PROGRESS.md) | Personal planning log |
 | [architecture-checklist.md](../../checklists/architecture-checklist.md) | **Real-world questionnaire** — feasibility, requirements, stack tradeoffs |
 
@@ -88,7 +88,7 @@ Architecture under the [five pillars](architecture-framework.md#the-five-pillars
 | [portfolio-artifacts.md](../templates/portfolio-artifacts.md) | ADR (with **Pillar** tag) + architecture diagram per lab |
 | [examples/sample-portfolio/](../examples/sample-portfolio/) | Reference quality bar |
 | [system-design-interview-map.md](../career/system-design-interview-map.md) | Whiteboard system design layer on pillars |
-| [Project 5](../../career-project-specs/05-contract-first-api.md), [12](../../career-project-specs/12-multi-tenant-auth-lab.md), [19](../../career-project-specs/19-rust-hot-path-lab.md) | Contracts, tenant isolation, Go vs Rust ADR |
+| [Project 5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md), [12](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md), [19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) | Contracts, tenant isolation, Go vs Rust ADR |
 
 **Coverage:** Moderate–strong (engineering design) · **Gap:** formal Unified Modeling Language (UML), enterprise governance at scale
 
@@ -124,7 +124,7 @@ Verify at unit, integration, and End-to-End (E2E) layers; gate releases.
 | [per-project-testing.md](per-project-testing.md) | Lab-by-lab strategy (Projects 1–22) |
 | Each spec — **Testing approach (lab)** | Stack-specific emphasis |
 | [production-readiness.md](../../checklists/production-readiness.md) | Ship gate per milestone |
-| [Project 2](../../career-project-specs/02-rag-llm-service.md), [9](../../career-project-specs/09-application-security-lab.md), [22](../../career-project-specs/22-integrated-platform-capstone.md) | Eval regression, Open Web Application Security Project (OWASP) scripts, E2E smoke |
+| [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md), [9](../../archive/v1-22-step/career-project-specs/09-application-security-lab.md), [22](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) | Eval regression, Open Web Application Security Project (OWASP) scripts, E2E smoke |
 
 **Coverage:** **Strong** · **Gap:** formal Quality Assurance (QA) process, test management tooling
 
@@ -137,10 +137,10 @@ Build artifacts, promote through environments, ship safely.
 | Playbook source | Role |
 |-----------------|------|
 | [software-engineering.md#cicd-and-delivery](software-engineering.md#cicd-and-delivery) | Pipeline, blue/green, canary, 12-factor |
-| [Project 14](../../career-project-specs/14-shell-automation-lab.md) | CI glue, shellcheck |
-| [Project 15](../../career-project-specs/15-devops-cli-lab.md) | Ops CLI, DLQ replay |
-| [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) | Compose, secrets, health checks |
-| [Project 17](../../career-project-specs/17-k8s-controller-lab.md) | K8s reconcile pattern |
+| [Project 14](../../archive/v1-22-step/career-project-specs/14-shell-automation-lab.md) | CI glue, shellcheck |
+| [Project 15](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md) | Ops CLI, DLQ replay |
+| [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) | Compose, secrets, health checks |
+| [Project 17](../../archive/v1-22-step/career-project-specs/17-k8s-controller-lab.md) | K8s reconcile pattern |
 | [production-readiness.md](../../checklists/production-readiness.md) | Versioning, pinned deps, smoke URLs |
 
 **Coverage:** **Strong** · **Gap:** org-scale release management (Change Advisory Board (CAB), staged rollouts)
@@ -153,12 +153,12 @@ Monitor, respond, replay/repair, evolve under load.
 
 | Playbook source | Role |
 |-----------------|------|
-| [Project 3 — Observability](../../career-project-specs/03-observability-lab.md) | Correlation IDs, structured logs, latency |
+| [Project 3 — Observability](../../archive/v1-22-step/career-project-specs/03-observability-lab.md) | Correlation IDs, structured logs, latency |
 | [software-engineering.md#observability-logs-metrics-traces](software-engineering.md#observability-logs-metrics-traces) | Logs, metrics, traces; Service Level Indicator (SLI)/SLO |
 | [production-readiness.md](../../checklists/production-readiness.md) | Per-step applicability matrix |
-| [Project 1](../../career-project-specs/01-integration-webhook-receiver.md), [6](../../career-project-specs/06-async-worker-stretch.md) | DLQ, replay, poison messages |
-| [Project 15](../../career-project-specs/15-devops-cli-lab.md), [18](../../career-project-specs/18-proxy-load-balancer-lab.md) | Ops CLI, graceful shutdown |
-| [Project 22](../../career-project-specs/22-integrated-platform-capstone.md) | Cross-service `request_id`, E2E demo |
+| [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md), [6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) | DLQ, replay, poison messages |
+| [Project 15](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md), [18](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md) | Ops CLI, graceful shutdown |
+| [Project 22](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) | Cross-service `request_id`, E2E demo |
 
 **Coverage:** Moderate–strong · **Gap:** retirement/decommission, migration runbooks
 
@@ -169,8 +169,8 @@ Monitor, respond, replay/repair, evolve under load.
 | When | Where |
 |------|-------|
 | Design / review | [software-engineering.md#security](software-engineering.md#security-for-applications), [application-security-web-owasp.md](../../checklists/application-security-web-owasp.md) |
-| Build | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (HMAC), [12](../../career-project-specs/12-multi-tenant-auth-lab.md) |
-| Test | [Project 9](../../career-project-specs/09-application-security-lab.md) |
+| Build | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) (HMAC), [12](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) |
+| Test | [Project 9](../../archive/v1-22-step/career-project-specs/09-application-security-lab.md) |
 | Ship | [llm-feature-ship.md](../../checklists/llm-feature-ship.md), [integration-hardening.md](../../checklists/integration-hardening.md) |
 
 ---
@@ -222,9 +222,9 @@ The default path brings observability (Project 3) and contracts (Project 5) earl
 
 | SDLC phase | Primary playbook anchors |
 |------------|-------------------------|
-| Planning | Project specs, [Project 5](../../career-project-specs/05-contract-first-api.md), [PROGRESS.md](../../PROGRESS.md) |
+| Planning | Project specs, [Project 5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md), [PROGRESS.md](../../PROGRESS.md) |
 | Design | [Software engineering](software-engineering.md), ADRs, [Database design](database-design.md) |
 | Build | Projects 1–22 |
 | Test | [Per-project testing](per-project-testing.md), spec test sections |
 | Deploy | Projects 14–16, [CI/CD handbook](software-engineering.md#cicd-and-delivery) |
-| Operate | [Project 3](../../career-project-specs/03-observability-lab.md), [production-readiness](../../checklists/production-readiness.md) |
+| Operate | [Project 3](../../archive/v1-22-step/career-project-specs/03-observability-lab.md), [production-readiness](../../checklists/production-readiness.md) |

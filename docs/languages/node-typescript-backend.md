@@ -1,8 +1,8 @@
 # Ecosystem map: Node.js + TypeScript (HTTP / API services)
 
-**Use this:** You ship or review **Node** backends as **HTTP APIs** (**Express**, **Fastify**, **NestJS-shaped** layering)—the TypeScript lane in this playbook ([Project 7](../../career-project-specs/07-node-typescript-lab.md)).
+**Use this:** You ship or review **Node** backends as **HTTP APIs**. On the 7-phase path TypeScript is **secondary** (MCP SDK, thin APIs)—not required to exit a phase.
 
-**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 7 — Node / TypeScript lab](../../career-project-specs/07-node-typescript-lab.md)
+**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Phase 1 stretch](../../career-project-specs/01-agentic-orchestration.md#stretch-typescript--node)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -12,7 +12,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| BFF and contract APIs, BullMQ worker track, TypeScript-first HTTP | PHP for Project 1 webhook parity; Python for LLM/RAG when spec says so | [Project 7 — Node / TypeScript lab](../../career-project-specs/07-node-typescript-lab.md) |
+| BFF and contract APIs, BullMQ worker track, TypeScript-first HTTP | PHP for Project 1 webhook parity; Python for LLM/RAG when spec says so | [Project 7 — Node / TypeScript lab](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) |
 
 ---
 
@@ -68,7 +68,7 @@ my-api/
 
 - **Middleware** chains (Express-style) or **hooks** (Fastify)—ordering matters: auth, body parsing, error handler last.
 - **Validation at the boundary:** **Zod**, **joi**, or framework schemas—same discipline as Pydantic in Python: reject bad input before business logic.
-- Align habits with [Project 7](../../career-project-specs/07-node-typescript-lab.md): **correlation IDs**, structured JSON logs.
+- Align habits with [Project 7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md): **correlation IDs**, structured JSON logs.
 
 **Async**
 
@@ -81,7 +81,7 @@ my-api/
 
 **Observability**
 
-- **`pino`** / **`winston`** structured logs; **OpenTelemetry** SDKs for Node; propagate **`request_id`** on every line (tie to [observability lab](../../career-project-specs/03-observability-lab.md)).
+- **`pino`** / **`winston`** structured logs; **OpenTelemetry** SDKs for Node; propagate **`request_id`** on every line (tie to [observability lab](../../archive/v1-22-step/career-project-specs/03-observability-lab.md)).
 
 **Security**
 

@@ -2,7 +2,9 @@
 
 **Use this:** You ship or review **Python** backends (**FastAPI**, **Flask**, **Django**), **workers**, **CLI tools**, or **notebooks** that leave the lab. This is **vocabulary + runtime footguns**, not a syntax course.
 
-**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [RAG / LLM service](../../career-project-specs/02-rag-llm-service.md)
+**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Phase 1 — Agentic orchestration](../../career-project-specs/01-agentic-orchestration.md) · [Agentic orchestration](../concepts/agentic-orchestration.md)
+
+**Playbook role:** **Primary** language for Deep Agents, LangGraph, FastMCP, and Phase 6 pipelines.
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -12,7 +14,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| LLM/RAG services, eval harnesses, FastAPI product APIs | Go for retrieval throughput and queue workers; PHP/Node when the spec names them for HTTP ingress | [Project 2 — RAG / LLM](../../career-project-specs/02-rag-llm-service.md), observability and eval labs |
+| LLM/RAG services, eval harnesses, FastAPI product APIs | Go for retrieval throughput and queue workers; PHP/Node when the spec names them for HTTP ingress | [Project 2 — RAG / LLM](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md), observability and eval labs |
 
 ---
 
@@ -70,7 +72,7 @@ my-service/
 
 **LLM / RAG-shaped services**
 
-- Keep **`POST /query` (or equivalent) contract** and **eval JSONL** stable; treat **LangChain**, **LangGraph**, **LlamaIndex**, or **minimal SDK + custom retrieval** as **replaceable implementation** behind one service module ([RAG / LLM service](../../career-project-specs/02-rag-llm-service.md)).
+- Keep **`POST /query` (or equivalent) contract** and **eval JSONL** stable; treat **LangChain**, **LangGraph**, **LlamaIndex**, or **minimal SDK + custom retrieval** as **replaceable implementation** behind one service module ([RAG / LLM service](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md)).
 
 **Data access**
 
@@ -78,7 +80,7 @@ my-service/
 
 **Observability**
 
-- **`structlog`** / standard **logging**; **OpenTelemetry** for traces—set **correlation IDs** at the request edge (aligns with [observability lab](../../career-project-specs/03-observability-lab.md)).
+- **`structlog`** / standard **logging**; **OpenTelemetry** for traces—set **correlation IDs** at the request edge (aligns with [observability lab](../../archive/v1-22-step/career-project-specs/03-observability-lab.md)).
 
 **Security**
 

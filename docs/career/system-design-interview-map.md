@@ -2,7 +2,7 @@
 
 **Use this:** Prepare for **Google/Meta system design rounds** by mapping classic problems to labs you ship and gaps you study. Companion to [Big Tech benchmark](big-tech-benchmark.md).
 
-**Not the learning path** — follow [Project 1 → 22](../../README.md#progression-step-1--22) for hands-on depth. Use this doc for **weekend reading** and **mock system design practice** (2×/week per [big-tech-benchmark](big-tech-benchmark.md)).
+**Not the learning path** — follow [domains 1–7 plus competence labs 08–13](../../README.md#progression-phase-1--7) for hands-on depth. Older v1 names below live in [archive/v1-22-step](../../archive/v1-22-step/README.md). Use this doc for **weekend reading** and **mock system design practice**.
 
 ---
 
@@ -24,24 +24,24 @@ Use this 45–60 minute structure (say aloud or whiteboard):
 
 ## Classic problems matrix
 
-| Classic SD problem | What your playbook proves | Gap to study | Optional lab |
+| Classic SD problem | What your playbook proves | Gap to study | Required lab |
 |--------------------|----------------------------|--------------|--------------|
-| **URL shortener** | [P1](../../career-project-specs/01-integration-webhook-receiver.md) idempotency; [P4](../../career-project-specs/04-sql-performance-lab.md) indexes | Base62 encoding, read-heavy cache, sharding by hash | — |
-| **News feed / timeline** | [P6](../../career-project-specs/06-async-worker-stretch.md) queue; [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) worker | Fan-out on write vs read, ranking, celebrity problem | — |
-| **Chat / messaging** | [P13](../../career-project-specs/13-realtime-dashboard-lab.md) SSE/WS | WebSocket scale, presence, message ordering | — |
-| **Notifications** | P1/P6 idempotency + DLQ | Multi-channel fan-out, priority, delivery guarantees | **[P24](../../career-project-specs/24-notification-fanout-lab.md)** |
-| **Rate limiter** | P8 bounded concurrency | Token bucket, sliding window, Redis cluster, global vs per-user | **[P23](../../career-project-specs/23-rate-limiter-gateway-lab.md)** |
-| **Search / autocomplete** | P4 vectors; trie in [algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Inverted index, ranking, prefix cache | **[P25](../../career-project-specs/25-search-autocomplete-lab.md)** |
-| **Pastebin / file store** | [P5](../../career-project-specs/05-contract-first-api.md) contracts | Blob storage (S3/GCS), CDN, multipart upload | — |
+| **URL shortener** | [P1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) idempotency; [P4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) indexes | Base62 encoding, read-heavy cache, sharding by hash | — |
+| **News feed / timeline** | [P6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) queue; [P8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) worker | Fan-out on write vs read, ranking, celebrity problem | — |
+| **Chat / messaging** | [P13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md) SSE/WS | WebSocket scale, presence, message ordering | — |
+| **Notifications** | Phase 5 + lab 08 idempotency + DLQ | Multi-channel fan-out, priority, delivery guarantees | **[Lab 11](../../career-project-specs/11-notification-fanout.md)** |
+| **Rate limiter** | Phase 5 bounded workers | Token bucket, sliding window, Redis cluster, global vs per-user | **[Lab 10](../../career-project-specs/10-rate-limiter.md)** |
+| **Search / autocomplete** | Lab 12 + trie in [algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree) | Inverted index, ranking, prefix cache | **[Lab 12](../../career-project-specs/12-search-autocomplete.md)** |
+| **Pastebin / file store** | [P5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md) contracts | Blob storage (S3/GCS), CDN, multipart upload | — |
 | **Distributed cache** | Redis in P6/P8 | Eviction (LRU), consistency, thundering herd | P23 overlap |
 | **Video / image upload** | P6 async worker | Chunked upload, transcoding queue, progress API | — |
 | **Payment / webhook system** | **P1** (core story) | Ledger idempotency, reconciliation, exactly-once illusion | Shipped lab |
-| **RAG / LLM serving** | [P2](../../career-project-specs/02-rag-llm-service.md), [P11](../../career-project-specs/11-llm-web-app-lab.md) | Embedding cache, guardrails, cost/latency SLO | Shipped lab |
+| **RAG / LLM serving** | [P2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md), [P11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md) | Embedding cache, guardrails, cost/latency SLO | Shipped lab |
 | **Distributed job scheduler** | P6/P8 workers | Cron at scale, lease/visibility, priority queues | P24 overlap |
-| **API gateway / BFF** | [P7](../../career-project-specs/07-node-typescript-lab.md), [P11](../../career-project-specs/11-llm-web-app-lab.md) | Auth termination, routing, aggregation | P23 overlap |
-| **Multi-tenant SaaS** | [P12](../../career-project-specs/12-multi-tenant-auth-lab.md) | Row-level security, noisy neighbor, per-tenant rate limits | — |
-| **Metrics / observability platform** | [P3](../../career-project-specs/03-observability-lab.md), P8 `/metrics` | Time-series DB, cardinality, sampling | — |
-| **IoT telemetry ingest** | [P21](../../career-project-specs/21-iot-edge-lab.md) | MQTT Quality of Service (QoS), edge buffer, time-series write path | — |
+| **API gateway / BFF** | [P7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md), [P11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md) | Auth termination, routing, aggregation | P23 overlap |
+| **Multi-tenant SaaS** | [P12](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) | Row-level security, noisy neighbor, per-tenant rate limits | — |
+| **Metrics / observability platform** | [P3](../../archive/v1-22-step/career-project-specs/03-observability-lab.md), P8 `/metrics` | Time-series DB, cardinality, sampling | — |
+| **IoT telemetry ingest** | [P21](../../archive/v1-22-step/career-project-specs/21-iot-edge-lab.md) | MQTT Quality of Service (QoS), edge buffer, time-series write path | — |
 
 ---
 
@@ -49,7 +49,7 @@ Use this 45–60 minute structure (say aloud or whiteboard):
 
 ### URL shortener
 
-A URL shortener must create short URLs, redirect on lookup, and optionally track analytics. Your playbook proof comes from idempotent `POST /shorten` with a client key ([P1](../../career-project-specs/01-integration-webhook-receiver.md)) and indexed lookup ([P4](../../career-project-specs/04-sql-performance-lab.md)).
+A URL shortener must create short URLs, redirect on lookup, and optionally track analytics. Your playbook proof comes from idempotent `POST /shorten` with a client key ([P1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)) and indexed lookup ([P4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)).
 
 Study gaps include Base62 versus hash collision handling, read:write ratio (cache hot URLs in a Content Delivery Network (CDN) or Redis), sharding by `short_code` hash with consistent hashing vocabulary, and redirect **301 vs 302** for analytics.
 
@@ -59,7 +59,7 @@ Study gaps include Base62 versus hash collision handling, read:write ratio (cach
 
 ### News feed / timeline
 
-Users post content; followers see a personalized feed. Your proof is async fan-out via queue ([P6](../../career-project-specs/06-async-worker-stretch.md)) and a worker pool ([P8](../../career-project-specs/08-go-retrieval-worker-lab.md)).
+Users post content; followers see a personalized feed. Your proof is async fan-out via queue ([P6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)) and a worker pool ([P8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)).
 
 Study gaps include **fan-out on write** (push to follower feeds) versus **fan-out on read** (merge at read time), the celebrity user hybrid approach, feed ranking as async enrichment, and caching user feed snapshots.
 
@@ -69,37 +69,37 @@ Study gaps include **fan-out on write** (push to follower feeds) versus **fan-ou
 
 ### Rate limiter
 
-A rate limiter must limit requests per user, IP, or API key — globally or per endpoint. Your proof is bounded concurrency and backpressure ([P8](../../career-project-specs/08-go-retrieval-worker-lab.md)) and proxy timeouts ([P18](../../career-project-specs/18-proxy-load-balancer-lab.md)).
+A rate limiter must limit requests per user, IP, or API key — globally or per endpoint. Your proof is bounded concurrency and backpressure ([P8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)) and proxy timeouts ([P18](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md)).
 
 Study gaps include **token bucket** versus **sliding window** versus fixed window, Redis `INCR` + Time To Live (TTL) versus a dedicated rate-limit service, **distributed** consistency and races on counters (Lua scripts), and returning HTTP 429 + `Retry-After`.
 
-**Build:** [Project 23 — optional](../../career-project-specs/23-rate-limiter-gateway-lab.md)
+**Build:** [Lab 10 — required](../../career-project-specs/10-rate-limiter.md) (v1 notes: [P23](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md))
 
 ---
 
 ### Notification system
 
-A notification system sends email/push/SMS on events with user preferences and retries. Your proof is at-least-once delivery with idempotent handlers ([P1](../../career-project-specs/01-integration-webhook-receiver.md), [P6](../../career-project-specs/06-async-worker-stretch.md)) and DLQ with replay ([P15](../../career-project-specs/15-devops-cli-lab.md)).
+A notification system sends email/push/SMS on events with user preferences and retries. Your proof is at-least-once delivery with idempotent handlers ([P1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md), [P6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)) and DLQ with replay ([P15](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md)).
 
 Study gaps include **fan-out** from one event to N devices, priority queues (urgent vs digest), provider webhooks for delivery status (tie to P1), and a template service with idempotent `notification_id`.
 
-**Build:** [Project 24 — optional](../../career-project-specs/24-notification-fanout-lab.md) — **highest Return On Investment (ROI) optional lab**
+**Build:** [Lab 11 — required](../../career-project-specs/11-notification-fanout.md) (v1 notes: [P24](../../archive/v1-22-step/career-project-specs/24-notification-fanout-lab.md))
 
 ---
 
 ### Search / autocomplete
 
-Typeahead suggestions and full-text search. Your proof is SQL indexes plus vectors ([P4](../../career-project-specs/04-sql-performance-lab.md)) and trie theory ([algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree)).
+Typeahead suggestions and full-text search. Your proof is SQL indexes plus vectors ([P4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)) and trie theory ([algorithms handbook](../concepts/algorithms-and-data-structures.md#trie-prefix-tree)).
 
 Study gaps include **trie** in memory for prefix matching, inverted index for full search, ranking (Term Frequency-Inverse Document Frequency (TF-IDF), Best Matching 25 (BM25) — vocabulary level), and caching top prefixes with client debounce.
 
-**Build:** [Project 25 — optional](../../career-project-specs/25-search-autocomplete-lab.md)
+**Build:** [Lab 12 — required](../../career-project-specs/12-search-autocomplete.md) (v1 notes: [P25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md))
 
 ---
 
 ### RAG / LLM serving
 
-Answer questions with retrieval at low latency with safe failures. Your proof is [P2](../../career-project-specs/02-rag-llm-service.md) eval JSONL, [P11](../../career-project-specs/11-llm-web-app-lab.md) BFF, and [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) retrieval gateway.
+Answer questions with retrieval at low latency with safe failures. Your proof is [P2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) eval JSONL, [P11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md) BFF, and [P8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) retrieval gateway.
 
 Study gaps include embedding cache (chunk hash → vector), **guardrails** for injection and Personally Identifiable Information (PII) filter before model, cost SLO with token budget per request, and degrade path (retrieval-only when model is down).
 
@@ -119,15 +119,15 @@ Study gaps include Least Recently Used (LRU)/Least Frequently Used (LFU) evictio
 
 | Lab | SD themes to cite |
 |-----|-------------------|
-| [P1](../../career-project-specs/01-integration-webhook-receiver.md) | Idempotency, HMAC trust, fast ack, DLQ |
-| [P6](../../career-project-specs/06-async-worker-stretch.md) | At-least-once, visibility timeout, horizontal scale |
-| [P8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Backpressure, timeouts, metrics, Python↔Go boundary |
-| [P4](../../career-project-specs/04-sql-performance-lab.md) | Index tradeoffs, plan evidence, pagination |
-| [P12](../../career-project-specs/12-multi-tenant-auth-lab.md) | Tenant isolation, authZ on every path |
-| [P14](../../career-project-specs/14-shell-automation-lab.md) | Smoke scripts, deploy preflight, ops glue |
-| [P16](../../career-project-specs/16-cloud-deploy-lab.md) | Health checks, secrets, rollback |
-| [P19](../../career-project-specs/19-rust-hot-path-lab.md) | Measured performance ADR |
-| [P22](../../career-project-specs/22-integrated-platform-capstone.md) | End-to-end platform, cross-service tracing |
+| [P1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) | Idempotency, HMAC trust, fast ack, DLQ |
+| [P6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) | At-least-once, visibility timeout, horizontal scale |
+| [P8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | Backpressure, timeouts, metrics, Python↔Go boundary |
+| [P4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) | Index tradeoffs, plan evidence, pagination |
+| [P12](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) | Tenant isolation, authZ on every path |
+| [P14](../../archive/v1-22-step/career-project-specs/14-shell-automation-lab.md) | Smoke scripts, deploy preflight, ops glue |
+| [P16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) | Health checks, secrets, rollback |
+| [P19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) | Measured performance ADR |
+| [P22](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) | End-to-end platform, cross-service tracing |
 
 ---
 
@@ -158,7 +158,7 @@ Order-of-magnitude is enough in interviews:
 | 1 KB per record, 1B records | **~1 TB** storage |
 | 100 ms per request budget | p99 drives architecture more than average |
 
-Document one estimate in your [P22](../../career-project-specs/22-integrated-platform-capstone.md) portfolio `architecture.md`.
+Document one estimate in your [P22](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) portfolio `architecture.md`.
 
 ---
 

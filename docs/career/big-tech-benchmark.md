@@ -1,6 +1,6 @@
 # Big Tech benchmark — Google / Meta / top-tier hiring bar
 
-**Use this:** Benchmark your [22-step path](../../README.md#progression-step-1--22) against **Google, Meta, and similar** backend hiring loops — even if you are not applying there. This doc raises your ceiling; [target-alignment.md](target-alignment.md) remains the primary **UK £80k** execution plan.
+**Use this:** Benchmark the [7-phase path](../../README.md#progression-phase-1--7) against **Google, Meta, and similar** backend hiring loops — even if you are not applying there. This doc raises your ceiling; [target-alignment.md](target-alignment.md) remains the primary **UK £80k** execution plan. v1 Project numbers below map to [archive/v1-22-step](../../archive/v1-22-step/README.md).
 
 **Profile this supports:** Backend & Systems Engineer — PHP/SQL/JavaScript (JS) commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation.
 
@@ -29,7 +29,7 @@ Your playbook **over-indexes on production systems skills** (the [five architect
 | **Onsite** | 4–5 rounds: 2–3 coding, 1–2 system design (L4+), behavioral | 2 coding + 1 system design + behavioral (+ domain for specialist) | DSA fluency **and** tradeoff reasoning |
 | **System design** | "Design X at scale" (URL shortener, news feed, chat, rate limiter) | Similar; fan-out, caching, consistency | Requirements → APIs → data model → bottlenecks → failure modes |
 | **Behavioral** | "Googleyness" — ambiguity, collaboration, ownership | Impact, move fast, conflict resolution | Situation-Task-Action-Result (STAR) stories tied to real incidents |
-| **Specialist loops** | Machine Learning (ML): ML system design + coding; Infra: deeper OS/network | AI infra: training/serving pipelines | [Project 2](../../career-project-specs/02-rag-llm-service.md) / [11](../../career-project-specs/11-llm-web-app-lab.md) help **if shipped with evals** |
+| **Specialist loops** | Machine Learning (ML): ML system design + coding; Infra: deeper OS/network | AI infra: training/serving pipelines | [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) / [11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md) help **if shipped with evals** |
 
 ### Level calibration (rough)
 
@@ -63,10 +63,10 @@ Your commercial PHP/SQL/JS background + playbook spine targets **L4 narrative fo
 ## What you already have that Big Tech respects
 
 1. **Webhook → queue → worker pipeline** — payment webhooks, event buses, async fan-out at Meta/Google.
-2. **Go vs Rust ADR with p95/RSS** ([P19](../../career-project-specs/19-rust-hot-path-lab.md)) — engineering judgment, not language religion.
-3. **RAG with eval JSONL** ([P2](../../career-project-specs/02-rag-llm-service.md)) — AI-adjacent backend roles.
-4. **SQL plan-backed tuning** ([P4](../../career-project-specs/04-sql-performance-lab.md)) — stronger than Object-Relational Mapping (ORM)-only candidates.
-5. **Capstone orchestration** ([P22](../../career-project-specs/22-integrated-platform-capstone.md)) — "design a platform" in one demo.
+2. **Go vs Rust ADR with p95/RSS** ([P19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md)) — engineering judgment, not language religion.
+3. **RAG with eval JSONL** ([P2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md)) — AI-adjacent backend roles.
+4. **SQL plan-backed tuning** ([P4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)) — stronger than Object-Relational Mapping (ORM)-only candidates.
+5. **Capstone orchestration** ([P22](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md)) — "design a platform" in one demo.
 
 **Interview narrative (Big Tech version):**
 
@@ -82,19 +82,19 @@ Optional upgrades to existing specs — **not** new linear steps. Complete after
 
 | Spec | UK £80k (default) | Big Tech benchmark tier |
 |------|-------------------|-------------------------|
-| [P2 RAG](../../career-project-specs/02-rag-llm-service.md) | Eval JSONL + stub OK to start | Remove `_stub_answer`; real retrieval + eval regression numbers |
-| [P6 Async worker](../../career-project-specs/06-async-worker-stretch.md) | Redis or Laravel queue | **Kafka** (or GCP Pub/Sub) deployment path with same idempotency/DLQ semantics |
-| [P8 Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md) | Redis + REST JSON | **Kafka consumer** + **gRPC** internal API + **OpenTelemetry** traces Python↔Go |
-| [P12 Auth](../../career-project-specs/12-multi-tenant-auth-lab.md) | JWT/session + tenant isolation | **OAuth/OIDC** (Google sign-in) + tenant mapping on first login |
-| [P16 Cloud deploy](../../career-project-specs/16-cloud-deploy-lab.md) | Compose + one managed target | Deploy to **GCP or AWS** (not local-only); document **IAM least-privilege** |
+| [P2 RAG](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) | Eval JSONL + stub OK to start | Remove `_stub_answer`; real retrieval + eval regression numbers |
+| [P6 Async worker](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) | Redis or Laravel queue | **Kafka** (or GCP Pub/Sub) deployment path with same idempotency/DLQ semantics |
+| [P8 Go worker](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | Redis + REST JSON | **Kafka consumer** + **gRPC** internal API + **OpenTelemetry** traces Python↔Go |
+| [P12 Auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) | JWT/session + tenant isolation | **OAuth/OIDC** (Google sign-in) + tenant mapping on first login |
+| [P16 Cloud deploy](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) | Compose + one managed target | Deploy to **GCP or AWS** (not local-only); document **IAM least-privilege** |
 
 ### Optional projects (after P8 or P22)
 
 | ID | Project | Why Big Tech cares |
 |----|---------|-------------------|
-| [P23](../../career-project-specs/23-rate-limiter-gateway-lab.md) | Distributed rate limiter + API gateway slice | Top-5 system design question |
-| [P24](../../career-project-specs/24-notification-fanout-lab.md) | Notification fan-out service | Classic Meta/Google SD problem |
-| [P25](../../career-project-specs/25-search-autocomplete-lab.md) | Search/autocomplete microservice | Trie + inverted index; complements RAG |
+| [P23](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md) | Distributed rate limiter + API gateway slice | Top-5 system design question |
+| [P24](../../archive/v1-22-step/career-project-specs/24-notification-fanout-lab.md) | Notification fan-out service | Classic Meta/Google SD problem |
+| [P25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md) | Search/autocomplete microservice | Trie + inverted index; complements RAG |
 
 **P24 is highest ROI** — reuses idempotency/DLQ spine; maps to "design a notification system."
 

@@ -5,10 +5,10 @@
 **Reading order (typical lab path):**
 
 1. [Architecture framework](architecture-framework.md) — spine first
-2. [Integration: sync, async, and messaging](#integration-sync-async-and-messaging) — [Project 1](../../career-project-specs/01-integration-webhook-receiver.md)
-3. [Concurrency basics](#concurrency-basics) — after [Concurrency runtime model (Part 1)](concurrency-runtime-model.md)
-4. [Observability](#observability-logs-metrics-traces) — [Project 3](../../career-project-specs/03-observability-lab.md)
-5. [Auth and tenancy](#auth-and-tenancy) — [Project 12](../../career-project-specs/12-multi-tenant-auth-lab.md)
+2. [Agentic systems and tool boundaries](#agentic-systems-and-tool-boundaries) — [Phase 1](../../career-project-specs/01-agentic-orchestration.md)
+3. [Integration: sync, async, and messaging](#integration-sync-async-and-messaging) — [Phase 5](../../career-project-specs/05-azure-backends.md)
+4. [Infrastructure as Code](#infrastructure-as-code) — [Phase 3](../../career-project-specs/03-azure-terraform-stack.md)
+5. [Observability](#observability-logs-metrics-traces)
 6. Browse other sections when your spec links them
 
 **Companion:** [Glossary (A–Z)](software-engineering-glossary.md) · [Language fundamentals](../languages/language-fundamentals-comparison.md) · [SDLC map](sdlc-playbook-map.md)
@@ -42,6 +42,11 @@ This handbook explains how to build maintainable systems, ship safely, and talk 
 - [Testing](#testing)
 - [Debugging (workflow)](#debugging-workflow)
 - [CI/CD and delivery](#cicd-and-delivery)
+- [Infrastructure as Code](#infrastructure-as-code)
+- [Agentic systems and tool boundaries](#agentic-systems-and-tool-boundaries)
+- [Cloud identity and governance](#cloud-identity-and-governance)
+- [Azure-shaped backends](#azure-shaped-backends)
+- [Data pipelines that feed agents](#data-pipelines-that-feed-agents)
 - [Versioning and compatibility](#versioning-and-compatibility)
 - [Code review and documentation](#code-review-and-documentation)
 - [Observability: logs, metrics, traces](#observability-logs-metrics-traces)
@@ -303,7 +308,7 @@ Most anti-patterns are **context-dependent**. A singleton config loader loaded o
 
 ## Integration: sync, async, and messaging
 
-**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md); [integration-automation stack map](integration-automation.md); [docs README](../README.md) (PHP, Node, Go, Python, SQL).
+**Companion in this playbook:** [Integration hardening](../../checklists/integration-hardening.md); [Phase 5 — Azure backends](../../career-project-specs/05-azure-backends.md); [integration-automation stack map](integration-automation.md); [docs README](../README.md).
 
 ### Sync HTTP callers
 
@@ -379,7 +384,7 @@ An **event** announces that something already happened (`OrderPlaced`, `InvoiceP
 
 **Saga:** a **long-running business process** split into **local transactions** with **compensating steps** (cancel shipment if payment fails). If compensation runs late or is skipped, money and inventory diverge. Prefer an explicit saga state machine or workflow engine when steps cross teams; do not hide saga logic in ad-hoc nested callbacks.
 
-**Playbook mapping:** [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) (ingress) → [Project 6](../../career-project-specs/06-async-worker-stretch.md) (durable steps) → [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) (concurrent workers). Vocabulary: [integration-automation stack map](integration-automation.md).
+**Playbook mapping:** MCP tools in [Phase 1](../../career-project-specs/01-agentic-orchestration.md) → Service Bus + Go workers in [Phase 5](../../career-project-specs/05-azure-backends.md) → Event Hubs in [Phase 6](../../career-project-specs/06-data-pipelines.md). Same idempotency story as inbound webhooks. Vocabulary: [integration-automation stack map](integration-automation.md).
 
 ---
 
@@ -421,7 +426,7 @@ REST is often easier for browsers and mobile clients consuming JSON. SOAP persis
 
 **GraphQL** lets clients request exactly the fields they need in one round trip. The cost is **resolver** performance and **N+1** database access unless you batch loads (DataLoader pattern). Schema evolution and authorization live in the graph layer.
 
-**gRPC (Google Remote Procedure Call)** uses **Protocol Buffers** contracts over **HTTP/2** with strong typing—excellent for **service-to-service** calls on internal networks. Browsers need a gateway (**gRPC-Web**) for typical web apps. Hands-on stretch: [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md). Career context: [Messaging and RPC](messaging-and-rpc.md).
+**gRPC (Google Remote Procedure Call)** uses **Protocol Buffers** contracts over **HTTP/2** with strong typing—excellent for **service-to-service** calls on internal networks. Browsers need a gateway (**gRPC-Web**) for typical web apps. Hands-on stretch: [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md). Career context: [Messaging and RPC](messaging-and-rpc.md).
 
 **Webhooks** are outbound HTTP callbacks from a partner to your URL. Treat every delivery as **at-least-once**: verify **HMAC (Hash-based Message Authentication Code)** signatures, respond quickly (queue heavy work), and make handlers **idempotent** on event IDs.
 
@@ -491,6 +496,97 @@ Tests assert intent up front; debugging explains a mismatch after failure. They 
 **Blue/green deployment** runs two identical environments and switches traffic atomically—fast rollback by switching back. **Canary deployment** sends a small fraction of traffic to the new version first. **Feature flags** decouple **deploy** (code is live) from **release** (users see the feature).
 
 The **12-factor app** principles (popularized by Heroku) include: one codebase per app; **config in environment variables**; **stateless processes**; **logs as streams**; **admin tasks as one-off processes** rather than special long-running modes.
+
+### Containers as the ship unit
+
+An **image** is an immutable snapshot; a **container** is a running instance. [Phase 2](../../career-project-specs/02-containerize-agent.md) packages the Python agent. Compose is local parity; Azure and AKS pull the same tag.
+
+**Fragile:** secrets copied into a layer; no `HEALTHCHECK`; only `:latest`.
+
+**Safer:** multi-stage build, `.env.example` names only, tag per release, rollback = previous tag.
+
+### Kubernetes delivery
+
+[Phase 7](../../career-project-specs/07-aks-orchestration.md) adds **Helm** (package + values), probes, **HPA**, and **network policies**. Charts must not embed Key Vault secrets. CKA study runs in parallel ([course-track](../career/course-track.md#phase-7)).
+
+---
+
+## Infrastructure as Code
+
+**Infrastructure as Code (IaC)** means the cloud footprint is reviewed like application code. On this path that is **Terraform** + the **azurerm** provider ([Phase 3](../../career-project-specs/03-azure-terraform-stack.md)).
+
+`plan` is the diff. `apply` mutates Azure. **State** is the source of truth — store it remotely (Azure Storage), never in git. `destroy` has a real blast radius; document that you ran it for labs.
+
+**Fragile:** click the portal, then try to import later.
+
+**Safer:** one module/stack per lab RG; remote backend; outputs for URLs; destroy in PROGRESS.
+
+---
+
+## Agentic systems and tool boundaries
+
+A **single-shot RAG** call retrieves then generates. An **agent** loops: it calls **tools**, updates **state**, and may run a long time.
+
+On this path ([Phase 1](../../career-project-specs/01-agentic-orchestration.md)):
+
+| Layer | Role |
+|-------|------|
+| **Deep Agents** | Harness — planning, subagents, virtual filesystem |
+| **LangGraph** | Runtime — graphs you can checkpoint |
+| **LangChain** | Models, tools, MCP adapters |
+
+**MCP** (often via **FastMCP** in Python) is a protocol for tools. Allowlist, timeout, and never log secrets. TypeScript MCP SDK is a **stretch**.
+
+**Fragile:** the model may call `shell` or any URL.
+
+**Safer:** allowlisted tools, evals for injection and unknown-tool, `request_id` on every call. Depth: [agentic-orchestration.md](agentic-orchestration.md).
+
+Canonical example (Python):
+
+```python
+# Illustrative
+from deepagents import create_deep_agent
+agent = create_deep_agent(model="openai:gpt-4.1", tools=[lookup])
+```
+
+---
+
+## Cloud identity and governance
+
+**Entra ID** is who (human or workload). **Azure RBAC** is what they may do to resources. **Key Vault** + **managed identity** is how the app reads secrets. **Policy** is the guardrail (“UK South only”).
+
+This is [Phase 4](../../career-project-specs/04-azure-admin-governance.md) / AZ-104 — not the same problem as JWT login for an end user.
+
+**Fragile:** subscription Owner for every human; connection strings in Terraform variables committed to git.
+
+**Safer:** custom role on one RG; app identity can `get` secrets only; humans cannot.
+
+---
+
+## Azure-shaped backends
+
+[Phase 5](../../career-project-specs/05-azure-backends.md) wraps agent tools:
+
+- **Go workers** — required for high-concurrency, always-on consumers (Service Bus + DLQ + idempotency).
+- **Python Functions** — bursty, scale-to-zero adapters (cold start).
+- **Redis** — cache or lock, not the system of record.
+- TypeScript Function/gateway — stretch.
+
+```go
+// Illustrative — idempotent consume
+applied, err := store.MarkApplied(ctx, msg.MessageID)
+if !applied {
+    return nil
+}
+```
+
+---
+
+## Data pipelines that feed agents
+
+[Phase 6](../../career-project-specs/06-data-pipelines.md): **batch** vs **stream**; **Event Hubs** or Kafka; **Spark/Pandas** transforms; **SQL** as the serving layer a tool can query.
+
+A **watermark** bounds late events so windows close. Sinks must be rerunnable (overwrite or idempotent keys). The pipeline is not the agent — it **feeds** context.
 
 ---
 
@@ -585,7 +681,7 @@ Both can carry `tenant_id`. **Never** trust tenant or role from an unsigned requ
 
 **Interview line:** "JWT carries `tenant_id`; middleware sets request context; repository layer scopes every read and write—authorization, not just authentication."
 
-**Labs:** [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md) · Glossary: [JWT](software-engineering-glossary.md#jwt-json-web-token), [OAuth / OIDC](software-engineering-glossary.md#oauth--oidc), [Multi-tenancy](software-engineering-glossary.md#multi-tenancy--tenant-isolation), [RLS](software-engineering-glossary.md#row-level-security-rls)
+**Labs:** [Project 12 — Multi-tenant auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) · Glossary: [JWT](software-engineering-glossary.md#jwt-json-web-token), [OAuth / OIDC](software-engineering-glossary.md#oauth--oidc), [Multi-tenancy](software-engineering-glossary.md#multi-tenancy--tenant-isolation), [RLS](software-engineering-glossary.md#row-level-security-rls)
 
 ---
 
@@ -624,7 +720,7 @@ Backend services rarely have a literal UI thread, but they have **scarce resourc
 | **Python (asyncio)** | Event loop + `async def` | Calling blocking libraries without `to_thread` / executor |
 | **Go** | Goroutines + channels + `context` | Unbounded `go handler()` per message → memory spike |
 
-For Go workers, bound concurrency with a **worker pool** or **semaphore**; propagate **context** cancellation from HTTP timeout or job deadline. See [Go stack map](../languages/go.md) and [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md). For heap growth, profiling, and backpressure, see [Memory and performance](memory-and-performance.md).
+For Go workers, bound concurrency with a **worker pool** or **semaphore**; propagate **context** cancellation from HTTP timeout or job deadline. See [Go stack map](../languages/go.md) and [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md). For heap growth, profiling, and backpressure, see [Memory and performance](memory-and-performance.md).
 
 Async syntax per language: [Language fundamentals comparison — Async](../languages/language-fundamentals-comparison.md#async-and-concurrency-fundamentals).
 
@@ -688,6 +784,10 @@ Handbook-wide acronym and pattern index—section details stay in the body above
 |------|---------|
 | SOLID, DDD, CQRS, event sourcing | [SOLID](#solid) · [DDD](#domain-driven-design-ddd) · [CQRS](#cqrs-and-event-sourcing) |
 | Hexagonal, clean/onion, microservices | [Architectural patterns](#architectural-patterns) |
+| Deep Agents, LangGraph, MCP | [Agentic systems](#agentic-systems-and-tool-boundaries) |
+| Terraform / IaC | [Infrastructure as Code](#infrastructure-as-code) |
+| Service Bus workers | [Azure-shaped backends](#azure-shaped-backends) |
+| Event Hubs / Spark | [Data pipelines](#data-pipelines-that-feed-agents) |
 
 ### Glossary
 

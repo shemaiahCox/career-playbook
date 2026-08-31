@@ -1,6 +1,6 @@
 # Checklist — application security (Open Web Application Security Project (OWASP) foundations, web)
 
-Use this before calling the [Project 9](../career-project-specs/09-application-security-lab.md) milestone **done**. This complements [integration-hardening.md](integration-hardening.md) (inbound integrations and webhooks) — here the focus is **browser, forms, sessions, and application SQL**.
+Use this before calling the [Project 9](../archive/v1-22-step/career-project-specs/09-application-security-lab.md) milestone **done**. This complements [integration-hardening.md](integration-hardening.md) (inbound integrations and webhooks) — here the focus is **browser, forms, sessions, and application SQL**.
 
 ## Scope reminder
 
@@ -13,7 +13,7 @@ This section clarifies what this checklist covers and what belongs elsewhere.
 
 **Why:** Injection bypasses application auth—one concatenated query can exfiltrate or destroy data.
 
-**Handbook:** [Project 9](../career-project-specs/09-application-security-lab.md) · [Database design](../docs/concepts/database-design.md)
+**Handbook:** [Project 9](../archive/v1-22-step/career-project-specs/09-application-security-lab.md) · [Database design](../docs/concepts/database-design.md)
 
 These items stop untrusted input from becoming executable code in your database or shell.
 
@@ -42,7 +42,7 @@ These items protect passwords and session tokens from theft and misuse.
 
 **Why:** Browsers send cookies automatically—without CSRF protection, another site can POST state-changing actions as the logged-in user.
 
-**Handbook:** [Project 9](../career-project-specs/09-application-security-lab.md)
+**Handbook:** [Project 9](../archive/v1-22-step/career-project-specs/09-application-security-lab.md)
 
 These items stop a malicious site from triggering state-changing actions while the user is logged in.
 

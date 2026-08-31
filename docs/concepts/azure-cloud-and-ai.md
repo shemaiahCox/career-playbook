@@ -1,179 +1,143 @@
-# Azure cloud and AI (playbook overlay)
+# Azure cloud and AI
 
-**Use this:** When **AZ-900** or **AI-200T00** vocabulary (subscription, Container Apps, Service Bus, Key Vault) appears before you know how it maps to playbook patterns—before [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) deploy work.
+**Use this:** When Azure names (subscription, VNet, Entra, Service Bus, AKS) show up before you have mapped them to playbook patterns.
 
 **Reading order:**
 
-1. [Architecture framework](architecture-framework.md) — vendor-neutral pillars first
-2. **You are here** — Azure names ↔ patterns you already learn
-3. [Azure certification track](../career/azure-certification-track.md) — which project this week
-4. Ship Azure stretches on [Project 2](../../career-project-specs/02-rag-llm-service.md) → [16](../../career-project-specs/16-cloud-deploy-lab.md)
+1. [Architecture framework](architecture-framework.md)
+2. **You are here**
+3. [Azure certification track](../career/azure-certification-track.md) — AZ-104 = Phase 4, CKA = Phase 7
+4. [Cloud portability](cloud-portability.md) — AWS/GCP names only
+5. Provision in [Phase 3](../../career-project-specs/03-azure-terraform-stack.md); competence labs [08–13](../../career-project-specs/08-ops-cli.md) stay on Azure
 
-**Companion:** [Glossary — Azure index](software-engineering-glossary.md#azure-index) · [Messaging and RPC](messaging-and-rpc.md) · [Database design — vectors](database-design.md#vector-databases-and-embeddings) · [LLMs](llms.md)
+**Companion:** [Glossary — Azure index](software-engineering-glossary.md#azure-index) · [Cloud portability](cloud-portability.md) · [Messaging and RPC](messaging-and-rpc.md) · [LLMs](llms.md)
 
-Microsoft Azure is one cloud vendor. The playbook teaches **patterns** (idempotency, queues, RAG evals, deploy hygiene); Azure gives you **managed names** for those patterns in interviews and on cert exams.
+Microsoft Azure is one cloud vendor. The playbook teaches **patterns** (idempotency, queues, agent evals, IaC); Azure gives those patterns **managed names**.
 
----
-
-## Why this matters
-
-Cert exams ask you to **label** services: “Where do secrets live?” “Which compute fits a background worker?” Projects ask you to **implement** the behavior: duplicate-safe handlers, health checks, eval regression.
-
-You do not need Azure on day one of [Project 1](../../career-project-specs/01-integration-webhook-receiver.md). You **do** need a bridge doc when you study [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) early and deploy on Azure during [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00) later.
+You do not need Azure on day one of [Phase 1](../../career-project-specs/01-agentic-orchestration.md). You need this doc when you start Terraform (Phase 3).
 
 ---
 
 ## Subscription and resource hierarchy
 
-Think of Azure as nested boxes:
-
 ```text
-Tenant (your org)
-  └── Subscription (billing boundary)
-        └── Resource group (lifecycle bucket for one app/env)
-              └── Resources (Postgres, Container App, Key Vault, …)
+Tenant (Entra ID)
+  └── Subscription (billing)
+        └── Resource group (lifecycle / destroy bucket)
+              └── Resources (App Service, Key Vault, Service Bus, …)
 ```
 
-- **Subscription** — where costs and quotas roll up; one person often has a free-tier or Visual Studio subscription for labs.
-- **Resource group** — delete the group → delete everything inside (good for lab cleanup).
-- **Region** — physical datacenter area; pick one close to you for latency. **Availability zones** are isolated datacenters within a region for redundancy.
+- **Subscription** — costs and quotas.
+- **Resource group** — delete the group → delete the lab.
+- **Region** — pick one (e.g. UK South). **Availability zones** are isolated datacenters inside a region.
 
-**Governance (AZ-900):** **Azure RBAC** assigns who can do what on resources. **Azure Policy** enforces rules (“only deploy to UK South”). You will write about both in [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) ADRs when secrets and deploy pipelines touch production-shaped Azure.
-
----
-
-## Compute choices for playbook labs
-
-| What you are running | Azure option | Playbook equivalent | Typical project |
-|----------------------|--------------|---------------------|-----------------|
-| Long-lived API or worker in a container | **Azure Container Apps** | `docker compose` service | [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) |
-| Full Kubernetes control plane | **Azure Kubernetes Service (AKS)** | kind/minikube locally | [Project 17](../../career-project-specs/17-k8s-controller-lab.md) |
-| One small HTTP handler, scale-to-zero | **Azure Functions** | Single route in FastAPI/Express | [Project 10](../../career-project-specs/10-automation-bot-lab.md) stretch |
-| Raw VMs you patch yourself | **Azure Virtual Machines** | Rare in this playbook | AZ-900 vocabulary only |
-
-**Container Apps vs AKS:** Container Apps is simpler—good first Azure deploy. AKS is when you need controllers, custom CRDs, or team-standard Kubernetes ([Project 17](../../career-project-specs/17-k8s-controller-lab.md)).
-
-**Scale-to-zero:** Container Apps and Functions can stop when idle (cold start on next request). Workers with queues often keep **minimum replicas ≥ 1** so messages are not delayed.
+**Governance:** **Azure RBAC** is who can do what. **Azure Policy** is “only deploy to UK South.” **Entra ID** is the identity plane (humans and many workload identities).
 
 ---
 
-## Data for AI workloads
+## Compute
 
-| Need | Azure service | Playbook pattern | Project |
-|------|---------------|------------------|---------|
-| SQL + indexes + pgvector | **Azure Database for PostgreSQL** (Flexible Server) | Postgres + vector column | [Project 4](../../career-project-specs/04-sql-performance-lab.md) |
-| Document/NoSQL at scale | **Azure Cosmos DB** | Optional alternative store | Capstone stretch only |
-| Cache, pub/sub, vector search helper | **Azure Managed Redis** | Redis queue/cache | [Project 6](../../career-project-specs/06-async-worker-stretch.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md) |
+| What you are running | Azure option | Phase |
+|----------------------|--------------|-------|
+| Phase 2 image, long-lived | **App Service** or **Container Apps** | 3 |
+| Bursty tool adapter | **Azure Functions** (Python primary; TypeScript stretch) | 5 |
+| Always-on Go worker | Container Apps, App Service, or AKS deploy | 5, 7 |
+| Full cluster | **AKS** | 7 |
+| Raw VMs you patch | **Virtual Machines** | AZ-104 vocab; rare on this path |
 
-Run the **same SQL exercises** from Project 4 against Azure Postgres—connection string changes; `EXPLAIN ANALYZE` lessons do not.
-
-For RAG, **Azure OpenAI** (or Azure AI Foundry) is a managed LLM API—keep your [Project 2](../../career-project-specs/02-rag-llm-service.md) `POST /query` contract and eval JSONL; swap the provider endpoint and keys.
+**Scale-to-zero:** Functions and Container Apps can stop when idle (cold start). Queue workers often keep **min replicas ≥ 1**.
 
 ---
 
-## Messaging and events
+## Data and AI
 
-| Azure service | What it does | Playbook term |
-|---------------|--------------|---------------|
-| **Azure Service Bus** (queue + dead-letter) | Durable messages, at-least-once, poison queue | Same as Redis/SQS queue + DLQ in [Project 6](../../career-project-specs/06-async-worker-stretch.md) |
-| **Azure Event Grid** | Push events when something happens (blob uploaded, subscription fired) | Webhook/event ingress—compare [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) |
+| Need | Azure service | Phase |
+|------|---------------|-------|
+| Serving SQL | **Azure Database for PostgreSQL** | 6 |
+| Cache | **Azure Managed Redis** | 5 |
+| Agent / blob files | **Storage Account** | 4, 6 |
+| Hosted LLM | **Azure OpenAI** | 1 (provider choice) |
 
-**What you see:** duplicate deliveries, visibility timeout, dead-letter after max retries—the fixes are still **idempotency keys** and **DLQ replay**, not Azure-specific magic.
+Keep Phase 1 evals and tool contracts stable when you swap the model endpoint.
+
+---
+
+## Messaging
+
+| Azure service | Pattern | Phase |
+|---------------|---------|-------|
+| **Service Bus** (queue + dead-letter) | At-least-once; idempotent Go handler | 5 |
+| **Event Hubs** | Event log into Spark/Pandas | 6 |
+| **Event Grid** | “Something happened” notifications | optional |
+
+Same playbook skills as Redis/Kafka: duplicates, DLQ, watermarks.
 
 ---
 
 ## Secrets and identity
 
-- **Azure Key Vault** — store API keys, DB passwords, signing secrets; apps read at runtime via **managed identity** (no password in config files).
-- **Managed identity** — Azure gives your Container App or Function an identity so Key Vault grants access without embedding credentials.
+- **Key Vault** — secrets at runtime.
+- **Managed identity** — the app identity that is allowed to read the vault. No passwords in git.
+- **Entra ID + RBAC** — humans and deploy pipelines get least privilege on the RG ([Phase 4](../../career-project-specs/04-azure-admin-governance.md)).
 
-Playbook rule unchanged: **never commit secrets**—[Project 16](../../career-project-specs/16-cloud-deploy-lab.md) `.env.example` lists key names only; Key Vault holds values in Azure deploys.
+---
+
+## Networking
+
+**VNet** + subnets + **NSG** rules are Phase 3/4. AKS adds Kubernetes **network policies** in Phase 7.
 
 ---
 
 ## Observability
 
-**Application Insights** collects logs, metrics, and request traces from your app. Map your existing **`request_id`** structured logs ([Project 3](../../career-project-specs/03-observability-lab.md)) to App Insights correlation—same story, different backend.
-
-**Azure Monitor** is the umbrella (metrics, alerts, dashboards) across resources—not a replacement for defining SLOs and failure modes in portfolio ADRs.
-
----
-
-## What it really means (quick table)
-
-| Azure name | One line | Project |
-|------------|----------|---------|
-| Container Apps | Run containers without managing Kubernetes yourself | 16 |
-| Service Bus | Managed queue with DLQ | 6, 8 |
-| Event Grid | Route events to handlers | 1, 6 stretch |
-| Azure Postgres + pgvector | Managed Postgres with vector extension | 4, 2 |
-| Managed Redis | Managed Redis protocol | 6, 8 |
-| Azure OpenAI | Hosted GPT/embeddings API | 2, 11 |
-| Key Vault | Secret store | 16 |
-| Application Insights | APM / tracing | 3 |
+**Application Insights** / **Azure Monitor** collect logs, metrics, traces. Keep a `request_id` (or W3C trace) you already emit from the agent and Go workers.
 
 ---
 
 ## Where to practice
 
-| Goal | Project | Azure stretch section in spec |
-|------|---------|-------------------------------|
-| RAG on Azure OpenAI | [Project 2](../../career-project-specs/02-rag-llm-service.md) | Azure certification stretch |
-| SQL + vectors on Azure Postgres | [Project 4](../../career-project-specs/04-sql-performance-lab.md) | Azure certification stretch |
-| Queue on Service Bus | [Project 6](../../career-project-specs/06-async-worker-stretch.md) | Azure certification stretch |
-| Worker + Redis on Azure | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Azure certification stretch |
-| Primary Azure deploy | [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) | Azure certification stretch |
-| AKS optional | [Project 17](../../career-project-specs/17-k8s-controller-lab.md) | Azure certification stretch |
-| BFF + streaming LLM | [Project 11](../../career-project-specs/11-llm-web-app-lab.md) | Azure certification stretch |
+| Goal | Phase |
+|------|-------|
+| Agent + optional Azure OpenAI | 1 |
+| Image | 2 |
+| Terraform RG, VNet, compute | 3 |
+| Entra, RBAC, Key Vault, Storage, NSG | 4 |
+| Functions, Service Bus, Redis, Go workers | 5 |
+| Event Hubs + SQL | 6 |
+| AKS + Helm | 7 |
 
-**Read next:** [Azure certification track](../career/azure-certification-track.md)
+**Read next:** [Azure certification track](../career/azure-certification-track.md) · [Cloud portability](cloud-portability.md) (AWS/GCP names only)
 
 ---
 
 ## Technical reference
 
-### AZ-900 exam areas (one line each)
+### AZ-900 (optional vocab)
 
 | Area | Covers |
 |------|--------|
-| Cloud concepts | IaaS/PaaS/SaaS, CapEx vs OpEx, elasticity |
-| Azure architecture & services | Compute, networking, storage accounts, VNet |
-| Management & governance | RBAC, Policy, cost management, ARM |
+| Cloud concepts | IaaS/PaaS/SaaS, CapEx vs OpEx |
+| Services | Compute, networking, storage, VNet |
+| Governance | RBAC, Policy, cost, ARM |
 
-### AI-200 services index
+### AZ-104 / CKA (in-path)
 
-| Service | Glossary |
-|---------|----------|
-| Container Apps | [Azure Container Apps](software-engineering-glossary.md#azure-container-apps) |
-| AKS | [Azure Kubernetes Service](software-engineering-glossary.md#azure-kubernetes-service-aks) |
-| Service Bus | [Azure Service Bus](software-engineering-glossary.md#azure-service-bus) |
-| Event Grid | [Azure Event Grid](software-engineering-glossary.md#azure-event-grid) |
-| Key Vault | [Azure Key Vault](software-engineering-glossary.md#azure-key-vault) |
-| Azure Postgres | [Azure Database for PostgreSQL](software-engineering-glossary.md#azure-database-for-postgresql) |
-| Managed Redis | [Azure Managed Redis](software-engineering-glossary.md#azure-managed-redis) |
-| Azure OpenAI | [Azure OpenAI](software-engineering-glossary.md#azure-openai) |
-| Application Insights | [Application Insights](software-engineering-glossary.md#application-insights) |
+See [azure-certification-track.md](../career/azure-certification-track.md) and [course-track.md](../career/course-track.md).
 
-### Azure CLI (login + resource group)
+### Azure CLI
 
 ```bash
 az login
 az group create --name rg-playbook-lab --location uksouth
-az postgres flexible-server create --help   # read flags before create
-az containerapp up --help
 ```
 
-Prefer `--help` and [Microsoft Learn](https://learn.microsoft.com/en-us/training/courses/ai-200t00) module steps over memorizing flags.
-
-### Official links
-
-- [AZ-900 certification](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/)
-- [AZ-900 study guide](https://aka.ms/AZ900-StudyGuide)
-- [AI-200T00 course](https://learn.microsoft.com/en-us/training/courses/ai-200t00)
-- [Azure AI Cloud Developer Associate](https://learn.microsoft.com/en-us/credentials/certifications/azure-ai-cloud-developer-associate/)
+Prefer Terraform for anything you will destroy and recreate ([Phase 3](../../career-project-specs/03-azure-terraform-stack.md)).
 
 ### Interview one-liners
 
-- “Service Bus gives me at-least-once with a dead-letter queue—the same semantics I proved with Redis in Project 6.”
-- “I kept the RAG eval JSONL contract; Azure OpenAI is just the inference provider behind `POST /query`.”
-- “Secrets live in Key Vault; the Container App uses managed identity—nothing sensitive in git.”
+- “Service Bus is at-least-once with a dead-letter queue—the Go handler is idempotent.”
+- “The Deep Agent contract stayed put; Azure OpenAI is just the model provider.”
+- “Secrets live in Key Vault; the workload uses managed identity.”
+- “Terraform state is remote; destroy is how the lab dies.”
+
+**Read next:** [Azure certification track](../career/azure-certification-track.md) · [Cloud portability](cloud-portability.md) (AWS/GCP names only)

@@ -2,7 +2,7 @@
 
 **Use this:** When a lab spec’s **Testing approach** section asks what to write—and how to use AI without shipping fantasy tests.
 
-**Reading order:** [Software engineering § Testing](software-engineering.md#testing) (theory) → **this doc** (lab habits + prompts) → your project spec’s test section.
+**Reading order:** [Software engineering § Testing](software-engineering.md#testing) (theory) → **this doc** (lab habits + prompts) → your **phase** spec’s test section.
 
 **Companion:** [Debugging workflow](software-engineering.md#debugging-workflow) · [Glossary](software-engineering-glossary.md)
 
@@ -53,28 +53,28 @@ Skim the **Testing approach (lab)** section in each spec for stack-specific emph
 
 | Project | Spec | Typical primary layers |
 |---------|------|-------------------------|
-| 1 — Webhook receiver | [01-integration-webhook-receiver.md](../../career-project-specs/01-integration-webhook-receiver.md#testing-approach-lab) | Integration (HTTP + DB) + unit on crypto/idempotency |
-| 2 — RAG / LLM | [02-rag-llm-service.md](../../career-project-specs/02-rag-llm-service.md#testing-approach-lab) | Eval JSONL + runner; unit on deterministic seams |
-| 3 — Observability | [03-observability-lab.md](../../career-project-specs/03-observability-lab.md#testing-approach-lab) | Integration on log/correlation shape |
-| 4 — SQL performance | [04-sql-performance-lab.md](../../career-project-specs/04-sql-performance-lab.md#testing-approach-lab) | Exercise scripts + documented plan excerpts |
-| 5 — Contract-first API | [05-contract-first-api.md](../../career-project-specs/05-contract-first-api.md#testing-approach-lab) | Contract/schema + CI drift gate |
-| 6 — Async worker | [06-async-worker-stretch.md](../../career-project-specs/06-async-worker-stretch.md#testing-approach-lab) | Integration (queue + worker + idempotency) |
-| 7 — Node / TypeScript | [07-node-typescript-lab.md](../../career-project-specs/07-node-typescript-lab.md#testing-approach-lab) | Same patterns as Projects 1/5/6 tracks |
-| 8 — Go retrieval/worker | [08-go-retrieval-worker-lab.md](../../career-project-specs/08-go-retrieval-worker-lab.md#testing-approach-lab) | Table-driven unit + integration (queue/idempotency) |
-| 9 — Application security | [09-application-security-lab.md](../../career-project-specs/09-application-security-lab.md#testing-approach-lab) | Reproduction scripts + checklist pass |
-| 10 — Automation bot | [10-automation-bot-lab.md](../../career-project-specs/10-automation-bot-lab.md#testing-approach-lab) | Integration on workflow step + idempotency |
-| 11 — LLM web app | [11-llm-web-app-lab.md](../../career-project-specs/11-llm-web-app-lab.md#testing-approach-lab) | Component + eval-aware error paths |
-| 12 — Multi-tenant auth | [12-multi-tenant-auth-lab.md](../../career-project-specs/12-multi-tenant-auth-lab.md#testing-approach-lab) | Integration on tenant isolation |
-| 13 — Real-time dashboard | [13-realtime-dashboard-lab.md](../../career-project-specs/13-realtime-dashboard-lab.md#testing-approach-lab) | Component tests on reconnect/backpressure |
-| 14 — Shell automation | [14-shell-automation-lab.md](../../career-project-specs/14-shell-automation-lab.md#testing-approach-lab) | bats + shellcheck; integration smoke against compose |
-| 15 — DevOps CLI | [15-devops-cli-lab.md](../../career-project-specs/15-devops-cli-lab.md#testing-approach-lab) | Table-driven CLI + exit codes |
-| 16 — Cloud deploy | [16-cloud-deploy-lab.md](../../career-project-specs/16-cloud-deploy-lab.md#testing-approach-lab) | Smoke / health-check integration; `post-deploy-smoke.sh` |
-| 17 — K8s controller | [17-k8s-controller-lab.md](../../career-project-specs/17-k8s-controller-lab.md#testing-approach-lab) | Reconcile loop unit + envtest-style integration |
-| 18 — Proxy / LB | [18-proxy-load-balancer-lab.md](../../career-project-specs/18-proxy-load-balancer-lab.md#testing-approach-lab) | Integration under timeout/load scenarios |
-| 19 — Rust hot-path | [19-rust-hot-path-lab.md](../../career-project-specs/19-rust-hot-path-lab.md#testing-approach-lab) | Contract parity vs Project 8 + benchmarks |
-| 20 — WASM component | [20-wasm-secure-component-lab.md](../../career-project-specs/20-wasm-secure-component-lab.md#testing-approach-lab) | Sandbox boundary + FFI tests |
-| 21 — IoT / edge | [21-iot-edge-lab.md](../../career-project-specs/21-iot-edge-lab.md#testing-approach-lab) | Integration on MQTT idempotency + offline buffer |
-| 22 — Integrated capstone | [22-integrated-platform-capstone.md](../../career-project-specs/22-integrated-platform-capstone.md#testing-approach-lab) | End-to-end (E2E) smoke (`demo.sh`) + tenant isolation + cross-service trace |
+| 1 — Webhook receiver | [01-integration-webhook-receiver.md](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md#testing-approach-lab) | Integration (HTTP + DB) + unit on crypto/idempotency |
+| 2 — RAG / LLM | [02-rag-llm-service.md](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md#testing-approach-lab) | Eval JSONL + runner; unit on deterministic seams |
+| 3 — Observability | [03-observability-lab.md](../../archive/v1-22-step/career-project-specs/03-observability-lab.md#testing-approach-lab) | Integration on log/correlation shape |
+| 4 — SQL performance | [04-sql-performance-lab.md](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md#testing-approach-lab) | Exercise scripts + documented plan excerpts |
+| 5 — Contract-first API | [05-contract-first-api.md](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md#testing-approach-lab) | Contract/schema + CI drift gate |
+| 6 — Async worker | [06-async-worker-stretch.md](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md#testing-approach-lab) | Integration (queue + worker + idempotency) |
+| 7 — Node / TypeScript | [07-node-typescript-lab.md](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md#testing-approach-lab) | Same patterns as Projects 1/5/6 tracks |
+| 8 — Go retrieval/worker | [08-go-retrieval-worker-lab.md](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md#testing-approach-lab) | Table-driven unit + integration (queue/idempotency) |
+| 9 — Application security | [09-application-security-lab.md](../../archive/v1-22-step/career-project-specs/09-application-security-lab.md#testing-approach-lab) | Reproduction scripts + checklist pass |
+| 10 — Automation bot | [10-automation-bot-lab.md](../../archive/v1-22-step/career-project-specs/10-automation-bot-lab.md#testing-approach-lab) | Integration on workflow step + idempotency |
+| 11 — LLM web app | [11-llm-web-app-lab.md](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md#testing-approach-lab) | Component + eval-aware error paths |
+| 12 — Multi-tenant auth | [12-multi-tenant-auth-lab.md](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md#testing-approach-lab) | Integration on tenant isolation |
+| 13 — Real-time dashboard | [13-realtime-dashboard-lab.md](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md#testing-approach-lab) | Component tests on reconnect/backpressure |
+| 14 — Shell automation | [14-shell-automation-lab.md](../../archive/v1-22-step/career-project-specs/14-shell-automation-lab.md#testing-approach-lab) | bats + shellcheck; integration smoke against compose |
+| 15 — DevOps CLI | [15-devops-cli-lab.md](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md#testing-approach-lab) | Table-driven CLI + exit codes |
+| 16 — Cloud deploy | [16-cloud-deploy-lab.md](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md#testing-approach-lab) | Smoke / health-check integration; `post-deploy-smoke.sh` |
+| 17 — K8s controller | [17-k8s-controller-lab.md](../../archive/v1-22-step/career-project-specs/17-k8s-controller-lab.md#testing-approach-lab) | Reconcile loop unit + envtest-style integration |
+| 18 — Proxy / LB | [18-proxy-load-balancer-lab.md](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md#testing-approach-lab) | Integration under timeout/load scenarios |
+| 19 — Rust hot-path | [19-rust-hot-path-lab.md](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md#testing-approach-lab) | Contract parity vs Project 8 + benchmarks |
+| 20 — WASM component | [20-wasm-secure-component-lab.md](../../archive/v1-22-step/career-project-specs/20-wasm-secure-component-lab.md#testing-approach-lab) | Sandbox boundary + FFI tests |
+| 21 — IoT / edge | [21-iot-edge-lab.md](../../archive/v1-22-step/career-project-specs/21-iot-edge-lab.md#testing-approach-lab) | Integration on MQTT idempotency + offline buffer |
+| 22 — Integrated capstone | [22-integrated-platform-capstone.md](../../archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md#testing-approach-lab) | End-to-end (E2E) smoke (`demo.sh`) + tenant isolation + cross-service trace |
 
 ## Review checklist (before merge)
 

@@ -1,180 +1,134 @@
 # career-playbook
 
-Practice projects for **AI Systems · Cloud · Automation · IoT** — one linear path, **22 steps** (Projects 1–21 + integrated capstone).
+Practice path for **agentic AI on Azure** — seven sequential phases from a local Deep Agent to AKS.
 
-**Rule:** one active project at a time.
+**Rule:** one active lab at a time. Course work for a phase runs in parallel with that phase's lab.
+
+**Primary stack (80%):** Python (Deep Agents, LangGraph, FastMCP, data) · Go (workers, Azure backends, K8s-adjacent APIs)
+
+**Secondary (20%):** TypeScript/Node — MCP SDK, thin APIs. Stretch only; never required to exit a phase.
 
 ## How to read this playbook
 
-Start with the architecture framework, then follow the step table in order. Each row links to a project spec that tells you what to build, what to learn, and when you are done. Use PROGRESS.md to log milestones; use checklists when you are close to shipping. Browse-by tables below are for finding evidence by skill or pillar — not a different learning order.
+Start with the architecture framework, then follow the phase table in order. Each row links to a lab spec (what to build, what to learn, when you are done) and a course. Use PROGRESS.md to log milestones; use checklists when you are close to shipping.
+
+The five architecture pillars are how you *think* about systems. The seven domains plus six **required competence labs** are the *learning order*.
 
 ## Start here
 
-1. **[Architecture framework](docs/concepts/architecture-framework.md)** — read first (~15 min): five pillars, reference shape, decision checklists
-2. **[Project 1](career-project-specs/01-integration-webhook-receiver.md)** — begin the hands-on path below
-3. **[PROGRESS.md](PROGRESS.md)** — log what you're working on (include **Pillar(s)**, **Tradeoff**, **Failure mode**)
+1. **[Architecture framework](docs/concepts/architecture-framework.md)** — read first (~15 min): five pillars, reference shape, phase matrix
+2. **[Phase 1 — Agentic orchestration](career-project-specs/01-agentic-orchestration.md)** — begin the hands-on path
+3. **[PROGRESS.md](PROGRESS.md)** — log what you are working on (include **Pillar(s)**, **Tradeoff**, **Failure mode**)
+4. **[Course track](docs/career/course-track.md)** — official URLs; open the matching lab while you study
 
-Finish each project's success criteria → log in PROGRESS → open **Next** in the spec. **Step 22** composes your labs into one flagship portfolio system.
-
-**Core stack (Go-first track):** PHP · Python · SQL · Go · Bash — ship production patterns without Rust. Steps **19–20** stay in the path as **optional future track**; defer them in [PROGRESS.md](PROGRESS.md) when Rust is paused.
+Finish each spec's success criteria → log in PROGRESS → open **Next**. Linear order: domains **1–5** → labs **08–12** → domain **6** → lab **13** → domain **7**. **Phase 7** is the capstone: the same agent and backends, running on AKS.
 
 ## Architecture framework (read first)
 
-Modern backend work is architectural work. Every project practices decisions under **five pillars** — the spine of this playbook; languages and labs are evidence under them.
+Modern backend work is architectural work. Every phase practices decisions under **five pillars**.
 
 | Pillar | One-line focus |
 |--------|----------------|
 | 1. System shape | Boundaries, sync vs async, who owns what |
 | 2. Integration and messaging | Delivery semantics, brokers, idempotency, dead-letter queue (DLQ) |
-| 3. Data architecture | Schema, indexes, tenancy, consistency |
-| 4. Performance and language boundaries | Measure first; Python/Go/Rust splits |
-| 5. Reliability, security, operations | Observability, failure modes, deploy |
+| 3. Data architecture | Schema, indexes, pipelines that feed agent context |
+| 4. Performance and language boundaries | Measure first; Python for AI, Go for throughput |
+| 5. Reliability, security, operations | Observability, identity, deploy, failure modes |
 
-**Start:** [Architecture framework](docs/concepts/architecture-framework.md) → [sample portfolio](docs/examples/sample-portfolio/) (quality bar) → [Project 1](career-project-specs/01-integration-webhook-receiver.md).
+**Start:** [Architecture framework](docs/concepts/architecture-framework.md) → [sample portfolio](docs/examples/sample-portfolio/) (quality bar) → [Phase 1](career-project-specs/01-agentic-orchestration.md).
 
-## Progression (Step 1 → 22)
+## Progression (Phase 1 → 7)
 
-| Step | Project | Primary category | Stack | You will learn | Lab |
-|------|---------|------------------|-------|----------------|-----|
-| 1 | [Integration webhook receiver](career-project-specs/01-integration-webhook-receiver.md) | Reliability | PHP | Idempotency, hash-based message authentication code (HMAC), fast ack, DLQ | [Lab exists](https://github.com/shemaiahCox/webhook-receiver-lab) |
-| 2 | [RAG / LLM service](career-project-specs/02-rag-llm-service.md) | Reliability | Python | Retrieval-augmented generation (RAG), evals, citations, guardrails | [Lab exists](https://github.com/shemaiahCox/rag-llm-lab) |
-| 3 | [Observability lab](career-project-specs/03-observability-lab.md) | Reliability | Any (on Project 2 lab) | Correlation IDs, structured logs, latency | On Project 2 lab |
-| 4 | [SQL performance lab](career-project-specs/04-sql-performance-lab.md) | Performance | Postgres | Plans, indexes, vectors, transactions | [Lab exists](https://github.com/shemaiahCox/sql-perf-lab) |
-| 5 | [Contract-first API](career-project-specs/05-contract-first-api.md) | Reliability | Laravel / FastAPI / TS | OpenAPI, versioning, breaking changes | _TBD_ |
-| 6 | [Async worker stretch](career-project-specs/06-async-worker-stretch.md) | Concurrency | PHP / Go / TS | Queues, at-least-once, idempotency, DLQ | _TBD_ |
-| 7 | [Node / TypeScript lab](career-project-specs/07-node-typescript-lab.md) | Concurrency | TypeScript | Typed HTTP API, webhooks, queue track | _TBD_ |
-| 8 | [Go retrieval + worker](career-project-specs/08-go-retrieval-worker-lab.md) | Concurrency | Go | Concurrency, retrieval gateway, workers | _TBD_ |
-| 9 | [Application security lab](career-project-specs/09-application-security-lab.md) | Reliability | Any | Open Web Application Security Project (OWASP), integration-edge security | _TBD_ |
-| 10 | [Automation bot / workflow](career-project-specs/10-automation-bot-lab.md) | Concurrency | TS + Python | Workflow steps, secrets, idempotent side effects | _TBD_ |
-| 11 | [LLM web app](career-project-specs/11-llm-web-app-lab.md) | Reliability | TS + Python | Backend-for-frontend (BFF), streaming UX, eval-aware errors | _TBD_ |
-| 12 | [Multi-tenant + auth](career-project-specs/12-multi-tenant-auth-lab.md) | Reliability | TS + SQL | Tenant isolation, JSON Web Token (JWT)/session | _TBD_ |
-| 13 | [Real-time dashboard](career-project-specs/13-realtime-dashboard-lab.md) | Networking | TypeScript | Server-sent events (SSE)/WebSocket, reconnect, backpressure | _TBD_ |
-| 14 | [Shell automation lab](career-project-specs/14-shell-automation-lab.md) | Deploy | Bash | Strict mode, smoke scripts, shellcheck, bats | _TBD_ |
-| 15 | [DevOps CLI](career-project-specs/15-devops-cli-lab.md) | Deploy | Go | DLQ replay, ops flags, exit codes | _TBD_ |
-| 16 | [Cloud deploy](career-project-specs/16-cloud-deploy-lab.md) | Deploy | Compose + cloud | Deploy, secrets, health checks | _TBD_ |
-| 17 | [K8s controller-lite](career-project-specs/17-k8s-controller-lab.md) | Concurrency | Go | Reconcile loop, idempotent apply | _TBD_ |
-| 18 | [Proxy / load balancer](career-project-specs/18-proxy-load-balancer-lab.md) | Networking | Go | Timeouts, pooling, graceful shutdown | _TBD_ |
-| 19 | [Rust hot-path](career-project-specs/19-rust-hot-path-lab.md) | Performance | Rust | Same Project 8 contract; Go vs Rust architecture decision record (ADR) | _Optional_ |
-| 20 | [WASM secure component](career-project-specs/20-wasm-secure-component-lab.md) | Performance | Rust | Sandboxed logic, foreign function interface (FFI) boundaries | _Optional_ |
-| 21 | [IoT / edge ingest](career-project-specs/21-iot-edge-lab.md) | Concurrency | Go + Py + TS | MQTT, idempotent telemetry, offline buffer | _TBD_ |
-| 22 | [Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) | Capstone | All labs | Flagship demo: ingest → AI → workers → dashboard → deploy | _TBD_ |
+| Phase | Domain | Focus | Stack | Course | Lab |
+|-------|--------|-------|-------|--------|-----|
+| 1 | Agentic AI and orchestration | Deep Agents harness, LangGraph state graphs, long-running context, tool execution, MCP | Python: Deep Agents, LangChain, LangGraph, FastMCP. TypeScript MCP/API stretch. | [Deep Agents + LangGraph + FastMCP](docs/career/course-track.md#phase-1) | [01-agentic-orchestration.md](career-project-specs/01-agentic-orchestration.md) |
+| 2 | Containerization | Package the Phase 1 Python agent | Docker, Dockerfile, Compose | [KodeKloud Docker](docs/career/course-track.md#phase-2) | [02-containerize-agent.md](career-project-specs/02-containerize-agent.md) |
+| 3 | Azure IaC | Provision without the portal | Terraform `azurerm`, App Service, VNet | [KodeKloud Terraform](docs/career/course-track.md#phase-3) | [03-azure-terraform-stack.md](career-project-specs/03-azure-terraform-stack.md) |
+| 4 | Azure admin and governance | Networking, Entra ID, policies, resource management | IAM/RBAC, Key Vault, Storage | [KodeKloud AZ-104](docs/career/course-track.md#phase-4) | [04-azure-admin-governance.md](career-project-specs/04-azure-admin-governance.md) |
+| 5 | System architecture and Azure backends | High-concurrency services wrapping agent tools | Go workers, Python Functions, Service Bus, Redis. TypeScript API stretch. | [ByteByteGo + DesignGurus](docs/career/course-track.md#phase-5) | [05-azure-backends.md](career-project-specs/05-azure-backends.md) |
+| 6 | End-to-end data pipelines | Event streams and transforms that feed agent context | SQL, Kafka / Event Hubs, Spark (Python) | [Data Engineering Zoomcamp](docs/career/course-track.md#phase-6) | [06-data-pipelines.md](career-project-specs/06-data-pipelines.md) |
+| 7 | Enterprise orchestration | Run, scale, observe, secure the stack | AKS, CI/CD, Helm | [KodeKloud CKA](docs/career/course-track.md#phase-7) | [07-aks-orchestration.md](career-project-specs/07-aks-orchestration.md) |
 
-**Primary category** = the main systems skill each step proves. Many projects also touch other categories — see [Browse by systems skill](#browse-by-systems-skill).
+Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = spec number** (e.g. phase 1 → `01-agentic-orchestration-lab`; lab 08 → `08-ops-cli-lab`).
 
-**Go-first skip path:** After step **18**, open [Project 21](career-project-specs/21-iot-edge-lab.md) (Go ingest) or [Project 22](career-project-specs/22-integrated-platform-capstone.md). Log deferrals for steps 19–20 in [PROGRESS.md](PROGRESS.md).
+### Required competence labs (08–13)
 
-Local lab folders live under [`career-projects/`](career-projects/). **Folder prefix = step number** (e.g. step 2 → `02-rag-llm-lab`, step 4 → `04-sql-perf-lab`). GitHub repo names may differ — each spec's **Code repo** section is authoritative.
+Azure stays the implementation cloud. These labs are **required practice** for Backend & Systems competence — not optional, not a second product. Compose the Phase 5 worker. Each ADR names Azure plus **one sentence** AWS/GCP analogue ([cloud portability](docs/concepts/cloud-portability.md)).
 
-### Optional projects (Big Tech benchmark — not in linear order)
+| Lab | After | Focus | Stack | Next |
+|-----|-------|-------|-------|------|
+| [08 Ops CLI](career-project-specs/08-ops-cli.md) | Domain 5 | Flags, exit codes, **DLQ replay** | Go · Service Bus DLQ | 09 |
+| [09 Edge proxy](career-project-specs/09-edge-proxy.md) | 08 | Timeouts, pooling, graceful shutdown | Go | 10 |
+| [10 Rate limiter](career-project-specs/10-rate-limiter.md) | 09 | Token bucket / sliding window, `429` | Go · Redis | 11 |
+| [11 Notification fan-out](career-project-specs/11-notification-fanout.md) | 10 | Pub/sub, retries, DLQ | Go · Service Bus topics / Event Grid | 12 |
+| [12 Search / autocomplete](career-project-specs/12-search-autocomplete.md) | 11 | Prefix search, indexes, p95 | Go · Postgres · Redis | Domain 6 |
+| [13 K8s controller-lite](career-project-specs/13-k8s-controller.md) | Domain 6 | Reconcile loop before Helm | Go · kind | Domain 7 |
 
-After [Project 8](career-project-specs/08-go-retrieval-worker-lab.md) or [Project 22](career-project-specs/22-integrated-platform-capstone.md). See [big-tech-benchmark.md](docs/career/big-tech-benchmark.md).
-
-| ID | Project | Spec |
-|----|---------|------|
-| P23 | Distributed rate limiter + API gateway | [23-rate-limiter-gateway-lab.md](career-project-specs/23-rate-limiter-gateway-lab.md) |
-| P24 | Notification fan-out service | [24-notification-fanout-lab.md](career-project-specs/24-notification-fanout-lab.md) |
-| P25 | Search / autocomplete microservice | [25-search-autocomplete-lab.md](career-project-specs/25-search-autocomplete-lab.md) |
-
-### Azure certification overlay (parallel track)
-
-Studying [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) and/or [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00)? Follow the **22-step spine** unchanged; use [azure-certification-track.md](docs/career/azure-certification-track.md) to map Microsoft Learn modules to project Azure stretches (Projects 2, 4, 6, 8, 11, 16, 17).
-
-## Browse by systems skill
-
-Not the learning order — use when you want **evidence by capability** (how backend/systems roles evaluate you). Aim for **enough projects to solve real problems**, not a fixed count per bucket: usually one foundational lab, one production-shaped lab, and one integrated proof (capstone **22** covers the cross-category story).
-
-| Systems skill | Primary projects | Also practiced in |
-|---------------|------------------|-------------------|
-| **Reliability / monitoring / logging** | 1, 2, 3, 5, 9, 11, 12 | 6, 8, 15, 16, 22 |
-| **Concurrency / background jobs** | 6, 7, 8, 10, 17, 21 | 1, 13, 22 |
-| **Performance tuning / profiling** | 4, 8, 18 | 3, 19 (optional Rust), 22 |
-| **Linux / processes / networking** | 13, 18 | 16, 17, 21, 22 |
-| **Deployment / automation (continuous integration/continuous deployment (CI/CD), Docker, scripting)** | 14, 15, 16 | 1, 4, 10, 22 |
-
-**Optional performance depth (Go-first, after P8):** pick **one** — [P23 rate limiter](career-project-specs/23-rate-limiter-gateway-lab.md) (Go + Redis; edge middleware p99) **or** [P25 search/autocomplete](career-project-specs/25-search-autocomplete-lab.md) (Go + Postgres + Redis; trie/index p95). Both replace Rust P19/P20 interview depth without a second language rewrite.
-
-**Minimum credible evidence (Go-first):** reliability **1 + 3 + 6** · concurrency **6 + 8** · performance **4 + 8 + 18** (before/after numbers in `docs/portfolio/performance.md`) · deploy **14 + 16** · capstone **22**. Steps **19–20** add Rust depth later — not required for backend/systems positioning today.
+v1 22-step specs (webhook, RAG, Rust, IoT, …) live in [`archive/v1-22-step/`](archive/v1-22-step/README.md) — not the learning order. Still out of scope: second-cloud deploys, PHP webhook, Rust/WASM, IoT, v1 capstone.
 
 ## Browse by architecture pillar
 
-Not the learning order — use when you want **evidence by architectural decision type**. See the full matrix in [architecture framework](docs/concepts/architecture-framework.md#project--pillar-matrix).
+Not the learning order — use when you want **evidence by architectural decision type**. Full matrix: [architecture framework](docs/concepts/architecture-framework.md#phase--pillar-matrix).
 
-| Pillar | Primary projects | Also practiced in |
-|--------|------------------|-------------------|
-| **1. System shape** | 1, 5, 7, 8, 11, 22 | 2, 6, 10, 12, 13, 17, 18, 21 |
-| **2. Integration and messaging** | 1, 6, 8, 10, 23, 24 | 5, 7, 15, 17, 21, 25 |
-| **3. Data architecture** | 4, 2, 8, 12, 25 | 1, 6, 22 |
-| **4. Performance and language boundaries** | 4, 8, 18, 23, 25 | 2, 13, 19 (optional), 24 |
-| **5. Reliability, security, operations** | 3, 9, 12, 14, 15, 16 | every lab (failure modes) |
+| Pillar | Primary phases / labs | Also practiced in |
+|--------|-----------------------|-------------------|
+| **1. System shape** | 1, 5, 7, 11, 13 | 2, 3, 09 |
+| **2. Integration and messaging** | 5, 6, 08, 11 | 1 (MCP tools), 7, 10 |
+| **3. Data architecture** | 6, 12 | 1 (agent context / filesystem) |
+| **4. Performance and language boundaries** | 5, 09, 10, 12 | 1, 7 |
+| **5. Reliability, security, operations** | 2, 3, 4, 7, 08, 09 | every lab (failure modes) |
 
-**Minimum credible (Go-first, all five pillars):** shape **1** · integration **6** · data **4** · performance **8** (+ **4** or **18** for numbers) · reliability/ops **3 + 14 + 16** · capstone **22**.
-
-## Browse by topic (optional)
-
-Not the learning order — use when you want every project that practices a concept.
-
-| Concept | Projects |
-|---------|----------|
-| **Idempotency** | 1, 6, 7, 8, 10, 12, 17, 21 |
-| HMAC / webhook trust | 1, 10, 9 |
-| Dead letter / replay | 1, 6, 15 |
-| RAG + eval regression | 2, 11, 21 |
-| OpenAPI / contracts | 5, 2↔8, 7, 11 |
-| SQL plans / vectors | 4, 2, 8, 12 |
-| Auth + tenant isolation | 12, 11, 9 |
-| Real-time push | 13, 8, 21 |
-| **Bash / shell automation** | 1, 4, 10, 14, 16, 22 |
-| **Performance (measure and tune)** | 3, 4, 8, 18, 23 (optional), 25 (optional), 19 (optional Rust) |
-| **Memory / resource limits** | 2, 8, 13, 19 (optional), 20 (optional), 21 |
-| Rust / systems ADR (optional future track) | 19, 20 |
-| **Integrated capstone** | 22 |
-
-Reference: [engineering pillars](docs/concepts/engineering-pillars.md) (optional topic browse — learning order is [architecture framework](docs/concepts/architecture-framework.md)).
+**Minimum credible (interview-ready):** Domains **1 + 2 + 3 + 5** plus labs **08 + 09**. **Full differentiation:** labs **10–13** plus domains **4 (AZ-104)**, **6**, **7 (CKA)**.
 
 ## Role direction
 
-Build platforms that integrate systems, automate workflows, and layer AI — with contracts, idempotency, observability, and explicit failure modes. **The five pillars above are how we organize every lab.**
+Build platforms that run **agentic AI** on **Azure**: Python owns the agent and data plane; Go owns high-concurrency backends; TypeScript is a complementary MCP/API skill. Prove contracts, idempotency, identity, observability, and explicit failure modes.
 
-**PHP stays ship-today.** Core depth here is **Python / Go / SQL / Bash** through numbered projects, with **TypeScript** where the spec calls for it. **Rust (steps 19–20)** is an optional future track — defer when paused; your Go-first performance story lives in Projects **4, 8, and 18**.
+**PHP stays ship-today** (commercial work) — it is not on this path. Rust and IoT are archived with v1.
 
-**Reference docs:** [languages/glossary.md](docs/languages/glossary.md) (stack maps) · [languages/bash.md](docs/languages/bash.md) (shell automation) · [concepts/](docs/README.md#concepts-theory-and-patterns) (theory and patterns) · [SDLC ↔ playbook map](docs/concepts/sdlc-playbook-map.md) (lifecycle ↔ projects)
+**Reference docs:** [languages/glossary.md](docs/languages/glossary.md) · [concepts/](docs/README.md#concepts-by-pillar) · [SDLC ↔ playbook map](docs/concepts/sdlc-playbook-map.md) · [target alignment](docs/career/target-alignment.md)
 
 ## Non-goals
 
 - Resume-driven repos with no shared patterns
 - Tutorial clones without tests or observability
-- Multiple half-finished main projects
+- Multiple half-finished main labs
+- Treating TypeScript as a third primary language
 - Replacing PHP production work with greenfield here
 
-## How to work through a project
+## How to work through a lab
 
-1. Read [Architecture framework](docs/concepts/architecture-framework.md) once, then open the spec (e.g. [Project 1](career-project-specs/01-integration-webhook-receiver.md))
-2. Read **Architecture pillars**, **What you will learn**, **Before you start**, and **Important concepts**
-3. Build in [`career-projects/`](career-projects/) (nested git clone when a lab exists)
-4. Meet success criteria; test per [per-project testing](docs/concepts/per-project-testing.md)
-5. Commit [portfolio artifacts](docs/templates/portfolio-artifacts.md) in the lab repo; gate with [production readiness](checklists/production-readiness.md)
-6. Log in [PROGRESS.md](PROGRESS.md) → open **Next** in the spec
+1. Read [Architecture framework](docs/concepts/architecture-framework.md) once, then open the spec
+2. If the spec is a domain (1–7), start the matching course from [course-track.md](docs/career/course-track.md)
+3. Read **Architecture pillars**, **What you will learn**, **Before you start**, and **Important concepts**
+4. Build in [`career-projects/`](career-projects/) — one active lab (domain or 08–13)
+5. Meet success criteria; test per [per-project testing](docs/concepts/per-project-testing.md)
+6. Commit [portfolio artifacts](docs/templates/portfolio-artifacts.md) in the lab repo; gate with [production readiness](checklists/production-readiness.md)
+7. Log in [PROGRESS.md](PROGRESS.md) → open **Next** in the spec
 
 ## Spec shape
 
-Every project spec includes: **Progress** (step, prev/next) · **What you will learn** · **Architecture pillars** · **Stack and why** · **Before you start** (glossary + stack maps) · **Important concepts** · Success criteria · **Bash scripting milestone** (where applicable) · Testing · **Portfolio artifacts** · **When you're done**.
+Every spec (domain or competence lab) includes: **Progress** (prev/next) · **What you will learn** · **Architecture pillars** · **Stack and why** · **Before you start** · **Important concepts** · Success criteria · Testing · **Portfolio artifacts** · **When you're done**. Domain specs also name a course. Competence-lab ADRs add one AWS/GCP analogue sentence.
 
 ## Reference (not the path)
 
 | Doc | Use when |
 |-----|----------|
-| [docs/concepts/architecture-framework.md](docs/concepts/architecture-framework.md) | **Read first** — five pillars, reference shape, project matrix |
-| [checklists/architecture-checklist.md](checklists/architecture-checklist.md) | **Real-world checklist** — feasibility through scale, tech stack tradeoffs |
+| [docs/concepts/architecture-framework.md](docs/concepts/architecture-framework.md) | **Read first** — five pillars, reference shape, phase matrix |
+| [docs/concepts/agentic-orchestration.md](docs/concepts/agentic-orchestration.md) | Deep Agents vs LangGraph vs LangChain |
+| [checklists/architecture-checklist.md](checklists/architecture-checklist.md) | Feasibility through scale |
 | [docs/examples/sample-portfolio/](docs/examples/sample-portfolio/) | What good `docs/portfolio/` looks like |
 | [docs/languages/glossary.md](docs/languages/glossary.md) | New to a language — start here |
-| [docs/career/target-alignment.md](docs/career/target-alignment.md) | UK Backend & Systems targeting — project ideas, £80k milestones, job matrix |
-| [docs/career/big-tech-benchmark.md](docs/career/big-tech-benchmark.md) | Google/Meta/top-tier bar — optional ceiling, dual-track roadmap |
-| [docs/concepts/messaging-and-rpc.md](docs/concepts/messaging-and-rpc.md) | Kafka vs Redis, REST vs gRPC (career + lab context) |
-| [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md) | Theory depth (testing, integration, security) |
+| [docs/career/target-alignment.md](docs/career/target-alignment.md) | UK Backend & Systems — £80k, Azure-first |
+| [docs/career/azure-certification-track.md](docs/career/azure-certification-track.md) | AZ-104 + CKA in-path |
+| [docs/career/course-track.md](docs/career/course-track.md) | Course URLs + which lab to open |
+| [docs/career/big-tech-benchmark.md](docs/career/big-tech-benchmark.md) | Optional Google/Meta ceiling |
+| [docs/concepts/messaging-and-rpc.md](docs/concepts/messaging-and-rpc.md) | Kafka vs Redis, REST vs gRPC |
+| [docs/concepts/cloud-portability.md](docs/concepts/cloud-portability.md) | Pattern → Azure (you build) → AWS → GCP names |
+| [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md) | Handbook (testing, IaC, agents, pipelines) |
 | [docs/concepts/per-project-testing.md](docs/concepts/per-project-testing.md) | How to test each lab |
-| [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) | Resume-ready diagram, ADR, perf, failure modes |
-| [checklists/production-readiness.md](checklists/production-readiness.md) | Platform engineering gate per step |
-| [docs/concepts/engineering-pillars.md](docs/concepts/engineering-pillars.md) | Optional topic index |
+| [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) | Diagram, ADR, perf, failure modes |
+| [checklists/production-readiness.md](checklists/production-readiness.md) | Platform engineering gate per phase |
 
 Full index: [docs/README.md](docs/README.md)
 

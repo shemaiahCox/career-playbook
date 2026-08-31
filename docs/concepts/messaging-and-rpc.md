@@ -1,12 +1,12 @@
 # Messaging and RPC
 
-**Use this:** When job posts mention **Kafka, Redis, queues, REST, or gRPC** and you need plain language before [Project 6](../../career-project-specs/06-async-worker-stretch.md) or [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md).
+**Use this:** When job posts mention **Kafka, Redis, queues, REST, or gRPC** and you need plain language before [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) or [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md).
 
 **Reading order:**
 
 1. **You are here** — what a queue is and how services talk
 2. [Software engineering — Integration](software-engineering.md#integration-sync-async-and-messaging) — idempotency, delivery semantics, webhooks
-3. [Project 6](../../career-project-specs/06-async-worker-stretch.md) → [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) — hands-on queue + worker
+3. [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) → [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) — hands-on queue + worker
 
 **Companion:** [Glossary](software-engineering-glossary.md) · [Integration automation](integration-automation.md) · [Career targeting](../career/target-alignment.md)
 
@@ -14,7 +14,7 @@
 
 ## Why queues and APIs matter
 
-A **message queue** is a to-do list between services: one part of your app **drops off work**, another part **picks it up later**. That lets you answer HTTP quickly while slow work runs in the background ([Project 1](../../career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../career-project-specs/06-async-worker-stretch.md)).
+A **message queue** is a to-do list between services: one part of your app **drops off work**, another part **picks it up later**. That lets you answer HTTP quickly while slow work runs in the background ([Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) → [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)).
 
 The hard part is not picking Redis vs Kafka—it is **duplicate delivery**. Messages can arrive more than once. Your handler must stay correct anyway ([idempotency](software-engineering-glossary.md#idempotency), [dead letter queue](software-engineering-glossary.md#dead-letter-queue-dlq)).
 
@@ -22,9 +22,9 @@ The hard part is not picking Redis vs Kafka—it is **duplicate delivery**. Mess
 
 | Style | Plain English | Playbook default |
 |-------|---------------|------------------|
-| **REST + OpenAPI** | HTTP + JSON with a documented contract | [Project 5](../../career-project-specs/05-contract-first-api.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) boundary |
+| **REST + OpenAPI** | HTTP + JSON with a documented contract | [Project 5](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md), [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) boundary |
 | **gRPC** | Faster typed calls between internal services | Optional stretch on Project 8 |
-| **Webhooks** | Partner pushes events to your URL | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) |
+| **Webhooks** | Partner pushes events to your URL | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) |
 
 Playbook labs default to **Redis** for local simplicity—the reliability patterns transfer to Kafka and managed queues unchanged.
 
@@ -46,7 +46,7 @@ Playbook labs default to **Redis** for local simplicity—the reliability patter
 | Broker | Typical employer context | Playbook default | Same semantics you already practice |
 |--------|-------------------------|------------------|-------------------------------------|
 | **Redis** (lists/streams) | Startups, side projects, local dev, smaller services | **Projects 6, 8** — primary lab broker | At-least-once + idempotent consumer + DLQ |
-| **Kafka** | Monzo, scale-ups, event platforms, log-oriented pipelines | **Stretch** on [Project 6](../../career-project-specs/06-async-worker-stretch.md) / [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Duplicate delivery → idempotent handler; consumer groups ≈ N workers |
+| **Kafka** | Monzo, scale-ups, event platforms, log-oriented pipelines | **Stretch** on [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) / [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | Duplicate delivery → idempotent handler; consumer groups ≈ N workers |
 | **NATS** | Cloud-native microservices, edge, lightweight pub/sub | Optional in Project 8 stretch | At-least-once subscribers; duplicate tolerance |
 | **SQS / managed queue** | AWS-heavy shops | Documented in Project 15 cloud deploy | Visibility timeout + DLQ = same mental model |
 | **RabbitMQ** | Enterprise integrations, older stacks | Name-only in specs | Same ack/nack/DLQ vocabulary |
@@ -73,13 +73,13 @@ A **message broker** decouples producers from consumers: the producer publishes 
 | **SQS** | Managed; visibility timeout | AWS coupling | Multi-cloud local-only dev |
 | **RabbitMQ** | Mature routing | Older ops patterns | Greenfield without team skill |
 
-See [Illustrative snippets — queue consumer](illustrative-snippets.md#queue-consumer-redis-list) · [Project 6](../../career-project-specs/06-async-worker-stretch.md).
+See [Illustrative snippets — queue consumer](illustrative-snippets.md#queue-consumer-redis-list) · [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md).
 
 ### How to explain Kafka vs Redis in an interview
 
 You can describe building idempotent workers on Redis locally because it is fast to iterate, then explain that Kafka is the same reliability contract at scale—a partitioned log with consumer groups and at-least-once delivery—so ramping on an employer's broker means learning operational details, not relearning how to write safe consumers. Emphasize that duplicate delivery is expected and idempotency keys or deduplication tables are how handlers stay correct.
 
-When Kafka appears in a job description, the employer usually wants durable event history, replay capability, or high fan-out—not merely "async work," which Redis handles fine at smaller scale. When Redis is enough in a portfolio, you are proving idempotency, DLQ handling, worker pools, and operational replay ([Project 14](../../career-project-specs/15-devops-cli-lab.md))—skills that transfer directly.
+When Kafka appears in a job description, the employer usually wants durable event history, replay capability, or high fan-out—not merely "async work," which Redis handles fine at smaller scale. When Redis is enough in a portfolio, you are proving idempotency, DLQ handling, worker pools, and operational replay ([Project 14](../../archive/v1-22-step/career-project-specs/15-devops-cli-lab.md))—skills that transfer directly.
 
 ---
 
@@ -131,10 +131,10 @@ If local development speed matters, start with Redis (Projects 6 and 8). If the 
 
 | Project | Messaging/RPC focus |
 |---------|---------------------|
-| [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) | Sync ingress; forward-ref to queue consumers |
-| [Project 6](../../career-project-specs/06-async-worker-stretch.md) | Queue + worker + DLQ fundamentals |
-| [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Go consumer; Prometheus; Kafka/gRPC stretches |
-| [Project 15](../../career-project-specs/16-cloud-deploy-lab.md) | Managed queue in cloud deploy |
+| [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) | Sync ingress; forward-ref to queue consumers |
+| [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) | Queue + worker + DLQ fundamentals |
+| [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) | Go consumer; Prometheus; Kafka/gRPC stretches |
+| [Project 15](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) | Managed queue in cloud deploy |
 
 ---
 
@@ -156,7 +156,7 @@ If local development speed matters, start with Redis (Projects 6 and 8). If the 
 | **DLQ** | Dead letter queue—poison messages after max retries |
 | **Consumer group** | Kafka workers sharing partition load |
 | **Visibility timeout** | SQS: message hidden while worker processes; redelivers if not acked |
-| **Azure Service Bus** | Managed queue + dead-letter—same idempotency story as Redis/SQS ([Project 6 stretch](../../career-project-specs/06-async-worker-stretch.md#azure-certification-stretch)) |
+| **Azure Service Bus** | Managed queue + dead-letter—same idempotency story as Redis/SQS ([Project 6 stretch](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md#azure-certification-stretch)) |
 | **OpenAPI** | Machine-readable HTTP contract |
 | **protobuf** | Binary schema format used with gRPC |
 

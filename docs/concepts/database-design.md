@@ -1,12 +1,12 @@
 # Database design
 
-**Use this:** When you need to **design tables, indexes, and migrations**—before [Project 4](../../career-project-specs/04-sql-performance-lab.md) or any lab with Postgres.
+**Use this:** When you need to **design tables, indexes, and migrations**—before [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) or any lab with Postgres.
 
 **Reading order:**
 
 1. **You are here** — relational model, indexes, transactions
 2. [SQL ecosystem map](../languages/sql.md) — dialect and EXPLAIN in your stack
-3. [Project 4 — SQL performance](../../career-project-specs/04-sql-performance-lab.md) — measure query plans
+3. [Project 4 — SQL performance](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) — measure query plans
 4. [Memory and performance](memory-and-performance.md) — when slowness is app vs database
 
 **Companion:** [Glossary](software-engineering-glossary.md) · [Software engineering](software-engineering.md) · [Command-line tooling](command-line-tooling.md)
@@ -236,7 +236,7 @@ An **embedding model** maps text or images into high-dimensional **vectors**—a
 
 Tradeoffs include re-embedding cost when you change models, and **chunking** strategy—how you split documents before embedding—which materially affects RAG answer quality.
 
-**Azure (cert overlay):** [Azure Database for PostgreSQL](software-engineering-glossary.md#azure-database-for-postgresql) Flexible Server with **pgvector** runs the same vector patterns as local Postgres—see [Project 4 Azure stretch](../../career-project-specs/04-sql-performance-lab.md#azure-certification-stretch) and [Azure cloud and AI](azure-cloud-and-ai.md#data-for-ai-workloads).
+**Azure (cert overlay):** [Azure Database for PostgreSQL](software-engineering-glossary.md#azure-database-for-postgresql) Flexible Server with **pgvector** runs the same vector patterns as local Postgres—see [Project 4 Azure stretch](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md#azure-certification-stretch) and [Azure cloud and AI](azure-cloud-and-ai.md#data-for-ai-workloads).
 
 ```mermaid
 flowchart LR

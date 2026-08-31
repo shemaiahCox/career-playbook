@@ -36,7 +36,7 @@ These sections apply only when your product has that shape. Skip what does not a
 
 **Why:** At-least-once delivery is the default—handlers must be idempotent or duplicates corrupt state.
 
-**Handbook:** [Project 6](../career-project-specs/06-async-worker-stretch.md) · [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
+**Handbook:** [Project 6](../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) · [Messaging and RPC](../docs/concepts/messaging-and-rpc.md)
 
 These items apply when your product processes background jobs or queue messages.
 

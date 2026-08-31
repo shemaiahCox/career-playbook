@@ -6,7 +6,7 @@ Short, **beginner-friendly** definitions for words you will hear in code reviews
 
 **Related:** stack-specific blurbs live in [Stacks glossary](../languages/glossary.md) (links into ecosystem maps).
 
-**Azure certification overlay:** [Azure index](#azure-index) — AZ-900 / AI-200 terms mapped to playbook projects; depth in [Azure cloud and AI](azure-cloud-and-ai.md) and [certification track](../career/azure-certification-track.md).
+**Azure (in-path):** [Azure index](#azure-index) — AZ-104 / CKA terms mapped to the [7-phase path](../../README.md); depth in [Azure cloud and AI](azure-cloud-and-ai.md) and [certification track](../career/azure-certification-track.md).
 
 **Architecture checklist terms:** vocabulary from the [real-world architecture checklist](../../checklists/architecture-checklist.md)—[Conway's law](#conway's-law) (org fit), [strangler-fig](#strangler-fig-pattern) (legacy migration), [C4 model](#c4-model) (diagram levels), [NFR](#non-functional-requirements-nfr) (latency, scale, compliance), [error budget](#sla--slo--sli) (SLO tradeoffs with shipping).
 
@@ -48,7 +48,13 @@ An API (Application Programming Interface) is a contract for how software talks 
 
 Application Insights is Azure's application performance monitoring (APM) service—it collects request traces, dependencies, exceptions, and custom metrics from your running app. It is the Azure name for the same observability story you practice with structured logs and `request_id` in the playbook.
 
-**See also:** [Project 3 — Observability](../../career-project-specs/03-observability-lab.md); [Azure cloud and AI](azure-cloud-and-ai.md#observability)
+**See also:** [Project 3 — Observability](../../archive/v1-22-step/career-project-specs/03-observability-lab.md); [Azure cloud and AI](azure-cloud-and-ai.md#observability)
+
+### Agent (tool-using)
+
+A tool-using agent is a program that lets a language model call **allowlisted** functions (search, tickets, SQL) in a loop until a task is done. Unlike a single-shot completion, it has state, tools, and stop conditions. On this path the default harness is [Deep Agents](#deep-agents-harness).
+
+**See also:** [Agentic orchestration](agentic-orchestration.md); [Phase 1](../../career-project-specs/01-agentic-orchestration.md)
 
 ### Adapter (pattern)
 
@@ -94,93 +100,112 @@ Azure Blob Storage is object storage for files, backups, and unstructured data�
 
 ### Azure Container Apps
 
-Azure Container Apps runs containerized HTTP services and workers without you managing a Kubernetes control plane. It fits [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) deploy stretches—same Docker image as Compose, with scale rules and optional scale-to-zero.
+Azure Container Apps runs containerized HTTP services and workers without you managing a Kubernetes control plane. It fits [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) deploy stretches—same Docker image as Compose, with scale rules and optional scale-to-zero.
 
-**See also:** [Project 16 — Cloud deploy](../../career-project-specs/16-cloud-deploy-lab.md); [Azure certification track](../career/azure-certification-track.md)
+**See also:** [Project 16 — Cloud deploy](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md); [Azure certification track](../career/azure-certification-track.md)
 
 ### Azure Database for PostgreSQL
 
-Azure Database for PostgreSQL is managed Postgres—Microsoft patches, backs up, and hosts the server. The Flexible Server tier supports the **pgvector** extension for embedding search, mapping directly to [Project 4](../../career-project-specs/04-sql-performance-lab.md) and RAG storage in [Project 2](../../career-project-specs/02-rag-llm-service.md).
+Azure Database for PostgreSQL is managed Postgres—Microsoft patches, backs up, and hosts the server. The Flexible Server tier supports the **pgvector** extension for embedding search, mapping directly to [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) and RAG storage in [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md).
 
 **See also:** [Database design — vectors](database-design.md#vector-databases-and-embeddings); [Azure cloud and AI — data](azure-cloud-and-ai.md#data-for-ai-workloads)
 
+### Azure Event Hubs
+
+Azure Event Hubs is a managed event log—high-throughput append, many consumers, similar job to Apache Kafka. Use it in [Phase 6](../../career-project-specs/06-data-pipelines.md) to land events a Spark or Pandas job turns into serving tables the agent can query.
+
+**See also:** [Kafka, Redis, and NATS](#kafka-redis-and-nats-message-brokers); [Data pipelines](software-engineering.md#data-pipelines-that-feed-agents)
+
 ### Azure Event Grid
 
-Azure Event Grid routes events when something happens—a blob upload, a subscription change—to HTTP handlers or other Azure services. It is push notification for cloud resources; compare webhook ingress in [Project 1](../../career-project-specs/01-integration-webhook-receiver.md).
+Azure Event Grid routes events when something happens—a blob upload, a subscription change—to HTTP handlers or other Azure services. It is push notification for cloud resources; compare webhook ingress in [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md).
 
 **See also:** [Azure cloud and AI — messaging](azure-cloud-and-ai.md#messaging-and-events)
 
+### Azure App Service
+
+Azure App Service is a PaaS host for web apps and containers—you bring an image or code; Azure patches the platform. On this path it (or Container Apps) runs the Phase 2 agent image after [Terraform](#terraform) apply.
+
+**See also:** [Phase 3](../../career-project-specs/03-azure-terraform-stack.md)
+
 ### Azure Functions
 
-Azure Functions runs small pieces of code triggered by HTTP, queues, or timers—serverless with scale-to-zero. Use for one workflow step instead of a full container when [Project 10](../../career-project-specs/10-automation-bot-lab.md) stretch calls for minimal compute.
+Azure Functions runs small pieces of code triggered by HTTP, queues, or timers—serverless with scale-to-zero. Use for one workflow step instead of a full container when [Project 10](../../archive/v1-22-step/career-project-specs/10-automation-bot-lab.md) stretch calls for minimal compute.
 
 **See also:** [Azure cloud and AI — compute](azure-cloud-and-ai.md#compute-choices-for-playbook-labs)
 
 ### Azure Key Vault
 
-Azure Key Vault stores secrets, keys, and certificates outside your repo. Apps read values at runtime—often via managed identity—so git holds `.env.example` names only, matching [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) secrets hygiene.
+Azure Key Vault stores secrets, keys, and certificates outside your repo. Apps read values at runtime—often via managed identity—so git holds `.env.example` names only, matching [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) secrets hygiene.
 
 **See also:** [Azure cloud and AI — secrets](azure-cloud-and-ai.md#secrets-and-identity)
 
 ### Azure Kubernetes Service (AKS)
 
-Azure Kubernetes Service (AKS) is managed Kubernetes—Microsoft runs the control plane; you deploy pods and services. Optional target for [Project 17](../../career-project-specs/17-k8s-controller-lab.md) when AI-200 covers AKS deploy and monitor.
+Azure Kubernetes Service (AKS) is managed Kubernetes—Microsoft runs the control plane; you deploy pods and services. Optional target for [Project 17](../../archive/v1-22-step/career-project-specs/17-k8s-controller-lab.md) when AI-200 covers AKS deploy and monitor.
 
-**See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
+**See also:** [Project 17 — K8s controller](../../archive/v1-22-step/career-project-specs/17-k8s-controller-lab.md)
 
 ### Azure Load Balancer
 
-Azure Load Balancer distributes traffic across VMs or virtual machine scale sets at Layer 4 (TCP/UDP). Application Gateway adds Layer 7 HTTP routing and WAF. Playbook [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md) teaches timeout and pooling concepts you can name on AZ-900.
+Azure Load Balancer distributes traffic across VMs or virtual machine scale sets at Layer 4 (TCP/UDP). Application Gateway adds Layer 7 HTTP routing and WAF. Playbook [Project 18](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md) teaches timeout and pooling concepts you can name on AZ-900.
 
-**See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md)
+**See also:** [Project 18 — Proxy / load balancer](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md)
 
 ### Azure Managed Redis
 
-Azure Managed Redis is a hosted Redis-compatible service—for cache, pub/sub, streams, and vector search helpers in AI-200. Same mental model as local Redis in [Project 6](../../career-project-specs/06-async-worker-stretch.md) and [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md); document an ADR when switching brokers.
+Azure Managed Redis is a hosted Redis-compatible service—for cache, pub/sub, streams, and vector search helpers in AI-200. Same mental model as local Redis in [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) and [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md); document an ADR when switching brokers.
 
 **See also:** [Messaging and RPC](messaging-and-rpc.md); [Azure cloud and AI — data](azure-cloud-and-ai.md#data-for-ai-workloads)
 
 ### Azure OpenAI
 
-Azure OpenAI hosts OpenAI models (chat, embeddings) in your Azure subscription with enterprise controls and regional deployment. Swap the inference endpoint in [Project 2](../../career-project-specs/02-rag-llm-service.md) or [Project 11](../../career-project-specs/11-llm-web-app-lab.md)—keep eval JSONL and `POST /query` contract unchanged.
+Azure OpenAI hosts OpenAI models (chat, embeddings) in your Azure subscription with enterprise controls and regional deployment. Swap the inference endpoint in [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) or [Project 11](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md)—keep eval JSONL and `POST /query` contract unchanged.
 
-**See also:** [LLMs handbook](llms.md); [Project 2](../../career-project-specs/02-rag-llm-service.md)
+**See also:** [LLMs handbook](llms.md); [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md)
 
 ### Azure Policy
 
-Azure Policy enforces organizational rules on resources—for example allowed regions, required tags, or banned SKUs. It complements RBAC: RBAC says who can act; Policy says what configurations are allowed. Mention both in deploy ADRs for [Project 16](../../career-project-specs/16-cloud-deploy-lab.md).
+Azure Policy enforces organizational rules on resources—for example allowed regions, required tags, or banned SKUs. It complements RBAC: RBAC says who can act; Policy says what configurations are allowed. Mention both in deploy ADRs for [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md).
 
 **See also:** [Azure cloud and AI — hierarchy](azure-cloud-and-ai.md#subscription-and-resource-hierarchy)
 
 ### Azure RBAC
 
-Azure RBAC (Role-Based Access Control) assigns roles like Owner, Contributor, or Reader on subscriptions, resource groups, or individual resources. Least privilege for CI deploy identities is a [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) portfolio talking point.
+Azure RBAC (Role-Based Access Control) assigns roles like Owner, Contributor, or Reader on subscriptions, resource groups, or individual resources. Least privilege for CI deploy identities is a [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) portfolio talking point.
 
 **See also:** [AZ-900 study guide](https://aka.ms/AZ900-StudyGuide); [Azure certification track](../career/azure-certification-track.md)
 
 ### Azure Service Bus
 
-Azure Service Bus is a managed message broker with queues, topics, sessions, and dead-letter subqueues. It implements the same at-least-once + poison-message story as Redis or SQS in [Project 6](../../career-project-specs/06-async-worker-stretch.md)—idempotent handlers still required.
+Azure Service Bus is a managed message broker with queues, topics, sessions, and dead-letter subqueues. It implements the same at-least-once + poison-message story as Redis or SQS in [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)—idempotent handlers still required.
 
-**See also:** [Messaging and RPC](messaging-and-rpc.md); [Project 6](../../career-project-specs/06-async-worker-stretch.md)
+**See also:** [Messaging and RPC](messaging-and-rpc.md); [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)
 
 ### Azure index
 
-Quick jump to Azure overlay terms for [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) and [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00):
+Quick jump for the 7-phase path (AZ-104 + CKA in-path; AZ-900 optional):
 
 | Term | Entry |
 |------|-------|
-| Fundamentals | [Subscription (Azure)](#subscription-azure) · [Resource group (Azure)](#resource-group-azure) · [Availability zone](#availability-zone-azure) · [Azure RBAC](#azure-rbac) · [Azure Policy](#azure-policy) |
-| Compute | [Azure Container Apps](#azure-container-apps) · [AKS](#azure-kubernetes-service-aks) · [Azure Functions](#azure-functions) |
-| Data / AI | [Azure Database for PostgreSQL](#azure-database-for-postgresql) · [Azure Managed Redis](#azure-managed-redis) · [Azure OpenAI](#azure-openai) |
-| Integration | [Azure Service Bus](#azure-service-bus) · [Azure Event Grid](#azure-event-grid) |
-| Ops | [Azure Key Vault](#azure-key-vault) · [Managed identity](#managed-identity) · [Application Insights](#application-insights) |
+| Fundamentals | [Subscription (Azure)](#subscription-azure) · [Resource group (Azure)](#resource-group-azure) · [Availability zone](#availability-zone-azure) · [Azure RBAC](#azure-rbac) · [Azure Policy](#azure-policy) · [Entra ID](#entra-id) |
+| Compute | [Azure App Service](#azure-app-service) · [Azure Container Apps](#azure-container-apps) · [AKS](#azure-kubernetes-service-aks) · [Azure Functions](#azure-functions) |
+| Network | [Virtual Network (VNet)](#virtual-network-vnet) · [Network Security Group](#network-security-group-nsg) |
+| Data / AI | [Azure Database for PostgreSQL](#azure-database-for-postgresql) · [Azure Managed Redis](#azure-managed-redis) · [Azure OpenAI](#azure-openai) · [Storage Account](#storage-account-azure) |
+| Integration | [Azure Service Bus](#azure-service-bus) · [Azure Event Hubs](#azure-event-hubs) · [Azure Event Grid](#azure-event-grid) |
+| Ops | [Azure Key Vault](#azure-key-vault) · [Managed identity](#managed-identity) · [Application Insights](#application-insights) · [Terraform](#terraform) |
 
 Full learning path: [Azure cloud and AI](azure-cloud-and-ai.md) · [Certification track](../career/azure-certification-track.md)
 
 ---
 
 ## B
+
+### Batch vs stream processing
+
+**Batch** processing runs over a bounded set of data (last night’s files, a partition). **Stream** processing handles events as they arrive, with windows and [watermarks](#watermark-streaming). [Phase 6](../../career-project-specs/06-data-pipelines.md) can start batch and add a stream when Zoomcamp covers it.
+
+**See also:** [Data pipelines that feed agents](software-engineering.md#data-pipelines-that-feed-agents)
 
 ### Backoff (exponential)
 
@@ -192,13 +217,13 @@ Exponential backoff means that when a retry fails, the client waits longer befor
 
 Backpressure is what happens when a slow consumer signals upstream to slow down or drop work instead of buffering forever. Without it, unbounded queues or unbounded DOM updates can cause memory blow-ups and sudden latency cliffs. Well-designed pipelines propagate pressure so producers stop flooding a stage that cannot keep up.
 
-**See also:** [Memory and performance](memory-and-performance.md); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md); [Project 13 — Real-time dashboard](../../career-project-specs/13-realtime-dashboard-lab.md)
+**See also:** [Memory and performance](memory-and-performance.md); [Project 8 — Go worker](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md); [Project 13 — Real-time dashboard](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md)
 
 ### BFF (Backend for Frontend)
 
 A BFF (Backend for Frontend) is a thin server tailored to one UI. It calls backend services, holds secrets, and shapes responses so the browser never stores API keys or talks to every microservice directly. Each client platform—web, mobile, admin—can have its own BFF with the exact data shape that UI needs.
 
-**See also:** [Project 11 — LLM web app](../../career-project-specs/11-llm-web-app-lab.md)
+**See also:** [Project 11 — LLM web app](../../archive/v1-22-step/career-project-specs/11-llm-web-app-lab.md)
 
 ### Big-O notation
 
@@ -222,7 +247,7 @@ Blast radius is how much of the system or how many users break if a change fails
 
 Bounded concurrency means putting a fixed cap on how many jobs or requests run at once—implemented with a pool, semaphore, or max-workers setting. Without a cap, load spikes can spawn unbounded goroutines or threads and exhaust memory. A worker pool gives you predictable resource use at the cost of some requests waiting in line.
 
-**See also:** [Concurrency basics](software-engineering.md#concurrency-basics); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md)
+**See also:** [Concurrency basics](software-engineering.md#concurrency-basics); [Project 8 — Go worker](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)
 
 ### Bloom filter
 
@@ -233,6 +258,12 @@ A Bloom filter is a compact probabilistic structure that answers "maybe in the s
 ---
 
 ## C
+
+### Checkpoint (LangGraph)
+
+A checkpoint is a saved snapshot of graph **state** so a run can pause (crash, approval, long wait) and resume. Phase 1 requires a checkpointer on the custom graph.
+
+**See also:** [LangGraph](#langgraph); [Phase 1](../../career-project-specs/01-agentic-orchestration.md)
 
 ### Canary deployment
 
@@ -268,19 +299,19 @@ Code review is when a teammate reads your change before it merges. It catches bu
 
 Connection pooling means reusing open database or HTTP connections instead of opening a new one per request. It is faster because handshake and setup costs are amortized, but pool exhaustion can look like latency even when your SQL is fine. Size pools based on concurrency limits and what your database can sustain.
 
-**See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md); [Memory and performance](memory-and-performance.md)
+**See also:** [Project 18 — Proxy / load balancer](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md); [Memory and performance](memory-and-performance.md)
 
 ### Contract testing
 
 Contract testing verifies that an API provider and consumer still agree on request/response shapes without running the full system end to end. OpenAPI diff in CI is a lightweight form: fail the build when the spec changes without a version bump or consumer update. Consumer-driven contracts (Pact-style) go further by testing that each side honors the shared schema.
 
-**See also:** [OpenAPI](#openapi); [Project 5 — Contract-first API](../../career-project-specs/05-contract-first-api.md)
+**See also:** [OpenAPI](#openapi); [Project 5 — Contract-first API](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md)
 
 ### Correlation ID / request_id
 
 A correlation ID (sometimes called request_id) is a unique identifier attached to one request or business event and copied into every log and downstream call. When something fails, you can grep or trace that single ID across services instead of guessing which log lines belong together. It is one of the cheapest wins in observability for distributed systems.
 
-**See also:** [Project 3 — Observability](../../career-project-specs/03-observability-lab.md); [Production readiness](../../checklists/production-readiness.md)
+**See also:** [Project 3 — Observability](../../archive/v1-22-step/career-project-specs/03-observability-lab.md); [Production readiness](../../checklists/production-readiness.md)
 
 ### CORS (Cross-Origin Resource Sharing)
 
@@ -304,7 +335,7 @@ CQRS (Command Query Responsibility Segregation) splits writes (commands) from re
 
 A CRD (Custom Resource Definition) is a Kubernetes extension that adds your own resource types to the API beyond built-in Deployments, Services, and the like. You define the schema in YAML, and the cluster stores instances like any other resource. CRDs are often paired with a controller that reconciles desired state into actual state.
 
-**See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
+**See also:** [Project 17 — K8s controller](../../archive/v1-22-step/career-project-specs/17-k8s-controller-lab.md)
 
 ### C4 model
 
@@ -370,6 +401,18 @@ DAST (Dynamic Application Security Testing) is security testing that hits a runn
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
+### Deep Agents (harness)
+
+Deep Agents is LangChain’s **agent harness**: planning, subagents, a virtual filesystem, and long-running tasks, built on [LangGraph](#langgraph). Phase 1 starts here (`create_deep_agent` in Python). You still write one custom graph so the harness is not a black box.
+
+**See also:** [Agentic orchestration](agentic-orchestration.md); [Phase 1](../../career-project-specs/01-agentic-orchestration.md)
+
+### Docker / Dockerfile / Compose
+
+**Docker** runs **containers** from **images**. A **Dockerfile** is the recipe for an image. **Compose** wires several containers (agent, database) for local parity. [Phase 2](../../career-project-specs/02-containerize-agent.md) packages the Python agent; never copy secrets into a layer.
+
+**See also:** [Containers as the ship unit](software-engineering.md#containers-as-the-ship-unit)
+
 ### Dead letter queue (DLQ)
 
 A dead letter queue (DLQ) is a holding area for messages that failed processing too many times. They leave the main queue so one bad message does not block everything behind it. Operators can inspect, fix, and replay DLQ messages once the underlying bug or bad payload is understood.
@@ -416,6 +459,12 @@ An E2E (end-to-end) test exercises the whole system—or most of it—often thro
 
 **See also:** [Testing](software-engineering.md#testing)
 
+### Entra ID
+
+Microsoft Entra ID (formerly Azure AD) is Azure’s identity directory—users, groups, and many workload identities. It answers “who is this?” [RBAC](#azure-rbac) answers “what may they do to resources?” [Phase 4](../../career-project-specs/04-azure-admin-governance.md) applies least privilege on your lab resource group.
+
+**See also:** [Cloud identity and governance](software-engineering.md#cloud-identity-and-governance)
+
 ### Encapsulation
 
 Encapsulation means hiding internal details behind a clear public surface so outside code cannot accidentally break invariants. You expose what callers need and keep implementation private. It is core to object-oriented design and applies more broadly anytime you define a module boundary.
@@ -444,7 +493,7 @@ Eventual consistency means that after a write, reads may be stale for a while be
 
 An eval (evaluation) is a fixed test set—often JSONL—of prompts and expected behaviors for an LLM (Large Language Model) or RAG (Retrieval-Augmented Generation) feature. You re-run it after model or prompt changes to catch answer drift before production. Treat it like a regression suite for non-deterministic AI behavior.
 
-**See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
+**See also:** [Project 2 — RAG / LLM service](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md); [LLM feature ship checklist](../../checklists/llm-feature-ship.md)
 
 ### Event loop
 
@@ -480,11 +529,17 @@ A fake is a test double with a working in-memory implementation—a fake databas
 
 **See also:** [Testing — doubles](software-engineering.md#testing)
 
+### FastMCP
+
+FastMCP is a Python framework for hosting [MCP](#mcp-model-context-protocol) servers—the allowlisted tools your Deep Agent may call. Same rules as any integration: timeouts, no arbitrary shell, secrets out of logs.
+
+**See also:** [Phase 1](../../career-project-specs/01-agentic-orchestration.md)
+
 ### Fast ack
 
 Fast ack means responding with HTTP 2xx quickly on webhooks or ingress while slow work runs in a queue or background worker. Partners and platforms time out and retry if you block on PDF generation, ML inference, or long call chains. Acknowledge receipt, persist the job, and process asynchronously.
 
-**See also:** [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer); [Project 1 — Webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md)
+**See also:** [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer); [Project 1 — Webhook receiver](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)
 
 ### Feature flag
 
@@ -496,7 +551,7 @@ A feature flag is a switch that turns code paths on or off without deploying aga
 
 Fan-out is when one incoming event or request triggers many downstream calls or notifications. Watch for latency (you may wait for the slowest branch), partial failure (some branches succeed and others do not), and the need for idempotency on each branch. Notification systems and workflow engines are classic fan-out examples.
 
-**See also:** [Project 24 — Notification fanout](../../career-project-specs/24-notification-fanout-lab.md)
+**See also:** [Project 24 — Notification fanout](../../archive/v1-22-step/career-project-specs/24-notification-fanout-lab.md)
 
 ---
 
@@ -506,7 +561,7 @@ Fan-out is when one incoming event or request triggers many downstream calls or 
 
 Graceful shutdown means that on deploy or SIGTERM, a process stops accepting new work, finishes or times out in-flight requests, then exits. It avoids cutting clients off mid-request and gives load balancers time to drain the instance. Every long-running server and worker should implement this.
 
-**See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md)
+**See also:** [Project 18 — Proxy / load balancer](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md)
 
 ### GraphQL
 
@@ -518,7 +573,7 @@ GraphQL is an API style where clients ask for specific fields in one query, redu
 
 GOMAXPROCS is a Go runtime setting that limits how many operating-system threads execute Go code simultaneously—defaulting to the number of logical CPUs. It controls how much **parallelism** Go uses on multi-core machines; it does not replace bounded worker pools or semaphores on I/O fan-out. Set to 1 when debugging single-core behavior.
 
-**See also:** [Go M:N scheduler (Part 2)](concurrency-deep-dives.md#go-mn-scheduler); [Project 8 — Go worker](../../career-project-specs/08-go-retrieval-worker-lab.md)
+**See also:** [Go M:N scheduler (Part 2)](concurrency-deep-dives.md#go-mn-scheduler); [Project 8 — Go worker](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)
 
 ### Goroutine
 
@@ -536,23 +591,35 @@ gRPC is a high-performance RPC (Remote Procedure Call) framework, often using Pr
 
 Guardrails are policy limits on LLM (Large Language Model) behavior—citations required, refusals on sensitive topics, output filters, and length caps. They help AI features fail safely instead of hallucinating confidently. Guardrails sit alongside evals and human review in a responsible ship checklist.
 
-**See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLMs handbook](llms.md)
+**See also:** [Project 2 — RAG / LLM service](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md); [LLMs handbook](llms.md)
 
 ---
 
 ## H
 
+### Helm / Helm chart
+
+Helm packages Kubernetes apps as **charts** (templates + values). [Phase 7](../../career-project-specs/07-aks-orchestration.md) ships the agent and Go workers this way. Values are not a secret store—Key Vault or CSI still holds credentials.
+
+**See also:** [Kubernetes delivery](software-engineering.md#kubernetes-delivery)
+
+### Horizontal Pod Autoscaler (HPA)
+
+HPA adds or removes pods from a Deployment based on CPU or custom metrics. You must set resource requests so the controller has a signal. Write the threshold you chose in the Phase 7 ADR.
+
+**See also:** [Phase 7](../../career-project-specs/07-aks-orchestration.md)
+
 ### HMAC
 
 HMAC (Hash-based Message Authentication Code) is a cryptographic signature over a message—often a webhook raw body plus a shared secret. It proves the sender knew the secret without transmitting the secret itself. Verify the signature before you trust the payload or enqueue work.
 
-**See also:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — Webhook receiver](../../career-project-specs/01-integration-webhook-receiver.md)
+**See also:** [Integration hardening](../../checklists/integration-hardening.md); [Project 1 — Webhook receiver](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)
 
 ### Hot path
 
 The hot path is code that runs on every request or inside a tight loop. Optimize and measure here first: avoid heavy work, extra allocations, and blocking I/O on the hot path. Micro-optimizing cold paths rarely moves user-visible latency.
 
-**See also:** [Memory and performance](memory-and-performance.md); [Project 19 — Rust hot-path](../../career-project-specs/19-rust-hot-path-lab.md)
+**See also:** [Memory and performance](memory-and-performance.md); [Project 19 — Rust hot-path](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md)
 
 ### Hexagonal architecture (ports and adapters)
 
@@ -576,6 +643,12 @@ Idempotency means doing the same operation twice has the same effect as doing it
 
 **See also:** [Example: idempotent webhook](software-engineering.md#example-idempotent-webhook-or-job-consumer)
 
+### Infrastructure as Code (IaC)
+
+IaC means cloud resources are declared in files (here: Terraform + `azurerm`) and applied after review. State is the source of truth; `destroy` has blast radius. Portal clicking is fine for exploration, not for the lab you will recreate.
+
+**See also:** [Infrastructure as Code](software-engineering.md#infrastructure-as-code); [Phase 3](../../career-project-specs/03-azure-terraform-stack.md)
+
 ### IaaS / PaaS / SaaS
 
 Cloud service models describe who manages what. **IaaS** (Infrastructure as a Service)—virtual machines, networks—you manage OS and apps. **PaaS** (Platform as a Service)—managed runtimes like Heroku or Cloud Run—you deploy code; the platform runs containers. **SaaS** (Software as a Service)—complete products like Salesforce—you configure and integrate. Pick based on control versus operational burden.
@@ -586,7 +659,7 @@ Cloud service models describe who manages what. **IaaS** (Infrastructure as a Se
 
 An inverted index maps terms to document IDs—the core of full-text search engines. **BM25** (Best Matching 25) is a ranking function that scores how well a document matches a query, balancing term frequency and document length. You do not implement BM25 from scratch in most apps; you need the vocabulary for search and autocomplete system design interviews.
 
-**See also:** [Algorithms and data structures — Trie](algorithms-and-data-structures.md); [Project 25 — Search autocomplete](../../career-project-specs/25-search-autocomplete-lab.md)
+**See also:** [Algorithms and data structures — Trie](algorithms-and-data-structures.md); [Project 25 — Search autocomplete](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md)
 
 ### Integration test
 
@@ -620,7 +693,7 @@ JSON (JavaScript Object Notation) is a common text format for APIs—structured 
 
 A JWT (JSON Web Token) is a signed, often base64-encoded payload that carries claims such as user ID and tenant ID between services or from server to client. The server verifies the signature with a shared secret or public key before trusting claims—never trust tenant or role data from an unsigned client body. JWTs are stateless for the server but harder to revoke instantly than server-side sessions unless you add a blocklist or short expiry.
 
-**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Illustrative snippets — JWT tenant middleware](illustrative-snippets.md); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md)
+**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Illustrative snippets — JWT tenant middleware](illustrative-snippets.md); [Project 12 — Multi-tenant auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md)
 
 ---
 
@@ -636,7 +709,7 @@ These are common message brokers with different sweet spots. **Redis** lists/str
 
 Keyset pagination (also called cursor pagination) pages through results with a stable cursor—usually the last seen ID or timestamp—instead of offset (`LIMIT 20 OFFSET 1000`). It avoids skipped or duplicate rows when data changes during paging, which offset pagination cannot guarantee under concurrent writes. APIs that expose infinite scroll or large tables often prefer keyset pagination.
 
-**See also:** [Pagination (cursor / offset)](#pagination-cursor--offset); [Project 4 — SQL performance](../../career-project-specs/04-sql-performance-lab.md)
+**See also:** [Pagination (cursor / offset)](#pagination-cursor--offset); [Project 4 — SQL performance](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)
 
 ### Kubernetes (K8s)
 
@@ -647,6 +720,18 @@ Kubernetes (often abbreviated K8s) is a container orchestrator: it schedules app
 ---
 
 ## L
+
+### LangChain
+
+LangChain is the **agent framework**: models, tools, MCP adapters, and a minimal agent loop. Use it to bind tools; use [Deep Agents](#deep-agents-harness) or [LangGraph](#langgraph) when you need a harness or an explicit graph.
+
+**See also:** [Agentic orchestration](agentic-orchestration.md)
+
+### LangGraph
+
+LangGraph is the **agent runtime**: you define a state graph (nodes, edges) and a **checkpointer** so runs can pause and resume. Phase 1 requires one custom graph even if Deep Agents is how you ship.
+
+**See also:** [Agentic orchestration](agentic-orchestration.md)
 
 ### Lint / linter
 
@@ -664,15 +749,27 @@ A load balancer spreads incoming requests across multiple servers so one machine
 
 Liveness asks "is the process alive?"—if not, the orchestrator restarts it. Readiness asks "can this instance take traffic?"—if not, it is removed from the load balancer even if the process is running (for example when the database is unreachable). Both are common health check types in Kubernetes and production deploy pipelines.
 
-**See also:** [Production readiness — health checks](../../checklists/production-readiness.md); [Project 16 — Cloud deploy](../../career-project-specs/16-cloud-deploy-lab.md)
+**See also:** [Production readiness — health checks](../../checklists/production-readiness.md); [Project 16 — Cloud deploy](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md)
 
 ---
 
 ## M
 
+### MCP (Model Context Protocol)
+
+MCP is a standard protocol for exposing tools (and sometimes resources) to an agent. Your playbook default server is [FastMCP](#fastmcp) in Python. The official TypeScript SDK is a **stretch**. Always allowlist tools.
+
+**See also:** [Agentic orchestration](agentic-orchestration.md)
+
+### Multi-stage build
+
+A multi-stage Docker build copies only the runtime bits into the final image—smaller, fewer compilers and secrets in the last layer. Use it in [Phase 2](../../career-project-specs/02-containerize-agent.md).
+
+**See also:** [Docker / Dockerfile / Compose](#docker--dockerfile--compose)
+
 ### Managed identity (Azure)
 
-Managed identity gives an Azure resource (Container App, Function, VM) an automatic identity in Azure AD so it can read Key Vault or call other services without embedding passwords in config. It is how [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) Azure deploys avoid secrets in git.
+Managed identity gives an Azure resource (Container App, Function, VM) an automatic identity in Azure AD so it can read Key Vault or call other services without embedding passwords in config. It is how [Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md) Azure deploys avoid secrets in git.
 
 **See also:** [Azure Key Vault](#azure-key-vault); [Azure cloud and AI — secrets](azure-cloud-and-ai.md#secrets-and-identity)
 
@@ -716,11 +813,23 @@ A modular monolith is one deployable application with clean internal modules and
 
 Multi-tenancy means one application instance serves many customers (tenants) with data separated so tenant A never reads tenant B's rows. Isolation can live in application code (`WHERE tenant_id = ?` on every query), in Postgres Row-Level Security (RLS), or in separate databases per tier. Senior interview line: the JWT or session carries `tenant_id`; every data path scopes by it—authorization, not just authentication.
 
-**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md); [Database design — Data and access security](database-design.md#data-and-access-security)
+**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Project 12 — Multi-tenant auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md); [Database design — Data and access security](database-design.md#data-and-access-security)
 
 ---
 
 ## N
+
+### Network Security Group (NSG)
+
+An NSG is Azure’s subnet/NIC firewall—allow or deny by port, protocol, and source. Phase 4 asks you to name the rules on the lab VNet, even if one port is open for the exercise.
+
+**See also:** [Virtual Network (VNet)](#virtual-network-vnet); [Phase 4](../../career-project-specs/04-azure-admin-governance.md)
+
+### Network policy (Kubernetes)
+
+A Kubernetes network policy restricts which pods can talk to which. Phase 7 asks for at least one policy or an ADR why the lab cluster is open.
+
+**See also:** [Phase 7](../../career-project-specs/07-aks-orchestration.md)
 
 ### N+1 query problem
 
@@ -732,7 +841,7 @@ The N+1 query problem is a performance bug where code runs one query per row ins
 
 A noisy neighbor is one tenant or workload that consumes disproportionate CPU, memory, I/O, or connection pool slots and degrades others on shared infrastructure. Defenses include per-tenant rate limits, connection caps, separate queues, and isolating large customers to dedicated resources. Multi-tenant SaaS design interviews often ask how you prevent one customer from starving the rest.
 
-**See also:** [Multi-tenancy / tenant isolation](#multi-tenancy--tenant-isolation); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md); [Rate limiting (429)](#rate-limiting-429)
+**See also:** [Multi-tenancy / tenant isolation](#multi-tenancy--tenant-isolation); [Project 12 — Multi-tenant auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md); [Rate limiting (429)](#rate-limiting-429)
 
 ### Non-functional requirements (NFR)
 
@@ -760,7 +869,7 @@ Observability is how well you can understand a system's internal state from outs
 
 OpenAPI is a standard way to describe REST-style HTTP APIs—endpoints, request and response shapes, and error codes—in a machine-readable format. Humans and tools (code generators, mock servers, contract tests) can agree on the same contract. It is the modern successor to informal "here is the wiki" API docs.
 
-**See also:** [REST](software-engineering.md#rest); [Contract-first API](../../career-project-specs/05-contract-first-api.md)
+**See also:** [REST](software-engineering.md#rest); [Contract-first API](../../archive/v1-22-step/career-project-specs/05-contract-first-api.md)
 
 ### OpenTelemetry
 
@@ -784,7 +893,7 @@ OWASP (Open Web Application Security Project) maintains a well-known catalogue o
 
 OAuth 2.0 is a framework for delegated authorization—"allow this app to act on my behalf"—without sharing your password. OpenID Connect (OIDC) adds identity on top: after login you get an ID token (often a JWT) with who the user is. Roles in conversation: client app, authorization server (IdP), and resource server (your API). B2B SaaS and "Sign in with Google" flows use OIDC; your API still enforces authorization on every request.
 
-**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [OAuth scopes and PKCE](#oauth-scopes-and-pkce); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md)
+**See also:** [Auth and tenancy](software-engineering.md#auth-and-tenancy); [OAuth scopes and PKCE](#oauth-scopes-and-pkce); [Project 12 — Multi-tenant auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md)
 
 ### OAuth scopes and PKCE
 
@@ -806,13 +915,13 @@ Pagination means returning large lists in chunks instead of all at once. Offset 
 
 A partition key is the field that decides which shard or database partition owns a row—for example `tenant_id` or a hash of `short_code`. Sharding splits data across multiple databases or nodes when one instance cannot hold the load or storage. Choose keys that keep related queries co-located and avoid hot partitions where one key dominates traffic.
 
-**See also:** [Database design — Sharding and partitioning](database-design.md#sharding-and-partitioning); [Project 4 — SQL performance](../../career-project-specs/04-sql-performance-lab.md)
+**See also:** [Database design — Sharding and partitioning](database-design.md#sharding-and-partitioning); [Project 4 — SQL performance](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)
 
 ### p50 / p95 / p99 (latency percentiles)
 
 Latency percentiles describe the distribution of response times—if p95 latency is 300ms, 95% of requests finished within 300ms. The slow tail (p99 and above) is what SLOs (Service Level Objectives) and users often feel, while averages hide outliers. Always report percentiles alongside averages when discussing performance.
 
-**See also:** [Memory and performance](memory-and-performance.md); [Project 3 — Observability](../../career-project-specs/03-observability-lab.md)
+**See also:** [Memory and performance](memory-and-performance.md); [Project 3 — Observability](../../archive/v1-22-step/career-project-specs/03-observability-lab.md)
 
 ### Parallelism
 
@@ -824,7 +933,7 @@ Parallelism means many tasks execute at the same instant—requiring multiple CP
 
 A poison message is a queue job that always fails—bad payload, schema mismatch, or a bug in the handler. After max retries it should land in a DLQ (dead letter queue) instead of blocking the queue forever. Without DLQ handling, one poison message can stall the entire consumer.
 
-**See also:** [Dead letter queue (DLQ)](#dead-letter-queue-dlq); [Project 6 — Async worker](../../career-project-specs/06-async-worker-stretch.md)
+**See also:** [Dead letter queue (DLQ)](#dead-letter-queue-dlq); [Project 6 — Async worker](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md)
 
 ### Polymorphism
 
@@ -862,19 +971,19 @@ A regression test locks in a fix so the same bug cannot return unnoticed. It oft
 
 RAG (Retrieval-Augmented Generation) retrieves relevant documents from a store, then generates an answer with an LLM (Large Language Model) grounded in those chunks. It reduces pure hallucination compared to naked prompts because the model can cite or reason over retrieved text. Quality depends heavily on retrieval, chunking, and eval coverage.
 
-**See also:** [Project 2 — RAG / LLM service](../../career-project-specs/02-rag-llm-service.md); [LLMs handbook](llms.md)
+**See also:** [Project 2 — RAG / LLM service](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md); [LLMs handbook](llms.md)
 
 ### Rate limiting (429)
 
 Rate limiting rejects excess traffic, typically with HTTP 429 Too Many Requests and often a Retry-After header. Limits may apply per IP, tenant, or API key depending on fairness goals. It protects your service and upstream dependencies from abuse and accidental overload.
 
-**See also:** [Project 23 — Rate limiter gateway](../../career-project-specs/23-rate-limiter-gateway-lab.md); [Production readiness — rate limits](../../checklists/production-readiness.md)
+**See also:** [Project 23 — Rate limiter gateway](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md); [Production readiness — rate limits](../../checklists/production-readiness.md)
 
 ### Reconcile loop
 
 A reconcile loop is a control pattern: observe current state, diff it against desired state, act to close the gap, then requeue until stable. It is the core of Kubernetes controllers and many operators. The loop is idempotent—running it again when nothing changed should be a no-op.
 
-**See also:** [Project 17 — K8s controller](../../career-project-specs/17-k8s-controller-lab.md)
+**See also:** [Project 17 — K8s controller](../../archive/v1-22-step/career-project-specs/17-k8s-controller-lab.md)
 
 ### Resource group (Azure)
 
@@ -904,7 +1013,7 @@ Retry means trying a failed operation again, usually after a transient error lik
 
 A reverse proxy sits in front of your application and terminates TLS, routes paths, buffers slow clients, and may load-balance to multiple upstreams. Examples include nginx, Envoy, and cloud load balancers. Clients see one host; the proxy fans out to the actual app servers.
 
-**See also:** [Project 18 — Proxy / load balancer](../../career-project-specs/18-proxy-load-balancer-lab.md); [Servers and networking](servers-and-networking.md)
+**See also:** [Project 18 — Proxy / load balancer](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md); [Servers and networking](servers-and-networking.md)
 
 ### Row-Level Security (RLS)
 
@@ -922,6 +1031,36 @@ SAST (Static Application Security Testing) scans source code—and sometimes con
 
 **See also:** [Security for applications](software-engineering.md#security-for-applications)
 
+### Scale-to-zero / cold start
+
+Scale-to-zero means compute stops when idle (Functions, some Container Apps). The next request pays a **cold start**. Queue workers that must drain promptly often keep min replicas ≥ 1. Write that tradeoff in the Phase 5 ADR.
+
+**See also:** [Azure Functions](#azure-functions); [Phase 5](../../career-project-specs/05-azure-backends.md)
+
+### Spark (Apache)
+
+Apache Spark is a distributed data-processing engine. On this path you use **PySpark** (or well-structured Pandas first) in [Phase 6](../../career-project-specs/06-data-pipelines.md) to transform events into serving tables.
+
+**See also:** [Data pipelines that feed agents](software-engineering.md#data-pipelines-that-feed-agents)
+
+### State graph
+
+A state graph is LangGraph’s model: named nodes, edges, and a shared state object. Checkpoints persist that state. Contrast with a single `create_deep_agent` call you cannot draw.
+
+**See also:** [LangGraph](#langgraph)
+
+### Storage Account (Azure)
+
+An Azure Storage Account holds blobs, files, queues, and often **Terraform remote state**. Phase 4 asks you to create one and name its purpose.
+
+**See also:** [Azure Blob Storage](#azure-blob-storage); [Phase 4](../../career-project-specs/04-azure-admin-governance.md)
+
+### Subagent
+
+A subagent is an ephemeral helper the Deep Agent harness can spawn for isolated or parallel work. Give it a tight tool allowlist; do not share secrets through its filesystem casually.
+
+**See also:** [Deep Agents (harness)](#deep-agents-harness)
+
 ### SOLID
 
 SOLID is five object-oriented design principles: **S**ingle responsibility (one reason to change), **O**pen/closed (extend without modifying), **L**iskov substitution (subtypes honor contracts), **I**nterface segregation (small focused interfaces), **D**ependency inversion (depend on abstractions). They guide maintainable modules—not rules to recite in every CRUD app, but vocabulary for why you inject dependencies or split god objects.
@@ -932,7 +1071,7 @@ SOLID is five object-oriented design principles: **S**ingle responsibility (one 
 
 SSE (Server-Sent Events) is one-way HTTP push from server to browser with automatic reconnect—good for live dashboards and LLM token streams. WebSockets are full-duplex persistent connections—better for chat, games, and high-frequency bidirectional updates. Both avoid polling; choose based on directionality, infrastructure support, and scale (WebSocket fan-out is harder than SSE behind standard HTTP proxies).
 
-**See also:** [Servers and networking — WebSockets](servers-and-networking.md); [Project 13 — Real-time dashboard](../../career-project-specs/13-realtime-dashboard-lab.md)
+**See also:** [Servers and networking — WebSockets](servers-and-networking.md); [Project 13 — Real-time dashboard](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md)
 
 ### Saga
 
@@ -964,7 +1103,7 @@ An **error budget** is the allowed unreliability before you must stop shipping r
 
 A **session** stores server-side state keyed by an opaque cookie—the server can revoke access instantly by deleting the session. A **JWT** carries signed claims in the token itself—stateless for the server but revocation requires short TTL, refresh tokens, or a denylist. Sessions suit traditional web apps with cookie auth; JWTs suit SPAs and service-to-service calls. Multi-tenant apps often put `tenant_id` in either model but must scope every query regardless.
 
-**See also:** [JWT (JSON Web Token)](#jwt-json-web-token); [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Project 12 — Multi-tenant auth](../../career-project-specs/12-multi-tenant-auth-lab.md)
+**See also:** [JWT (JSON Web Token)](#jwt-json-web-token); [Auth and tenancy](software-engineering.md#auth-and-tenancy); [Project 12 — Multi-tenant auth](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md)
 
 ### Strangler-fig pattern
 
@@ -982,7 +1121,7 @@ Shift-left means catching defects earlier in the lifecycle—design reviews, CI 
 
 Sliding window rate limiting counts requests in a rolling time window rather than a fixed window that resets abruptly at each minute boundary. It produces smoother enforcement—no sudden "free burst" at the top of every hour. Implementation cost is slightly higher than a fixed window but behavior is fairer under steady load.
 
-**See also:** [Project 23 — Rate limiter gateway](../../career-project-specs/23-rate-limiter-gateway-lab.md)
+**See also:** [Project 23 — Rate limiter gateway](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md)
 
 ### SOAP
 
@@ -1005,6 +1144,18 @@ A stub is a test double that returns canned answers without a full implementatio
 ---
 
 ## T
+
+### Terraform
+
+Terraform is an IaC tool: you declare resources, `plan` a diff, `apply` it, and keep **state**. The Azure provider is **azurerm**. Remote state (Storage Account) so two laptops do not fight. [Phase 3](../../career-project-specs/03-azure-terraform-stack.md).
+
+**See also:** [Infrastructure as Code (IaC)](#infrastructure-as-code-iac)
+
+### Tool allowlist
+
+A tool allowlist is the explicit set of functions an agent may call. Anything else is a refuse-and-log. Required for Phase 1 success criteria.
+
+**See also:** [MCP (Model Context Protocol)](#mcp-model-context-protocol)
 
 ### Twelve-factor app (12-factor)
 
@@ -1046,7 +1197,7 @@ A distributed trace is a tree of spans showing how a request moved through servi
 
 A token bucket rate limiter refills tokens at a steady rate; each request spends one token. It allows controlled bursts while capping average rate over time—unlike a strict fixed window that rejects everything once the count is hit. Token buckets are a standard algorithm in API gateways and sidecar proxies.
 
-**See also:** [Project 23 — Rate limiter gateway](../../career-project-specs/23-rate-limiter-gateway-lab.md)
+**See also:** [Project 23 — Rate limiter gateway](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md)
 
 ---
 
@@ -1068,6 +1219,12 @@ UTF-8 (Unicode Transformation Format, 8-bit) is the encoding you should usually 
 
 ## V
 
+### Virtual filesystem (agent)
+
+Deep Agents can offload large tool results to a **virtual filesystem** (memory, disk, or a store backend) so the context window is not stuffed. Treat write paths as an allowlist—same as tools.
+
+**See also:** [Deep Agents (harness)](#deep-agents-harness)
+
 ### Virtual Network (VNet)
 
 A Virtual Network (VNet) is your private network slice in Azure—subnets, private IPs, and routing rules for resources that should not be public on the internet. Container Apps and Postgres often integrate with VNet endpoints for private connectivity; AZ-900 covers VNet basics with load balancers and NSGs.
@@ -1083,6 +1240,12 @@ API versioning is how you signal breaking changes to clients—for example `/v1/
 ---
 
 ## W
+
+### Watermark (streaming)
+
+A watermark tells a stream processor how late an event may be and still belong to a window. Without one, windows never close and serving tables stall. Phase 6 vocabulary.
+
+**See also:** [Batch vs stream processing](#batch-vs-stream-processing)
 
 ### Webhook
 

@@ -1,6 +1,6 @@
 # Algorithms study path
 
-**Use this:** Guided **read and apply** path through [Algorithms and data structures](algorithms-and-data-structures.md)—required when you are in [Project 4](../../career-project-specs/04-sql-performance-lab.md), [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md), or chunk/retrieval work in [Project 2](../../career-project-specs/02-rag-llm-service.md).
+**Use this:** Guided **read and apply** path through [Algorithms and data structures](algorithms-and-data-structures.md)—required when you are in [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md), [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md), or chunk/retrieval work in [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md).
 
 **Reading order:** [Algorithms and data structures](algorithms-and-data-structures.md) (concepts) → **this path** (prompts) → your lab spec.
 

@@ -1,6 +1,6 @@
 # Request flow — webhook receiver
 
-**Spec:** [Project 1](../../../career-project-specs/01-integration-webhook-receiver.md)
+**Spec:** [Project 1](../../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)
 
 ```mermaid
 sequenceDiagram

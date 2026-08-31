@@ -2,7 +2,7 @@
 
 **Use this:** **Laravel** is the frame (HTTP, queues, events, Eloquent); **PHP** basics below are what you need to **read and ship** safely—matches this playbook’s **PHP integration** lane.
 
-**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 1 webhook spec](../../career-project-specs/01-integration-webhook-receiver.md)
+**Companion:** [docs README](../README.md) · [unfamiliar-stack ship](../../checklists/unfamiliar-stack-ship.md) · [Project 1 webhook spec](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md)
 
 **New here?** [Plain language (bottom of this page)](#plain-language-terms-used-on-this-page) · [Stacks glossary index](glossary.md)
 
@@ -12,7 +12,7 @@
 
 | Best for | Use instead when | Primary projects |
 |----------|------------------|------------------|
-| Integration HTTP ingress, Laravel queues/contracts, webhook receivers | Node/Python when the spec names them for BFF or LLM paths | [Project 1 — Integration webhook](../../career-project-specs/01-integration-webhook-receiver.md) |
+| Integration HTTP ingress, Laravel queues/contracts, webhook receivers | Node/Python when the spec names them for BFF or LLM paths | [Project 1 — Integration webhook](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) |
 
 ---
 

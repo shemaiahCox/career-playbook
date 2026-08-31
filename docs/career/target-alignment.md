@@ -1,57 +1,44 @@
-# Career targeting — Backend & Systems Engineer (UK)
+# Career targeting — Backend & Systems Engineer (UK), Azure-first
 
-**Use this:** Map your [22-step path](../../README.md#progression-step-1--22) to UK **Rust + Go backend** and **AI automation systems** roles. Not a job board — a living reference for which labs to ship, pin, and talk about in interviews.
+**Use this:** Map the [7-domain path plus competence labs 08–13](../../README.md#progression-phase-1--7) to UK **Backend & Systems** roles in the £70k–£100k band. Azure enterprise + agentic AI (Python + Go). Not a job board.
 
-**Architecture spine:** [Architecture framework](../concepts/architecture-framework.md) — minimum credible bar = shipped labs with ● coverage in **all five pillars** before capstone 22.
+**Architecture spine:** [Architecture framework](../concepts/architecture-framework.md) — minimum credible = domains **1 + 2 + 3 + 5** plus labs **08 + 09**.
 
-**Profile this supports:** Backend & Systems Engineer — PHP/SQL/JS commercial experience + Python, Go, Rust, TypeScript depth + AI/RAG automation + Bash ops glue.
+**Language split:** **Python and Go are primary (80%).** TypeScript/Node is complementary (20%) — MCP SDK and thin APIs, not the hiring headline. PHP stays commercial background only.
 
-**Companion:** [Portfolio artifacts template](../templates/portfolio-artifacts.md) · [Messaging and RPC](../concepts/messaging-and-rpc.md) · [Rust map](../languages/rust.md#career-positioning) · [Big Tech benchmark](big-tech-benchmark.md) (optional ceiling — Google/Meta bar)
+**Companion:** [Portfolio artifacts](../templates/portfolio-artifacts.md) · [Course track](course-track.md) · [Azure certification track](azure-certification-track.md) · [Cloud portability](../concepts/cloud-portability.md) · [Big Tech benchmark](big-tech-benchmark.md) (optional ceiling)
 
 ---
 
 ## Verdict
 
-The playbook spine already matches **Monzo-shaped fintech backend** and **Rust+Go systems** roles in the £70k–£100k band. Execution and **portfolio artifact quality** matter more than adding new project steps.
+The 7-phase spine matches **Azure platform + AI systems** roles better than a generic AWS/fintech Go-only story. Execution and **portfolio artifact quality** still matter more than adding extra phases.
 
-Your target band is **not** High-Frequency Trading (HFT) microsecond trading (£150k–£225k+) or blockchain Order Management System (OMS) core — those ask for market data, Financial Information eXchange (FIX), C++, and sub-millisecond tuning the playbook deliberately skips.
+Your target band is **not** HFT or blockchain core — those asks are out of scope.
 
 ---
 
-## Project ideas reference (advisor list → playbook)
+## Project ideas → phases
 
-Seven portfolio projects UK market advice says get interviews. Each maps to an existing spec — ship them with full `docs/portfolio/` artifacts.
-
-| # | Project idea | Why it signals £80k+ | Playbook spec | Skills to highlight | Status |
-|---|--------------|----------------------|---------------|---------------------|--------|
-| 1 | **Webhook receiver** + idempotency + retries | Integration trust, money-moving patterns | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) | HMAC, idempotency keys, DLQ, `request_id` | Lab exists — ship portfolio |
-| 2 | **Message queue worker** + DLQ | At-least-once, poison message handling | [Project 6](../../career-project-specs/06-async-worker-stretch.md) + [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) | Idempotent handlers, retry policy, DLQ replay | Not started |
-| 3 | **Rust microservice** (Axum/Actix) | Hot-path systems literacy | [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) | Same contract as Go; `Result`; no `unwrap` in workers | After Project 8 Go green |
-| 4 | **Go service** talking to Rust/Python | Rust+Go combo — rare in UK | [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) + [Project 2](../../career-project-specs/02-rag-llm-service.md) | Bounded concurrency, timeouts, Python↔Go ADR | RAG lab exists |
-| 5 | **Shell automation toolkit** | Ops credibility — CI, smoke, deploy hooks | [Project 14](../../career-project-specs/14-shell-automation-lab.md) | strict mode, shellcheck, exit codes, bash vs Go CLI ADR | After P1–P13 milestones |
-| 6 | **Go/Rust CLI** (fast, safe, clean) | Systems + ops credibility | [Project 15](../../career-project-specs/15-devops-cli-lab.md) | Flags, exit codes, structured output | After P14 |
-| 7 | **IoT / edge ingest** | Edge niche (Bosch, Arm, Ocado Robotics) | [Project 21](../../career-project-specs/21-iot-edge-lab.md) | MQTT QoS, idempotent telemetry, offline buffer | Not started |
-| 8 | **Distributed system** (small is fine) | End-to-end systems thinking | [Project 22](../../career-project-specs/22-integrated-platform-capstone.md) | Compose orchestration, cross-service `request_id`, E2E demo | After spine |
-
-### Supporting ideas (already in playbook)
-
-| Idea | Spec | Role in the story |
-|------|------|-------------------|
-| RAG / LLM + evals | [Project 2](../../career-project-specs/02-rag-llm-service.md) | AI automation on LinkedIn About |
-| SQL under load + vectors | [Project 4](../../career-project-specs/04-sql-performance-lab.md) | Data layer credibility |
-| Observability | [Project 3](../../career-project-specs/03-observability-lab.md) | Production-shaped claims |
-| Contract-first API | [Project 5](../../career-project-specs/05-contract-first-api.md) | Service boundaries before Go/Rust split |
-| TypeScript HTTP / BFF | [Project 7](../../career-project-specs/07-node-typescript-lab.md) | TS in headline |
-| Proxy / load balancer | [Project 18](../../career-project-specs/18-proxy-load-balancer-lab.md) | Systems depth |
-| WASM secure component | [Project 20](../../career-project-specs/20-wasm-secure-component-lab.md) | Security/sandboxing signal |
-| Cloud deploy | [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) | Cloud-ready services |
-| Shell automation | [Project 14](../../career-project-specs/14-shell-automation-lab.md) | Bash ops glue, CI smoke |
-| Automation bot | [Project 10](../../career-project-specs/10-automation-bot-lab.md) | Automation pipelines |
-| LLM web app | [Project 11](../../career-project-specs/11-llm-web-app-lab.md) | User-facing AI integration |
+| # | Signal | Phase spec | Status |
+|---|--------|------------|--------|
+| 1 | Production-shaped **Deep Agent** (tools, checkpoints, evals) | [Phase 1](../../career-project-specs/01-agentic-orchestration.md) | Current focus |
+| 2 | Containerized agent | [Phase 2](../../career-project-specs/02-containerize-agent.md) | After 1 |
+| 3 | Azure **as code** (Terraform) | [Phase 3](../../career-project-specs/03-azure-terraform-stack.md) | After 2 |
+| 4 | Identity and governance (AZ-104) | [Phase 4](../../career-project-specs/04-azure-admin-governance.md) | Differentiation |
+| 5 | Go workers + Service Bus + Redis | [Phase 5](../../career-project-specs/05-azure-backends.md) | Minimum credible |
+| 08 | Ops CLI + DLQ replay | [Lab 08](../../career-project-specs/08-ops-cli.md) | Minimum credible |
+| 09 | Edge proxy (timeouts, drain) | [Lab 09](../../career-project-specs/09-edge-proxy.md) | Minimum credible |
+| 10 | Rate limiter (Redis) | [Lab 10](../../career-project-specs/10-rate-limiter.md) | Differentiation |
+| 11 | Notification fan-out | [Lab 11](../../career-project-specs/11-notification-fanout.md) | Differentiation |
+| 12 | Search / autocomplete | [Lab 12](../../career-project-specs/12-search-autocomplete.md) | Differentiation |
+| 6 | Pipelines into agent context | [Phase 6](../../career-project-specs/06-data-pipelines.md) | Differentiation |
+| 13 | K8s controller-lite | [Lab 13](../../career-project-specs/13-k8s-controller.md) | Differentiation |
+| 7 | AKS + Helm + CKA | [Phase 7](../../career-project-specs/07-aks-orchestration.md) | Capstone |
 
 ### GitHub / interview bar (every pinned repo)
 
-Every pinned repo should have clean commits and a README with a runnable demo. Include tests (unit plus at least one integration path) and `docs/portfolio/` with diagram, ADR, performance numbers, failure modes, and observability evidence ([template](../templates/portfolio-artifacts.md)). Add a **CI pipeline** (lint + test on pull request) per [Project 16](../../career-project-specs/16-cloud-deploy-lab.md). Include benchmarks where relevant (Projects **8** and **19** — p95 + peak RSS). Provide `scripts/demo.sh` or equivalent for reviewers — strict mode + shellcheck ([Project 14](../../career-project-specs/14-shell-automation-lab.md)).
+Runnable demo, tests, `docs/portfolio/` (diagram, ADR, failure modes, observability), CI on PR. See [portfolio-artifacts.md](../templates/portfolio-artifacts.md).
 
 ---
 
@@ -59,181 +46,110 @@ Every pinned repo should have clean commits and a README with a runnable demo. I
 
 | Category | Playbook fit | Notes |
 |----------|--------------|-------|
-| **Backend Engineer (Rust + Go)** | **Primary** | Projects 8, 19, 7, 5; capstone 22 |
-| **Systems Engineer (Rust)** | Secondary | Projects 18, 19, 20 |
-| **Security / Cryptography** | Partial | Projects 9, 20 — not crypto specialist track |
-| **IoT / Embedded Firmware** | Partial | Project 21 = MQTT edge — not ESP32 firmware depth |
-| **Blockchain / Crypto Core** | Not in spine | Deferred in [rust.md](../languages/rust.md) — optional pivot only |
+| **Backend / platform (Python + Go) on Azure** | **Primary** | Domains 1, 5, 3, 7 + labs 08–13 |
+| **AI systems / agentic platforms** | **Primary** | Phase 1 + 6 |
+| **Azure administrator / cloud engineer** | Strong after 4 | AZ-104 is in-path |
+| **SRE-adjacent** | Partial | Phases 2, 5, 7 + labs 08, 09, 13 |
+| **TypeScript full-stack** | Secondary | Stretch MCP/API only |
 
 ---
 
-## What UK employers ask vs playbook
+## What employers ask vs playbook
 
-Researched Monzo, fintech backend, infra Rust, and trading/HFT (London). Your £80k target = **fintech backend** band, not HFT.
-
-| Employer ask | Who asks | Playbook | Gap |
-|--------------|----------|----------|-----|
-| Distributed systems + resilient software | Monzo, most backend | Strong — 1, 6, 8, 17, 22 | None |
-| Go + strongly typed backend | Monzo, fintech | Strong — Project 8 | None |
-| Rust + Tokio async | Monzo (growing), infra | Good — Project 19 | Minor — Tokio named in P19 |
-| Idempotency, at-least-once, DLQ | Universal | Strong — 1, 6, 8, 15 | None |
-| Bash / Linux ops glue | Most backend, Site Reliability Engineering (SRE)-adjacent | Strong — P14 + milestones | None |
-| Postgres + SQL | Most backend | Strong — Project 4 | None |
-| Kafka | Monzo onboarding, scale-ups | Stretch + [messaging doc](../concepts/messaging-and-rpc.md) | Medium — vocabulary + optional hands-on |
-| Kubernetes + Docker | Monzo, cloud-native | Good — 16, 17 | Minor |
-| AWS + Linux ops | Monzo, Keyrock | Partial — Project 16 (Elastic Container Service (ECS)/EKS examples) | Low |
-| gRPC / service RPC | Monzo (Envoy), fintech profiles | Stretch on Project 8 + [messaging doc](../concepts/messaging-and-rpc.md) | Medium |
-| CI/CD (GitHub Actions) | Every employer | **Required** in Project 16 | Closed by spec update |
-| Prometheus + Grafana | Monzo profiles, K8s roles | **Required** `/metrics` in Project 8 | Closed by spec update |
-| OpenTelemetry | Infra, modern backend | Good — Project 3 | Minor |
-| Performance benchmarking | Systems, trading | Good — Project 19 ADR | None |
-| Python secondary | AI backends, trading | Strong — 2, 10, 11 | None |
-| OAuth / OIDC | B2B SaaS, fintech | Stretch on Project 12 | Medium |
-| JWT + multi-tenant | SaaS/fintech | Strong — Project 12 | None |
-| Event sourcing / µs latency | Citi HFT, trading | Not in spine | **Skip** — different market |
-| Blockchain / OMS / market data | Crypto firms | Deferred | Skip unless pivot |
-| Property-based testing | Security, trading QA | Stretch — `proptest` on Project 19 | Low |
-| Cassandra | Monzo-specific | Not in spine | Skip — Postgres covers data layer |
-| Chaos engineering | Large SRE | Not in spine | Low priority for £80k backend |
-
-### Big Tech benchmark tier (optional ceiling)
-
-Use when you want **Google/Meta/top-tier** as a learning benchmark — not a replacement for the £80k plan. Full scorecard: [big-tech-benchmark.md](big-tech-benchmark.md).
-
-| Employer ask | UK £80k default | Big Tech benchmark tier |
-|--------------|-----------------|-------------------------|
-| Kafka / PubSub hands-on | Stretch on P6/P8 | **Required** on one deployment path ([messaging doc](../concepts/messaging-and-rpc.md)) |
-| gRPC internal APIs | Stretch on P8 | **Required** + OpenTelemetry traces Python↔Go |
-| OAuth / OIDC | Stretch on P12 | **Required** (Google sign-in) |
-| Cloud deploy | Compose + one managed target | **GCP or AWS** with IAM least-privilege documented |
-| LeetCode / DSA screens | Design-review literacy | [DSA interview track](dsa-interview-track.md) — parallel 12-week |
-| System design interviews | Scattered checklists | [System design interview map](system-design-interview-map.md) |
-| Optional portfolio depth | Capstone P22 | [P23](../../career-project-specs/23-rate-limiter-gateway-lab.md), [P24](../../career-project-specs/24-notification-fanout-lab.md), [P25](../../career-project-specs/25-search-autocomplete-lab.md) after spine |
-
-**Do not chase for benchmark:** L5+ staff scope, HFT, blockchain core, full embedded firmware — same as UK non-goals in [big-tech-benchmark.md](big-tech-benchmark.md).
-
-### Monzo-shaped profile (what onboarding looks like)
-
-Monzo hires backend engineers agnostic to stack — they teach **Go, Kafka, Cassandra, K8s, Docker, AWS** on the job. Your playbook proves **Redis/Docker/Go/Rust + idempotency + observability** — the same reliability patterns with simpler local tooling. In interviews: *"Same idempotency semantics whether Redis or Kafka; I can ramp on your broker."*
-
-### Do not chase
-
-- HFT microsecond latency, market data, FIX, KDB, C++/Field-Programmable Gate Array (FPGA)
-- Event sourcing at trading-firm scale
-- Blockchain OMS / validator nodes (unless explicit pivot)
-- Full embedded firmware / ESP32 drivers
-- Cassandra (Monzo-specific; Postgres + Redis is enough for portfolio)
+| Employer ask | Playbook | Gap |
+|--------------|----------|-----|
+| Agentic / tool-using LLM systems | Strong — Phase 1 | Ship evals |
+| Python services | Strong — 1, 6 | — |
+| Go microservices + queues | Strong — Phase 5 | — |
+| Ops CLI / DLQ replay | Strong — [lab 08](../../career-project-specs/08-ops-cli.md) | — |
+| Edge / timeouts / LB vocabulary | Strong — [lab 09](../../career-project-specs/09-edge-proxy.md) | — |
+| Rate limiting | Strong — [lab 10](../../career-project-specs/10-rate-limiter.md) | — |
+| Pub/sub fan-out | Strong — [lab 11](../../career-project-specs/11-notification-fanout.md) | — |
+| Search / autocomplete | Strong — [lab 12](../../career-project-specs/12-search-autocomplete.md) | — |
+| Docker | Strong — Phase 2 | — |
+| Terraform Azure | Strong — Phase 3 | — |
+| Entra / RBAC / Key Vault | Strong — Phase 4 | Sit AZ-104 |
+| Kafka / Event Hubs | Phase 6 | Zoomcamp + lab |
+| Kubernetes reconcile / AKS | Lab 13 then Phase 7 | Sit CKA |
+| TypeScript MCP / APIs | Stretch | Optional |
+| AWS-first / Monzo Kafka+Cassandra | Pattern transfer — [cloud portability](../concepts/cloud-portability.md) | Narrate “same semantics”; do not deploy AWS |
+| HFT / blockchain core | Out of spine | Skip |
 
 ---
 
 ## £80k-ready milestones
 
-£80k readiness means **evidence of systems thinking under production constraints**, not a language checklist.
+### Minimum credible
 
-### Minimum credible (interview-ready Go-first backend & systems)
+Ship with full portfolio artifacts:
 
-Ship with full portfolio artifacts — **at least one ● lab per [architecture pillar](../concepts/architecture-framework.md#project--pillar-matrix)**:
+| Pillar | Minimum phase |
+|--------|----------------|
+| 1 System shape | Phase 1 |
+| 2 Integration & messaging | Phase 5 |
+| 3 Data architecture | Phase 6 *or* Phase 1 checkpoint/store + a serving query |
+| 4 Performance & language | Phase 5 (Go vs Python ADR) |
+| 5 Reliability, security, ops | Phases 2 + 3 |
 
-| Pillar | Minimum lab |
-|--------|-------------|
-| 1 System shape | Project 1 |
-| 2 Integration & messaging | Project 6 |
-| 3 Data architecture | Project 4 |
-| 4 Performance & language | Project 8 (+ 4 or 18 for numbers) |
-| 5 Reliability, security, ops | Project 3 + 14 + 16 |
+Practical list: **1 + 2 + 3 + 5 + 08 + 09** (operate the queue and edge-protect the worker).
 
-Full list:
+**Interview narrative:** *“Python Deep Agent with MCP tools and checkpoints; containerized; provisioned on Azure with Terraform; Go workers on Service Bus with idempotency and DLQ; ops CLI for replay; proxy with timeouts.”*
 
-1. [Project 1](../../career-project-specs/01-integration-webhook-receiver.md) — webhook + HMAC + idempotency
-2. [Project 6](../../career-project-specs/06-async-worker-stretch.md) — async worker + DLQ
-3. [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) — Go gateway + worker (**spine milestone**)
-4. [Project 3](../../career-project-specs/03-observability-lab.md) — observability on a real service
-5. [Project 4](../../career-project-specs/04-sql-performance-lab.md) — plan-backed SQL tuning (before/after evidence)
-6. [Project 16](../../career-project-specs/16-cloud-deploy-lab.md) — deploy + CI + health checks
-7. [Project 14](../../career-project-specs/14-shell-automation-lab.md) — shell toolkit + shellcheck CI
+### Full differentiation
 
-**Interview narrative:** *"Webhook ingress → queue → Go worker → Python RAG boundary → measured SQL and Go performance → deployed with observability, CI, and ops scripts."*
-
-**Optional Rust enrichment:** [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) adds Go vs Rust ADR when Rust is active — defer when paused; not required for Go-first positioning.
-
-### Full differentiation (capstone + AI)
-
-Add Projects **2, 11, 18, 22** for **backend + AI automation systems** — matches LinkedIn About; capstone **22** is the integrated proof across systems-skill categories.
-
-### Optional performance depth (Go-first — pick one after P8)
-
-When Rust is paused, add **one** optional lab for a fourth performance pin — do not require both:
-
-| Pick | Stack | Best for | Spec |
-|------|-------|----------|------|
-| **P23** (recommended with P18) | Go + Redis | Rate limiting SD question; middleware p99 | [23-rate-limiter-gateway-lab.md](../../career-project-specs/23-rate-limiter-gateway-lab.md) |
-| **P25** | Go + Postgres + Redis | Search/autocomplete SD question; trie/index p95 | [25-search-autocomplete-lab.md](../../career-project-specs/25-search-autocomplete-lab.md) |
-
-Log your choice in [PROGRESS.md](../../PROGRESS.md). Commit `docs/portfolio/performance.md` in the optional lab repo.
+Add labs **10–13** (rate limit, fan-out, search, controller) plus domains **4 (AZ-104)**, **6 (pipelines)**, **7 (AKS + CKA)**.
 
 ---
 
 ## GitHub pin order
 
-Pin repos that tell the **Go-first systems** story first (PHP stays in headline for commercial credibility):
-
-1. **Go retrieval worker** (Project 8) — throughput + idempotency + Prometheus
-2. **Platform capstone** (Project 22) — distributed system demo
-3. **Shell automation** (Project 14) — ops glue story
-4. **Webhook receiver** (Project 1) — integration foundation
-5. **RAG service** (Project 2) — AI automation angle
-6. **SQL performance** (Project 4) — data-layer evidence
-
-**When Rust is active:** swap in **Rust hot-path** (Project 19) as pin #2 or #3.
-
-**Optional Go-first performance pin:** after P8, add **P23** or **P25** (one only) as pin #2 or #3 if you want extra measured depth before capstone.
-
-Each pinned repo: README demo, **CI badge**, `docs/portfolio/`, clean history.
+1. Agentic orchestration (Phase 1)
+2. Azure Terraform (Phase 3)
+3. Azure backends / Go workers (Phase 5)
+4. Ops CLI + edge proxy (labs 08–09) when shipped
+5. AKS charts (Phase 7) when shipped
 
 ---
 
-## Interview themes (emphasise after each lab)
+## Interview themes
 
 | Theme | Where you prove it |
 |-------|-------------------|
-| **Idempotency** | Projects 1, 6, 8 — "transport may duplicate; business effect runs once" |
-| **Concurrency + backpressure** | Project 8 — bounded goroutines, context cancel |
-| **Performance ADR** | Projects 4, 8, 18 — p95 + evidence; Project 19 optional (Rust) |
-| **Memory safety** | Project 19 (optional Rust) — ownership, `Result`, no panic in hot path |
-| **Async runtimes** | Project 19 (optional Rust) — Tokio after sync path solid |
-| **Distributed systems** | Project 22 — trace `request_id` across 3+ services |
-| **Observability** | Project 3 — structured logs, metrics, correlation |
-| **Reliability patterns** | DLQ, retry backoff, health checks, rollback (1, 6, 15, 16) |
-| **Bash / ops glue** | Project 14 — strict mode scripts, smoke tests, deploy hooks |
+| Harness vs graph | Phase 1 ADR |
+| Tool allowlists / MCP | Phase 1 |
+| Idempotency + DLQ | Phase 5 |
+| IaC vs portal | Phase 3 |
+| Least privilege | Phase 4 |
+| Agent context from pipelines | Phase 6 |
+| Helm rollback | Phase 7 |
 
 ---
 
-## Suggested priority (Steps 1, 2, 4 started)
+## Suggested priority
 
 ```
-Now     → Project 3 (obs on RAG lab) → Project 5 or 6 → Project 8 (Go) → Project 14/16 (deploy + bash)
-Parallel → Project 9 reading; optional [DSA track](dsa-interview-track.md) for Big Tech benchmark
-Later   → 11, 18, 22 for AI + networking + capstone; optional P23 or P25 for performance depth; Projects 19–20 when Rust is active
+Now     → Phase 1 (Deep Agent + LangGraph + FastMCP)
+Then    → Phase 2 → Phase 3 → Phase 5
+Parallel → Phase 4 (AZ-104) when Terraform exists
+Later   → Phase 6 → Phase 7 (CKA)
+Stretch → TypeScript MCP SDK
 ```
-
-You do **not** need all 22 projects for £80k readiness — minimum credible milestone above is the bar; capstone is the stretch differentiator.
 
 ---
 
 ## LinkedIn ↔ playbook
 
-- **Headline** — Backend & Systems Engineer with PHP/SQL/JS + Python/Go/Bash (Rust optional/future)
-- **Featured repos** — lead with Go evidence (Projects 8, 22, 14, 1, 2); add Rust (Project 19) when shipped
-- **About** — tie AI/RAG claims to Project 2/11 portfolio artifacts when shipped
+- **Headline** — Backend & Systems Engineer · Python/Go · Azure · agentic AI
+- **Featured** — Phase 1, 3, 5, then 7
+- **About** — tie AI claims to Phase 1 evals and Phase 5 workers when shipped
 
 ---
 
 ## See also
 
-- [Big Tech benchmark](big-tech-benchmark.md) — Google/Meta hiring bar, dual-track roadmap
-- [DSA interview track](dsa-interview-track.md) — parallel LeetCode prep
-- [System design interview map](system-design-interview-map.md) — classic SD problems ↔ labs
-- [Engineering pillars](../concepts/engineering-pillars.md) — optional topic index
-- [Portfolio artifacts](../templates/portfolio-artifacts.md)
-- [Production readiness](../../checklists/production-readiness.md)
-- [Rust career positioning](../languages/rust.md#career-positioning)
+- [Course track](course-track.md)
+- [Azure certification track](azure-certification-track.md)
+- [Big Tech benchmark](big-tech-benchmark.md)
+- [DSA interview track](dsa-interview-track.md)
+- [System design interview map](system-design-interview-map.md)
+- Archived v1 22-step path: [archive/v1-22-step](../../archive/v1-22-step/README.md)

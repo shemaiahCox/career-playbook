@@ -6,7 +6,7 @@ Use this checklist before you call an inbound integration **done**. It covers tr
 
 **Why:** Unsigned webhooks allow anyone who knows your URL to forge events—integrity checks establish trust at the HTTP boundary.
 
-**Handbook:** [Project 1](../career-project-specs/01-integration-webhook-receiver.md) · [Software engineering — security](../docs/concepts/software-engineering.md#security-for-applications)
+**Handbook:** [Project 1](../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md) · [Software engineering — security](../docs/concepts/software-engineering.md#security-for-applications)
 
 These items make sure only your partner can send valid events, and that the payload was not changed in transit.
 

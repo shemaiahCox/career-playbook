@@ -1,6 +1,6 @@
 # Request flow — RAG / LLM service
 
-**Spec:** [Project 2](../../../career-project-specs/02-rag-llm-service.md)
+**Spec:** [Project 2](../../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md)
 
 ```mermaid
 sequenceDiagram

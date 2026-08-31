@@ -36,36 +36,54 @@ You do not need daily entries. Aim for **one section per slice** you would summa
 
 For **architecture-style narration**, lean on **Pillar(s)**, **Tradeoff**, and **Failure mode** when you can. See [Architecture framework](docs/concepts/architecture-framework.md).
 
-**Note:** Historical entries may reference removed `FOCUS.md`; the spine is now [Architecture framework](docs/concepts/architecture-framework.md).
+**Note:** Historical entries may reference the archived [v1 22-step path](archive/v1-22-step/README.md) or removed `FOCUS.md`. The spine is now the [7-domain path plus required competence labs 08–13](README.md) under the [architecture framework](docs/concepts/architecture-framework.md).
 
-### External certifications — Azure
+### Active lab and courses
 
-Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/) and [AI-200T00](https://learn.microsoft.com/en-us/training/courses/ai-200t00)—does **not** replace the 22-step path. Full matrix: [docs/career/azure-certification-track.md](docs/career/azure-certification-track.md).
+**One active lab at a time** — a domain (1–7) **or** a competence lab (08–13). Linear order: domains 1–5 → 08–12 → domain 6 → 13 → domain 7.
 
-| Credential | Status | Exam / completion date | Notes |
-|------------|--------|------------------------|-------|
-| AZ-900 Azure Fundamentals | Planned | | |
-| AI-200T00 (course) | Planned | | |
-| Azure AI Cloud Developer Associate | Optional after AI-200 | | |
+| Field | Value |
+|-------|--------|
+| **Active lab** | 1 — Agentic AI and orchestration |
+| **Active spec** | [01-agentic-orchestration.md](career-project-specs/01-agentic-orchestration.md) |
 
-**Azure services used per project (stretch log):**
+| Course / credential | Phase | Status | Date | Notes |
+|---------------------|-------|--------|------|-------|
+| Deep Agents + LangChain/LangGraph docs + FastMCP | 1 | In progress | | |
+| KodeKloud Docker for the Absolute Beginner | 2 | Planned | | |
+| KodeKloud Terraform for Beginners | 3 | Planned | | |
+| AZ-900 Azure Fundamentals (optional vocab) | before 3 | Planned | | |
+| KodeKloud AZ-104 | 4 | Planned | | |
+| ByteByteGo System Architecture + DesignGurus Modern API Design | 5 | Planned | | |
+| Data Engineering Zoomcamp (DataTalks.Club) | 6 | Planned | | |
+| KodeKloud CKA | 7 | Planned | | |
 
-| Project | Azure services deployed | ADR link |
-|---------|---------------------------|----------|
-| 2 RAG | | |
-| 4 SQL | | |
-| 6 Worker | | |
-| 8 Go worker | | |
-| 16 Deploy | | |
-| 17 K8s | | |
+**Azure resources used per phase (ADR log):**
+
+| Phase | Azure resources deployed | ADR link |
+|-------|--------------------------|----------|
+| 1 Agentic | | |
+| 3 Terraform | | |
+| 4 Admin / governance | | |
+| 5 Backends | | |
+| 6 Pipelines | | |
+| 7 AKS | | |
 
 ---
+
+---
+
+## 2026-08-31 — 7-phase Azure + agentic spine
+
+- **Archived** v1 22-step specs to [archive/v1-22-step](archive/v1-22-step/README.md).
+- **New path:** Phases 1–7 (Deep Agents → Docker → Terraform → AZ-104 → Azure backends → pipelines → AKS). Primary languages Python + Go; TypeScript stretch.
+- **Active:** Phase 1 — [01-agentic-orchestration.md](career-project-specs/01-agentic-orchestration.md).
 
 ---
 
 ## 2026-06-16 — Bash scripting spine + 22-step renumber
 
-- **Added** [Project 14 — Shell automation lab](career-project-specs/14-shell-automation-lab.md): strict-mode toolkit, shellcheck, bats, bash-vs-Go CLI ADR.
+- **Added** [Project 14 — Shell automation lab](archive/v1-22-step/career-project-specs/14-shell-automation-lab.md): strict-mode toolkit, shellcheck, bats, bash-vs-Go CLI ADR.
 - **Added** [docs/languages/bash.md](docs/languages/bash.md) ecosystem map; wired from [glossary](docs/languages/glossary.md) and [command-line-tooling](docs/concepts/command-line-tooling.md).
 - **Renumbered** spine Projects 14–21 → 15–22; optional P22–P24 → P23–P25 (spec files git-mv).
 - **Added** **Bash scripting milestone** sections across Projects 1–13 and 15–22 (phased `scripts/` deliverables).
@@ -93,7 +111,7 @@ Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certif
 
 ## 2026-06-03 — Capstone, portfolio artifacts, production checklist
 
-- **Added** [Project 21 — Integrated platform capstone](career-project-specs/22-integrated-platform-capstone.md) (Step 21): compose Projects 1–20 into one flagship demo/deploy stack.
+- **Added** [Project 21 — Integrated platform capstone](archive/v1-22-step/career-project-specs/22-integrated-platform-capstone.md) (Step 21): compose Projects 1–20 into one flagship demo/deploy stack.
 - **Added** [docs/templates/portfolio-artifacts.md](docs/templates/portfolio-artifacts.md) and **Portfolio artifacts** section in all 21 specs.
 - **Added** [checklists/production-readiness.md](checklists/production-readiness.md) with Step 1–21 applicability matrix; wired into **When you're done** and [PROGRESS.md](PROGRESS.md) checklist intro.
 - **Updated** [README.md](README.md) progression (Step 1 → 21), [career-projects/README.md](career-projects/README.md), [engineering-pillars.md](docs/concepts/engineering-pillars.md), [systems-integration-architect.md](docs/concepts/systems-integration-architect.md).
@@ -196,7 +214,7 @@ Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certif
 ---
 
 - **Decision:** Playbook scoped to **JS/TS, PHP, SQL, Go, Python** only—removed Java, C#, Kotlin, Swift, Rust, Unity, Next.js sandboxes and stack maps.
-- **Added:** [Project 8 Go retrieval/worker spec](career-project-specs/08-go-retrieval-worker-lab.md), [Go stack map](docs/languages/go.md), [integration-automation map](docs/concepts/integration-automation.md), [Systems integration architect](docs/concepts/systems-integration-architect.md), [Algorithms study path](docs/concepts/algorithms-study-path.md).
+- **Added:** [Project 8 Go retrieval/worker spec](archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md), [Go stack map](docs/languages/go.md), [integration-automation map](docs/concepts/integration-automation.md), [Systems integration architect](docs/concepts/systems-integration-architect.md), [Algorithms study path](docs/concepts/algorithms-study-path.md).
 - **Narrative:** Integrations + automation + AI (Boomi/n8n patterns, RAG in Python, performance in Go).
 - **Next:** Pick active spec on new spine (Project 1 → Project 2/Project 3 → Project 5 → Project 6/Project 8 → Project 7); study algorithms path when starting Project 4 or Project 8.
 
@@ -213,7 +231,7 @@ Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certif
 ## 2026-05-05 — Learning path + optional Node/TypeScript lab
 
 - README: added **Learning path (suggested)** table (phases 1–5 + stack reality callout).
-- New spec: [career-project-specs/07-node-typescript-lab.md](career-project-specs/07-node-typescript-lab.md) — optional **Node + TypeScript** parity (webhook, contract API, or webhook+worker); links from Projects 2, 3, and 5.
+- New spec: [archive/v1-22-step/career-project-specs/07-node-typescript-lab.md](archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) — optional **Node + TypeScript** parity (webhook, contract API, or webhook+worker); links from Projects 2, 3, and 5.
 - [FOCUS.md](FOCUS.md): **Flexible lane** under forward vector; non-goals clarified (one TS service is in-scope; framework churn is not).
 
 ---
@@ -227,7 +245,7 @@ Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certif
 
 ## 2026-05-05 — Project 7: SQL performance / correctness lab
 
-- New spec: [career-project-specs/04-sql-performance-lab.md](career-project-specs/04-sql-performance-lab.md) — Postgres-focused plans, indexing, joins vs loop-shaped access, transactions, keyset pagination; optional rollup stretch.
+- New spec: [archive/v1-22-step/career-project-specs/04-sql-performance-lab.md](archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) — Postgres-focused plans, indexing, joins vs loop-shaped access, transactions, keyset pagination; optional rollup stretch.
 - Practice repo: [04-sql-perf-lab](career-projects/04-sql-perf-lab) (Docker Compose, seeded schema, `exercises/*.sql`).
 - [README.md](README.md): learning path row **4b**, updated SQL paragraph, quick-links row + SSH clone hint for **sql-perf-lab**.
 - [FOCUS.md](FOCUS.md): optional SQL/data depth lane + industry theme **#6** pointing at Project 4.
@@ -306,7 +324,7 @@ Parallel track for [AZ-900](https://learn.microsoft.com/en-us/credentials/certif
 
 ## 2026-05-13 — Handbook debugging + stack maps (Node, Java)
 
-- [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md): **Debugging (workflow)** section; TOC + intro; cross-links from **Testing** and **Observability**. [docs/README.md](docs/README.md): Project 3/Project 2 skim row + ecosystem map rows below. [career-project-specs/03-observability-lab.md](career-project-specs/03-observability-lab.md): companion reading.
+- [docs/concepts/software-engineering.md](docs/concepts/software-engineering.md): **Debugging (workflow)** section; TOC + intro; cross-links from **Testing** and **Observability**. [docs/README.md](docs/README.md): Project 3/Project 2 skim row + ecosystem map rows below. [archive/v1-22-step/career-project-specs/03-observability-lab.md](archive/v1-22-step/career-project-specs/03-observability-lab.md): companion reading.
 - New stacks: [docs/languages/node-typescript-backend.md](docs/languages/node-typescript-backend.md), [docs/java-jvm.md](docs/java-jvm.md); [docs/README.md](docs/README.md), [docs/languages/glossary.md](docs/languages/glossary.md). [docs/README.md](docs/README.md): Observability/debugging + polyglot/stack exploration; stacks intro line.
 
 ---

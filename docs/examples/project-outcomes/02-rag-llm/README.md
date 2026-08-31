@@ -1,6 +1,6 @@
 # Project 2 — reference outcomes (RAG / LLM service)
 
-Captured exemplars for [Project 2 spec](../../../career-project-specs/02-rag-llm-service.md). Read these **without running** the lab; use [Exploration scenarios](../../../career-project-specs/02-rag-llm-service.md#exploration-scenarios) to verify yourself.
+Captured exemplars for [Project 2 spec](../../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md). Read these **without running** the lab; use [Exploration scenarios](../../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md#exploration-scenarios) to verify yourself.
 
 **Source repo:** [rag-llm-lab](https://github.com/shemaiahCox/rag-llm-lab)  
 **Captured:** 2026-06-18 — stub `_stub_answer` path (no live LLM provider); uvicorn on `127.0.0.1:18001`

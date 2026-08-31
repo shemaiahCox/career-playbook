@@ -6,12 +6,12 @@
 
 1. **You are here** — measure, find the bottleneck, fix one thing, verify
 2. [Concurrency runtime model (Part 1)](concurrency-runtime-model.md) — if goroutines, threads, and event loops blur together
-3. [Project 3 — Observability](../../career-project-specs/03-observability-lab.md) — structured logs with timing fields
-4. [Project 4](../../career-project-specs/04-sql-performance-lab.md) or [Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md) — SQL vs worker bottlenecks in practice
+3. [Project 3 — Observability](../../archive/v1-22-step/career-project-specs/03-observability-lab.md) — structured logs with timing fields
+4. [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md) or [Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) — SQL vs worker bottlenecks in practice
 
 **Companion:** [Software engineering glossary](software-engineering-glossary.md) · [Observability](software-engineering.md#observability-logs-metrics-traces) · [Database design](database-design.md) · [LLM serving](llms.md)
 
-Algorithm scaling (Big-O) lives in [Algorithms and data structures](algorithms-and-data-structures.md). SQL-only depth lives in [Project 4](../../career-project-specs/04-sql-performance-lab.md).
+Algorithm scaling (Big-O) lives in [Algorithms and data structures](algorithms-and-data-structures.md). SQL-only depth lives in [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md).
 
 ---
 
@@ -35,14 +35,14 @@ Performance work shows up when users wait too long, jobs pile up, or memory clim
 
 | Situation | What you might notice | Where you practice |
 |-----------|----------------------|-------------------|
-| Webhook or API | Slow responses, timeouts, angry partners | [Project 1](../../career-project-specs/01-integration-webhook-receiver.md), [7](../../career-project-specs/07-node-typescript-lab.md) |
-| Queue / worker | Jobs drain slowly, dead-letter queue fills | [Project 6](../../career-project-specs/06-async-worker-stretch.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md) |
-| RAG / LLM | `/query` hangs, long waits for answers | [Project 2](../../career-project-specs/02-rag-llm-service.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md) |
-| SQL lists | List endpoints slow; database called hundreds of times per page | [Project 4](../../career-project-specs/04-sql-performance-lab.md), [12](../../career-project-specs/12-multi-tenant-auth-lab.md) |
-| Real-time UI | Dashboard stutters, reconnect storms | [Project 13](../../career-project-specs/13-realtime-dashboard-lab.md) |
-| Split Python vs Go | Python fine for LLM but retrieval blocks | [Project 2](../../career-project-specs/02-rag-llm-service.md) → [8](../../career-project-specs/08-go-retrieval-worker-lab.md) |
-| Hot-path rewrite | Need numbers before choosing Rust/Go | [Project 19](../../career-project-specs/19-rust-hot-path-lab.md) |
-| Edge / WASM | Memory must stay within a fixed cap | [Project 20](../../career-project-specs/20-wasm-secure-component-lab.md), [21](../../career-project-specs/21-iot-edge-lab.md) |
+| Webhook or API | Slow responses, timeouts, angry partners | [Project 1](../../archive/v1-22-step/career-project-specs/01-integration-webhook-receiver.md), [7](../../archive/v1-22-step/career-project-specs/07-node-typescript-lab.md) |
+| Queue / worker | Jobs drain slowly, dead-letter queue fills | [Project 6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md), [8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) |
+| RAG / LLM | `/query` hangs, long waits for answers | [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md), [8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) |
+| SQL lists | List endpoints slow; database called hundreds of times per page | [Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md), [12](../../archive/v1-22-step/career-project-specs/12-multi-tenant-auth-lab.md) |
+| Real-time UI | Dashboard stutters, reconnect storms | [Project 13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md) |
+| Split Python vs Go | Python fine for LLM but retrieval blocks | [Project 2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md) → [8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md) |
+| Hot-path rewrite | Need numbers before choosing Rust/Go | [Project 19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) |
+| Edge / WASM | Memory must stay within a fixed cap | [Project 20](../../archive/v1-22-step/career-project-specs/20-wasm-secure-component-lab.md), [21](../../archive/v1-22-step/career-project-specs/21-iot-edge-lab.md) |
 
 The playbook expects **numbers in your portfolio**—one before/after comparison beats ten guesses.
 
@@ -72,7 +72,7 @@ flowchart TD
 
 The **first run** after startup is often misleading (empty cache, cold database connections, language warmup). Measure after a warm-up or discard the first batch.
 
-**Timeouts must nest:** if the browser gives up at 30 seconds, your API should fail faster than that, and your database call faster still—so you return a useful error instead of hanging ([Project 18 — Proxy](../../career-project-specs/18-proxy-load-balancer-lab.md)).
+**Timeouts must nest:** if the browser gives up at 30 seconds, your API should fail faster than that, and your database call faster still—so you return a useful error instead of hanging ([Project 18 — Proxy](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md)).
 
 ### Throughput — how much work per second
 
@@ -99,11 +99,11 @@ One comparison in a lab README or [PROGRESS.md](../../PROGRESS.md) beats ten mic
 
 **Quick experiments:**
 
-- If slowness **disappears when you skip the database call**, the problem is SQL shape, missing indexes, or the [N+1 query pattern](database-design.md#orms-and-the-n1-query-pattern) ([Project 4](../../career-project-specs/04-sql-performance-lab.md)).
-- If slowness **drops when you cap concurrent work**, you need a worker pool or backpressure ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)).
+- If slowness **disappears when you skip the database call**, the problem is SQL shape, missing indexes, or the [N+1 query pattern](database-design.md#orms-and-the-n1-query-pattern) ([Project 4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md)).
+- If slowness **drops when you cap concurrent work**, you need a worker pool or backpressure ([Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)).
 - If memory **grows with request count**, bound buffers and stop retaining large objects ([unfamiliar-stack checklist](../../checklists/unfamiliar-stack-ship.md)).
 
-Structured logs from [Project 3](../../career-project-specs/03-observability-lab.md)—fields like `duration_ms`, `db_ms`, `upstream_ms`—show **where** time went before you guess at a fix.
+Structured logs from [Project 3](../../archive/v1-22-step/career-project-specs/03-observability-lab.md)—fields like `duration_ms`, `db_ms`, `upstream_ms`—show **where** time went before you guess at a fix.
 
 ---
 
@@ -120,7 +120,7 @@ Each pattern is a common problem → fix pairing.
 | Hot cache entry expires; everyone hits the database at once | **Cache stampede**—only one refresh in flight, or refresh early; see [glossary](software-engineering-glossary.md#cache-stampede) |
 | Database “slow” but queries are fine | **Connection pool exhausted**—requests queue for a connection |
 | One query per row in a loop | **N+1**—fetch in bulk with joins or eager loading |
-| “Let’s rewrite in Go” with no data | **Split on evidence**—profile first ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)) |
+| “Let’s rewrite in Go” with no data | **Split on evidence**—profile first ([Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)) |
 
 LLM-specific latency, streaming, and cost: [LLM serving](llms.md#serving-latency-streaming-cost-observability).
 
@@ -136,11 +136,11 @@ Half of performance work in integration and AI systems is **not letting memory g
 | Loading full files, full result sets, full corpus | **Stream, paginate, batch**—read chunks, not the whole world |
 | Repeated slice growth in loops | **Preallocate** when you know approximate size |
 | Old data kept alive by accident | **Avoid accidental retention**—closures holding big structs, global caches in long-lived workers, listeners never removed |
-| Container kills process in production | Set **memory limits** explicitly— “worked on my laptop” often fails in Kubernetes ([Project 16](../../career-project-specs/16-cloud-deploy-lab.md)) |
+| Container kills process in production | Set **memory limits** explicitly— “worked on my laptop” often fails in Kubernetes ([Project 16](../../archive/v1-22-step/career-project-specs/16-cloud-deploy-lab.md)) |
 
 In garbage-collected languages (Go, Python, Node, PHP), **how often you allocate** drives pause frequency and RAM growth—reduce allocations before tuning obscure GC flags.
 
-In Rust, ownership prevents many memory bugs; still measure **peak RAM** and copy cost in benchmarks ([Project 19](../../career-project-specs/19-rust-hot-path-lab.md)).
+In Rust, ownership prevents many memory bugs; still measure **peak RAM** and copy cost in benchmarks ([Project 19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md)).
 
 ---
 
@@ -148,7 +148,7 @@ In Rust, ownership prevents many memory bugs; still measure **peak RAM** and cop
 
 When logs show *where* time might go but not *which function*, use a profiler—see **Technical reference** for commands per stack.
 
-**When to profile:** p95 is high but logs do not show an obvious slow database or partner call ([Project 8](../../career-project-specs/08-go-retrieval-worker-lab.md)).
+**When to profile:** p95 is high but logs do not show an obvious slow database or partner call ([Project 8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md)).
 
 **When not to guess:** run one profile under realistic load before changing pool sizes or rewriting services.
 
@@ -171,9 +171,9 @@ See **Technical reference** for `hey`, `k6`, and fixed job-count queue tests.
 
 | Concept | Projects |
 |---------|----------|
-| **Measure and tune (latency / throughput)** | [3](../../career-project-specs/03-observability-lab.md), [4](../../career-project-specs/04-sql-performance-lab.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [18](../../career-project-specs/18-proxy-load-balancer-lab.md), [19](../../career-project-specs/19-rust-hot-path-lab.md) (optional Rust), [23](../../career-project-specs/23-rate-limiter-gateway-lab.md), [25](../../career-project-specs/25-search-autocomplete-lab.md) (optional) |
-| **Memory / resource limits** | [2](../../career-project-specs/02-rag-llm-service.md), [8](../../career-project-specs/08-go-retrieval-worker-lab.md), [13](../../career-project-specs/13-realtime-dashboard-lab.md), [19](../../career-project-specs/19-rust-hot-path-lab.md), [20](../../career-project-specs/20-wasm-secure-component-lab.md), [21](../../career-project-specs/21-iot-edge-lab.md) |
-| **Queue throughput vs ack latency** | [6](../../career-project-specs/06-async-worker-stretch.md) |
+| **Measure and tune (latency / throughput)** | [3](../../archive/v1-22-step/career-project-specs/03-observability-lab.md), [4](../../archive/v1-22-step/career-project-specs/04-sql-performance-lab.md), [8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md), [18](../../archive/v1-22-step/career-project-specs/18-proxy-load-balancer-lab.md), [19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md) (optional Rust), [23](../../archive/v1-22-step/career-project-specs/23-rate-limiter-gateway-lab.md), [25](../../archive/v1-22-step/career-project-specs/25-search-autocomplete-lab.md) (optional) |
+| **Memory / resource limits** | [2](../../archive/v1-22-step/career-project-specs/02-rag-llm-service.md), [8](../../archive/v1-22-step/career-project-specs/08-go-retrieval-worker-lab.md), [13](../../archive/v1-22-step/career-project-specs/13-realtime-dashboard-lab.md), [19](../../archive/v1-22-step/career-project-specs/19-rust-hot-path-lab.md), [20](../../archive/v1-22-step/career-project-specs/20-wasm-secure-component-lab.md), [21](../../archive/v1-22-step/career-project-specs/21-iot-edge-lab.md) |
+| **Queue throughput vs ack latency** | [6](../../archive/v1-22-step/career-project-specs/06-async-worker-stretch.md) |
 
 **Read next:** [Algorithms study path](algorithms-study-path.md) · [Go map](../languages/go.md) · [Python map](../languages/python.md) · [Per-project testing](per-project-testing.md)
 
